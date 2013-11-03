@@ -14,7 +14,14 @@
 		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script type="text/javascript" src="js/common.js"></script>
 		<script type="text/javascript">
-			var SHARE_CONFIG = {"domain": "http://share.downy.ws/", "img": "123"};
+			var DOWNY_SHARE_URL_PREFIX = "http://share.mydowny.ws/index.php?a=share&m=index"
+				+ "&url1=" + encodeURIComponent(window.location.href)
+				+ "&desc=" + encodeURIComponent(document.title)
+				+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_2.jpg")
+				+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_3.jpg");
+			function DOWNY_SHARE_URL(site){
+				return DOWNY_SHARE_URL_PREFIX + "&tosite=" + site;
+			}
 		</script>
 	</head>
 	<body>
@@ -76,11 +83,11 @@
 							<p>This HTML5 logo is licensed under Creative Commons Attribution 3.0   all are free to use and reimagine as they see fit. Stickers and T-Shirts are available now; more stuff to come. The HTML5 logo gallery (below) shows off community creativity. We invite you to submit your sightings</p>
 						</div>
 						<div class="share">
-							<a data-site="www.facebook.com" class="facebook" target="_blank"></a>
-							<a data-site="www.renren.com" class="renren" target="_blank"></a>
-							<a data-site="www.twitter.com" class="twitter" target="_blank"></a>
-							<a data-site="weibo.com" class="weibo" target="_blank"></a>
-							<a data-site="weixin.qq.com" class="weixin" target="_blank"></a>
+							<a data-site="facebook" class="facebook" target="_blank"></a>
+							<a data-site="renren" class="renren" target="_blank"></a>
+							<a data-site="twitter" class="twitter" target="_blank"></a>
+							<a data-site="weibo" class="weibo" target="_blank"></a>
+							<a data-site="weixin" class="weixin" target="_blank"></a>
 							<a data-site="more" class="more" target="_blank"></a>
 						</div>
 					</div>

@@ -86,10 +86,7 @@ $.fn.extend({
 
 	pageShare: function(){
 		$(this).each(function(){
-			var href = SHARE_CONFIG["domain"] + "index.php?m=api&a=share&site=" + encodeURIComponent($(this).data("site"));
-			href += "&title=" + encodeURIComponent(document.title);
-			href += "&url=" + encodeURIComponent(window.location.href);
-			href += "&img=" + encodeURIComponent(SHARE_CONFIG["img"]);
+			var href = DOWNY_SHARE_URL($(this).data("site"));
 			$(this).attr("href", href);
 		});
 	}
