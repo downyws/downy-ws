@@ -1,0 +1,34 @@
+/* Base style */
+*{outline:0;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, fieldset, form,  label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;}
+h1, h2, h3, h4, h5{font-weight:normal;}
+a{outline:none;text-decoration:none;}
+html, body{min-height:100%;}
+ul, ol, dl{margin:0;padding:0;}
+table{border-collapse:collapse;}
+
+/* Define style */
+.cb{clear:both;}
+.hide{display:none;}
+
+/* Layout style */
+body{background-color:#CCDDFF;font-size:12px;font-family:Tahoma;}
+.main{margin:auto;width:560px;}
+.header{color:#FFFFFF;padding:10px 0px;font-size:36px;}
+.panel{border-radius:10px 10px 0px 0px;box-shadow: 0 0 5px #A9A9A9;}
+.panel .above{background:#FFFFFF;padding:20px 20px 5px;border-radius:10px 10px 0px 0px;color:#999999;font-size:14px;}
+.panel .above input{border:0px;width:100%;font-size:16px;}
+.panel .above label{border-top:1px solid #EEEEEE;margin-bottom:15px;display:block;padding-top:5px;cursor:pointer;}
+.panel .above label:hover{border-top:1px solid #BBBBBB;}
+.panel .above label span{float:right;color:#CCCCCC;}
+.panel .above ul li{list-style:none;float:left;margin-right:5px;height:100px;width:100px;background:#EEEEEE;overflow:hidden;cursor:pointer;}
+.panel .above ul li.last{margin-right:0px;}
+.panel .above ul li img{width:100px;height:100px;}
+.panel .above ul li.focus img{border:3px solid #FF0000;width:94px;height:94px;}
+.panel .below{background:#EDEDED;padding:15px 20px;text-align:right;}
+.panel .below img{width:18px;height:18px;float:left;margin-right:5px;}
+.panel .below select{float:left;}
+.panel .below a{border-radius:3px 3px 3px 3px;background:#0099CC;padding:5px 15px;color:#FFFFFF;font-size:16px;}
+.panel .below a:hover{background:#7799CC;}
+.panel .below a.disable{background:#CCCCCC;}
+.footer{color:#FFFFFF;padding:5px 0px 10px;text-align:center;}
