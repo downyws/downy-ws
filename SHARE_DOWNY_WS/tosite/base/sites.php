@@ -1,1 +1,0 @@
-[{"key":"facebook","name":"Facebook","sort":1.1},{"key":"renren","name":"\u4eba\u4eba\u7f51","sort":1.001},{"key":"twitter","name":"Twitter","sort":1},{"key":"weibo","name":"\u5fae\u535a","sort":0.5},{"key":"weixin","name":"\u5fae\u4fe1","sort":0}]
