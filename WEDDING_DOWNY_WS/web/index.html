@@ -15,8 +15,9 @@
 		<script type="text/javascript" src="js/common.js"></script>
 		<script type="text/javascript">
 			var DOWNY_SHARE_URL_PREFIX = "http://share.downy.ws/index.php?a=share&m=index"
-				+ "&url1=" + encodeURIComponent(window.location.href)
+				+ "&url=" + encodeURIComponent(window.location.href)
 				+ "&desc=" + encodeURIComponent(document.title)
+				+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_1.jpg")
 				+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_2.jpg")
 				+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_3.jpg");
 			function DOWNY_SHARE_URL(site){
