@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+{if $params.tosite != "" && $params.url != ""}
+	{assign var=tosite value=$params.tosite}
+	{include file="../tosite/$tosite/tpl.html"}
+{else}
+	{include file="share_index_more.html"}
+{/if}
+</body>
+</html>
