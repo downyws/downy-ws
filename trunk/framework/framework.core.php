@@ -40,7 +40,7 @@ require_once(FRAMEWORK_DIR . '/framework.submit.php');
 
 if(isset($GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE']) && $GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE'])
 {
-	if(empty($_COOKIE['REMOTE_DEVICE_TYPE']))
+	if(!isset($_COOKIE['REMOTE_DEVICE_TYPE']))
 	{
 		Factory::loadLibrary('remotehelper');
 		$remotehelper = new RemoteHelper();
