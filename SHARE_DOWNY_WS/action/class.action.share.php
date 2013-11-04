@@ -18,6 +18,7 @@ class ActionShare extends Action
 		$images = $this->_submit->obtainArray($_REQUEST, array(
 			'img' => array(array('valid', 'url', '', '', null))
 		));
+		$params['img'] = array();
 		foreach($images as $v)
 		{
 			if(!empty($v['img']))
