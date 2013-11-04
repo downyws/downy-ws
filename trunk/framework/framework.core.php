@@ -19,6 +19,8 @@ define('APP_DIR_TEMPLATE',	APP_DIR . 'template/');
 
 define('FRAMEWORLK_FILECACHE_EXPIRES', 3600);
 
+$_t_root_domain = explode('.', $_SERVER['HTTP_HOST']);
+define('ROOT_DOMAIN',  $_t_root_domain[count($_t_root_domain) - 2] . '.' . $_t_root_domain[count($_t_root_domain) - 1]);
 define('APP_DOMAIN', $_SERVER['HTTP_HOST']);
 define('APP_URL', (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . '/');
 define('REMOTE_REQUEST_URI', (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
@@ -35,3 +37,15 @@ require_once(FRAMEWORK_DIR . '/framework.front.php');
 require_once(FRAMEWORK_DIR . '/framework.logs.php');
 require_once(FRAMEWORK_DIR . '/framework.model.php');
 require_once(FRAMEWORK_DIR . '/framework.submit.php');
+
+if(isset($GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE']) && $GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE'])
+{
+	if(empty($_COOKIE['REMOTE_DEVICE_TYPE']))
+	{
+		Factory::loadLibrary('remotehelper');
+		$remotehelper = new RemoteHelper();
+		$_COOKIE['REMOTE_DEVICE_TYPE'] = $remotehelper->getDeviceType();
+		setcookie('REMOTE_DEVICE_TYPE', $_COOKIE['REMOTE_DEVICE_TYPE'], time() + 30000000, '', ROOT_DOMAIN);
+	}
+	define('REMOTE_DEVICE_TYPE', $_COOKIE['REMOTE_DEVICE_TYPE']);
+}
