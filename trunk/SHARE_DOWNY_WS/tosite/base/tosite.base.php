@@ -33,7 +33,7 @@ class ToSiteBase
 			$dir = opendir(APP_DIR_TOSITE);
 			while($file = readdir($dir))
 			{
-				if($file != '.' && $file != '..' && $file != 'base')
+				if($file != '.' && $file != '..')
 				{
 					$this->install($file);
 				}
