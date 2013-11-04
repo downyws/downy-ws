@@ -8,4 +8,7 @@ include_once(APP_DIR . 'global.php');
 
 include_once('../../framework/framework.core.php');
 
+// coding
+// REMOTE_DEVICE_TYPE
+
 Front::dispatch();
