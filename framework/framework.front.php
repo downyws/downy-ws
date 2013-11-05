@@ -43,4 +43,22 @@ class Front
 		header('HTTP/1.1 404 Not Found');
 		exit;
 	}
+
+	public static function redirect($url, $code = 302)
+	{
+		switch($code)
+		{
+			case 301:
+				header('HTTP/1.1 301 Moved Permanently');
+				header('Location: ' . $url);
+				exit;
+			case 302:
+				header('HTTP/1.1 302 Moved Temporarily');
+				header('Location: ' . $url);
+				exit;
+			case 404:
+				header('HTTP/1.1 404 Not Found');
+				exit;
+		}
+	}
 }
