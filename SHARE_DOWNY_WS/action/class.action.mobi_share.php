@@ -1,5 +1,5 @@
 <?php
-class ActionShare extends Action
+class ActionMobi_Share extends Action
 {
 	public function __construct()
 	{
