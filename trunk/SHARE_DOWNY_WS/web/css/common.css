@@ -31,4 +31,8 @@ body{background-color:#CCDDFF;font-size:12px;font-family:Tahoma;}
 .panel .below a{border-radius:3px 3px 3px 3px;background:#0099CC;padding:5px 15px;color:#FFFFFF;font-size:16px;}
 .panel .below a:hover{background:#7799CC;}
 .panel .below a.disable{background:#CCCCCC;}
-.footer{color:#FFFFFF;padding:5px 0px 10px;text-align:center;}
+.footer{color:#FFFFFF;padding:10px 0px 10px;text-align:center;}
+.footer .icp{float:left;width:160px;text-align:left;}
+.footer .copy{float:left;width:300px;text-align:center;}
+.footer .mobi{float:left;width:100px;text-align:right;}
+.footer .mobi a{color:#0099CC;}

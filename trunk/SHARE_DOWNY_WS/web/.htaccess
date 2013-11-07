@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^$			/index.php?a=share&m=index
+RewriteRule ^mobi/$		/mobi/index.php?a=share&m=index
