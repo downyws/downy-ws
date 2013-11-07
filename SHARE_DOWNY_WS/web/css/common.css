@@ -20,7 +20,7 @@ body{background-color:#CCDDFF;font-size:12px;font-family:Tahoma;}
 .panel .above input{border:0px;width:100%;font-size:16px;}
 .panel .above label{border-top:1px solid #EEEEEE;margin-bottom:15px;display:block;padding-top:5px;cursor:pointer;}
 .panel .above label:hover{border-top:1px solid #BBBBBB;}
-.panel .above label span{float:right;color:#CCCCCC;}
+.panel .above label span{float:right;color:#BBBBBB;}
 .panel .above ul li{list-style:none;float:left;margin-right:5px;height:100px;width:100px;background-color:#EEEEEE;background-image:url("../images/share.png");background-position:0px 100px;overflow:hidden;cursor:pointer;}
 .panel .above ul li.last{margin-right:0px;}
 .panel .above ul li img{width:100px;height:100px;}
@@ -32,8 +32,8 @@ body{background-color:#CCDDFF;font-size:12px;font-family:Tahoma;}
 .panel .below a{border-radius:3px 3px 3px 3px;background:#0099CC;padding:5px 15px;color:#FFFFFF;font-size:16px;}
 .panel .below a:hover{background:#7799CC;}
 .panel .below a.disable{background:#CCCCCC;}
-.footer{color:#FFFFFF;padding:10px 0px 10px;text-align:center;}
+.footer{color:#0099CC;padding:10px 0px 10px;text-align:center;}
 .footer .icp{float:left;width:160px;text-align:left;}
 .footer .copy{float:left;width:300px;text-align:center;}
 .footer .mobi{float:left;width:100px;text-align:right;}
-.footer .mobi a{color:#0099CC;}
+.footer .mobi a{color:#2020FF;}
