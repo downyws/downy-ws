@@ -1,5 +1,5 @@
 <?php
-class ActionSet extends Action
+class ActionMobi_Set extends Action
 {
 	public function __construct()
 	{
@@ -8,8 +8,8 @@ class ActionSet extends Action
 
 	public function methodSiteType()
 	{
-		$params = $this->_submit->obtain($_REQUEST, array(
+		/*$params = $this->_submit->obtain($_REQUEST, array(
 			'callback' => array(array('valid', 'url', '', '', null))
-		));
+		));*/
 	}
 }
