@@ -21,10 +21,11 @@ body{background-color:#CCDDFF;font-size:12px;font-family:Tahoma;}
 .panel .above label{border-top:1px solid #EEEEEE;margin-bottom:15px;display:block;padding-top:5px;cursor:pointer;}
 .panel .above label:hover{border-top:1px solid #BBBBBB;}
 .panel .above label span{float:right;color:#CCCCCC;}
-.panel .above ul li{list-style:none;float:left;margin-right:5px;height:100px;width:100px;background:#EEEEEE;overflow:hidden;cursor:pointer;}
+.panel .above ul li{list-style:none;float:left;margin-right:5px;height:100px;width:100px;background-color:#EEEEEE;background-image:url("../images/share.png");background-position:0px 100px;overflow:hidden;cursor:pointer;}
 .panel .above ul li.last{margin-right:0px;}
 .panel .above ul li img{width:100px;height:100px;}
-.panel .above ul li.focus img{border:3px solid #FF0000;width:94px;height:94px;}
+.panel .above ul li.focus{background-position:0px 0px;}
+.panel .above ul li.focus img{border:3px solid #2081D6;width:94px;height:94px;}
 .panel .below{background:#EDEDED;padding:15px 20px;text-align:right;}
 .panel .below img{width:18px;height:18px;float:left;margin-right:5px;}
 .panel .below select{float:left;}
