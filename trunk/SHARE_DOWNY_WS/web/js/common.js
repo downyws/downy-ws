@@ -57,7 +57,7 @@ $(function(){
 			obj.find("img").attr("src", $("input.img_txt").val());
 			obj.find("input").val($("input.img_txt").val());
 		}else{
-			obj.find("img").attr("src", "images/share.jpg");
+			obj.find("img").attr("src", "images/transparent.png");
 			obj.find("input").val("");
 		}
 
@@ -76,7 +76,7 @@ $(function(){
 				$(this).removeClass("hide");
 			}else{
 				$(this).find("input").val("");
-				$(this).find("img").attr("src", "images/share.jpg");
+				$(this).find("img").attr("src", "images/transparent.png");
 				$(this).addClass("hide");
 				if(isfrist){
 					isfrist = false;
