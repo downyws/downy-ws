@@ -1,7 +1,6 @@
 <?php
 
 define('APP_DIR', dirname(dirname(dirname(__FILE__))) . '/');
-define('APP_DIR_TOSITE', APP_DIR . 'tosite/');
 
 $_GET['a'] = empty($_GET['a']) ? 'mobi_' : ('mobi_' . $_GET['a']);
 
