@@ -1,39 +1,52 @@
+	<link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		var PARAMS = {$params|json_encode};
+	</script>
 </head>
 <body>
-<style>
-{literal}
-/* Base style */
-*{outline:0;}
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, fieldset, form,  label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;}
-h1, h2, h3, h4, h5{font-weight:normal;}
-a{outline:none;text-decoration:none;}
-html, body{min-height:100%;}
-ul, ol, dl{margin:0;padding:0;}
-table{border-collapse:collapse;}
-
-/* Define style */
-.cb{clear:both;}
-.hide{display:none;}
-
-
-body{padding:0px;margin:0px;font-size:14px;}
-.header{background:#CCDDFF;border:1px solid #CCDDFF;}
-.header h3{color:#FFFFFF;text-align:center;margin:9px 15px 12px;font-size:18px;font-family: Helvetica,Arial,sans-serif;text-shadow:0 -1px 0 #99AACC;}
-.content{padding:15px;}
-.footer{background:#CCDDFF;border:1px solid #CCDDFF;}
-.footer h3{color:#ffffff;text-align:center;margin:7px 15px 9px;font-size:12px;font-family:Helvetica,Arial,sans-serif;text-shadow:0 -1px 0 #99AACC;}
-{/literal}
-</style>
-	<div class="header">
-		<h3>Downy Share</h3>
+<div data-role="page">
+	<div class="header" data-role="header"><h3>Downy Share</h3></div>
+	<div class="content" data-role="content">	
+		<div class="controlgroup">
+			<label class="ui-input-text">Url</label>
+			<input type="text" class="url" />
+		</div>
+		<div class="controlgroup">
+			<label class="ui-input-text">Descript</label>
+			<input type="text" class="desc" />
+		</div>
+		<div class="controlgroup imgs">
+			<label class="ui-input-text">Image</label>
+			<div class="items">
+				<input type="text" data-index="0" class="img" />
+				<input type="text" data-index="1" class="img" />
+				<input type="text" data-index="2" class="img" />
+				<input type="text" data-index="3" class="img" />
+				<input type="text" data-index="4" class="img" />
+			</div>
+			<div class="btns">
+				<a href="javascript:;" class="minus ui-icon-alt" data-role="button" data-iconpos="notext" data-iconshadow="false" data-inline="true" data-icon="minus">Minus</a>
+				<a href="javascript:;" class="plus ui-icon-alt" data-role="button" data-iconpos="notext" data-iconshadow="false" data-inline="true" data-icon="plus">Plus</a>
+			</div>
+		</div>
+		<div class="controlgroup">
+			<select class="site">
+				<option value="">Choose share site</option>
+				{foreach from=$tosites item=v}
+					<option value="{$v.key}">{$v.name}</option>
+				{/foreach}
+			</select>
+		</div>
+		<div class="controlgroup">
+			<a class="btn confirm ui-disabled" data-ajax="false" href="javascript:;" data-role="button">Confirm</a>
+		</div>
 	</div>
-	<div class="content">
-		asfasdf<br />
-		asfasdf<br />
-		asfasdf<br />
-		asfasdf<br />
-	</div>
-	<div class="footer">
+	<div class="footer" data-role="footer">
 		<h3>Copyright &copy; 2013-2014 Downy All Rights Reserved.</h3>
 		<h3>Shanghai ICP No.13039079</h3>
 	</div>
+</div>
