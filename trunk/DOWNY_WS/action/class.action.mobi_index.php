@@ -8,6 +8,6 @@ class ActionMobi_Index extends Action
 
 	public function methodIndex()
 	{
-		echo 'MOBILE INDEX';
+		$this->redirect('http://www.' . ROOT_DOMAIN . '/mobi/');
 	}
 }
