@@ -1,3 +1,23 @@
+$(function() {
+	// 上焦点图
+	$.fn.placardScroll();
+
+	// 下焦点图
+	$.fn.photosScroll();
+
+	// 分享
+	$(".content-below-left .share a").pageShare();
+
+	// 提示
+	$(".content-below-right .title ul li").tooltip({
+		show: null,
+		position: {my:"left top", at:"left bottom"},
+		open:function(event, ui){
+			ui.tooltip.animate({top:ui.tooltip.position().top + 5}, "fast");
+		}
+	});
+});
+
 $.fn.extend({
 	placardScroll: function(){
 		var items = $(".placard .items");
@@ -90,24 +110,4 @@ $.fn.extend({
 			$(this).attr("href", href);
 		});
 	}
-});
-
-$(function() {
-	// 上焦点图
-	$.fn.placardScroll();
-
-	// 下焦点图
-	$.fn.photosScroll();
-
-	// 分享
-	$(".content-below-left .share a").pageShare();
-
-	// 提示
-	$(".content-below-right .title ul li").tooltip({
-		show: null,
-		position: {my:"left top", at:"left bottom"},
-		open:function(event, ui){
-			ui.tooltip.animate({top:ui.tooltip.position().top + 5}, "fast");
-		}
-	});
 });
