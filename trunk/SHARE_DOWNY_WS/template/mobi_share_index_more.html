@@ -8,48 +8,48 @@
 	</script>
 </head>
 <body>
-<div data-role="page">
-	<div class="header" data-role="header"><h3>Downy Share</h3></div>
-	<div class="content" data-role="content">	
-		<div class="controlgroup">
-			<label class="ui-input-text">Url</label>
-			<input type="text" class="url" />
-		</div>
-		<div class="controlgroup">
-			<label class="ui-input-text">Descript</label>
-			<input type="text" class="desc" />
-		</div>
-		<div class="controlgroup imgs">
-			<label class="ui-input-text">Image</label>
-			<div class="items">
-				<input type="text" data-index="0" class="img" />
-				<input type="text" data-index="1" class="img" />
-				<input type="text" data-index="2" class="img" />
-				<input type="text" data-index="3" class="img" />
-				<input type="text" data-index="4" class="img" />
+	<div data-role="page">
+		<div class="header" data-role="header"><h3>Downy Share</h3></div>
+		<div class="content" data-role="content">	
+			<div class="controlgroup">
+				<label class="ui-input-text">Url</label>
+				<input type="text" class="url" />
 			</div>
-			<div class="btns">
-				<a href="javascript:;" class="minus ui-icon-alt" data-role="button" data-iconpos="notext" data-iconshadow="false" data-inline="true" data-icon="minus">Minus</a>
-				<a href="javascript:;" class="plus ui-icon-alt" data-role="button" data-iconpos="notext" data-iconshadow="false" data-inline="true" data-icon="plus">Plus</a>
+			<div class="controlgroup">
+				<label class="ui-input-text">Descript</label>
+				<input type="text" class="desc" />
+			</div>
+			<div class="controlgroup imgs">
+				<label class="ui-input-text">Image</label>
+				<div class="items">
+					<input type="text" data-index="0" class="img" />
+					<input type="text" data-index="1" class="img" />
+					<input type="text" data-index="2" class="img" />
+					<input type="text" data-index="3" class="img" />
+					<input type="text" data-index="4" class="img" />
+				</div>
+				<div class="btns">
+					<a href="javascript:;" class="minus ui-icon-alt" data-role="button" data-iconpos="notext" data-iconshadow="false" data-inline="true" data-icon="minus">Minus</a>
+					<a href="javascript:;" class="plus ui-icon-alt" data-role="button" data-iconpos="notext" data-iconshadow="false" data-inline="true" data-icon="plus">Plus</a>
+				</div>
+			</div>
+			<div class="controlgroup">
+				<select class="site">
+					<option value="">Choose share site</option>
+					{foreach from=$tosites item=v}
+						<option value="{$v.key}">{$v.name}</option>
+					{/foreach}
+				</select>
+			</div>
+			<div class="controlgroup">
+				<a class="btn confirm ui-disabled" data-ajax="false" href="javascript:;" data-role="button">Confirm</a>
 			</div>
 		</div>
-		<div class="controlgroup">
-			<select class="site">
-				<option value="">Choose share site</option>
-				{foreach from=$tosites item=v}
-					<option value="{$v.key}">{$v.name}</option>
-				{/foreach}
-			</select>
-		</div>
-		<div class="controlgroup">
-			<a class="btn confirm ui-disabled" data-ajax="false" href="javascript:;" data-role="button">Confirm</a>
+		<div class="footer" data-role="footer">
+			<h3>Copyright &copy; 2013-2014 Downy All Rights Reserved.</h3>
+			<h3>
+				<span>Shanghai ICP No.13039079</span>
+				<span><a data-ajax="false" href="/index.php?a=cookie&m=set&s=PC&expire=max&key=SITE_TYPE&val=PC&callback=%2F">Goto PC site</a></span>
+			</h3>
 		</div>
 	</div>
-	<div class="footer" data-role="footer">
-		<h3>Copyright &copy; 2013-2014 Downy All Rights Reserved.</h3>
-		<h3>
-			<span>Shanghai ICP No.13039079</span>
-			<span><a data-ajax="false" href="/index.php?a=cookie&m=set&s=PC&expire=max&key=SITE_TYPE&val=PC&callback=%2F">Goto PC site</a></span>
-		</h3>
-	</div>
-</div>
