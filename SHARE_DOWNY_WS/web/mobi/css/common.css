@@ -4,3 +4,5 @@
 .content .controlgroup.imgs div.btns{text-align:right;}
 .footer{background:#CCDDFF;border:1px solid #CCDDFF;}
 .footer h3.ui-title{font-size:12px;text-shadow:0 -1px 0 #99AACC;}
+.footer h3.ui-title span{margin:0px 15px;}
+.footer h3.ui-title span a{text-decoration:none;}
