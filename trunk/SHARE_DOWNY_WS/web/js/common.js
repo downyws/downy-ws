@@ -28,7 +28,6 @@ $(function(){
 			$("a.btn").addClass("disable");
 		}
 	}
-	btnable();
 
 	// 绑定事件
 	$("label.url").click(function(){
