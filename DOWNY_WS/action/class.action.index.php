@@ -8,6 +8,6 @@ class ActionIndex extends Action
 
 	public function methodIndex()
 	{
-		echo 'PC INDEX';
+		$this->redirect('http://www.' . ROOT_DOMAIN . '/');
 	}
 }
