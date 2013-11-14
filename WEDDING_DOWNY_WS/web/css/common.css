@@ -63,8 +63,8 @@ body{background:url("../images/body_bg.jpg") repeat;color:#786f78;font-size:12px
 .content-below-left .share a.twitter:hover{background-position:-235px -725px;}
 .content-below-left .share a.weibo{background-position:-310px -800px;}
 .content-below-left .share a.weibo:hover{background-position:-310px -725px;}
-.content-below-left .share a.weixin{background-position:-385px -800px;}
-.content-below-left .share a.weixin:hover{background-position:-385px -725px;}
+.content-below-left .share a.kaixin001{background-position:-385px -800px;}
+.content-below-left .share a.kaixin001:hover{background-position:-385px -725px;}
 .content-below-left .share a.more{width:85px;background-color:#BA91A7;background-position:0px -800px;}
 .content-below-left .share a.more:hover{background-position:0px -725px;}
 .content-below-right{width:460px;float:left;}
