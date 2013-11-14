@@ -14,7 +14,7 @@ class ToSiteTaobao extends ToSiteBase
 	{
 		$url = 'http://share.jianghu.taobao.com/share/addShare.htm' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		return $url;
 	}
 }

@@ -14,7 +14,7 @@ class ToSiteBaiduCang extends ToSiteBase
 	{
 		$url = 'http://cang.baidu.com/do/add' .
 				'?iu=' . urlencode($params['url']) .
-				'&it=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) .
+				'&it=' . urlencode($params['desc']) .
 				'&linkid=';
 		return $url;
 	}

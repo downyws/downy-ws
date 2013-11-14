@@ -14,9 +14,8 @@ class ToSiteQQIM extends ToSiteBase
 	{
 		$url = 'http://connect.qq.com/widget/shareqq/index.html' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . 
-				'&desc=' . urlencode($params['desc']) .
-				'&summary=&site=baidu';
+				'&title=' . urlencode($params['desc']) . 
+				'&desc=&summary=&site=baidu';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pics=' . urlencode(current($params['img']));

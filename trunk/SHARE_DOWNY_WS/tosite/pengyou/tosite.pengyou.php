@@ -13,10 +13,9 @@ class ToSitePengyou extends ToSiteBase
 	public function getUrl($params)
 	{
 		$url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey' . 
-				'?to=pengyou&summary=' .
+				'?to=pengyou&summary=&desc=' .
 				'&url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . 
-				'&desc=' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pics=' . urlencode(current($params['img']));

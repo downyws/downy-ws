@@ -14,7 +14,7 @@ class ToSiteMSN extends ToSiteBase
 	{
 		$url = 'http://profile.live.com/badge' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		if(count($params['img']) > 0)
 		{
 			$url .= '&screenshot=' . urlencode(current($params['img']));

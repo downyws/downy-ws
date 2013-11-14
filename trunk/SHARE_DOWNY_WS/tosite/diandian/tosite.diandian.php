@@ -14,7 +14,7 @@ class ToSiteDiandian extends ToSiteBase
 	{
 		$url = 'http://www.diandian.com/share' . 
 				'?lo=' . urlencode($params['url']) . 
-				'&ti=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&ti=' . urlencode($params['desc']);
 				'&type=link';
 		return $url;
 	}

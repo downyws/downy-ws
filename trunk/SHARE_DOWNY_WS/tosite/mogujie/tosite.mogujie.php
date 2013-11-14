@@ -14,7 +14,7 @@ class ToSiteMogujie extends ToSiteBase
 	{
 		$url = 'http://www.mogujie.com/mshare' . 
 				'?url=' . urlencode($params['url']) . 
-				'&content=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&content=' . urlencode($params['desc']);
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

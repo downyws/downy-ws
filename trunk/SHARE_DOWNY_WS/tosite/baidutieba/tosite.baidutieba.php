@@ -14,9 +14,8 @@ class ToSiteBaiduTieba extends ToSiteBase
 	{
 		$url = 'http://tieba.baidu.com/f/commit/share/openShareApi' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) .
-				'&desc=' . urlencode($params['desc']) .
-				'&comment=';
+				'&title=' . urlencode($params['desc']) .
+				'&desc=&comment=';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

@@ -14,7 +14,7 @@ class ToSiteFacebook extends ToSiteBase
 	{
 		$url = 'http://www.facebook.com/share.php' . 
 				'?u=' . urlencode($params['url']) . 
-				'&t=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&t=' . urlencode($params['desc']);
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

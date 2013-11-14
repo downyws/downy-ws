@@ -14,8 +14,8 @@ class ToSiteWealink extends ToSiteBase
 	{
 		$url = 'http://share.wealink.com/share/add/' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) .
-				'&content=' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']) .
+				'&content=';
 		return $url;
 	}
 }

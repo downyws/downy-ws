@@ -14,7 +14,7 @@ class ToSiteIfengT extends ToSiteBase
 	{
 		$url = 'http://t.ifeng.com/interface.php' . 
 				'?sourceUrl=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) . 
+				'&title=' . urlencode($params['desc']) . 
 				'&_c=share&_a=share';
 		if(count($params['img']) > 0)
 		{

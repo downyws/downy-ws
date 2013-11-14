@@ -15,7 +15,7 @@ class ToSiteLinkedin extends ToSiteBase
 		$url = 'http://www.linkedin.com/shareArticle' . 
 				'?mini=true&ro=true&armin=armin&summary=' . 
 				'&url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		return $url;
 	}
 }

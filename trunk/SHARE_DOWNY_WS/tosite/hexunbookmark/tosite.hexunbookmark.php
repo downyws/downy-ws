@@ -14,7 +14,7 @@ class ToSiteHexunBookmark extends ToSiteBase
 	{
 		$url = 'http://bookmark.hexun.com/post.aspx' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		return $url;
 	}
 }

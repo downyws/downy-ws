@@ -14,8 +14,8 @@ class ToSiteYaolan extends ToSiteBase
 	{
 		$url = 'http://space.yaolan.com/share/myshare/' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . 
-				'&desc=' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']) . 
+				'&desc=';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

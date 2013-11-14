@@ -14,7 +14,7 @@ class ToSiteTSohu extends ToSiteBase
 	{
 		$url = 'http://t.sohu.com/third/post.jsp' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

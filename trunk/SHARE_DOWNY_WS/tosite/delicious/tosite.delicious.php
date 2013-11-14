@@ -14,7 +14,7 @@ class ToSiteDelicious extends ToSiteBase
 	{
 		$url = 'http://www.delicious.com/save' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) .
+				'&title=' . urlencode($params['desc']) .
 				'&jump=yes';
 		if(count($params['img']) > 0)
 		{

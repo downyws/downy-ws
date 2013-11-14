@@ -14,7 +14,7 @@ class ToSiteS51 extends ToSiteBase
 	{
 		$url = 'http://share.51.com/share/share.php' . 
 				'?vaddr=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) . 
+				'&title=' . urlencode($params['desc']) . 
 				'&type=8';
 		if(count($params['img']) > 0)
 		{

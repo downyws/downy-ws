@@ -15,8 +15,8 @@ class ToSiteRenren extends ToSiteBase
 		$url = 'http://widget.renren.com/dialog/share' .
 				'?resourceUrl=' . urlencode($params['url']) . 
 				'&srcUrl=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . 
-				'&description=' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']) . 
+				'&description=';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

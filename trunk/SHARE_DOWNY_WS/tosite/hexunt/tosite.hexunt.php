@@ -14,7 +14,7 @@ class ToSiteHexunT extends ToSiteBase
 	{
 		$url = 'http://t.hexun.com/channel/shareweb.aspx' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		return $url;
 	}
 }

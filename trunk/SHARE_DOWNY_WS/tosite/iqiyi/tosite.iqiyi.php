@@ -14,7 +14,7 @@ class ToSiteIqiyi extends ToSiteBase
 	{
 		$url = 'http://t.qiyi.com/share/share.php' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		return $url;
 	}
 }

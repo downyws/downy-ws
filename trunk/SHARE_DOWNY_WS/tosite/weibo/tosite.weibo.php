@@ -14,7 +14,7 @@ class ToSiteWeibo extends ToSiteBase
 	{
 		$url = 'http://service.weibo.com/share/share.php' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) .
+				'&title=' . urlencode($params['desc']) .
 				'&appkey=';
 		if(count($params['img']) > 0)
 		{

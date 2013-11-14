@@ -14,8 +14,8 @@ class ToSiteDuitang extends ToSiteBase
 	{
 		$url = 'http://www.duitang.com/collect/' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . 
-				'&desc=' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']) . 
+				'&desc=';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&img=' . urlencode(current($params['img']));

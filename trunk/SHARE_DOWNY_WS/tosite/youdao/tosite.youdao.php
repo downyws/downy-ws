@@ -14,7 +14,7 @@ class ToSiteYoudao extends ToSiteBase
 	{
 		$url = 'http://note.youdao.com/memory/' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 				'&sumary=&product=';
 		if(count($params['img']) > 0)
 		{

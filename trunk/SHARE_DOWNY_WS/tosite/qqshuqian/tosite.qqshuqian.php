@@ -15,7 +15,7 @@ class ToSiteQQShuqian extends ToSiteBase
 		$url = 'http://shuqian.qq.com/post' . 
 				'?from=' .
 				'&uri=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		return $url;
 	}
 }

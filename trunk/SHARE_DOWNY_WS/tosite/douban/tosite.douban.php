@@ -14,7 +14,7 @@ class ToSiteDouban extends ToSiteBase
 	{
 		$url = 'http://shuo.douban.com/!service/share' . 
 				'?href=' . urlencode($params['url']) . 
-				'&name=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&name=' . urlencode($params['desc']);
 		if(count($params['img']) > 0)
 		{
 			$url .= '&image=' . urlencode(current($params['img']));

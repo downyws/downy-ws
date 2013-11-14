@@ -14,8 +14,8 @@ class ToSiteKaixin001 extends ToSiteBase
 	{
 		$url = 'http://www.kaixin001.com/repaste/share.php' .
 				'?rurl=' . urlencode($params['url']) . 
-				'&rtitle=' . urlencode($params['title']) . 
-				'&rcontent=' . urlencode($params['desc']);
+				'&rtitle=' . urlencode($params['desc']) . 
+				'&rcontent=';
 		return $url;
 	}
 }

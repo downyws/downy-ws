@@ -14,7 +14,7 @@ class ToSiteFeixin extends ToSiteBase
 	{
 		$url = 'http://space.feixin.10086.cn/api/cshare' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) .
+				'&title=' . urlencode($params['desc']) .
 				'&source=';
 		return $url;
 	}

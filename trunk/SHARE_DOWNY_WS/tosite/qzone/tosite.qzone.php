@@ -14,9 +14,8 @@ class ToSiteQzone extends ToSiteBase
 	{
 		$url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey' .
 				'?url=' . urlencode($params['url']) .
-				'&title=' . urlencode($params['title']) .
-				'&desc=' . urlencode($params['desc']) .
-				'&summary=&site=';
+				'&title=' . urlencode($params['desc']) .
+				'&desc=&summary=&site=';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pics=' . urlencode(current($params['img']));

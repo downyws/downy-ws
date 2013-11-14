@@ -14,7 +14,7 @@ class ToSiteBaiduHomepage extends ToSiteBase
 	{
 		$url = 'http://www.baidu.com/home/page/show/url' . 
 				'?url=' . urlencode($params['url']) . 
-				'&name=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) .
+				'&name=' . urlencode($params['desc']) .
 				'&key=&apiType=&buttonType=&from=';
 		return $url;
 	}
