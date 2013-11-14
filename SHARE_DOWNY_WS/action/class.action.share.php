@@ -13,6 +13,7 @@ class ActionShare extends Action
 				return ($arg != 'base') && file_exists(APP_DIR_TOSITE . $arg . '/tosite.' . $arg . '.php');
 			})),
 			'url' => array(array('valid', 'url', '', '', null)),
+			'title' => array(array('format', 'trim')),
 			'desc' => array(array('format', 'trim'))
 		));
 		$images = $this->_submit->obtainArray($_REQUEST, array(
