@@ -1,6 +1,6 @@
 <?php
 #- 人人网
-#- 1.001
+#- 0
 include_once(APP_DIR_TOSITE . 'base/tosite.base.php');
 
 class ToSiteRenren extends ToSiteBase
@@ -12,7 +12,15 @@ class ToSiteRenren extends ToSiteBase
 
 	public function getUrl($params)
 	{
-		// coding
-		return '#renren';
+		$url = 'http://widget.renren.com/dialog/share' .
+				'?resourceUrl=' . urlencode($params['url']) . 
+				'&srcUrl=' . urlencode($params['url']) . 
+				'&title=' . urlencode($params['title']) . 
+				'&description=' . urlencode($params['desc']);
+		if(count($params['img']) > 0)
+		{
+			$url .= '&pic=' . urlencode(current($params['img']));
+		}
+		return $url;
 	}
 }

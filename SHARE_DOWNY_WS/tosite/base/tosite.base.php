@@ -21,6 +21,11 @@ class ToSiteBase
 		}
 	}
 
+	public function getName($key)
+	{
+		return $this->sites[strtolower($key)]['name'];
+	}
+
 	public function getUrl($params)
 	{
 		throw new Exception('class:' . __CLASS__ . ', function:' . __FUNCTION__ . ', line:' . __LINE__ . ', Subclass not exists.');
