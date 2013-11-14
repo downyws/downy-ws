@@ -10,12 +10,12 @@ class ToSiteBase
 			unlink(APP_DIR_TOSITE . $site . '/install');
 			$this->install($site);
 		}
+		else if(!file_exists(APP_DIR_TOSITE . 'base/sites.php'))
+		{
+			$this->install('');
+		}
 		else
 		{
-			if(!file_exists(APP_DIR_TOSITE . 'base/sites.php'))
-			{
-				$this->install('');
-			}
 			$this->sites = file_get_contents(APP_DIR_TOSITE . 'base/sites.php');
 			$this->sites = json_decode($this->sites, true);
 		}
