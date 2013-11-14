@@ -23,7 +23,14 @@ class ToSiteBase
 
 	public function getName($key)
 	{
-		return $this->sites[strtolower($key)]['name'];
+		foreach($this->sites as $v)
+		{
+			if($v['key'] == $key)
+			{
+				return $v['name'];
+			}
+		}
+		return null;
 	}
 
 	public function getUrl($params)
