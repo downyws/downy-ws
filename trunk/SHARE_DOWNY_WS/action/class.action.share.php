@@ -37,8 +37,8 @@ class ActionShare extends Action
 			include_once(APP_DIR_TOSITE . $params['tosite'] . '/tosite.' . $params['tosite'] . '.php');
 			$class = 'ToSite' . $params['tosite'];
 			$tositeObj = new $class();
-			$url = $tositeObj->getUrl($params);
-			$this->assign('url', $url);
+			$this->assign('name', $tositeObj->getName($params['tosite']));
+			$this->assign('url', $tositeObj->getUrl($params));
 		}
 		else
 		{
