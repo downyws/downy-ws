@@ -14,7 +14,7 @@ class ToSiteBaiduHi extends ToSiteBase
 	{
 		$url = 'http://hi.baidu.com/pub/show/share' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) .
+				'&title=' . urlencode($params['desc']) .
 				'&content=&linkid=';
 		return $url;
 	}

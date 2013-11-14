@@ -14,7 +14,7 @@ class ToSiteMeilishuo extends ToSiteBase
 	{
 		$url = 'http://www.meilishuo.com/meilishuo_share' . 
 				'?siteurl=' . urlencode($params['url']) . 
-				'&content=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&content=' . urlencode($params['desc']);
 		if(count($params['img']) > 0)
 		{
 			$url .= '&picurl=' . urlencode(current($params['img']));

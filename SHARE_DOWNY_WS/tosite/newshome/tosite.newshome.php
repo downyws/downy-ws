@@ -14,7 +14,7 @@ class ToSiteNewshome extends ToSiteBase
 	{
 		$url = 'http://t.home.news.cn/share.jsp' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

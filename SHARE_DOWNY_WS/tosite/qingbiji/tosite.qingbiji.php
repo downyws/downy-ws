@@ -14,9 +14,8 @@ class ToSiteQingbiji extends ToSiteBase
 	{
 		$url = 'http://www.qingbiji.cn/shareToQingBiJi' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . 
-				'&content=' . urlencode($params['desc']) . 
-				'&client_id=';
+				'&title=' . urlencode($params['desc']) . 
+				'&content=&client_id=';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pics=' . urlencode(current($params['img']));

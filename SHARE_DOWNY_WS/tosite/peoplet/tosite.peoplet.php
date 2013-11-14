@@ -14,7 +14,7 @@ class ToSitePeopleT extends ToSiteBase
 	{
 		$url = 'http://t.people.com.cn/bbsShare.action' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) . 
+				'&title=' . urlencode($params['desc']) . 
 				'&showtype=&bigtype=&appkey=&site=';
 		if(count($params['img']) > 0)
 		{

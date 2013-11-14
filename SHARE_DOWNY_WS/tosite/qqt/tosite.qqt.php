@@ -14,7 +14,7 @@ class ToSiteQQT extends ToSiteBase
 	{
 		$url = 'http://v.t.qq.com/share/share.php' . 
 				'?url=' . urlencode($params['url']) .
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) .
+				'&title=' . urlencode($params['desc']) .
 				'&appkey=';
 		if(count($params['img']) > 0)
 		{

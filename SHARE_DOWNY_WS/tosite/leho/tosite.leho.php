@@ -14,8 +14,8 @@ class ToSiteLeho extends ToSiteBase
 	{
 		$url = 'http://i.leho.com/api/share' .
 				'?url=' . urlencode($params['url']) .
-				'&poptitle=' . urlencode($params['title']) .
-				'&content=' . urlencode($params['desc']);
+				'&poptitle=' . urlencode($params['desc']) .
+				'&content=';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

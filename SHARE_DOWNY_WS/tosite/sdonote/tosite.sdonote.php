@@ -14,9 +14,8 @@ class ToSiteSdoNote extends ToSiteBase
 	{
 		$url = 'http://note.sdo.com/tool/collect' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . 
-				'&text=' . urlencode($params['desc']) . 
-				'&from=baidu';
+				'&title=' . urlencode($params['desc']) . 
+				'&text=&from=baidu';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&images=' . urlencode(current($params['img']));

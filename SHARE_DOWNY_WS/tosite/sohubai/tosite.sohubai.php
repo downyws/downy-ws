@@ -14,7 +14,7 @@ class ToSiteSohuBai extends ToSiteBase
 	{
 		$url = 'http://bai.sohu.com/share/blank/add.do' . 
 				'?link=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		return $url;
 	}
 }

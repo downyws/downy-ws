@@ -14,7 +14,7 @@ class ToSiteSohuKan extends ToSiteBase
 	{
 		$url = 'http://kan.sohu.com/share/' . 
 				'?href=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 				'&appkey=';
 		return $url;
 	}

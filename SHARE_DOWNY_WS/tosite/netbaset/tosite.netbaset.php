@@ -13,7 +13,7 @@ class ToSiteNetbaseT extends ToSiteBase
 	public function getUrl($params)
 	{
 		$url = 'http://t.163.com/article/user/checkLogin.do' . 
-				'?info=' . urlencode($params['title']) . ' ' . urlencode($params['desc']) .
+				'?info=' . urlencode($params['desc']) .
 				'&source=' . urlencode($params['url']);
 		if(count($params['img']) > 0)
 		{

@@ -14,8 +14,8 @@ class ToSiteMyspace extends ToSiteBase
 	{
 		$url = 'http://www.myspace.com/share' . 
 				'?u=' . urlencode($params['url']) . 
-				'&t=' . urlencode($params['title']) . 
-				'&tc' . urlencode($params['desc']);
+				'&t=' . urlencode($params['desc']) . 
+				'&tc=';
 		if(count($params['img']) > 0)
 		{
 			$url .= '&pic=' . urlencode(current($params['img']));

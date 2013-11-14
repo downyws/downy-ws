@@ -14,7 +14,7 @@ class ToSiteSurfing extends ToSiteBase
 	{
 		$url = 'http://s.189share.com/interface.jsp' . 
 				'?url=' . urlencode($params['url']) . 
-				'&title=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&title=' . urlencode($params['desc']);
 		return $url;
 	}
 }

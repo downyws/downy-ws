@@ -14,7 +14,7 @@ class ToSiteFanfou extends ToSiteBase
 	{
 		$url = 'http://fanfou.com/sharer' . 
 				'?u=' . urlencode($params['url']) . 
-				'&t=' . urlencode($params['title']) . ' ' . urlencode($params['desc']);
+				'&t=' . urlencode($params['desc']);
 		return $url;
 	}
 }
