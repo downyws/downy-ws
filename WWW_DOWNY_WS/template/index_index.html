@@ -1,2 +1,25 @@
-{include file="site/share_pc.html"}
-{include file="site/wedding_pc.html"}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+	{include file="common_header.html"}
+	<div class="content">
+		<div class="sites">
+			<div class="site"><div class="panel">{include file="site/share_pc.html"}</div></div>
+			<div class="site"><div class="panel">{include file="site/wedding_pc.html"}</div></div>
+		</div>
+		<div class="about">
+			<p>Worry Free Labs is a Mobile User Experience Design & Development firm based in NYC. Since 2005 weve helped a diverse range of startups and enterprises bring fresh ideas to life. Our Team is passionate about their craft and seeing our clients succeed.</p>
+			<p>Worry Free Labs is a Mobile User Experience Design & Development firm based in NYC. Since 2005 weve helped a diverse range of startups and enterprises bring fresh ideas to life. Our Team is passionate about their craft and seeing our clients succeed.</p>
+		</div>
+	</div>	
+	{include file="common_footer.html"}
+</body>
+</html>

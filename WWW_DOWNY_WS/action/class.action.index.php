@@ -10,4 +10,19 @@ class ActionIndex extends Action
 	{
 
 	}
+
+	public function methodDowny()
+	{
+		
+	}
+
+	public function methodMaster()
+	{
+		
+	}
+
+	public function methodServant()
+	{
+		
+	}
 }
