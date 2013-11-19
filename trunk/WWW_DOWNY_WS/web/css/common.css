@@ -28,6 +28,9 @@ table{border-collapse:collapse;}
 .content{min-width:990px;}
 .content .article{background:#F2F9FD;padding:50px 0px;}
 .content .article .main{width:970px;margin:0px auto;}
+.content .article .main .say{font-weight:bold;font-size:30px;}
+.content .article .main .sign{text-align:right;border-bottom:10px solid #DAEFF9;margin:20px 0px 50px;padding:30px;font-size:30px;}
+.content .article .main p{padding: 10px;}
 .content .sites{background:#CAE8F7;}
 .content .site{background:#333333;border-bottom:10px solid #000000;height:250px;overflow:hidden;}
 .content .about{width:970px;margin:0px auto;padding:20px 0px;}
