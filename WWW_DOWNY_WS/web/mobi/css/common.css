@@ -1,11 +1,15 @@
 .cb{clear:both;}
 .header .ui-title{margin:10px 5px;}
 .content{width:340px;margin:0px auto;}
+.content .article{padding:10px 10px 10px;border-bottom:1px solid #DEDEDE;background:#FFFFFF;}
+.content .article p{margin:0px 0px 10px;line-height:20px;}
 .content .site{display:block;padding:10px 10px 10px;border-bottom:1px solid #DEDEDE;background:#FFFFFF;text-decoration:none;}
 .content .site.last{border-bottom:0px;}
 .content .site .image{float:left;width:50px;height:50px;margin-right:10px;}
 .content .site .title{margin:0px;color:#000000;font-size:16px;line-height:20px;height:20px;overflow:hidden;}
 .content .site .desc{margin:0px;color:#999999;font-size:12px;line-height:15px;height:30px;overflow:hidden;}
+.navg{width:340px;margin:0px auto;background:#FFFFFF;height:35px;}
+.navg a.ui-link{display:block;float:left;width:85px;list-style:none;font-size:12px;line-height:35px;text-align:center;text-decoration:none;color:#000000;}
 .footer .ui-title{margin:10px 5px;font-size:12px;white-space:normal;}
 .footer h3.ui-title span{margin:0px 15px;}
-.footer h3.ui-title span a{text-decoration:none;color:#FFFFFF;}
+.footer h3.ui-title span a.ui-link{text-decoration:none;color:#FFFFFF;}
