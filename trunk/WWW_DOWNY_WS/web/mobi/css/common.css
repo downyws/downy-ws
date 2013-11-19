@@ -2,6 +2,8 @@
 .header .ui-title{margin:10px 5px;}
 .content{width:340px;margin:0px auto;}
 .content .article{padding:10px 10px 10px;border-bottom:1px solid #DEDEDE;background:#FFFFFF;}
+.content .article .say{font-style:italic;margin-bottom:0px;}
+.content .article .sign{text-align:right;margin-bottom:20px;font-style:italic}
 .content .article p{margin:0px 0px 10px;line-height:20px;}
 .content .site{display:block;padding:10px 10px 10px;border-bottom:1px solid #DEDEDE;background:#FFFFFF;text-decoration:none;}
 .content .site.last{border-bottom:0px;}
