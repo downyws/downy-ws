@@ -1,0 +1,16 @@
+/* Base style */
+*{outline:0;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, fieldset, form,  label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;}
+h1, h2, h3, h4, h5{font-weight:normal;}
+a{outline:none;text-decoration:none;}
+html, body{min-height:100%;font-family:Arial;}
+ul, ol, dl{margin:0;padding:0;}
+table{border-collapse:collapse;}
+
+.page{width:330px;margin:0px auto;overflow:hidden;padding:5px;background:#FF00FF;}
+.page div{background:#FF0000;}
+.placard{}
+.album{}
+.story{}
+.map{}
+.footer{}
