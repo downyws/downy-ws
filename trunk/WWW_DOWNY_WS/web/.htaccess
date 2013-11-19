@@ -1,6 +1,11 @@
 RewriteEngine On
+
 RewriteRule ^$			/index.php?a=index&m=index
 RewriteRule ^downy.html$	/index.php?a=index&m=downy
 RewriteRule ^master.html$	/index.php?a=index&m=master
 RewriteRule ^servant.html$	/index.php?a=index&m=servant
+
 RewriteRule ^mobi/$		/mobi/index.php?a=index&m=index
+RewriteRule ^mobi/downy.html$	/mobi/index.php?a=index&m=downy
+RewriteRule ^mobi/master.html$	/mobi/index.php?a=index&m=master
+RewriteRule ^mobi/servant.html$	/mobi/index.php?a=index&m=servant

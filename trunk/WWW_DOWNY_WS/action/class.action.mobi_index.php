@@ -10,4 +10,19 @@ class ActionMobi_Index extends Action
 	{
 
 	}
+
+	public function methodDowny()
+	{
+		
+	}
+
+	public function methodMaster()
+	{
+		
+	}
+
+	public function methodServant()
+	{
+		
+	}
 }
