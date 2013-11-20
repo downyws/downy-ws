@@ -23,7 +23,7 @@ body{background:url("../images/body_bg.jpg");}
 .content .story h3{background:#7D456B;font-weight:bold;margin-bottom:5px;font-size:16px;color:#FFFFFF;padding:5px 10px;}
 .content .story p{font-style:italic;padding:5px 10px;}
 .content .map{box-shadow:0 0 6px #7D456B;width:280px;height:130px;overflow:hidden;}
-.footer{margin:10px 0px;font-weight:bold;width:290px;font-size:12px;color:#7D456B;padding:0px 5px;line-height:20px;}
+.footer{margin:10px 0px;font-weight:bold;width:300px;font-size:12px;color:#7D456B;line-height:20px;}
 .footer .icp{float:left;}
 .footer .mobi{float:right;}
 .footer .mobi a{color:#7D456B;}
