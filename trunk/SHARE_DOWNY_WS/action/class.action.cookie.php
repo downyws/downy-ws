@@ -23,6 +23,9 @@ class ActionCookie extends Action
 			case 'del':
 				setcookie($params['key'], '', 1, '', APP_DOMAIN);
 				break;
+			case 'now':
+				setcookie($params['key'], $params['val'], 0, '', APP_DOMAIN);
+				break;
 			case 'hld':
 				break;
 			default:
