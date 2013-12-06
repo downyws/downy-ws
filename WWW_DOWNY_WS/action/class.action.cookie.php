@@ -9,7 +9,7 @@ class ActionCookie extends Action
 	public function methodSet()
 	{
 		$params = $this->_submit->obtain($_REQUEST, array(
-			'expire' => array(array('valid', 'regex', '', 'hld', '/^([0-9]+)|(max)|(del)$/')),
+			'expire' => array(array('valid', 'regex', '', 'hld', '/^([0-9]+)|(max)|(del)|(now)|(hld)$/')),
 			'key' => array(array('format', 'trim')),
 			'val' => array(array('format', 'trim')),
 			'callback' => array(array('format', 'trim'))
