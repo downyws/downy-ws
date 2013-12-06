@@ -14,6 +14,11 @@ class Front
 
 			if(file_exists($actionPath))
 			{
+				if(stripos($action, 'mobi_') === 0)
+				{
+					$parentActionPath = APP_DIR_ACTION . 'class.action.' . substr($action, 5) . '.php';
+					file_exists($parentActionPath) && require_once($parentActionPath);
+				}
 				require_once($actionPath);
 
 				$actionName = 'Action' . $action;

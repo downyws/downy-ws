@@ -33,17 +33,17 @@ class Filecache
 		return $path;
 	}
 
-	public function set($key, $value, $expires = FRAMEWORLK_FILECACHE_EXPIRES)
+	public function set($key, $value, $expire = FRAMEWORLK_FILECACHE_EXPIRE)
 	{
 		if(!($path = $this->getPath($key, true)))
 		{
 			return false;
 		}
 
-		return file_put_contents($path, serialize(array('value' => $value, 'expires' => time() + $expires)), LOCK_EX);
+		return file_put_contents($path, json_encode(array('value' => $value, 'expire' => time() + $expire)), LOCK_EX);
 	}
 
-	public function setMulti($pairs, $expires = FRAMEWORLK_FILECACHE_EXPIRES)
+	public function setMulti($pairs, $expire = FRAMEWORLK_FILECACHE_EXPIRE)
 	{
 		if(empty($pairs) || !is_array($pairs))
 		{
@@ -53,7 +53,7 @@ class Filecache
 		$res = true;
 		foreach($pairs as $key => $value)
 		{
-			$res = $res && $this->set($key, $value, $expires);
+			$res = $res && $this->set($key, $value, $expire);
 		}
 
 		return $res;
@@ -66,8 +66,8 @@ class Filecache
 			return false;
 		}
 
-		$content = unserialize(file_get_contents($path));
-		return $content['expires'] > time() ? $content['value'] : false;
+		$content = json_decode(file_get_contents($path), true);
+		return $content['expire'] > time() ? $content['value'] : false;
 	}
 
 	public function getMulti($keys)

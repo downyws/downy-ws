@@ -154,11 +154,6 @@ class Submit
 		return !($value == '');
 	}
 
-	public function validIsSet($rule, $value)
-	{
-		return isset($value);
-	}
-
 	public function validEq($rule, $value)
 	{
 		return $value == $rule[4];
