@@ -4,4 +4,6 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE'] = true;
+$GLOBALS['CONFIG']['ACCESS_PASSWORD'] = array(
+	'http://wedate.mydowny.ws/' => '2b4e8f52159c93b3663957674f3f7461'
+);
