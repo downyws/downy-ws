@@ -25,7 +25,7 @@ class YoukuHelper
 		curl_setopt($curl, CURLOPT_HEADER, 1);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_REFERER, $config['referer_url'] . $id);
-		curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+		curl_setopt($curl, CURLOPT_USERAGENT, REMOTE_HTTP_USERAGENT);
 		curl_setopt($curl, CURLOPT_NOBODY, 0);
 		$content = curl_exec($curl);
 		curl_close($curl);
