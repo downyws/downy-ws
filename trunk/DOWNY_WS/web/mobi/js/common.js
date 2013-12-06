@@ -19,15 +19,15 @@ function siteType(obj){
 
 function accessPassword(obj){
 	var data = {
-		accesspassword: $("input[name='accesspassword']").val(),
+		password: $("input[name='password']").val(),
 		remember: $("input[name='remember']").is(":checked") ? 1 : 0,
 		app_url: $("input[name='app_url']").val(),
 		callback: $("input[name='callback']").val()
 	};
-	if(data.accesspassword == ""){
-		$(".content .tips .msg").html("Plz input access password.");
+	if(data.password == ""){
+		$(".content .tips .msg").html("Plz input password.");
 	}else{
-		$.ajax({type: "POST", url: "/index.php?a=set&m=accesspassword&t=ajax", data: data, async: false, dataType: 'JSON', success: function(response){
+		$.ajax({type: "POST", url: "/index.php?a=access&m=set&t=ajax", data: data, async: false, dataType: 'JSON', success: function(response){
 			if(typeof(response.error) != "undefined"){
 				$(".content .tips .msg").html(response.error.msg);
 			}else if(typeof(response.url) != "undefined"){
