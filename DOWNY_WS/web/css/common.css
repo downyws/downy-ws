@@ -1,0 +1,38 @@
+/* Base style */
+*{outline:0;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, fieldset, form,  label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;}
+h1, h2, h3, h4, h5{font-weight:normal;}
+a{outline:none;text-decoration:none;}
+html, body{min-height:100%;}
+ul, ol, dl{margin:0;padding:0;}
+table{border-collapse:collapse;}
+
+/* Layout style */
+.header{min-width:540px;border-bottom:1px solid #B3B3B3;padding:10px 0px 9px 30px;box-shadow:0 0 5px #333333;}
+.content{min-width:570px;}
+.content .topbar{height:110px;width:100%;overflow:hidden;}
+.content .topbar div{height:110px;width:700px;margin:0px auto;}
+.footer{min-width:570px;position:relative;height:55px;}
+.footer .shadow{border-top:1px solid #B3B3B3;box-shadow:0 0 5px #333333;height:0px;}
+.footer .copy{text-align:center;font-size:12px;font-family:arial;padding:20px 0px 19px;position:absolute;top:1px;background:#FFFFFF;width:100%;}
+.footer p{display:inline;margin:0px 10px;}
+
+/* page visitpassword style */
+.content.visitpassword .topbar{background-image:url("../images/content.visitpassword.png");}
+.content.visitpassword .topbar div{background-image:url("../images/content.visitpassword.png");background-position:0px -110px;}
+.content.visitpassword .panel{position:relative;height:210px;width:355px;background-image:url("../images/content.visitpassword.png");background-position:0px -220px;margin:30px auto 50px;padding:30px 0px 0px 30px;}
+.content.visitpassword .panel dt, .content.visitpassword .panel dd{padding:5px 0px;}
+.content.visitpassword .panel .password input{font-size:14px;border:1px solid #9DB1C0;height:19px;width:168px;line-height:14px;padding:8px 10px;background-image:url("../images/content.visitpassword.png");background-position:-385px -220px;margin-right:10px;}
+.content.visitpassword .panel .password a{color:#FFFFFF;display:inline-block;background-image:url("../images/content.visitpassword.png");background-position:-385px -255px;font-size:14px;height:37px;line-height:37px;padding-left:15px;}
+.content.visitpassword .panel .password a b{display:block;height:37px;line-height:37px;text-align:center;padding-right:15px;background-image:url("../images/content.visitpassword.png");background-position: right -255px;font-weight:100;}
+.content.visitpassword .panel .password a:hover{background-position:-385px -292px;}
+.content.visitpassword .panel .password a:hover b{background-position: right -292px;}
+.content.visitpassword .panel .password a:active{background-position:-385px -329px;}
+.content.visitpassword .panel .password a:active b{background-position: right -329px;}
+.content.visitpassword .panel .remember{padding-top:10px;}
+.content.visitpassword .panel .remember span{cursor:pointer;}
+.content.visitpassword .panel .remember a{margin-right:10px;padding:2px 20px 0px 0px;display:inline;background-image:url("../images/content.visitpassword.png");background-position:-385px -366px;}
+.content.visitpassword .panel .remember a.checked{background-position:-405px -366px;}
+.content.visitpassword .panel .remember span:hover a{background-position:-425px -366px;}
+.content.visitpassword .panel .remember span:hover a.checked{background-position:-445px -366px;}
+.content.visitpassword .panel .msg{color:#FF0000;position:absolute;bottom:35px;}

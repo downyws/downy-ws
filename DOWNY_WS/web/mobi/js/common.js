@@ -1,8 +1,8 @@
 $(function(){
 	$("a.confirm").click(function(){
-		switch(data("fun")){
-			case "siteType": siteType(); break;
-			case "visitPassword": visitPassword(); break;
+		switch($(this).data("fun")){
+			case "siteType": siteType(this); break;
+			case "accessPassword": accessPassword(this); break;
 		}
 	});
 });
@@ -17,8 +17,26 @@ function siteType(obj){
 	$(obj).attr("href", href);
 }
 
-function visitPassword(obj){
-	var visit_password = $("input[name='visitpassword']").val();
-	var href = $(obj).data("app_url") + "index.php?a=cookie&m=setvp&s=PC&visit_password=" + visit_password + "&callback=" + $(obj).data("callback");
-	$(obj).attr("href", href);
+function accessPassword(obj){
+	var data = {
+		accesspassword: $("input[name='accesspassword']").val(),
+		remember: $("input[name='remember']").is(":checked") ? 1 : 0,
+		app_url: $("input[name='app_url']").val(),
+		callback: $("input[name='callback']").val()
+	};
+	if(data.accesspassword == ""){
+		$(".content .tips .msg").html("Plz input access password.");
+	}else{
+		$.ajax({type: "POST", url: "/index.php?a=set&m=accesspassword&t=ajax", data: data, async: false, dataType: 'JSON', success: function(response){
+			if(typeof(response.error) != "undefined"){
+				$(".content .tips .msg").html(response.error.msg);
+			}else if(typeof(response.url) != "undefined"){
+				window.location.href = response.url;
+			}else{
+				$(".content .tips .msg").html("Ajax response data error.");
+			}
+		}, error: function(){
+			$(".content .tips .msg").html("Ajax response error.");
+		}});
+	}
 }
