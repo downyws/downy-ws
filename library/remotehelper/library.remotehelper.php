@@ -3,19 +3,19 @@ class RemoteHelper
 {
     public function getDeviceType()
     {
-		if(stripos($_SERVER['HTTP_USER_AGENT'], 'spider') !== false)
+		if(stripos(REMOTE_HTTP_USERAGENT, 'spider') !== false)
 		{
 			return 'SPIDER'; // 爬虫
 		}
-		else if(stripos($_SERVER['HTTP_USER_AGENT'], 'ipad') !== false)
+		else if(stripos(REMOTE_HTTP_USERAGENT, 'ipad') !== false)
 		{
 			return 'PAD'; // 平板
 		}
-		else if(stripos($_SERVER['HTTP_USER_AGENT'], 'iphone') !== false)
+		else if(stripos(REMOTE_HTTP_USERAGENT, 'iphone') !== false)
 		{
 			return 'PHONE'; // 手机
 		}
-		else if(stripos($_SERVER['HTTP_USER_AGENT'], 'android') !== false)
+		else if(stripos(REMOTE_HTTP_USERAGENT, 'android') !== false)
 		{
 			if(!empty($_SERVER['HTTP_X_WAP_PROFILE']) || !empty($_SERVER['HTTP_X_REQUESTED_WITH']))
 			{
