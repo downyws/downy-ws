@@ -1,13 +1,8 @@
 <?php
-class ActionMobi_Index extends Action
+class ActionMobi_Index extends ActionIndex
 {
 	public function __construct()
 	{
 		parent::__construct();
-	}
-
-	public function methodIndex()
-	{
-
 	}
 }
