@@ -17,7 +17,7 @@ define('APP_DIR_LOGS',		APP_DIR . 'logs/');
 define('APP_DIR_MODEL',		APP_DIR . 'model/');
 define('APP_DIR_TEMPLATE',	APP_DIR . 'template/');
 
-define('FRAMEWORLK_FILECACHE_EXPIRES', 3600);
+define('FRAMEWORLK_FILECACHE_EXPIRE', 3600);
 
 $_t_root_domain = explode('.', $_SERVER['HTTP_HOST']);
 define('ROOT_DOMAIN',  $_t_root_domain[count($_t_root_domain) - 2] . '.' . $_t_root_domain[count($_t_root_domain) - 1]);
@@ -25,6 +25,7 @@ define('APP_DOMAIN', $_SERVER['HTTP_HOST']);
 define('APP_URL', (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . '/');
 define('REMOTE_REQUEST_URI', (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 define('REMOTE_IP_ADDRESS', $_SERVER['REMOTE_ADDR']);
+define('REMOTE_HTTP_USERAGENT', (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : ''));
 
 !defined('APP_TIMEZONE') && define('APP_TIMEZONE', 'Asia/Shanghai');
 date_default_timezone_set(APP_TIMEZONE);
