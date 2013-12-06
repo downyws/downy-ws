@@ -1,28 +1,28 @@
 $(function(){
-	$(".visitpassword .password a").click(function(){
+	$(".access .password a").click(function(){
 		var data = {
-			accesspassword: $("input[name='accesspassword']").val(),
+			password: $("input[name='password']").val(),
 			remember: $("input[name='remember']").val(),
 			app_url: $("input[name='app_url']").val(),
 			callback: $("input[name='callback']").val()
 		};
-		if(data.accesspassword == ""){
-			$(".visitpassword .panel .msg").html("Plz input access password.");
+		if(data.password == ""){
+			$(".access .panel .msg").html("Plz input password.");
 		}else{
-			$.ajax({type: "POST", url: "/index.php?a=set&m=accesspassword&t=ajax", data: data, async: false, dataType: 'JSON', success: function(response){
+			$.ajax({type: "POST", url: "/index.php?a=access&m=set&t=ajax", data: data, async: false, dataType: 'JSON', success: function(response){
 				if(typeof(response.error) != "undefined"){
-					$(".visitpassword .panel .msg").html(response.error.msg);
+					$(".access .panel .msg").html(response.error.msg);
 				}else if(typeof(response.url) != "undefined"){
 					window.location.href = response.url;
 				}else{
-					$(".visitpassword .panel .msg").html("Ajax response data error.");
+					$(".access .panel .msg").html("Ajax response data error.");
 				}
 			}, error: function(){
-				$(".visitpassword .panel .msg").html("Ajax response error.");
+				$(".access .panel .msg").html("Ajax response error.");
 			}});
 		}
 	});
-	$(".visitpassword .remember span").click(function(){
+	$(".access .remember span").click(function(){
 		var checkbox = $(this).find("a");
 		if(checkbox.hasClass("checked")){
 			checkbox.removeClass("checked");

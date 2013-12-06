@@ -1,12 +1,12 @@
 <?php
-class ActionSet extends Action
+class ActionAccess extends Action
 {
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	public function methodAccessPassword()
+	public function methodSet()
 	{
 		$params = $this->_submit->obtain($_REQUEST, array(
 			'app_name' => array(array('format', 'trim')),
@@ -22,11 +22,11 @@ class ActionSet extends Action
 		$this->assign('params', $params);
 	}
 
-	public function methodAccessPasswordAjax()
+	public function methodSetAjax()
 	{
 		$params = $this->_submit->obtain($_REQUEST, array(
-			'accesspassword' => array(array('valid', 'empty', array('error' => array('code' => '', 'msg' => 'Plz input access password.')), null, null)),
-			'app_url' => array(array('valid', 'in', array('error' => array('code' => '', 'msg' => 'invaild app url .')), null, array_keys($GLOBALS['CONFIG']['ACCESS_PASSWORD']))),
+			'password' => array(array('valid', 'empty', array('error' => array('code' => '', 'msg' => 'Plz input  password.')), null, null)),
+			'app_url' => array(array('valid', 'in', array('error' => array('code' => '', 'msg' => 'invaild app url .')), null, array_keys($GLOBALS['CONFIG']['ACCESS']))),
 			'callback' => array(array('valid', 'url', array('error' => array('code' => '', 'msg' => 'invaild callback .')), null, null)),
 			'remember' => array(array('valid', 'in', '', '0', array(0, 1)))
 		));
@@ -40,22 +40,22 @@ class ActionSet extends Action
 
 		$trysafeObj = Factory::getModel('trysafe');
 
-		if($trysafeObj->isMax('ACCESS_PASSWORD'))
+		if($trysafeObj->isMax('ACCESS'))
 		{
-			$trysafeObj->punish('ACCESS_PASSWORD');
+			$trysafeObj->punish('ACCESS');
 			$result = array('error' => array('code' => '', 'msg' => 'max try.'));
 
 		}
-		else if($params['accesspassword'] != $GLOBALS['CONFIG']['ACCESS_PASSWORD'][$params['app_url']])
+		else if(!in_array($params['password'], $GLOBALS['CONFIG']['ACCESS'][$params['app_url']]['PASSWORDS']))
 		{
-			$trysafeObj->goUp('ACCESS_PASSWORD');
+			$trysafeObj->goUp('ACCESS');
 			$result = array('error' => array('code' => '', 'msg' => 'password error.'));
 		}
 		else
 		{
-			$url = $params['app_url'] . 'index.php?a=access&m=setpwd&s=PC';
+			$url = $params['app_url'] . 'index.php?a=access&m=set&t=api&s=PC';
 			$post = array(
-				'accesspassword' => md5(REMOTE_IP_ADDRESS . rand()),
+				'password' => md5(REMOTE_IP_ADDRESS . rand()),
 				'expire' => $params['remember'] ? 86400000 : 60,
 				'ip' => REMOTE_IP_ADDRESS,
 				'timestamp' => time(),
@@ -63,8 +63,8 @@ class ActionSet extends Action
 				'sign' => ''
 			);
 			$post['sign'] = md5(base64_encode(
-				$params['accesspassword'] . 
-				$post['accesspassword'] . 
+				$GLOBALS['CONFIG']['ACCESS'][$params['app_url']]['API_KEY'] . 
+				$post['password'] . 
 				$post['expire'] . 
 				$post['ip'] . 
 				$post['timestamp'] . 
@@ -76,16 +76,16 @@ class ActionSet extends Action
 			$response = json_decode($response['body'], true);
 			if(isset($response['error']))
 			{
-				$trysafeObj->goUp('ACCESS_PASSWORD');
+				$trysafeObj->goUp('ACCESS');
 				$result = array('error' => array('code' => '', 'msg' => 'wait time.'));
 			}
 			else
 			{
-				$trysafeObj->clear('ACCESS_PASSWORD');
+				$trysafeObj->clear('ACCESS');
 				$url = $params['app_url'] . 'index.php?a=cookie&m=set&s=PC' . 
 						'&expire=' . ($params['remember'] ? 'max' : 'now') . 
-						'&key=ACCESS_PASSWORD' .
-						'&val=' . $post['accesspassword'] .
+						'&key=ACCESS' .
+						'&val=' . $post['password'] .
 						'&callback=' . urlencode($params['callback']);
 				$result = array('url' => $url);
 			}

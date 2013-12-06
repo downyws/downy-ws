@@ -7,7 +7,7 @@ define('APP_TIMEZONE', 'Asia/Shanghai');
 $GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE'] = true;
 
 $GLOBALS['CONFIG']['TRY_SAFE'] = array(
-	'ACCESS_PASSWORD' => array(
+	'ACCESS' => array(
 		'KEY' => array('REMOTE_IP_ADDRESS'),
 		'EXPIRE' => 600,
 		'MAX_TRY' => 10,
