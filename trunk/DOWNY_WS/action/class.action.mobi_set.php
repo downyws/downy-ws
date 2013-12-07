@@ -1,5 +1,5 @@
 <?php
-class ActionMobi_Set extends ActionSet
+class ActionMobi_Set extends Action
 {
 	public function __construct()
 	{
