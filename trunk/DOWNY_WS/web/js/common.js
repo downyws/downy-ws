@@ -9,7 +9,7 @@ $(function(){
 		if(data.password == ""){
 			$(".access .panel .msg").html("Plz input password.");
 		}else{
-			$.ajax({type: "POST", url: "/index.php?a=access&m=set&t=ajax", data: data, async: false, dataType: 'JSON', success: function(response){
+			$.ajax({type: "POST", url: "/index.php?a=access&m=set&t=ajax", data: data, async: false, dataType: "JSON", success: function(response){
 				if(typeof(response.error) != "undefined"){
 					$(".access .panel .msg").html(response.error.msg);
 				}else if(typeof(response.url) != "undefined"){
