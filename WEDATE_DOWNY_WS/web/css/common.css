@@ -20,6 +20,10 @@ body{background:url("../images/bg.png") top no-repeat;background-color:#D5E7FF;f
 
 .content{width:980px;margin:0px auto;background:#FFFFFF;box-shadow:0 1px 3px 2px rgba(0, 0, 0, 0.2);}
 .timeline{float:left;padding:20px;width:860px;}
+.timeline .loading{margin:0px auto;width:300px;}
+.timeline .loading img{float:left;}
+.timeline .loading div{padding:10px 30px 0px 10px;float:left;line-height:50px;background:url("../images/loading.gif") no-repeat scroll right center;}
+.timeline .error{font-size:20px;text-align:center;color:#FF0000;}
 .timeline .blockyear, .timeline .blockmonth{background:url("../images/common.png");background-repeat:repeat-y;background-position:-980px 0px;}
 .timeline .blockyear{height:26px;padding:20px 0px 10px;}
 .timeline .blockyear .fixed{position:fixed;top:0px;}
