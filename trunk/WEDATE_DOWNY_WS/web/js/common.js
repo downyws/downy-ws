@@ -47,7 +47,7 @@ $.fn.extend({
 			}else if(typeof(response.years) != "undefined"){
 				// 生成界面
 				var dates = response.dates, html = {timeline: "", aside: ""};
-				html.timeline += "<div class='blockwedding'>2014年我们结婚了</div>";
+				html.timeline += "<div class='blockwedding'>We tied the knot in 2014!</div>";
 				html.aside += "<ul>";
 				for(var y in dates){
 					html.timeline += "<div class='blockyear'><div class='clearfix' id='timeline-" + y + "'><span class='year'>" + y.substr(0, 4) + "年</span><span class='arr'></span></div></div>";
@@ -65,7 +65,7 @@ $.fn.extend({
 					}
 					html.aside += "</ul></li>";
 				}
-				html.timeline += "<div class='blockmeet'>2010年我们相遇了</div>";
+				html.timeline += "<div class='blockmeet'>We met in 2010!</div>";
 				html.aside += "</ul>";
 				$(".content .timeline").html(html.timeline);
 				$(".content .aside").html(html.aside);
