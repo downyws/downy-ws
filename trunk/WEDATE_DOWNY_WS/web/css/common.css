@@ -35,7 +35,7 @@ body{background:url("../images/bg.png") top no-repeat;background-color:#D5E7FF;f
 .timeline .blockmonth .notes .cnt{font-size:14px;}
 .timeline .blockmonth .notes .arrow-left{width:43px;height:26px;background:url("../images/common.png");background-position:-175px -320px;position:absolute;left:-43px;top:5px;}
 .timeline .blockmonth .notes .arrow-right{width:18px;height:17px;background:url("../images/common.png");background-position:-175px -346px;background-color:#FFFFFF;position:absolute;bottom:-1px;right:-1px;border-radius:5px 0 0;}
-.timeline .blockmeet, .timeline .blockwedding{background:url("../images/common.png");height:52px;width:217px;margin-left:100px;margin-left:63px;padding:8px 0px 0px 70px;font-size:18px;font-weight:bold;}
+.timeline .blockmeet, .timeline .blockwedding{background:url("../images/common.png");height:52px;margin-left:100px;margin-left:63px;padding:8px 0px 0px 70px;font-size:18px;font-weight:bold;}
 .timeline .blockmeet{background-position:-218px -380px;}
 .timeline .blockwedding{background-position:-218px -320px;}
 
