@@ -10,4 +10,9 @@ class ActionIndex extends Action
 	{
 
 	}
+
+	public function methodMap()
+	{
+		Front::redirect(MAP_URL);
+	}
 }
