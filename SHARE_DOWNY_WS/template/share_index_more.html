@@ -12,9 +12,9 @@
 		<div class="panel">
 			<div class="above">
 				<input type="text" class="url" />
-				<label class="url">Url<span>qing yi http huo https kai tou</span></label>
+				<label class="url">Url<span>Share this url to...</span></label>
 				<input type="text" class="desc" />
-				<label class="desc">Descript<span>shi feng xiang zhan dian er ding</span></label>
+				<label class="desc">Descript<span>Description of the website</span></label>
 				<ul>
 					<li data-index="0" class="focus"><img src="images/transparent.png" /><input type="hidden" class="img" /></li>
 					<li data-index="1" class="hide"><img src="images/transparent.png" /><input type="hidden" class="img" /></li>
@@ -24,12 +24,12 @@
 				</ul>
 				<div class="cb"></div>
 				<input type="text" class="img_txt" />
-				<label class="img">Image<span>shi feng xiang zhan dian ding, zui duo chuan chu wu zhang.</span></label>
+				<label class="img">Image<span>Add some images here...</span></label>
 			</div>
 			<div class="below">
 				<img src="tosite/base/ico18.png" />
 				<select class="site">
-					<option data-src="tosite/base/ico18.png" value="">Choose share site</option>
+					<option data-src="tosite/base/ico18.png" value="">Choose where to share</option>
 					{foreach from=$tosites item=v}
 						<option data-src="tosite/{$v.key}/ico18.png" value="{$v.key}">{$v.name}</option>
 					{/foreach}
