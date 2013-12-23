@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>{$params.app_name}</title>
+	<link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+	<div data-role="page">
+		<div data-role="header"><h3>{$params.app_name}</h3></div>
+		<div class="content" data-role="content">
+			<fieldset data-role="controlgroup" data-type="vertical">
+				<legend>fang wen de zhan dian meiyou shouji ban, shi fou ji xu fangwen?</legend>
+				<input id="no_warning" name="no_warning" type="checkbox" value="1" />
+				<label for="no_warning">xia ci fang wen bu zai ti shi</label>
+				<p class="tips">shi yong shouji liuliang fangwen diannao wangzhan hui hen hao liuliang.</p>
+			</fieldset>
+			<fieldset data-role="controlgroup">
+				 <a class="confirm" data-fun="mobiWarning" data-app_url="{$params.app_url}" data-ajax="false" data-callback="{$params.callback}" href="javascript:;" data-role="button">Confirm</a>
+			</fieldset>
+		</div>
+		<div class="footer" data-role="footer">
+			<h3>Copyright &copy; 2013-2014 Downy All Rights Reserved.</h3>
+			<h3>Shanghai ICP No.13039079</h3>
+		</div>
+	</div>
+</body>
+</html>

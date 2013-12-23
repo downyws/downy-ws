@@ -46,7 +46,7 @@ if(isset($GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE']) && $GLOBALS['CONFIG']['REMOTE
 		Factory::loadLibrary('remotehelper');
 		$remotehelper = new RemoteHelper();
 		$_COOKIE['REMOTE_DEVICE_TYPE'] = $remotehelper->getDeviceType();
-		setcookie('REMOTE_DEVICE_TYPE', $_COOKIE['REMOTE_DEVICE_TYPE'], time() + 86400000, '', ROOT_DOMAIN);
+		setcookie('REMOTE_DEVICE_TYPE', $_COOKIE['REMOTE_DEVICE_TYPE'], time() + 86400000, '/', ROOT_DOMAIN);
 	}
 	define('REMOTE_DEVICE_TYPE', $_COOKIE['REMOTE_DEVICE_TYPE']);
 }
