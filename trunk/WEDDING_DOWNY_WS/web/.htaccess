@@ -1,5 +1,7 @@
 RewriteEngine On
+
 RewriteRule ^$			/index.php?a=index&m=index
-RewriteRule ^mobi/$		/mobi/index.php?a=index&m=index
 RewriteRule ^map.html		/index.php?a=index&m=map
+
+RewriteRule ^mobi/$		/mobi/index.php?a=index&m=index
 RewriteRule ^mobi/map.html	/mobi/index.php?a=index&m=map

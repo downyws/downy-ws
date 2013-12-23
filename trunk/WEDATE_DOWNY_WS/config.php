@@ -6,3 +6,16 @@ error_reporting(E_ALL);
 
 // 访问密码
 define('ACCESS_API_KEY', '');
+
+// 数据库配置
+$GLOBALS['CONFIG']['DB'] = array
+(
+	'HOST' => '',
+	'PORT' => '',
+	'USERNAME' => '',
+	'PASSWORD' => '',
+	'DBNAME' => '',
+	'CHARSET' => '',
+	'PREFIX' => '',
+	'QUERY_LIMIT_BYTE' => ''
+);

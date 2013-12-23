@@ -2,6 +2,7 @@ $(function(){
 	$("a.confirm").click(function(){
 		switch($(this).data("fun")){
 			case "siteType": siteType(this); break;
+			case "mobiWarning": mobiWarning(this); break;
 			case "accessPassword": accessPassword(this); break;
 		}
 	});
@@ -14,6 +15,12 @@ function siteType(obj){
 	if(site_type_default){
 		href = "/index.php?a=cookie&m=set&s=PC&expire=max&key=SITE_TYPE_DEFAULT&val=" + site_type + "&callback=" + encodeURIComponent(href);
 	}
+	$(obj).attr("href", href);
+}
+
+function mobiWarning(obj){
+	var no_warning = $("input[name='no_warning']").is(":checked");
+	var href = $(obj).data("app_url") + "index.php?a=cookie&m=set&s=PC&expire=" + (no_warning ? "max" : "now") + "&key=SITE_TYPE&val=PC&callback=" + $(obj).data("callback");
 	$(obj).attr("href", href);
 }
 
