@@ -7,7 +7,7 @@ include_once(APP_DIR . 'global.php');
 
 include_once('../../framework/framework.core.php');
 
-if(empty($_GET['s']) || $_GET['s'] != 'PC')
+/* if(empty($_GET['s']) || $_GET['s'] != 'PC')
 {
 	if(!isset($_COOKIE['SITE_TYPE']))
 	{
@@ -20,7 +20,7 @@ if(empty($_GET['s']) || $_GET['s'] != 'PC')
 	{
 		Front::redirect('mobi');
 	}
-}
+} */
 
 include_once(APP_DIR . 'access.php');
 Front::dispatch();
