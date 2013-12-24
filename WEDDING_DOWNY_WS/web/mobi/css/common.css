@@ -8,7 +8,7 @@ ul, ol, li, dl{margin:0;padding:0;list-style:none;}
 table{border-collapse:collapse;}
 .cb{clear:both;}
 
-body{background:url("../images/body_bg.jpg");}
+body{background-color:#A17CFC;}
 .page{margin:0px auto;width:300px;}
 .placard{width:260px;height:238px;background:url("../images/common.png");padding:70px 20px 20px;}
 .content{margin:10px 0px;width:280px;border:1px solid #FFFFFF;background:url("../images/content_bg.png");box-shadow:0 0 2px #A8A7A8;padding:8px;}
