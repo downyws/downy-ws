@@ -16,44 +16,45 @@ class ActionIndex extends Action
 		$params = $this->_submit->obtain($_REQUEST, array(
 			'year' => array(
 				array('format', 'int'),
-				array('valid', 'between', '', 2010, array(2010, 2099))
+				array('valid', 'between', '', 2010, array(2010, 2014))
 			),
 			'all' => array(array('valid', 'in', '', 0, array(0, 1)))
 		));
 
 		$filecache = new Filecache();
 		$key = 'dates.temp';
-		$dates = $filecache->get($key);
-		if(!$dates)
+		$result = $filecache->get($key);
+		if(!$result)
 		{
 			$dateObj = Factory::getModel('date');
-			$temp = $dateObj->getAll();
-			$temp = array_reverse($temp);
-			$dates = array(); 
-			foreach($temp as $v)
+			$result = array('years' => array(), 'dates' => $dateObj->getAll());
+			for($i = 0; $i < count($result['dates']); $i++)
 			{
-				if(!isset($dates[$v['y'] . '00']))
+				for($j = $i; $j < count($result['dates']); $j++)
 				{
-					$dates[$v['y'] . '00'] = array();
+					if($result['dates'][$i]['meet_time'] < $result['dates'][$j]['meet_time'])
+					{
+						list($result['dates'][$i], $result['dates'][$j]) = array($result['dates'][$j], $result['dates'][$i]);
+					}
 				}
-				if(!isset($dates[$v['y'] . '00'][$v['y'] . $v['m']]))
-				{
-					$dates[$v['y'] . '00'][$v['y'] . $v['m']] = array();
-				}
-				$dates[$v['y'] . '00'][$v['y'] . $v['m']][] = $v;
+				$result['years'][] = $result['dates'][$i]['y'];
 			}
-			$filecache->set($key, $dates, strtotime(date('Y-m-d')) + 86399 - time());
+			$result['years'] = array_values(array_unique($result['years']));
+			$filecache->set($key, $result, strtotime(date('Y-m-d')) + 86399 - time());
 		}
 
-		$years = array_keys($dates);
 		if(!$params['all'])
 		{
-			$dates = isset($dates[$params['year']]) ? 
-				array($params['year'] => $dates[$params['year']]) : 
-				array($params['year'] => array());
+			foreach($result['dates'] as $k => $v)
+			{
+				if($v['years'] != $params['year'])
+				{
+					unset($result['dates'][$k]);
+					break;
+				}
+			}
 		}
 
-		$result = array('years' => $years, 'dates' => $dates);
 		echo json_encode($result);
 	}
 }
