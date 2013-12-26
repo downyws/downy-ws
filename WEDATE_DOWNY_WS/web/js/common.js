@@ -49,22 +49,40 @@ $.fn.extend({
 				var dates = response.dates, html = {timeline: "", aside: ""};
 				html.timeline += "<div class='blockwedding'>We tied the knot in 2014!</div>";
 				html.aside += "<ul>";
-				for(var y in dates){
-					html.timeline += "<div class='blockyear'><div class='clearfix' id='timeline-" + y + "'><span class='year'>" + y.substr(0, 4) + "年</span><span class='arr'></span></div></div>";
-					html.aside += "<li class='year'><a class='timeline-jump' href='javascript:;' id='timeline-btn-" + y + "'>" + y.substr(0, 4) + "年</a><ul class='month'>";
-					for(var m in dates[y]){
-						html.timeline += "<div id='timeline-" + y + "-" + m + "'>";
-						for(var d in dates[y][m]){
-							html.timeline += "<div class='blockmonth clearfix'><div class='day'>" + m.substr(4, 2) + "月" + dates[y][m][d].d + "日</div>";
-							html.timeline += "<div class='notes'><div class='arrow-left'></div><div class='cnt'>";
-							html.timeline += dates[y][m][d]['location'];
-							html.timeline += "</div><div class='arrow-right'></div></div></div>";
-						}
-						html.timeline += "</div>";
-						html.aside += "<li><a class='timeline-jump' href='javascript:;' id='timeline-btn-" + y + "-" + m + "'>" + m.substr(4, 2) + "月</a></li>";
+
+				var stamp = {now: {y: 0, m: 0}}, date = null;
+				for(var i = 0; i < dates.length; i++)
+				{
+					date = dates[i];
+
+					if(stamp.y != date.y)
+					{
+						stamp.y = date.y;
+						html.timeline += "<div class='blockyear'><div class='clearfix' id='timeline-" + date.y + "'><span class='year'>" + date.y + "年</span><span class='arr'></span></div></div>";
+						html.aside += "<li class='year'><a class='timeline-jump' href='javascript:;' id='timeline-btn-" + date.y + "'>" + date.y + "年</a><ul class='month'>";
 					}
-					html.aside += "</ul></li>";
+					if(stamp.m != date.m)
+					{
+						stamp.m = date.m;
+						html.timeline += "<div id='timeline-" + date.y + "-" + date.m + "'>";
+						html.aside += "<li><a class='timeline-jump' href='javascript:;' id='timeline-btn-" + date.y + "-" + date.m + "'>" + date.m + "月</a></li>";
+					}
+
+					html.timeline += "<div class='blockmonth clearfix'><div class='day'>" + date.m + "月" + date.d + "日</div>";
+					html.timeline += "<div class='notes'><div class='arrow-left'></div><div class='cnt'>";
+					html.timeline += date['location'];
+					html.timeline += "</div><div class='arrow-right'></div></div></div>";
+
+					if(typeof(dates[i+1]) == "undefined" || dates[i+1].m != stamp.m)
+					{
+						html.timeline += "</div>";
+					}
+					if(typeof(dates[i+1]) == "undefined" || dates[i+1].y != stamp.y)
+					{
+						html.aside += "</ul></li>";
+					}
 				}
+				
 				html.timeline += "<div class='blockmeet'>We met in 2010!</div>";
 				html.aside += "</ul>";
 				$(".content .timeline").html(html.timeline);
@@ -74,14 +92,24 @@ $.fn.extend({
 				var ANCHORS = [];
 				var top = $(".content .aside").offset().top - 20;
 				$(".content .aside").data("top", top);
-				for(var y in dates){
-					top = $("#timeline-" + y).offset().top;
-					$("#timeline-btn-" + y).data("top", top);
-					ANCHORS.push(["#timeline-btn-" + y, 'y', top]);
-					for(var m in dates[y]){
-						top = $("#timeline-" + y + "-" + m).offset().top;
-						$("#timeline-btn-" + y + "-" + m).data("top", top);
-						ANCHORS.push(["#timeline-btn-" + y + "-" + m, 'm', top]);
+				var stamp = {now: {y: 0, m: 0}}, date = null;
+				for(var i = 0; i < dates.length; i++)
+				{
+					date = dates[i];
+
+					if(stamp.y != date.y)
+					{
+						stamp.y = date.y;
+						top = $("#timeline-" + date.y).offset().top;
+						$("#timeline-btn-" + date.y).data("top", top);
+						ANCHORS.push(["#timeline-btn-" + date.y, 'y', top]);
+					}
+					if(stamp.m != date.m)
+					{
+						stamp.m = date.m;
+						top = $("#timeline-" + date.y + "-" + date.m).offset().top;
+						$("#timeline-btn-" + date.y + "-" + date.m).data("top", top);
+						ANCHORS.push(["#timeline-btn-" + date.y + "-" + date.m, 'm', top]);
 					}
 				}
 
