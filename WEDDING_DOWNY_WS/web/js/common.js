@@ -9,7 +9,7 @@ $(function() {
 	$(".content-below-left .share a").pageShare();
 
 	// ÌבÊ¾
-	$(".content-below-right .title ul li").tooltip({
+	$(".content-below-right .title ul li, .content-below-right .map .heart").tooltip({
 		show: null,
 		position: {my:"left top", at:"left bottom"},
 		open:function(event, ui){

@@ -10,7 +10,7 @@ table{border-collapse:collapse;}
 
 body{background-color:#E0E0E0;}
 .page{margin:0px auto;width:300px;}
-.placard{width:260px;height:238px;background:url("../images/common.png");padding:70px 20px 20px;}
+.placard{width:260px;height:243px;background:url("../images/common.png");padding:65px 20px 20px;font-size:12px;line-height:17px;}
 .content{margin:10px 0px;width:280px;border:1px solid #FFFFFF;background:url("../images/content_bg.png");box-shadow:0 0 2px #A8A7A8;padding:8px;}
 .content .photos{position:relative;width:280px;height:170px;}
 .content .photos .bar{width:280px;position:absolute;top:0px;left:0px;height:8px;background:url("../images/common.png");background-position:-0px -332px;}
