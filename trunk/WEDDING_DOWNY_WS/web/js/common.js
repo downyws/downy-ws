@@ -72,7 +72,7 @@ $.fn.extend({
 			var index = parseInt(btns.find(".current").data("index")) + 1;
 			index = (index >= count) ? 0 : index;
 			trunPage(index);
-		}, 5000);
+		}, 6000);
 	},
 	photosScroll: function(){
 		var items = $(".photos .items");
