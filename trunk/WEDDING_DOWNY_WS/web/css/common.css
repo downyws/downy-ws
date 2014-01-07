@@ -20,8 +20,8 @@ body{background:#EFEFEF;font-family:"Oswald",sans-serif;font-size:12px;line-heig
 .calendar-below{margin:23px 0px 0px 150px;}
 .calendar-below a{width:258px;height:75px;color:#FFFFFF;cursor:pointer;display:block;text-shadow:1px 1px 1px #2A192B;border:1px solid transparent;font-weight:300;background:url("../images/common.png");background-position:-251px -210px;}
 .calendar-below a:hover{background-position:-512px -210px;}
-.calendar-below .heart{width:108px;height:78px;padding-top:30px;display:block;margin-left:-60px;margin-top:-20px;text-align:center;font-size:28px;line-height:28px;background:url("../images/common.png");background-position:-500px -287px;}
-.calendar-below .text{font-size:28px;display:block;text-align:center;margin:-75px 0px 5px 30px;word-spacing:8px;letter-spacing:2px;}
+.calendar-below .heart{width:108px;height:78px;padding-top:25px;display:block;margin-left:-60px;margin-top:-20px;text-align:center;font-size:28px;line-height:28px;background:url("../images/common.png");background-position:-500px -287px;}
+.calendar-below .text{font-size:28px;display:block;text-align:center;margin:-65px 0px 5px 40px;}
 .calendar-below .text sup{font-size:12px;}
 .placard{float:left;width:495px;}
 .placard-main{width:480px;height:500px;position:relative;background:url("../images/placard_bg.png");margin:18px 0px 0px 13px;border:1px solid #FFFFFF;}
