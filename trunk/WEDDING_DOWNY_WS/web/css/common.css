@@ -12,7 +12,7 @@ table{border-collapse:collapse;}
 .ui-tooltip{padding:2px 5px;}
 
 /* Layout style */
-body{background:url("../images/body_bg.jpg") repeat;font-family:"Oswald",sans-serif;font-size:12px;line-height:20px;}
+body{background:#EFEFEF;font-family:"Oswald",sans-serif;font-size:12px;line-height:20px;}
 .header{margin:0px auto;width:1000px;height:125px;background:url("../images/common.png");text-align:center;}
 .board{margin:10px auto 20px;width:990px;}
 .calendar{float:left;width:495px;}
