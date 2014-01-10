@@ -6,3 +6,6 @@ error_reporting(E_ALL);
 
 // 资源站点
 define('RESOURCES_DOMAIN', '');
+
+// Weixin TOKEN
+define('WEIXIN_TOKEN', '');
