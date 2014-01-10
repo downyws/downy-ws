@@ -4,6 +4,9 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// 资源站点
+define('RESOURCES_DOMAIN', '');
+
 // 访问密码
 define('ACCESS_API_KEY', '');
 
