@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteRule ^$			/index.php?a=index&m=index
+
+RewriteRule ^mobi/$		/mobi/index.php?a=index&m=index
