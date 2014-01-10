@@ -18,14 +18,20 @@ class ActionWeixinApi extends Action
 		if(count($this->_submit->errors) > 0)
 		{
 			echo current($this->_submit->errors);
+			exit;
 		}
-		else if($params['signature'] == sha1(WEIXIN_TOKEN . $params['timestamp'] . $params['nonce']))
+
+		$sign = array(WEIXIN_TOKEN, $params['timestamp'], $params['nonce']);
+		sort($sign);
+		$sign = implode($sign);
+
+		if($params['signature'] != sha1($sign))
 		{
-			echo $params['echostr'];
+			echo 'signature error.';
 		}
 		else
 		{
-			echo 'signature error.';
+			echo $params['echostr'];
 		}
 	}
 }
