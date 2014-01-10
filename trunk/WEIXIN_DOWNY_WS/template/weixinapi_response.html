@@ -1,0 +1,9 @@
+<xml>
+	<ToUserName><![CDATA[{$response.toUserName}]]></ToUserName>
+	<FromUserName><![CDATA[{$response.fromUserName]]></FromUserName>
+	<CreateTime>{$response.createTime}</CreateTime>
+	<MsgType><![CDATA[{$response.msgType}]]></MsgType>
+	{if $response.msgType == "text"}
+		<Content><![CDATA[{$response.content}]]></Content>
+	{/if}
+</xml>

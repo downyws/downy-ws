@@ -9,3 +9,16 @@ define('RESOURCES_DOMAIN', '');
 
 // Weixin TOKEN
 define('WEIXIN_TOKEN', '');
+
+// 数据库配置
+$GLOBALS['CONFIG']['DB'] = array
+(
+	'HOST' => '',
+	'PORT' => '',
+	'USERNAME' => '',
+	'PASSWORD' => '',
+	'DBNAME' => '',
+	'CHARSET' => '',
+	'PREFIX' => '',
+	'QUERY_LIMIT_BYTE' => ''
+);

@@ -6,7 +6,7 @@ class ActionWeixinApi extends Action
 		parent::__construct();
 	}
 
-	public function methodValidApi()
+	public function methodIndexApi()
 	{
 		$params = $this->_submit->obtain($_REQUEST, array(
 			'signature' => array(array('format', 'trim')),
@@ -28,6 +28,13 @@ class ActionWeixinApi extends Action
 		if($params['signature'] != sha1($sign))
 		{
 			echo 'signature error.';
+		}
+		else if(!empty($GLOBALS["HTTP_RAW_POST_DATA"]))
+		{
+			$weixinApiObj = Factory::getModel('weixinApi');
+			$response = $weixinApiObj->getResponse($GLOBALS["HTTP_RAW_POST_DATA"]);
+			$this->assign('response', $response);
+			echo $this->_tpl->fetch('weixinapi_response.html');
 		}
 		else
 		{
