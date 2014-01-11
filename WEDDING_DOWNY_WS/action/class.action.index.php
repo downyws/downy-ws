@@ -13,6 +13,16 @@ class ActionIndex extends Action
 
 	public function methodMap()
 	{
-		Front::redirect(MAP_URL);
+		$params = $this->_submit->obtain($_REQUEST, array(
+			'location' => array(array('valid', 'in', null, 'x', array('x', 'j')))
+		));
+		if($params['location'] == 'j')
+		{
+			Front::redirect(MAP_URL_J);
+		}
+		else
+		{
+			Front::redirect(MAP_URL_X);
+		}
 	}
 }
