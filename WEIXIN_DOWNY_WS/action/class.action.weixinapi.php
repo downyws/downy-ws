@@ -33,6 +33,7 @@ class ActionWeixinApi extends Action
 		{
 			$weixinApiObj = Factory::getModel('weixinApi');
 			$response = $weixinApiObj->getResponse($GLOBALS["HTTP_RAW_POST_DATA"]);
+			$this->initTemplate(false);
 			$this->assign('response', $response);
 			echo $this->_tpl->fetch('weixinapi_response.html');
 		}

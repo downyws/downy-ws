@@ -21,10 +21,7 @@ DROP TABLE IF EXISTS `weixin_answer`;
 CREATE TABLE `weixin_answer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `val` text NOT NULL,
-  `level` tinyint(3) unsigned NOT NULL,
-  `key` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `k` (`key`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -34,7 +31,9 @@ DROP TABLE IF EXISTS `weixin_aq`;
 CREATE TABLE `weixin_aq` (
   `q_id` int(10) unsigned NOT NULL,
   `a_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`q_id`,`a_id`)
+  `level` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`q_id`,`a_id`),
+  KEY `aql` (`a_id`,`q_id`,`level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -44,6 +43,7 @@ DROP TABLE IF EXISTS `weixin_follower`;
 CREATE TABLE `weixin_follower` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `openid` varchar(255) NOT NULL,
+  `nickname` varchar(50) NOT NULL DEFAULT '',
   `level` tinyint(3) unsigned NOT NULL,
   `state` tinyint(3) unsigned NOT NULL,
   `create_time` int(10) unsigned NOT NULL,
