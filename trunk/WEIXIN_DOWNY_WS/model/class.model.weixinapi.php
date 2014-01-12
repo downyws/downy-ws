@@ -36,7 +36,8 @@ class ModelWeixinApi extends Model
 		if($q_id && $a_id)
 		{
 			$data = array('q_id' => $q_id, 'a_id' => $a_id, 'level' => $level);
-			return $this->insert($data, 'aq', true);
+			$this->insert($data, 'aq', true);
+			return true;
 		}
 		return false;
 	}
