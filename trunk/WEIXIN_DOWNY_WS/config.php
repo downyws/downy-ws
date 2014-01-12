@@ -10,15 +10,18 @@ define('RESOURCES_DOMAIN', '');
 // Weixin TOKEN
 define('WEIXIN_TOKEN', '');
 
+// Simsimi KEY
+define('SIMSIMI_KEY', '');
+
 // 数据库配置
 $GLOBALS['CONFIG']['DB'] = array
 (
-	'HOST' => '',
-	'PORT' => '',
-	'USERNAME' => '',
-	'PASSWORD' => '',
-	'DBNAME' => '',
-	'CHARSET' => '',
-	'PREFIX' => '',
-	'QUERY_LIMIT_BYTE' => ''
+	'HOST' => 'localhost',
+	'PORT' => '3306',
+	'USERNAME' => 'root',
+	'PASSWORD' => 'root',
+	'DBNAME' => 'downy_ws',
+	'CHARSET' => 'utf8',
+	'PREFIX' => 'weixin_',
+	'QUERY_LIMIT_BYTE' => '200000'
 );
