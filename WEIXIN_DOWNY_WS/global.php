@@ -25,3 +25,23 @@ define('ONRECEIVE_LINK', '_DOWNY_UNSUPPORTED_LINK');			// 链接
 define('ONRECEIVE_ERROR_MATH', '_DOWNY_ERROR_MATH');	// 数学公式错
 define('ONRECEIVE_UNLEARNED', '_DOWNY_UNLEARNED');		// 未学会
 define('ONRECEIVE_LEARNED', '_DOWNY_LEARNED');			// 教会了
+
+// Simsimi
+$GLOBALS['CONFIG']['SIMSIMI'] = array
+(
+	'LEVEL' => 5,
+	'API' => 'http://sandbox.api.simsimi.com/request.p?lc=ch&ft=0.0&key=' . SIMSIMI_KEY . '&text=',
+	// http://sandbox.api.simsimi.com/request.p?lc=ch&ft=0.0&key=your_paid_key&text=内容
+	// http://api.simsimi.com/request.p?lc=ch&ft=0.0&key=your_paid_key&text=内容
+	'CURL' => array
+	(
+		'TIMEOUT' => 3,
+		'ENCODING' => 'gzip, deflate',
+		'PROXY' => false, 
+		'PROXYPORT' => '',
+		'COOKIE' => array('OPEN' => false, 'LOCK' => false, 'PATH' => ''),
+		'REFERER' => array('OPEN' => false, 'LOCK' => false, 'VALUE' => ''),
+		'USERAGENT' => array('OPEN' => false, 'VALUE' => '0'),
+		'AUTO_REDIRECT_COUNT' => 1
+	)
+);

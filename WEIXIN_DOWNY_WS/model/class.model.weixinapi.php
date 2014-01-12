@@ -8,6 +8,39 @@ class ModelWeixinApi extends Model
 		parent::__construct($GLOBALS['CONFIG']['DB']);
 	}
 
+	public function addAnswer($question, $answer, $level = 0)
+	{
+		if(stripos($question, '_') === 0)
+		{
+			$question = str_replace('_', '', $question);
+		}
+
+		$condition = array();
+		$condition[] = array('val' => array('eq', $question));
+		$q_id = $this->getOne($condition, 'id', 'question');
+		if(!$q_id)
+		{
+			$data = array('val' => $question);
+			$q_id = $this->insert($data, 'question');
+		}
+
+		$condition = array();
+		$condition[] = array('val' => array('eq', $answer));
+		$a_id = $this->getOne($condition, 'id', 'answer');
+		if(!$a_id)
+		{
+			$data = array('val' => $answer);
+			$a_id = $this->insert($data, 'answer');
+		}
+
+		if($q_id && $a_id)
+		{
+			$data = array('q_id' => $q_id, 'a_id' => $a_id, 'level' => $level);
+			return $this->insert($data, 'aq', true);
+		}
+		return false;
+	}
+
 	public function getNickname($openid)
 	{
 		$condition = array();
@@ -154,45 +187,34 @@ class ModelWeixinApi extends Model
 		}
 
 		// 学习判断
-		$text = explode("\n", $text);
-		if(count($text) == 2)
+		$temp = explode("\n", $text);
+		if(count($temp) == 2)
 		{
-			$text = array(trim($text[0]), trim($text[1]));
+			$text = array(trim($temp[0]), trim($temp[1]));
 			if(preg_match('/^问题.+/', $text[0]) && preg_match('/^回答.+/', $text[1]))
 			{
 				$text[0] = substr($text[0], 6);
 				$text[1] = substr($text[1], 6);
-				if(stripos($text[0], '_') === 0)
+				$learned = $this->addAnswer($text[0], $text[1], $follower['level']);
+				if($learned)
 				{
-					$text[0] = str_replace('_', '', $text[0]);
+					return $this->autoText(ONRECEIVE_LEARNED, $follower);
 				}
-
-				$condition = array();
-				$condition[] = array('val' => array('eq', $text[0]));
-				$q_id = $this->getOne($condition, 'id', 'question');
-				if(!$q_id)
-				{
-					$data = array('val' => $text[0]);
-					$q_id = $this->insert($data, 'question');
-				}
-
-				$condition = array();
-				$condition[] = array('val' => array('eq', $text[1]));
-				$a_id = $this->getOne($condition, 'id', 'answer');
-				if(!$a_id)
-				{
-					$data = array('val' => $text[1]);
-					$a_id = $this->insert($data, 'answer');
-				}
-
-				if($q_id && $a_id)
-				{
-					$data = array('q_id' => $q_id, 'a_id' => $a_id, 'level' => $follower['level']);
-					$this->insert($data, 'aq', true);
-				}
-				return $this->autoText(ONRECEIVE_LEARNED, $follower);
 			}
 		}
+		// Simsimi
+		Factory::loadLibrary('curlhelper');
+		$simconf = $GLOBALS['CONFIG']['SIMSIMI'];
+		$curlhelper = new CurlHelper($simconf['CURL']);
+		$response = $curlhelper->request($simconf['API'] . $text, array());
+		$response = json_decode($response['body'], true);
+		if($response['result'] == 100)
+		{
+			$this->addAnswer($text, $response['response'], $simconf['LEVEL']);
+			return $response['response'];
+		}
+
+		// 请求调教
 		return $this->autoText(ONRECEIVE_UNLEARNED, $follower);
 	}
 }
