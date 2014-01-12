@@ -32,6 +32,7 @@ CREATE TABLE `weixin_aq` (
   `q_id` int(10) unsigned NOT NULL,
   `a_id` int(10) unsigned NOT NULL,
   `level` tinyint(3) unsigned NOT NULL,
+  `state` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`q_id`,`a_id`),
   KEY `aql` (`a_id`,`q_id`,`level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
