@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+</head>
+<body>
+	<form action="/index.php" method="get">
+		<input type="hidden" name="a" value="follower" />
+		<input type="hidden" name="m" value="index" />
+		<table border="1px" cellpadding="3"><tr>
+			<td>nickname: <input type="text" name="nickname" value="{$params.nickname}" /></td>
+			<td><input type="submit" value="确定" /></td>
+		</tr></table>
+	</form>
+	<br />
+	<table border="1px" cellpadding="3">
+		<thead><tr><td>id</td><td>openid</td><td>nickname</td><td>level</td><td>state</td><td>create_time</td><td>operate</td></tr></thead>
+		<tbody>
+			{foreach from=$list.datas item=v}
+			<tr>
+				<td>{$v.id}</td>
+				<td>{$v.openid}</td>
+				<td>{$v.nickname}</td>
+				<td>{$v.level}</td>
+				<td>{$v.state}</td>
+				<td>{$v.create_time}</td>
+				<td><a target="_blank" href="/index.php?a=follower&m=edit&id={$v.id}">edit</a></td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+	<br />
+	<table border="1px" cellpadding="3"><tr>
+		<td><a href="{$navgurl}{$list.pager.first}">首页</a></td>
+		<td><a href="{$navgurl}{$list.pager.prev}">上一页</a></td>
+		{section name=loop loop=$list.pager.end - $list.pager.start + 1}
+			{if $smarty.section.loop.index + $list.pager.start == $list.pager.current}
+				<td><b>{$smarty.section.loop.index + $list.pager.start}</b></td>
+			{else}
+				<td><a href="{$navgurl}{$smarty.section.loop.index + $list.pager.start}">{$smarty.section.loop.index + $list.pager.start}</a></td>
+			{/if}
+		{/section}
+		<td><a href="{$navgurl}{$list.pager.next}">下一页</a></td>
+		<td><a href="{$navgurl}{$list.pager.last}">尾页</a></td>
+	</tr></table>
+</body>
+</html>
