@@ -25,6 +25,11 @@ define('ONRECEIVE_LINK', '_DOWNY_UNSUPPORTED_LINK');			// 链接
 define('ONRECEIVE_ERROR_MATH', '_DOWNY_ERROR_MATH');	// 数学公式错
 define('ONRECEIVE_UNLEARNED', '_DOWNY_UNLEARNED');		// 未学会
 define('ONRECEIVE_LEARNED', '_DOWNY_LEARNED');			// 教会了
+define('ONEDIT_NICKNAME_FAILED', '_DOWNY_NICKNAME_FAILED');		// 编辑昵称失败
+define('ONEDIT_NICKNAME_SUCCESS', '_DOWNY_NICKNAME_SUCCESS');	// 编辑昵称成功
+
+// 等级达到多少后可以免审核
+define('NOT_NEED_AUDIT_LEVEL', 25);
 
 // Simsimi
 $GLOBALS['CONFIG']['SIMSIMI'] = array

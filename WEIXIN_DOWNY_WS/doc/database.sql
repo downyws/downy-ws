@@ -32,7 +32,7 @@ CREATE TABLE `weixin_aq` (
   `q_id` int(10) unsigned NOT NULL,
   `a_id` int(10) unsigned NOT NULL,
   `level` tinyint(3) unsigned NOT NULL,
-  `state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `is_adjust` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`q_id`,`a_id`),
   KEY `aql` (`a_id`,`q_id`,`level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -72,6 +72,7 @@ DROP TABLE IF EXISTS `weixin_question`;
 CREATE TABLE `weixin_question` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `val` varchar(20) NOT NULL,
+  `is_adjust` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `v` (`val`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
