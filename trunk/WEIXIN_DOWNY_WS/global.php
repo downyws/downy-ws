@@ -30,7 +30,7 @@ define('ONRECEIVE_LEARNED', '_DOWNY_LEARNED');			// 教会了
 $GLOBALS['CONFIG']['SIMSIMI'] = array
 (
 	'LEVEL' => 5,
-	'API' => 'http://sandbox.api.simsimi.com/request.p?lc=ch&ft=0.0&key=' . SIMSIMI_KEY . '&text=',
+	'API' => 'http://api.simsimi.com/request.p?lc=ch&ft=0.0&key=' . SIMSIMI_KEY . '&text=',
 	// http://sandbox.api.simsimi.com/request.p?lc=ch&ft=0.0&key=your_paid_key&text=内容
 	// http://api.simsimi.com/request.p?lc=ch&ft=0.0&key=your_paid_key&text=内容
 	'CURL' => array
