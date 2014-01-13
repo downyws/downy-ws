@@ -14,7 +14,7 @@ class ActionFollower extends Action
 		));
 
 		$followerObj = Factory::getModel('follower');
-		$list = $followerObj->getPageList($params['p'], $params['nickname']);
+		$list = $followerObj->getPageList($params['p'], $params);
 		$this->assign('list', $list);
 		$this->assign('params', $params);
 		$this->assign('navgurl', '/index.php?a=follower&m=index&nickname=' . urlencode($params['nickname']) . '&p=');

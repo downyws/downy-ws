@@ -5,7 +5,46 @@
 	<title>{$smarty.const.APP_NAME}</title>
 </head>
 <body>
-	<a href="/index.php?a=follower&m=index">关注管理</a>
-	<a href="/index.php?a=aq&m=index">问答管理</a>
+	<form action="/index.php" method="get">
+		<input type="hidden" name="a" value="aq" />
+		<input type="hidden" name="m" value="index" />
+		<table border="1px" cellpadding="3"><tr>
+			<td>question: <input type="text" name="question" value="{$params.question}" /></td>
+			<td>is_adjust: <select name="is_adjust">
+				<option value="all" {if $params.is_adjust == "all"}selected="selected"{/if}>全部</option>
+				<option value="false" {if $params.is_adjust == "false"}selected="selected"{/if}>未审核</option>
+				<option value="true" {if $params.is_adjust == "true"}selected="selected"{/if}>已审核</option>
+			</select></td>
+			<td><input type="submit" value="确定" /></td>
+		</tr></table>
+	</form>
+	<br />
+	<table border="1px" cellpadding="3">
+		<thead><tr><td>id</td><td>val</td><td>is_adjust</td><td>operate</td></tr></thead>
+		<tbody>
+			{foreach from=$list.datas item=v}
+			<tr>
+				<td>{$v.id}</td>
+				<td>{$v.val}</td>
+				<td>{if $v.is_adjust}已审核{else}未审核{/if}</td>
+				<td><a target="_blank" href="/index.php?a=aq&m=edit&id={$v.id}">edit</a></td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+	<br />
+	<table border="1px" cellpadding="3"><tr>
+		<td><a href="{$navgurl}{$list.pager.first}">首页</a></td>
+		<td><a href="{$navgurl}{$list.pager.prev}">上一页</a></td>
+		{section name=loop loop=$list.pager.end - $list.pager.start + 1}
+			{if $smarty.section.loop.index + $list.pager.start == $list.pager.current}
+				<td><b>{$smarty.section.loop.index + $list.pager.start}</b></td>
+			{else}
+				<td><a href="{$navgurl}{$smarty.section.loop.index + $list.pager.start}">{$smarty.section.loop.index + $list.pager.start}</a></td>
+			{/if}
+		{/section}
+		<td><a href="{$navgurl}{$list.pager.next}">下一页</a></td>
+		<td><a href="{$navgurl}{$list.pager.last}">尾页</a></td>
+	</tr></table>
 </body>
 </html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript">
+	var DETAIL = {$detail};
+	{literal}
+	$(function(){
+		$("form").attr("action", "/index.php?a=aq&m=edit&id=" + DETAIL.id);
+		$(".detail_id").text(DETAIL.id);
+		$(".detail_val").text(DETAIL.val);
+		if(DETAIL.is_adjust == "1"){
+			$(".detail_is_adjust").attr("checked","checked");
+		}
+		for(var i = 0; i < DETAIL.answer.length; i++){
+			$(".detail_answer").append(
+				"<tr class='lasttr'>" + 
+					"<td class='a_id'><input type='hidden' name='a_id[]' /></td>" +
+					"<td class='aq_is_adjust'><input type='hidden' name='aq_is_adjust[]' value='0' /><input type='checkbox' /></td>" +
+					"<td class='a_val'><input type='text' autocomplete='off' style='width:300px;' name='a_val[]' /></td>" +
+					"<td class='aq_level'><input type='text' autocomplete='off' style='width:50px;' name='aq_level[]' /></td>" +
+					"<td class='aq_need_del'><input type='hidden' name='aq_need_del[]' value='hld' /><a href='javascript:;'>删除</a></td>" +
+				"</tr>"
+			);
+
+			$(".detail_answer .lasttr .a_id input").val(DETAIL.answer[i].id);
+			if(DETAIL.answer[i].is_adjust == "1"){
+				$(".detail_answer .lasttr .aq_is_adjust input[type='checkbox']").attr("checked","checked");
+				$(".detail_answer .lasttr .aq_is_adjust input[type='hidden']").val("1");
+			}
+			$(".detail_answer .lasttr .a_val input").val(DETAIL.answer[i].val);
+			$(".detail_answer .lasttr .aq_level input").val(DETAIL.answer[i].level);
+
+			$(".detail_answer .lasttr").removeClass("lasttr");
+		}
+		$(".detail_answer .aq_is_adjust input[type='checkbox']").click(function(){
+			$(this).parent().find("input[type='hidden']").val($(this).is(":checked") ? "1" : "0");
+		});
+		$(".detail_answer .aq_need_del a").click(function(){
+			if($(this).parent().parent().find(".a_id input[type='hidden']").val() == "0"){
+				$(this).parent().parent().remove();
+			}else{
+				$(this).parent().find("input").val("del");
+				$(this).parent().parent().css("display", "none");
+			}
+		});
+		$(".add_answer").click(function(){
+			$(".detail_answer").append(
+				"<tr class='lasttr'>" + 
+					"<td class='a_id'><input type='hidden' name='a_id[]' value='0' /></td>" +
+					"<td class='aq_is_adjust'><input type='hidden' name='aq_is_adjust[]' value='0' /><input type='checkbox' /></td>" +
+					"<td class='a_val'><input type='text' autocomplete='off' style='width:300px;' name='a_val[]' /></td>" +
+					"<td class='aq_level'><input type='text' autocomplete='off' style='width:50px;' name='aq_level[]' /></td>" +
+					"<td class='aq_need_del'><input type='hidden' name='aq_need_del[]' value='hld' /><a href='javascript:;'>删除</a></td>" +
+				"</tr>"
+			);
+		});
+	});
+	{/literal}
+	</script>
+</head>
+<body>
+	<form method="post">
+		<table border="1px" cellpadding="3">
+			<tr><td>id</td><td class="detail_id"></td></tr>
+			<tr><td>val</td><td class="detail_val"></td></tr>
+			<tr><td></td><td><table class="detail_answer"></table></td></tr>
+			<tr><td></td><td><input type="submit" name="save" value="保存修改" /><input type="button" class="add_answer" value="添加回答" /></td></tr>
+		</table>
+	</form>
+</body>
+</html>

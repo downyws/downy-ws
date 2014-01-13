@@ -8,13 +8,20 @@ class ModelFollower extends Model
 		parent::__construct($GLOBALS['CONFIG']['DB']);
 	}
 
-	public function getPageList($page, $nickname)
+	public function getDetail($id)
+	{
+		$condition = array();
+		$condition[] = array('id' => array('eq', $id));
+		return $this->getObject($condition);
+	}
+
+	public function getPageList($page, $params)
 	{
 		$list = array();
 		$condition = array();
-		if($nickname != '')
+		if($params['nickname'] != '')
 		{
-			$condition[] = array('nickname' => array('like', $nickname));
+			$condition[] = array('nickname' => array('like', $params['nickname']));
 		}
 
 		$sql = 'SELECT * FROM ' . $this->_prefix . $this->_table . 
@@ -27,13 +34,6 @@ class ModelFollower extends Model
 		$list['pager'] = $this->getPager($page, $count);
 
 		return $list;
-	}
-
-	public function getDetail($id)
-	{
-		$condition = array();
-		$condition[] = array('id' => array('eq', $id));
-		return $this->getObject($condition);
 	}
 
 	public function save($detail)
