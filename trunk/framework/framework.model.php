@@ -242,7 +242,7 @@ class Model extends Db
 		return empty($result) ? '' : ' WHERE ( ' . $result . ' )';
 	}
 
-	public function getLimit($p, $ps)
+	public function getLimit($p, $ps = APP_PAGER_SIZE)
 	{
 		return ' LIMIT ' . ($p - 1) * $ps . ', ' . $ps;
 	}
