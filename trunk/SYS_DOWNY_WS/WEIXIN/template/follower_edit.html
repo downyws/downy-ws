@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+</head>
+<body>
+	<form action="/index.php?a=follower&m=edit&id={$detail.id}" method="post">
+		<table border="1px" cellpadding="3">
+			<tr><td>id</td><td>{$detail.id}</td></tr>
+			<tr><td>openid</td><td>{$detail.openid}</td></tr>
+			<tr><td>nickname</td><td><input type="text" name="nickname" value="{$detail.nickname}" /></td></tr>
+			<tr><td>level</td><td><input type="text" name="level" value="{$detail.level}" /></td></tr>
+			<tr><td>state</td><td><input type="text" name="state" value="{$detail.state}" /></td></tr>
+			<tr><td>create_time</td><td>{$detail.create_time|date_format:"%Y-%m-%d %T"}</td></tr>
+			<tr><td></td><td><input type="submit" name="save" value="保存修改" /></td></tr>
+		</table>
+	</form>
+</body>
+</html>
