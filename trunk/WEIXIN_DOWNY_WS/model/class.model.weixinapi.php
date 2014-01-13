@@ -20,7 +20,7 @@ class ModelWeixinApi extends Model
 		$q_id = $this->getOne($condition, 'id', 'question');
 		if(!$q_id)
 		{
-			$data = array('val' => $question);
+			$data = array('val' => $question, 'is_adjust' => $level >= NOT_NEED_AUDIT_LEVEL ? 1 : 0);
 			$q_id = $this->insert($data, 'question');
 		}
 
@@ -35,23 +35,115 @@ class ModelWeixinApi extends Model
 
 		if($q_id && $a_id)
 		{
-			$data = array('q_id' => $q_id, 'a_id' => $a_id, 'level' => $level);
+			$data = array('q_id' => $q_id, 'a_id' => $a_id, 'level' => $level, 'is_adjust' => $level >= NOT_NEED_AUDIT_LEVEL ? 1 : 0);
 			$this->insert($data, 'aq', true);
+			if($level < NOT_NEED_AUDIT_LEVEL)
+			{
+				$condition = array();
+				$condition[] = array('id' => array('eq', $q_id));
+				$data = array('is_adjust' => 0);
+				$this->update($condition, $data, 'question');
+			}
 			return true;
 		}
 		return false;
 	}
 
-	public function getNickname($openid)
+	public function autoText($text, $follower = null)
+	{
+		// 数学运算判断
+		if(preg_match('/^[0-9\+\-\*\/\.\(\)]+$/', $text))
+		{
+			$text = preg_replace(array('/([0-9])(\()/', '/(\))([0-9])/'), '$1*$2', $text);
+			@eval('$val=' . $text . ';');
+			if(isset($val))
+			{
+				return $text . '=' . $val;
+			}
+			else
+			{
+				return $this->autoText(ONRECEIVE_ERROR_MATH, $follower);
+			}
+		}
+
+		// 昵称修改
+		if(preg_match('/^我的名字叫.+/', $text))
+		{
+			$text = substr($text, 15);
+			$learned = $this->editNickname($text);
+			if($learned)
+			{
+				return $this->autoText(ONEDIT_NICKNAME_SUCCESS, $follower);
+			}
+			else
+			{
+				return $this->autoText(ONEDIT_NICKNAME_FAILED, $follower);
+			}
+		}
+
+		// 数据库回复
+		$sql =	' SELECT a.val FROM ' . $this->_prefix . 'question AS q ' .
+				' JOIN ' . $this->_prefix . 'aq AS aq ON q.id = aq.q_id ' .
+				' JOIN ( ' .
+				' 	SELECT MAX(aq.`level`) AS ml FROM ' . $this->_prefix . 'question AS q ' .
+				' 	JOIN ' . $this->_prefix . 'aq AS aq ON q.id = aq.q_id ' .
+				' 	WHERE q.val = "' . $this->escape($text) . '" ' .
+				' ) AS m ON m.ml = aq.`level` ' .
+				' JOIN ' . $this->_prefix . 'answer AS a ON a.id = aq.a_id ' .
+				' WHERE q.val = "' . $this->escape($text) . '" ';
+		$val = $this->fetchCol($sql);
+		if(!empty($val) && is_array($val))
+		{
+			shuffle($val);
+			return current($val);
+		}
+
+		// 学习判断
+		$temp = explode("\n", $text);
+		if(count($temp) == 2)
+		{
+			$text = array(trim($temp[0]), trim($temp[1]));
+			if(preg_match('/^问题.+/', $text[0]) && preg_match('/^回答.+/', $text[1]))
+			{
+				$text[0] = substr($text[0], 6);
+				$text[1] = substr($text[1], 6);
+				$learned = $this->addAnswer($text[0], $text[1], $follower['level']);
+				if($learned)
+				{
+					return $this->autoText(ONRECEIVE_LEARNED, $follower);
+				}
+			}
+		}
+		// Simsimi
+		Factory::loadLibrary('curlhelper');
+		$simconf = $GLOBALS['CONFIG']['SIMSIMI'];
+		$curlhelper = new CurlHelper($simconf['CURL']);
+		$response = $curlhelper->request($simconf['API'] . $text, array());
+		$response = json_decode($response['body'], true);
+		if($response['result'] == 100)
+		{
+			$this->addAnswer($text, $response['response'], $simconf['LEVEL']);
+			return $response['response'];
+		}
+
+		// 请求调教
+		return $this->autoText(ONRECEIVE_UNLEARNED, $follower);
+	}
+
+	public function cancelFollow($openid)
 	{
 		$condition = array();
 		$condition[] = array('openid' => array('eq', $openid));
-		$follower = $this->getObject($condition, array(), 'follower');
-		if(!empty($follower) && !empty($follower['nickname']))	// 此处有BUG,昵称为"0"
-		{
-			return $follower['nickname'];
-		}
-		return $openid;
+		$data = array('state' => FOLLOWER_STATE_CANCEL);
+		$this->update($condition, $data, 'follower');
+	}
+
+	public function editNickname($nickname, $fofollower)
+	{
+		$condition = array();
+		$condition[] = array('id' => array('eq', $fofollower['id']));
+		$data = array('nickname' => $nickname);
+		return $this->update($condition, $data, 'follower');
 	}
 
 	public function getFollower($openid)
@@ -82,12 +174,16 @@ class ModelWeixinApi extends Model
 		return $follower;
 	}
 
-	public function cancelFollow($openid)
+	public function getNickname($openid)
 	{
 		$condition = array();
 		$condition[] = array('openid' => array('eq', $openid));
-		$data = array('state' => FOLLOWER_STATE_CANCEL);
-		$this->update($condition, $data, 'follower');
+		$follower = $this->getObject($condition, array(), 'follower');
+		if(!empty($follower) && $follower['nickname'] != '')
+		{
+			return $follower['nickname'];
+		}
+		return $openid;
 	}
 
 	public function getResponse($request)
@@ -151,71 +247,5 @@ class ModelWeixinApi extends Model
 		$this->insert($log, 'log');
 
 		return $response;
-	}
-
-	public function autoText($text, $follower = null)
-	{
-		// 数学运算判断
-		if(preg_match('/^[0-9\+\-\*\/\.\(\)]+$/', $text))
-		{
-			$text = preg_replace(array('/([0-9])(\()/', '/(\))([0-9])/'), '$1*$2', $text);
-			@eval('$val=' . $text . ';');
-			if(isset($val))
-			{
-				return $text . '=' . $val;
-			}
-			else
-			{
-				return $this->autoText(ONRECEIVE_ERROR_MATH, $follower);
-			}
-		}
-
-		// 数据库回复
-		$sql =	' SELECT a.val FROM ' . $this->_prefix . 'question AS q ' .
-				' JOIN ' . $this->_prefix . 'aq AS aq ON q.id = aq.q_id ' .
-				' JOIN ( ' .
-				' 	SELECT MAX(aq.`level`) AS ml FROM ' . $this->_prefix . 'question AS q ' .
-				' 	JOIN ' . $this->_prefix . 'aq AS aq ON q.id = aq.q_id ' .
-				' 	WHERE q.val = "' . $this->escape($text) . '" ' .
-				' ) AS m ON m.ml = aq.`level` ' .
-				' JOIN ' . $this->_prefix . 'answer AS a ON a.id = aq.a_id ' .
-				' WHERE q.val = "' . $this->escape($text) . '" ';
-		$val = $this->fetchCol($sql);
-		if(!empty($val) && is_array($val))
-		{
-			shuffle($val);
-			return current($val);
-		}
-
-		// 学习判断
-		$temp = explode("\n", $text);
-		if(count($temp) == 2)
-		{
-			$text = array(trim($temp[0]), trim($temp[1]));
-			if(preg_match('/^问题.+/', $text[0]) && preg_match('/^回答.+/', $text[1]))
-			{
-				$text[0] = substr($text[0], 6);
-				$text[1] = substr($text[1], 6);
-				$learned = $this->addAnswer($text[0], $text[1], $follower['level']);
-				if($learned)
-				{
-					return $this->autoText(ONRECEIVE_LEARNED, $follower);
-				}
-			}
-		}
-		// Simsimi
-		Factory::loadLibrary('curlhelper');
-		$simconf = $GLOBALS['CONFIG']['SIMSIMI'];
-		$curlhelper = new CurlHelper($simconf['CURL']);
-		$response = $curlhelper->request($simconf['API'] . $text, array());
-		$response = json_decode($response['body'], true);
-		if($response['result'] == 100)
-		{
-			$this->addAnswer($text, $response['response'], $simconf['LEVEL']);
-			return $response['response'];
-		}
-
-		// 请求调教
-		return $this->autoText(ONRECEIVE_UNLEARNED, $follower);
 	}
 }
