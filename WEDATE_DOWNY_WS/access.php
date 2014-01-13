@@ -1,6 +1,9 @@
 <?php
+$_GETA = empty($_GET['a']) ? '' : $_GET['a'];
+$_GETM = empty($_GET['m']) ? '' : $_GET['m'];
+$_GETT = empty($_GET['t']) ? '' : $_GET['t'];
 
-if($_GET['a'] == 'access' && $_GET['m'] == 'set' && $_GET['t'] == 'api')
+if($_GETA == 'access' && $_GETM == 'set' && $_GETT == 'api')
 {
 	if(abs(time() - $_REQUEST['timestamp']) > 15)
 	{
@@ -20,7 +23,7 @@ if($_GET['a'] == 'access' && $_GET['m'] == 'set' && $_GET['t'] == 'api')
 	echo json_encode($result);
 	exit;
 }
-else if($_GET['a'] != 'cookie' || $_GET['m'] != 'set')
+else if($_GETA != 'cookie' || $_GETM != 'set')
 {
 	$need_password = true;
 
@@ -47,7 +50,7 @@ else if($_GET['a'] != 'cookie' || $_GET['m'] != 'set')
 	if($need_password)
 	{
 		$mobi_site = (isset($_COOKIE['SITE_TYPE']) && $_COOKIE['SITE_TYPE'] == 'MOBI') || (stripos($_SERVER["SCRIPT_NAME"], '/mobi/') === 0);
-		Front::redirect('http://' . ROOT_DOMAIN . ($mobi_site === false ? '' : '/mobi') .'/index.php?a=access&m=set&app_name=' . APP_NAME . '&app_url=' . urlencode(APP_URL) . '&callback=' . urlencode(REMOTE_REQUEST_URI));
+		Front::redirect('http://' . ROOT_DOMAIN . ($mobi_site === false ? '' : '/mobi') . '/index.php?a=access&m=set&app_name=' . APP_NAME . '&app_url=' . urlencode(APP_URL) . '&callback=' . urlencode(REMOTE_REQUEST_URI));
 		exit;
 	}
 }
