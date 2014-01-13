@@ -32,7 +32,7 @@ function accessPassword(obj){
 		callback: $("input[name='callback']").val()
 	};
 	if(data.password == ""){
-		$(".content .tips .msg").html("Plz input password.");
+		$(".content .tips .msg").html("Please input password.");
 	}else{
 		$.ajax({type: "POST", url: "/index.php?a=access&m=set&t=ajax", data: data, async: false, dataType: 'JSON', success: function(response){
 			if(typeof(response.error) != "undefined"){
@@ -40,10 +40,10 @@ function accessPassword(obj){
 			}else if(typeof(response.url) != "undefined"){
 				window.location.href = response.url;
 			}else{
-				$(".content .tips .msg").html("Ajax response data error.");
+				$(".content .tips .msg").html("AJAX response data error.");
 			}
 		}, error: function(){
-			$(".content .tips .msg").html("Ajax response error.");
+			$(".content .tips .msg").html("AJAX response error.");
 		}});
 	}
 }
