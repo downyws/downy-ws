@@ -70,7 +70,7 @@ class ModelWeixinApi extends Model
 		if(preg_match('/^我的名字叫.+/', $text))
 		{
 			$text = substr($text, 15);
-			$learned = $this->editNickname($text);
+			$learned = $this->editNickname($text, $follower);
 			if($learned)
 			{
 				return $this->autoText(ONEDIT_NICKNAME_SUCCESS, $follower);
