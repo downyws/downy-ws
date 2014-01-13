@@ -140,6 +140,10 @@ class ModelWeixinApi extends Model
 
 	public function editNickname($nickname, $fofollower)
 	{
+		if(preg_match('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\<\>\,\.\/\?\'\"\:\;\[\]\{\}\\\|]/', $nickname))
+		{
+			return false;
+		}
 		$condition = array();
 		$condition[] = array('id' => array('eq', $fofollower['id']));
 		$data = array('nickname' => $nickname);
