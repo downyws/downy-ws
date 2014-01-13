@@ -4,39 +4,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>{$params.app_name}</title>
-	<link type="text/css" rel="stylesheet" href="{$smarty.const.RESOURCES_DOMAIN}jquery.mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-	<link type="text/css" rel="stylesheet" href="css/common.css" />
-	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
-	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery.mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
 </head>
 <body>
-	<div data-role="page">
-		<div data-role="header"><h3>{$params.app_name}</h3></div>
-		<div class="content" data-role="content">
-			<fieldset data-role="controlgroup">
-				<legend>Password:</legend>
-				<input name="password" type="password" />
-				<p class="tips">
-					<span class="msg"></span>
-					we system think you use mobile or pad, choose mobile site will jieyue liuliang.
-				</p>
-			</fieldset>
-			<fieldset data-role="controlgroup" data-type="vertical">
-				<input id="remember" name="remember" type="checkbox" value="1" />
-				<label for="remember">Xia ci jizhu</label>
-				<p class="tips">when use it, when you visti other site, will not need come this page.</p>
-			</fieldset>
-			<fieldset data-role="controlgroup">
-				<input type="hidden" name="app_url" value="{$params.app_url}" />
-				<input type="hidden" name="callback" value="{$params.callback}" />
-				<a class="confirm" data-fun="accessPassword" data-ajax="false" href="javascript:;" data-role="button">Confirm</a>
-			</fieldset>
-		</div>
-		<div class="footer" data-role="footer">
-			<h3>Copyright &copy; 2013-2014 Downy All Rights Reserved.</h3>
-			<h3>Shanghai ICP No.13039079</h3>
-		</div>
-	</div>
+	<center><h1>Application error, please contact administrator.</h1></center>
 </body>
 </html>

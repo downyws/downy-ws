@@ -25,9 +25,9 @@ class ActionAccess extends Action
 	public function methodSetAjax()
 	{
 		$params = $this->_submit->obtain($_REQUEST, array(
-			'password' => array(array('valid', 'empty', array('error' => array('code' => '', 'msg' => 'Plz input  password.')), null, null)),
-			'app_url' => array(array('valid', 'in', array('error' => array('code' => '', 'msg' => 'invaild app url .')), null, array_keys($GLOBALS['CONFIG']['ACCESS']))),
-			'callback' => array(array('valid', 'url', array('error' => array('code' => '', 'msg' => 'invaild callback .')), null, null)),
+			'password' => array(array('valid', 'empty', array('error' => array('code' => '', 'msg' => 'Please input password.')), null, null)),
+			'app_url' => array(array('valid', 'in', array('error' => array('code' => '', 'msg' => 'Application url error.')), null, array_keys($GLOBALS['CONFIG']['ACCESS']))),
+			'callback' => array(array('valid', 'url', array('error' => array('code' => '', 'msg' => 'Callback url error.')), null, null)),
 			'remember' => array(array('valid', 'in', '', '0', array(0, 1)))
 		));
 
@@ -49,7 +49,7 @@ class ActionAccess extends Action
 		else if(!in_array($params['password'], $GLOBALS['CONFIG']['ACCESS'][$params['app_url']]['PASSWORDS']))
 		{
 			$trysafeObj->goUp('ACCESS');
-			$result = array('error' => array('code' => '', 'msg' => 'password error.'));
+			$result = array('error' => array('code' => '', 'msg' => 'Password Incorrect.'));
 		}
 		else
 		{
@@ -77,7 +77,7 @@ class ActionAccess extends Action
 			if(isset($response['error']))
 			{
 				$trysafeObj->goUp('ACCESS');
-				$result = array('error' => array('code' => '', 'msg' => 'wait time.'));
+				$result = array('error' => array('code' => '', 'msg' => 'Please try again later.'));
 			}
 			else
 			{
