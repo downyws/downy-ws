@@ -1,0 +1,21 @@
+<xml>
+	<ToUserName><![CDATA[{$response.toUserName}]]></ToUserName>
+	<FromUserName><![CDATA[{$response.fromUserName}]]></FromUserName>
+	<CreateTime>{$response.createTime}</CreateTime>
+	<MsgType><![CDATA[{$response.msgType}]]></MsgType>	
+	{if $response.msgType == "text"}
+		<Content><![CDATA[{$response.content}]]></Content>
+	{else if $response.msgType == "news"}
+		<ArticleCount>{$response.content|count}</ArticleCount>
+		<Articles>
+		{foreach from=$response.content item=item}
+			<item>
+				<Title><![CDATA[{$item.title}]]></Title>
+				<Description><![CDATA[{$item.description}]]></Description>
+				<PicUrl><![CDATA[{$item.picUrl}]]></PicUrl>
+				<Url><![CDATA[{$item.url}]]></Url>
+			</item>
+		{/foreach}
+		</Articles>
+	{/if}
+</xml>
