@@ -35,6 +35,7 @@ class ActionAQ extends Action
 			$params['answer'] = $this->_submit->obtainArray($_REQUEST, array(
 				'a_id' => array(array('valid', 'int', '回答编号错误', null, null), array('valid', 'gte', '回答编号错误', null, 0)),
 				'aq_is_adjust' => array(array('valid', 'in', '', '0', array('0', '1'))),
+				'a_msg_type' => array(array('valid', 'in', '', 'text', array('text', 'news'))),
 				'a_val' => array(array('format', 'trim'), array('valid', 'empty', '回答不能为空。', null, null)),
 				'aq_level' => array(array('valid', 'int', '', 0, null), array('valid', 'between', '', 0, array(0, 255))),
 				'aq_need_del' => array(array('valid', 'in', '', 'hld', array('hld', 'del')))
