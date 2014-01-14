@@ -29,7 +29,7 @@ class ModelWeixinApi extends Model
 		$a_id = $this->getOne($condition, 'id', 'answer');
 		if(!$a_id)
 		{
-			$data = array('val' => $answer);
+			$data = array('val' => $answer, 'msg_type' => 'text');
 			$a_id = $this->insert($data, 'answer');
 		}
 
@@ -58,7 +58,7 @@ class ModelWeixinApi extends Model
 			@eval('$val=' . $text . ';');
 			if(isset($val))
 			{
-				return $text . '=' . $val;
+				return array('text', $text . '=' . $val);
 			}
 			else
 			{
@@ -82,7 +82,7 @@ class ModelWeixinApi extends Model
 		}
 
 		// 数据库回复
-		$sql =	' SELECT a.val FROM ' . $this->_prefix . 'question AS q ' .
+		$sql =	' SELECT a.val, a.msg_type FROM ' . $this->_prefix . 'question AS q ' .
 				' JOIN ' . $this->_prefix . 'aq AS aq ON q.id = aq.q_id ' .
 				' JOIN ( ' .
 				' 	SELECT MAX(aq.`level`) AS ml FROM ' . $this->_prefix . 'question AS q ' .
@@ -91,11 +91,12 @@ class ModelWeixinApi extends Model
 				' ) AS m ON m.ml = aq.`level` ' .
 				' JOIN ' . $this->_prefix . 'answer AS a ON a.id = aq.a_id ' .
 				' WHERE q.val = "' . $this->escape($text) . '" ';
-		$val = $this->fetchCol($sql);
+		$val = $this->fetchRows($sql);
 		if(!empty($val) && is_array($val))
 		{
 			shuffle($val);
-			return current($val);
+			$val = current($val);
+			return array($val['msg_type'], $val['val']);
 		}
 
 		// 学习判断
@@ -123,7 +124,7 @@ class ModelWeixinApi extends Model
 		if($response['result'] == 100)
 		{
 			$this->addAnswer($text, $response['response'], $simconf['LEVEL']);
-			return $response['response'];
+			return array('text', $response['response']);
 		}
 
 		// 请求调教
@@ -206,39 +207,31 @@ class ModelWeixinApi extends Model
 				switch($data->Event)
 				{
 					case 'subscribe':
-						$response['msgType'] = 'text';
-						$response['content'] = $this->autoText(ONEVENT_SUBSCRIBE, $follower);
+						list($response['msgType'], $response['content']) = $this->autoText(ONEVENT_SUBSCRIBE, $follower);
 						break;
 					case 'unsubscribe':
-						$response['msgType'] = 'text';
-						$response['content'] = $this->autoText(ONEVENT_UNSUBSCRIBE, $follower);
+						list($response['msgType'], $response['content']) = $this->autoText(ONEVENT_UNSUBSCRIBE, $follower);
 						$this->cancelFollow($data->FromUserName);
 						break;
 				}
 				break;
 			case 'image':
-				$response['msgType'] = 'text';
-				$response['content'] = $this->autoText(ONRECEIVE_IMAGE, $follower);
+				list($response['msgType'], $response['content']) = $this->autoText(ONRECEIVE_IMAGE, $follower);
 				break;
 			case 'voice':
-				$response['msgType'] = 'text';
-				$response['content'] = $this->autoText(ONRECEIVE_VOICE, $follower);
+				list($response['msgType'], $response['content']) = $this->autoText(ONRECEIVE_VOICE, $follower);
 				break;
 			case 'video':
-				$response['msgType'] = 'text';
-				$response['content'] = $this->autoText(ONRECEIVE_VIDEO, $follower);
+				list($response['msgType'], $response['content']) = $this->autoText(ONRECEIVE_VIDEO, $follower);
 				break;
 			case 'location':
-				$response['msgType'] = 'text';
-				$response['content'] = $this->autoText(ONRECEIVE_LOCATION, $follower);
+				list($response['msgType'], $response['content']) = $this->autoText(ONRECEIVE_LOCATION, $follower);
 				break;
 			case 'link':
-				$response['msgType'] = 'text';
-				$response['content'] = $this->autoText(ONRECEIVE_LINK, $follower);
+				list($response['msgType'], $response['content']) = $this->autoText(ONRECEIVE_LINK, $follower);
 				break;
 			case 'text':
-				$response['msgType'] = 'text';
-				$response['content'] = $this->autoText($data->Content, $follower);
+				list($response['msgType'], $response['content']) = $this->autoText($data->Content, $follower);
 				break;
 		}
 
