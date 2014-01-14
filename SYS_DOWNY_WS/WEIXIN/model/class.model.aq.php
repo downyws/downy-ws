@@ -8,14 +8,29 @@ class ModelAQ extends Model
 		parent::__construct($GLOBALS['CONFIG']['DB']);
 	}
 
-	public function getAid($val)
+	public function getAid($val, $msg_type)
 	{
-		$condition = array();
-		$condition[] = array('val' => array('eq', $val));
-		$id = $this->getOne($condition, 'id', 'answer');
+		$id = 0;
+		if($msg_type == 'text')
+		{
+			$condition = array();
+			$condition[] = array('val' => array('eq', $val));
+			$condition[] = array('msg_type' => array('eq', $msg_type));
+			$id = $this->getOne($condition, 'id', 'answer');
+		}
 		if(!$id)
 		{
-			$data = array('val' => $val);
+			$data = array('msg_type' => $msg_type);
+			if($msg_type == 'text')
+			{
+				$data['val'] = $val;
+				$data['data'] = '';
+			}
+			else
+			{
+				$data['val'] = '';
+				$data['data'] = $val;
+			}
 			$id = $this->insert($data, 'answer');
 		}
 		return $id;
@@ -28,7 +43,7 @@ class ModelAQ extends Model
 		$detail = $this->getObject($condition, array(), 'question');
 		if($detail)
 		{
-			$sql =	' SELECT a.*, aq.level, aq.is_adjust FROM weixin_aq AS aq ' .
+			$sql =	' SELECT a.id, IF(a.msg_type = "text", a.val, a.data) AS val, a.msg_type, aq.level, aq.is_adjust FROM weixin_aq AS aq ' .
 					' JOIN weixin_answer AS a ON a.id = aq.a_id ' .
 					' WHERE aq.q_id = ' . $detail['id'] .
 					' ORDER BY aq.level DESC, a.val ASC ';
@@ -80,7 +95,7 @@ class ModelAQ extends Model
 			);
 			if($v['aq_need_del'] == 'hld')
 			{
-				$a_id = $this->getAid($v['a_val']);
+				$a_id = $this->getAid($v['a_val'], $v['a_msg_type']);
 				if($a_id)
 				{
 					$datas[] = array('q_id' => $detail['id'], 'a_id' => $a_id, 'level' => $v['aq_level'], 'is_adjust' => ($v['aq_is_adjust'] == '1' ? 1 : 0));

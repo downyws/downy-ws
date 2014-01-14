@@ -19,10 +19,11 @@
 				"<tr class='lasttr_info'>" + 
 					"<td class='a_id'><input type='hidden' name='a_id[]' /></td>" +
 					"<td class='aq_is_adjust'><input type='hidden' name='aq_is_adjust[]' value='0' /><input type='checkbox' /></td>" +
+					"<td class='a_msg_type'><select name='a_msg_type[]'><option value='text'>text</option><option value='news'>news</option></select></td>" +
 					"<td class='aq_level'><input type='text' autocomplete='off' style='width:50px;' name='aq_level[]' /></td>" +
 					"<td class='aq_need_del'><input type='hidden' name='aq_need_del[]' value='hld' /><a href='javascript:;'>删除</a></td>" +
 				"</tr><tr class='lasttr_val'>" +
-					"<td colspan='4' class='a_val'><textarea rows='3' cols='30' name='a_val[]'></textarea></td>" +
+					"<td colspan='5' class='a_val'><textarea rows='3' cols='30' name='a_val[]'></textarea></td>" +
 				"</tr>"
 			);
 
@@ -31,6 +32,7 @@
 				$(".detail_answer .lasttr_info .aq_is_adjust input[type='checkbox']").attr("checked","checked");
 				$(".detail_answer .lasttr_info .aq_is_adjust input[type='hidden']").val("1");
 			}
+			$(".detail_answer .lasttr_info .a_msg_type select").val(DETAIL.answer[i].msg_type);
 			$(".detail_answer .lasttr_val .a_val textarea").val(DETAIL.answer[i].val);
 			$(".detail_answer .lasttr_info .aq_level input").val(DETAIL.answer[i].level);
 
@@ -55,10 +57,11 @@
 				"<tr>" + 
 					"<td class='a_id'><input type='hidden' name='a_id[]' value='0' /></td>" +
 					"<td class='aq_is_adjust'><input type='hidden' name='aq_is_adjust[]' value='0' /><input type='checkbox' /></td>" +
+					"<td class='a_msg_type'><select name='a_msg_type[]'><option value='text'>text</option><option value='news'>news</option></select></td>" +
 					"<td class='aq_level'><input type='text' autocomplete='off' style='width:50px;' name='aq_level[]' /></td>" +
 					"<td class='aq_need_del'><input type='hidden' name='aq_need_del[]' value='hld' /><a href='javascript:;'>删除</a></td>" +
 				"</tr><tr>" +
-					"<td colspan='4' class='a_val'><textarea rows='3' cols='30' name='a_val[]'></textarea></td>" +
+					"<td colspan='5' class='a_val'><textarea rows='3' cols='30' name='a_val[]'></textarea></td>" +
 				"</tr>"
 			);
 		});

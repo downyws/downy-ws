@@ -26,10 +26,11 @@ class ModelWeixinApi extends Model
 
 		$condition = array();
 		$condition[] = array('val' => array('eq', $answer));
+		$condition[] = array('msg_type' => array('eq', 'text'));
 		$a_id = $this->getOne($condition, 'id', 'answer');
 		if(!$a_id)
 		{
-			$data = array('val' => $answer, 'msg_type' => 'text');
+			$data = array('val' => $answer, 'data' => '', 'msg_type' => 'text');
 			$a_id = $this->insert($data, 'answer');
 		}
 
@@ -82,7 +83,7 @@ class ModelWeixinApi extends Model
 		}
 
 		// 数据库回复
-		$sql =	' SELECT a.val, a.msg_type FROM ' . $this->_prefix . 'question AS q ' .
+		$sql =	' SELECT IF(a.msg_type = "text", a.val, a.data) AS val, a.msg_type FROM ' . $this->_prefix . 'question AS q ' .
 				' JOIN ' . $this->_prefix . 'aq AS aq ON q.id = aq.q_id ' .
 				' JOIN ( ' .
 				' 	SELECT MAX(aq.`level`) AS ml FROM ' . $this->_prefix . 'question AS q ' .
