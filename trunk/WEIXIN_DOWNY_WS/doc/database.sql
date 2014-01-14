@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS `weixin_answer`;
 CREATE TABLE `weixin_answer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `val` text NOT NULL,
+  `msg_type` varchar(10) NOT NULL DEFAULT 'text',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
