@@ -37,14 +37,16 @@
 			$(".detail_answer .lasttr_info").removeClass("lasttr_info");
 			$(".detail_answer .lasttr_val").removeClass("lasttr_val");
 		}
-		$(".detail_answer .aq_is_adjust input[type='checkbox']").click(function(){
+		$(".detail_answer").on("click", ".aq_is_adjust input[type='checkbox']", function(){
 			$(this).parent().find("input[type='hidden']").val($(this).is(":checked") ? "1" : "0");
 		});
-		$(".detail_answer .aq_need_del a").click(function(){
+		$(".detail_answer").on("click", ".aq_need_del a", function(){
 			if($(this).parent().parent().find(".a_id input[type='hidden']").val() == "0"){
+				$(this).parent().parent().next("tr").remove();
 				$(this).parent().parent().remove();
 			}else{
 				$(this).parent().find("input").val("del");
+				$(this).parent().parent().next("tr").css("display", "none");
 				$(this).parent().parent().css("display", "none");
 			}
 		});
