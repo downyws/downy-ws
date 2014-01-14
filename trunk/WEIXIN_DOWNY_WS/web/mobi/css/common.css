@@ -7,4 +7,4 @@ html, body{min-height:100%;font-family:Arial;}
 body{background:url("../images/bg.png");padding-top:5%;}
 p{width:80%;color:#FFFFFF;font-size:120%;margin:0px auto 20px;}
 p img{width:90%;}
-p span{color:#A17CFC;margin:0px 10px;}
+p a{color:#A17CFC;margin:0px 10px;}
