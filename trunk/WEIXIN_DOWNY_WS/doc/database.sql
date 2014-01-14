@@ -20,10 +20,12 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `weixin_answer`;
 CREATE TABLE `weixin_answer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `val` text NOT NULL,
+  `val` varchar(128) NOT NULL DEFAULT '',
+  `data` text NOT NULL,
   `msg_type` varchar(10) NOT NULL DEFAULT 'text',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `val_msg` (`val`,`msg_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `weixin_aq`
@@ -76,4 +78,4 @@ CREATE TABLE `weixin_question` (
   `is_adjust` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `v` (`val`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
