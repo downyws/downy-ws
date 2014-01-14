@@ -35,7 +35,7 @@ class ActionWeixinApi extends Action
 			$response = $weixinApiObj->getResponse($GLOBALS["HTTP_RAW_POST_DATA"]);
 			$this->initTemplate(false);
 			$this->assign('response', $response);
-			echo $this->_tpl->fetch('weixinapi_response.html');
+			echo $this->_tpl->fetch('weixinapi_response_text.html');
 		}
 		else
 		{
