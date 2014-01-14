@@ -43,7 +43,7 @@ class ModelAQ extends Model
 		$condition = array();
 		if($params['question'] != '')
 		{
-			$condition[] = array('question' => array('like', $params['question']));
+			$condition[] = array('val' => array('like', $params['question']));
 		}
 		switch($params['is_adjust'])
 		{
