@@ -1,8 +1,10 @@
 RewriteEngine On
 
-RewriteRule ^$			/index.php?a=index&m=index
-RewriteRule ^map.html		/index.php?a=index&m=map
-RewriteRule ^map_jw.html	/index.php?a=index&m=map&location=j
+RewriteRule ^$				/index.php?a=index&m=index
+RewriteRule ^map.html			/index.php?a=index&m=map
+RewriteRule ^map_jw.html		/index.php?a=index&m=map&location=j
 
-RewriteRule ^mobi/$		/mobi/index.php?a=index&m=index
-RewriteRule ^mobi/map.html	/mobi/index.php?a=index&m=map
+RewriteRule ^mobi/$			/mobi/index.php?a=index&m=index
+RewriteRule ^mobi/map.html		/mobi/index.php?a=index&m=map
+RewriteRule ^mobi/weixin_map_xj.html	/mobi/index.php?a=index&m=weixinmap&location=x
+RewriteRule ^mobi/weixin_map_jw.html	/mobi/index.php?a=index&m=weixinmap&location=j
