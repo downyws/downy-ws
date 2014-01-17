@@ -85,6 +85,12 @@ class ModelWeixinApi extends Model
 			}
 		}
 
+		// 临时代码
+		if(preg_match('/(结婚)|(婚礼)|(喜宴)|(宴席)|(西郊)|(爱博)|(喜事)/', $text) && time() < 1393084800)
+		{
+			$text = '结婚';
+		}
+
 		// 学习判断
 		$temp = explode("\n", $text);
 		if(count($temp) == 2)
