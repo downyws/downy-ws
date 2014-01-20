@@ -83,7 +83,7 @@ $.fn.extend({
 					}
 				}
 				
-				html.timeline += "<div class='blockstart'>We start punished in 2010!</div>";// coding
+				html.timeline += "<div class='blockstart'>We met in 2010!</div>";// coding
 				html.aside += "</ul>";
 				$(".content .timeline").html(html.timeline);
 				$(".content .aside").html(html.aside);
