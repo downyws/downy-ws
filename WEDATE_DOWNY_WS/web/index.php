@@ -13,7 +13,7 @@ if(empty($_GET['s']) || $_GET['s'] != 'PC')
 	{
 		if(in_array(REMOTE_DEVICE_TYPE, array('PAD', 'PHONE')))
 		{
-			Front::redirect('http://' . ROOT_DOMAIN . '/mobi/index.php?a=set&m=mobiwarning&app_name=' . APP_NAME . '&app_url=' . urlencode(APP_URL) . '&callback=' . urlencode(REMOTE_REQUEST_URI));
+			Front::redirect('http://' . ROOT_DOMAIN . '/mobi/index.php?a=set&m=mobiwarning&app_name=' . urlencode(APP_NAME) . '&app_url=' . urlencode(APP_URL) . '&callback=' . urlencode(REMOTE_REQUEST_URI));
 		}
 	}
 }
