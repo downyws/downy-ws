@@ -10,7 +10,8 @@
 	<p>微信扫一扫</p>
 	<p class="tc"><img src="images/tdcode.jpg" /></p>
 	<p><span id="add_type">搜索</span><a href="weixin://profile/gh_7ddac677a9cc" onclick="WeiXinAddContact()">DownyHelper</a>关注我们</p>
-	<script type="text/javascript">{literal}
+	{literal}
+	<script type="text/javascript">
 		function WeiXinAddContact(){
 			if(typeof WeixinJSBridge != "undefined"){
 				WeixinJSBridge.invoke("addContact", {
@@ -19,7 +20,8 @@
 				},  function(d) {});
 			}
 		}
-	{/literal}</script>
+	</script>
+	{/literal}
 	{include file="mobi_common_statistics.html"}
 </body>
 </html>

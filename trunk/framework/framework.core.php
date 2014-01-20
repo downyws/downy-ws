@@ -13,6 +13,7 @@ define('LIBRARY_DIR',		ROOT_DIR . 'library/');
 
 define('APP_DIR_ACTION',	APP_DIR . 'action/');
 define('APP_DIR_CACHE',		APP_DIR . 'cache/');
+define('APP_DIR_DOC',		APP_DIR . 'doc/');
 define('APP_DIR_LOGS',		APP_DIR . 'logs/');
 define('APP_DIR_MODEL',		APP_DIR . 'model/');
 define('APP_DIR_TEMPLATE',	APP_DIR . 'template/');
