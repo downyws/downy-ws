@@ -47,7 +47,7 @@ $.fn.extend({
 			}else if(typeof(response.years) != "undefined"){
 				// 生成界面
 				var logs = response.logs, html = {timeline: "", aside: ""};
-				html.timeline += "<div class='blockfuture'>We tied the knot in 2014!</div>";// coding
+				html.timeline += "<div class='blockfuture'>We punished in future!</div>";
 				html.aside += "<ul>";
 
 				var stamp = {now: {y: 0, m: 0}}, log = null;
@@ -83,7 +83,7 @@ $.fn.extend({
 					}
 				}
 				
-				html.timeline += "<div class='blockstart'>We met in 2010!</div>";// coding
+				html.timeline += "<div class='blockstart'>We met in 2010!</div>";
 				html.aside += "</ul>";
 				$(".content .timeline").html(html.timeline);
 				$(".content .aside").html(html.aside);
