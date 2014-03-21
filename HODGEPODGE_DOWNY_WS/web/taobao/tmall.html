@@ -1,0 +1,110 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Downy Hodgepodge - Taobao - Tmall - Tools</title>
+	<script src="http://resources.downy.ws/jquery/jquery-1.10.1.min.js"></script>
+	<style>
+		div{margin-bottom:5px;}
+	</style>
+</head>
+<body>
+	<div>[　][％][０][１][２][３][４][５][６][７][８][９]</div>
+	<div class="list"><div class="item"><input type="text" /><span></span></div></div>
+	<div class="operate">
+		<input type="button" value="add" />
+		<input type="button" value="sub" />
+		<input type="button" value="create" />
+	</div>
+	<div><textarea style="width:90%;"></textarea></div>
+	<div style="padding-top:20px;">Wing075</div>
+	<script type="text/javascript">
+		var MAX_LENGTH = 48;
+		var KEY = {
+			"KB": "　", 
+			"H": "一", 
+			"S": "┃", 
+			"ZS": "┏", 
+			"YS": "┓", 
+			"ZX": "┗", 
+			"YX": "┛"
+		};
+		$(function(){
+			$("input[value=add]").data("html", $(".list").html()).click(function(){
+				$(".list").append($(this).data("html"));
+			});
+			$("input[value=sub]").click(function(){
+				$(".list div:last-child").remove();
+			});
+			$("input[value=create]").click(function(){
+				var count = 0;
+				var list = [];
+				var length = 0;
+				var space = [false, false, ""];
+				var result = ["", "", ""];
+				$(".list div input").each(function(){
+					count++;
+					list.push($(this).val());
+					length += $(this).val().length;
+				});
+
+				if(length + count * 2 > MAX_LENGTH){
+					alert("max length error.");
+					return;
+				}
+
+				// 外间隔
+				space[0] = MAX_LENGTH >= (length + count * 2 + count - 1);
+				// 内间隔
+				space[1] = MAX_LENGTH >= (length + count * 2 + count - 1 + count * 2);
+				// 尾间隔
+				temp = MAX_LENGTH - length - count * 2;
+				if(space[0]){
+					temp -= count - 1;
+				}
+				if(space[1]){
+					temp -= count * 2;
+				}
+				if(count == 1){
+					temp--;
+				}
+				while(temp > 0){
+					temp--;
+					space[2] += KEY.KB;
+				}
+				space[2] += " " + KEY.KB + " ";
+
+				// 生成
+				for(var i = 0; i < list.length; i++){
+					// 补外间隔，非第一个
+					if(i != 0 && space[0]){
+						result[0] += KEY.KB;
+						result[2] += KEY.KB;
+						result[1] += KEY.KB;
+					}
+					// 左边角
+					result[0] += KEY.ZS;
+					result[2] += KEY.ZX;
+					result[1] += KEY.S;
+					// 补内间隔
+					if(space[1]){
+						result[0] += KEY.H + KEY.H;
+						result[2] += KEY.H + KEY.H;
+					}
+					// 横条
+					for(var j = 0; j < list[i].length; j++){
+						result[0] += KEY.H;
+						result[2] += KEY.H;
+					}
+					result[1] += space[1] ? KEY.KB + list[i] + KEY.KB: list[i];
+					// 右边角
+					result[0] += KEY.YS;
+					result[2] += KEY.YX;
+					result[1] += KEY.S;
+				}
+
+				$("textarea").val(result[0] + space[2] + result[1] + space[2] + result[2]);
+			});
+		});
+	</script>
+</body>
+</html>
