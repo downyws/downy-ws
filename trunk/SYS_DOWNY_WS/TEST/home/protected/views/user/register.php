@@ -1,122 +1,180 @@
-<div class="fl b_logbox">
-	<h2>注 册</h2>
+<div class="fl b_logbox" style="width:650px;padding:20px;">
+	<h2 style="text-align:center;font-size:28px;">注 册</h2>
 	<form id="register-form" action="<?php echo Yii::app()->request->baseUrl . $this->createUrl('user/register'); ?>" onsubmit="return false;">
-		<!--<dl><dt></dt><dd></dd>....<input type=submit>-->
+		<dl>
+			<dt><span>*</span>用户名</dt>
+			<dd class="cc username">
+				<span class="ctrl"><input type="text" name="username" /></span>
+				<span class="msg username"></span>
+				<span class="tips"></span>
+			</dd>
 
-		*用户名
-		<input type="text" name="username" />
-		<span class="username"></span>
-		4-20个字符(包括小写字母、数字、下划线、中文)，一个汉字为两个字符，推荐使用中文会员名。一旦注册成功会员名不能修改。
-		<hr />
+			<dt><span>*</span>密码</dt>
+			<dd class="cc password">
+				<span class="ctrl"><input type="password" name="password" /></span>
+				<span class="msg password"></span>
+				<span class="tips">密码长度6到10位</span>
+			</dd>
 
-		*密码
-		<input type="password" name="password" />
-		<span class="password"></span>
-		密码长度6到10位
-		<hr />
+			<dt><span>*</span>确认密码</dt>
+			<dd class="cc cfm_password">
+				<span class="ctrl"><input type="password" name="cfm_password" /></span>
+				<span class="msg cfm_password"></span>
+				<span class="tips">两次输入的密码必须一致</span>
+			</dd>
 
-		*确认密码
-		<input type="password" name="cfm_password" />
-		<span class="cfm_password"></span>
-		 两次输入的密码必须一致
-		<hr />
-		
-		*邮箱
-		<input type="text" name="email" />
-		<span class="email"></span>
-		<hr />
+			<dt><span>*</span>邮箱</dt>
+			<dd class="cc email">
+				<span class="ctrl"><input type="text" name="email" value="<?php echo $request['email']; ?>" /></span>
+				<span class="msg email"></span>
+				<span class="tips"></span>
+			</dd>
 
-		*真实姓名
-		<input type="text" name="real_name" />
-		<span class="real_name"></span>
-		<hr />
+			<dt><span>*</span>真实姓名</dt>
+			<dd class="cc real_name">
+				<span class="ctrl"><input type="text" name="real_name" /></span>
+				<span class="msg real_name"></span>
+				<span class="tips"></span>
+			</dd>
 		
-		*学位
-		<?php foreach($degree_list as $k => $v){ ?>
-			<?php echo $v; ?><input type="radio" name="degree" value="<?php echo $k; ?>" />
-		<?php } ?>
-		<span class="degree"></span>
-		<hr />
-		
-		*工作单位
-		<input type="text" name="organization" />
-		<span class="organization"></span>
-		<hr />
-		
-		*电话号码
-		<input type="text" name="phone" />
-		<span class="phone"></span>
-		区号-电话号码
-		<hr />
-		
-		*手机号码
-		<input type="text" name="mobile" />
-		<span class="mobile"></span>
-		电话和手机号码任填其一即可
-		<hr />
-		
-		*性别
-		男<input type="radio" name="gender" value="1" />
-		女<input type="radio" name="gender" value="2" />
-		<span class="gender"></span>
-		<hr />
-		
-		*身份证号码
-		<input type="text" name="identity" />
-		<span class="identity"></span>
-		<hr />
-		
-		*地区	
-		<select name="region_state"><option>省</option></select>
-		<select name="region_city"><option>市</option></select>
-		<select name="region_district"><option>区</option></select>
-		<span class="region"></span>
-		<hr />
-		
-		*通讯地址
-		<input type="text" name="address" />
-		<span class="address"></span>
-		<hr />
-		
-		*邮编
-		<input type="text" name="zip" />
-		<span class="zip"></span>
-		<hr />
-		
-		职称
-		<input type="text" name="title" />
-		<hr />
-		
-		工作语言
-		<input type="text" name="language" />
-		<hr />
-		
-		研究方向
-		<input type="text" name="subject" />
-		<hr />
+			<dt><span>*</span>学位</dt>
+			<dd class="cc degree">
+				<span class="ctrl">
+					<?php foreach($degree_list as $k => $v){ ?>
+						<?php echo $v; ?><input type="radio" name="degree" value="<?php echo $k; ?>" />
+					<?php } ?>
+				</span>
+				<span class="msg degree"></span>
+				<span class="tips"></span>
+			</dd>
 
-		专长
-		<textarea name="feature"></textarea>
-		<hr />
+			<dt><span>*</span>工作单位</dt>
+			<dd class="cc organization">
+				<span class="ctrl"><input type="text" name="organization" /></span>
+				<span class="msg organization"></span>
+				<span class="tips"></span>
+			</dd>
+		
+			<dt><span>*</span>电话号码</dt>
+			<dd class="cc phone">
+				<span class="ctrl"><input type="text" name="phone" /></span>
+				<span class="msg phone"></span>
+				<span class="tips">区号-电话号码</span>
+			</dd>
 
-		个人简介
-		<textarea name="brief"></textarea>
-		<hr />
+			<dt><span>*</span>手机号码</dt>
+			<dd class="cc mobile">
+				<span class="ctrl"><input type="text" name="mobile" /></span>
+				<span class="msg mobile"></span>
+				<span class="tips">电话和手机号码任填其一即可</span>
+			</dd>
+		
+			<dt><span>*</span>性别</dt>
+			<dd class="cc gender">
+				<span class="ctrl">
+					<?php foreach($gender_list as $k => $v){ ?>
+						<?php echo $v; ?><input type="radio" name="gender" value="<?php echo $k; ?>" />
+					<?php } ?>
+				</span>
+				<span class="msg gender"></span>
+				<span class="tips"></span>
+			</dd>
+		
+			<dt><span>*</span>身份证号码</dt>
+			<dd class="cc identity">
+				<span class="ctrl"><input type="text" name="identity" maxlength="18" /></span>
+				<span class="msg identity"></span>
+				<span class="tips"></span>
+			</dd>
+		
+			<dt><span>*</span>地区</dt>
+			<dd class="cc region_id">
+				<span class="ctrl">
+					<select name="region_state"><option value="0">请选择</option></select>
+					<select name="region_city"><option value="0">请选择</option></select>
+					<select name="region_district"><option value="0">请选择</option></select>
+				</span>
+				<span class="msg region_id"></span>
+				<span class="tips"></span>
+			</dd>
+		
+			<dt><span>*</span>通讯地址</dt>
+			<dd class="cc address">
+				<span class="ctrl"><input type="text" name="address" /></span>
+				<span class="msg address"></span>
+				<span class="tips"></span>
+			</dd>
+		
+			<dt><span>*</span>邮编</dt>
+			<dd class="cc zip">
+				<span class="ctrl"><input type="text" name="zip" /></span>
+				<span class="msg zip"></span>
+				<span class="tips"></span>
+			</dd>
+		
+			<dt><span></span>职称</dt>
+			<dd class="cc title">
+				<span class="ctrl"><input type="text" name="title" /></span>
+				<span class="msg title"></span>
+				<span class="tips"></span>
+			</dd>
+		
+			<dt><span></span>工作语言</dt>
+			<dd class="cc language">
+				<span class="ctrl">
+					<select name="language"><option value="0">请选择</option>
+					<?php foreach($language_list as $k => $v){ ?>
+						<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
+					<?php } ?>
+					</select>
+				</span>
+				<span class="msg language"></span>
+				<span class="tips"></span>
+			</dd>
+		
+			<dt><span></span>研究方向</dt>
+			<dd class="cc subject">
+				<span class="ctrl"><input type="text" name="subject" /></span>
+				<span class="msg subject"></span>
+				<span class="tips"></span>
+			</dd>
 
-		*验证码
-		<div class="captcha_img"><input type="text" name="captcha" /></div>
-		<span class="captcha"></span>
-		<hr />
+			<dt><span></span>专长</dt>
+			<dd class="cc feature">
+				<span class="ctrl"><textarea name="feature"></textarea></span>
+				<span class="msg feature"></span>
+				<span class="tips"></span>
+			</dd>
 
-		我已阅读并接受《投稿须知》
-		<input type="checkbox" name="agree" />
-		<span class="agree"></span>
-		<hr />
+			<dt><span></span>个人简介</dt>
+			<dd class="cc brief">
+				<span class="ctrl"><textarea name="brief"></textarea></span>
+				<span class="msg brief"></span>
+				<span class="tips"></span>
+			</dd>
 
-		<input type="submit" />
+			<dt><span>*</span>验证码</dt>
+			<dd class="cc captcha">
+				<span class="ctrl"><input type="text" name="captcha" /></span></span>
+				<span class="msg captcha"></span>
+				<span class="tips"></span>
+			</dd>
+
+			<dt><span></span></dt>
+			<dd class="cc agree">
+				<span class="ctrl"><input type="checkbox" name="agree" /></span>
+				<span class="tips">我已阅读并接受《投稿须知》</span>
+				<span class="msg agree"></span>
+			</dd>
+			
+			<dt><span></span></dt>
+			<dd class="cc">
+				<input type="submit" />
+			</dd>
+
+		</dl>
 	</form>
 </div>
-<style>input{border:1px solid #FF0000;}</style>
 <script type="text/javascript">
 (function (){
 	var FIELDS = [
@@ -178,9 +236,9 @@
 			}
 		}]],
 		['身份证号码', 'identity', ['input[name=identity]']],
-		['地区', 'region', [function(){
+		['地区', 'region_id', [function(){
 			if($('select[name=region_state]').val() == 0){
-				return ['region', '请选择地区'];
+				return ['region_id', '请选择地区'];
 			}
 		}]],
 		['通讯地址', 'address', ['input[name=address]']],
@@ -229,8 +287,23 @@
 		if(post){
 			$.post($(this).attr('action'), $(this).serialize(), function(res){
 				if(!res.success){
-					for(var k in res.errors){
-						errorMsg(k, res.errors[k]);
+					if(res.message){
+						alert(res.message);
+					}
+					if(res.errors){
+						for(var k in res.errors){
+							var msg = '';
+							if(typeof(res.errors[k]) == 'object'){
+								for(var _k in res.errors[k]){
+									msg += res.errors[k][_k] + "\n";
+								}
+							}else if(typeof(res.errors[k]) == 'string'){
+								msg = res.errors[k];
+							}else{
+								alert('无法解析返回信息');
+							}
+							errorMsg(k, msg);
+						}
 					}
 				}else{
 					location.href = res.url || '/';
@@ -265,7 +338,7 @@
 	$.fn.regionSel(1, 'select[name=region_state]', 'select[name=region_city]', 'select[name=region_district]');
 
 	// 验证码
-	var obj = $('form .captcha_img');
+	var obj = $('form .captcha .ctrl');
 	obj.append('<img />');
 	obj.on('click', 'img', function(){
 		$.ajax({
@@ -280,23 +353,43 @@
 		return false;
 	});
 	obj.find('img').click()
-		.css({'vertical-align':'middle', 'width':'100px', 'height':'36px'})
+		.css({'vertical-align':'middle', 'width':'100px', 'height':'36px', 'margin-left':'10px'})
 		.attr('title', '如果看不清楚验证码，请点击本图片框刷新．不区分大小写');
 
 	// 得到焦点移除错误信息
 	for(var k in FIELDS){
-		$('.' + FIELDS[k][1]).click(function(){
-			$(this).html('coding...');
+		$('span.msg.' + FIELDS[k][1]).parent().bind('click keyup', function(){
+			$(this).find('span.msg').html('');
 		});
 	}
 
 	// 错误信息
 	var errorMsg = function(field, msg){
 		if(msg == ''){
-			$('.' + field).html('');
+			$('span.msg.' + field).html('');
 		}else{
-			$('.' + field).html('<img src="/images/false.png" title="' + msg + '" />');
+			$('span.msg.' + field).html('<img src="/images/false.png" title="' + msg + '" />');
 		}
 	}
+
+	<?php /*
+	var x = parseInt(Math.random()*10000);
+	$('input[name=username]').val('myj'+x);
+	$('input[name=password]').val('123123');
+	$('input[name=cfm_password]').val('123123');
+	$('input[name=email]').val(x+'@a.a');
+	$('input[name=real_name]').val('asdfasdf');
+	$('input[name=degree]').attr('checked', true);
+	$('input[name=organization]').val('asdfasdf');
+	$('input[name=phone]').val('123');
+	$('input[name=mobile]').val('');
+	$('input[name=gender]').attr('checked', true);
+	$('input[name=identity]').val('310101198809100518');
+	$('input[name=address]').val('asdafasdf');
+	$('input[name=zip]').val('200001');
+	$('input[name=captcha]').val('200001');
+	$('input[name=agree]').attr('checked', true);
+	$('select[name=region_state]').val('890');
+	*/ ?>
 })();
 </script>

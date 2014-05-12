@@ -165,3 +165,9 @@ footer{
 	color:#fff;
 	padding: 30px 0;
 }
+
+dl{width:650px;margin:10px;}
+dt{width:100px;float:left;padding:10px 20px 10px 0px;text-align:right;}
+dd{width:500px;float:left;padding:10px 0px;}
+dl input, dl select{border:1px solid #CCCCCC;border-color:#6F787E #BDC5CA #BDC5CA #6F787E;font-size:14px;padding:5px;}
+dd .msg{width:20px;text-align:center;}

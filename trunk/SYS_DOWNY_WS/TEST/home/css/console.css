@@ -250,3 +250,9 @@ h1{
 .scrollbarh-left{background:url(../images/left_arrow.gif);}
 .scrollbarh-right{background:url(../images/right_arrow.gif);}
 .scrollbarh-block{background:url(../images/h_block.gif);}
+
+dl{width:650px;margin:10px;}
+dt{width:200px;float:left;padding:10px 20px 10px 0px;text-align:right;}
+dd{width:400px;float:left;padding:10px 0px;}
+dl input, dl select{border:1px solid #CCCCCC;border-color:#6F787E #BDC5CA #BDC5CA #6F787E;font-size:14px;padding:5px;}
+dd .msg{width:20px;text-align:center;}
