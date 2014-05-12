@@ -2,6 +2,21 @@
 
 class UserController extends Controller 
 {
+	use ConsoleTrait;
+
+    public function filters()
+    {
+        return ['accessControl'];
+    }
+
+    public function accessRules()
+    {
+		return [
+			['deny', 'actions' => ['profile'], 'roles' => ['audit']],
+			['deny', 'actions' => ['profile', 'password'], 'users' => ['?']],
+		];
+	}
+
 	public function actions()
 	{
 		return array(
@@ -44,8 +59,14 @@ class UserController extends Controller
 			$identity = new UserIdentity($username, $password);
 			if($identity->authenticate())
 			{
-				Yii::app()->user->login($identity);
-				$this->renderJson(['success' => true, 'url' => empty($_SESSION['login_redirect']) ? null : $_SESSION['login_redirect']]);
+				$user = Yii::app()->user;
+				$user->login($identity);
+				if($user->checkAccess('audit'))
+				{
+					$this->renderJson(['success' => true, 'url' => 'audit/index']);
+				}
+
+				$this->renderJson(['success' => true, 'url' => 'article/index']);
 			}
 			else
 			{
@@ -58,7 +79,7 @@ class UserController extends Controller
 			$_SESSION['login_redirect'] = $referer;
 		}
 
-		$this->redirect('console/index');
+		$this->redirect('/');
 	}
 
 	public function actionRegister()
@@ -66,7 +87,7 @@ class UserController extends Controller
 		if('POST' == $_SERVER['REQUEST_METHOD'])
 		{
 			// 成功后跳转
-			$this->redirect('console/index');
+			$this->redirect('/');
 		}
 
 		
@@ -86,5 +107,27 @@ class UserController extends Controller
 	public function actionRecover()
 	{
 		$this->render('recover');
+	}
+
+	public function actionLogout()
+	{
+		Yii::app()->user->logout();
+		$this->redirect(Yii::app()->request->baseUrl . '/');
+	}
+
+	/**
+	 * 修改资料
+	 */
+	public function actionProfile()
+	{
+		$this->render('profile');
+	}
+
+	/**
+	 * 修改密码
+	 */
+	public function actionPassword()
+	{
+		$this->render('password');
 	}
 }

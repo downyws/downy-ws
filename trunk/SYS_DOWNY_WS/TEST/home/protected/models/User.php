@@ -27,8 +27,6 @@ class User extends ContribActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('username, password, email, role_id', 'required'),
 			array('id, role_id, create_time, visit_time', 'numerical', 'integerOnly' => true),
@@ -44,8 +42,10 @@ class User extends ContribActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+		return [
+			'roles' => [self::MANY_MANY, 'AuthItem', '{{auth_assignment}}(userid, itemname)', 'joinType' => 'INNER JOIN'],
+			'author' => [self::HAS_ONE, 'Author', 'user_id', 'joinType' => 'INNER JOIN'],
+		];
 	}
 
 	/**

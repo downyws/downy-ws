@@ -1,0 +1,252 @@
+@charset "utf-8";
+
+header,section,footer,nav,menu,article,aside,summary{display:block;}
+body,header,section,nav,ul,li,iframe,h1,h2,dd,dt,p{padding:0;border:0;margin:0}
+h1,h2,p,div,li,td,tr,input,select{font-size:14px;font-family:Arial}
+a{text-decoration: none;}
+
+
+.cc:after{content:".";display:block;height:0;clear:both;visibility:hidden;font-size:0;line-height:0;}.cc{display:inline-block}
+
+.fl{float:left}
+.fr{float:right}
+
+html{
+	height:100%;
+	width:100%;
+    overflow:hidden;
+    _padding-top:50px;
+	min-width:1024px;
+}
+body{height:100%;}
+
+header{
+    position:absolute;
+    top:0;
+    left:0;
+    overflow:auto;
+    height:45px;
+	border-bottom:5px solid #ccc;
+    width:100%;
+    background:#47d;
+	overflow:hidden;
+	line-height: 50px;
+	font-weight: bold;
+	color:#fff;
+	font-size:16px;
+	text-indent: 20px;
+}
+section{
+    position:absolute;
+    _position:relative;
+    top:50px;
+	_top:0;
+	left:0;
+    right:0;
+    bottom:0;
+    _height:100%;
+	_padding-left:10%;
+}
+nav{
+    position:absolute;
+	top:0;
+    left:0;
+	bottom:0;
+    width:10%; 
+    _height:100%;
+    background:#ddd;
+	overflow:hidden;
+	border-right: 5px solid #ccc;
+	z-index: 200;
+}
+
+nav li{
+	line-height: 30px;
+	text-align:center;
+	background:#aaa;
+	color:#fff;
+	font-weight:bold;
+	border-bottom:2px solid #ddd;
+	list-style-type:none;
+}
+nav li.current{
+	background:#666;
+}
+nav a{
+	display:block;
+	line-height:30px;
+	color:#fff;
+}
+
+div.body{
+	position:absolute;
+	_position:static;
+	left: 10%;
+	_left: 0;
+	top:0;
+	right:0;
+	bottom:0;
+	width:90%;
+	_width:100%;
+	height:100%;
+}
+
+.section {
+	padding: 15px 2%;
+	background:url(../images/bg.gif) repeat-x;
+	display:block;
+}
+
+h1{
+	line-height: 36px;
+	height: 36px;
+	background:#69F;
+	color:#fff;
+	padding-left: 20px;
+}
+
+.operation{
+	/*display:none;*/
+}
+
+.list{
+	
+}
+.list table{
+	border-collapse: collapse;
+}
+
+.list table td{
+	border:1px solid #ccc;
+}
+
+.list table th, .list table td{
+	border:1px solid #ccc;
+	padding: 3px 5px;
+	white-space:nowrap;
+}
+.list table th div, .list table td div{
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
+
+.list table th{
+	color:#fff;
+	background:#6699ff;
+	font-weight: bold;
+}
+
+.list table td{
+	text-align:center;
+}
+
+.list table tr.odd td{
+	background:#eee;
+}
+
+.list table tr.current td{
+	background:#9bf;
+	color:#fff;
+	font-weight: bold;
+}
+
+.detail{
+	overflow:auto;
+	padding: 0 2%;
+}
+
+.detail .fl, .detail .fr{
+	width: 47%;
+}
+
+.detail h2{
+	color:#666;
+	margin-bottom: 20px;
+}
+
+.detail table{
+	width: 100%;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+}
+
+.detail table td{
+	border:1px solid #ccc;
+}
+
+.detail table th, .detail table td{
+	border:1px solid #ccc;
+	padding: 5px 15px;
+}
+.detail table th div, .detail table td div{
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
+
+.detail table th{
+	white-space:nowrap;
+	color:#fff;
+	background:#9bf;
+	font-weight: bold;
+}
+
+.detail table td{
+
+}
+
+.detail table tr.odd td{
+	background:#eee;
+}
+
+.detail dt{
+	width: 100px;
+	text-align:right;
+	float:left;
+}
+
+.detail dd{
+
+}
+
+.detail form{
+	border:2px solid #69f;
+	padding: 2%;
+	display:block;
+}
+
+.detail form div{
+	line-height: 36px;
+}
+
+.detail form a.more{
+	cursor:pointer;
+	color:#69f;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.detail form .button{
+	cursor:pointer;
+	width: 102px;
+	height: 28px;
+	font-weight:bold;
+	color:#fff;
+	background:url(../images/button.gif) no-repeat;
+	text-align:center;
+	border: 0;
+	margin-right: 20px;
+	display:inline;
+}
+
+.detail form .all{
+	display:none;
+}
+
+.scrollbarv{background:#f5f5f5;width:19px;}
+.scrollbarv-up{background:url(../images/up_arrow.gif);}
+.scrollbarv-down{background:url(../images/down_arrow.gif);}
+.scrollbarv-block{background:url(../images/v_block.gif);}
+.scrollbarh{background:#f5f5f5;height:19px;}
+.scrollbarh-left{background:url(../images/left_arrow.gif);}
+.scrollbarh-right{background:url(../images/right_arrow.gif);}
+.scrollbarh-block{background:url(../images/h_block.gif);}
