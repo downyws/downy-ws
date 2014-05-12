@@ -1,14 +1,14 @@
 <?php
 
 /**
- * This is the model class for table "{{article_version_attachment}}".
+ * This is the model class for table "{{contrib_article_version_attachment}}".
  *
- * The followings are the available columns in table '{{article_version_attachment}}':
+ * The followings are the available columns in table '{{contrib_article_version_attachment}}':
  * @property integer $version_id
  * @property integer $attachment_id
  * @property string $title
  */
-class ArticleVersionAttachment extends CActiveRecord
+class ArticleVersionAttachment extends ContribActiveRecord
 {
 	/**
 	 * @return string the associated database table name

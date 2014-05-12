@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{_document}}".
+ * This is the model class for table "{{contrib_document}}".
  *
- * The followings are the available columns in table '{{_document}}':
+ * The followings are the available columns in table '{{contrib_document}}':
  * @property integer $id
  * @property integer $column
  * @property string $title
@@ -12,7 +12,7 @@
  * @property integer $create_time
  * @property integer $update_time
  */
-class Document extends CActiveRecord
+class Document extends ContribActiveRecord
 {
 	/**
 	 * @return string the associated database table name

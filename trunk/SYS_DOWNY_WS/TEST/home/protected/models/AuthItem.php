@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{auth_item}}".
+ * This is the model class for table "{{contrib_auth_item}}".
  *
- * The followings are the available columns in table '{{auth_item}}':
+ * The followings are the available columns in table '{{contrib_auth_item}}':
  * @property string $name
  * @property integer $type
  * @property string $description
@@ -15,7 +15,7 @@
  * @property AuthItemChild[] $authItemChildren
  * @property AuthItemChild[] $authItemChildren1
  */
-class AuthItem extends CActiveRecord
+class AuthItem extends ContribActiveRecord
 {
 	/**
 	 * @return string the associated database table name

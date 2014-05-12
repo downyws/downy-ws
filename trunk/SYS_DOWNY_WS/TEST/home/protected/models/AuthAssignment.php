@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{auth_assignment}}".
+ * This is the model class for table "{{contrib_auth_assignment}}".
  *
- * The followings are the available columns in table '{{auth_assignment}}':
+ * The followings are the available columns in table '{{contrib_auth_assignment}}':
  * @property string $itemname
  * @property string $userid
  * @property string $bizrule
@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property AuthItem $itemname0
  */
-class AuthAssignment extends CActiveRecord
+class AuthAssignment extends ContribActiveRecord
 {
 	/**
 	 * @return string the associated database table name
