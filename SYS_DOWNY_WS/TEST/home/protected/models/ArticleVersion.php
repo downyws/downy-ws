@@ -1,14 +1,14 @@
 <?php
 
 /**
- * This is the model class for table "{{_article_version}}".
+ * This is the model class for table "{{contrib_article_version}}".
  *
- * The followings are the available columns in table '{{_article_version}}':
+ * The followings are the available columns in table '{{contrib_article_version}}':
  * @property integer $id
  * @property integer $article_id
  * @property integer $create_time
  */
-class ArticleVersion extends CActiveRecord
+class ArticleVersion extends ContribActiveRecord
 {
 	/**
 	 * @return string the associated database table name

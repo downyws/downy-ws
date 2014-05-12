@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{_article}}".
+ * This is the model class for table "{{contrib_article}}".
  *
- * The followings are the available columns in table '{{_article}}':
+ * The followings are the available columns in table '{{contrib_article}}':
  * @property integer $id
  * @property integer $author_id
  * @property integer $sn
@@ -18,7 +18,7 @@
  * @property integer $create_time
  * @property integer $update_time
  */
-class Article extends CActiveRecord
+class Article extends ContribActiveRecord
 {
 	const STATUS_FIRST = 0;
 	const STATUS_SECOND = 1;

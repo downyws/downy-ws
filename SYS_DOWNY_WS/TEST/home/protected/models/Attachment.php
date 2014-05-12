@@ -1,16 +1,16 @@
 <?php
 
 /**
- * This is the model class for table "{{attachment}}".
+ * This is the model class for table "{{contrib_attachment}}".
  *
- * The followings are the available columns in table '{{attachment}}':
+ * The followings are the available columns in table '{{contrib_attachment}}':
  * @property integer $id
  * @property string $path
  * @property integer $length
  * @property string $hash
  * @property integer $create_time
  */
-class Attachment extends CActiveRecord
+class Attachment extends ContribActiveRecord
 {
 	/**
 	 * @return string the associated database table name

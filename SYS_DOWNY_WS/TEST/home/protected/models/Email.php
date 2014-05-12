@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{_email}}".
+ * This is the model class for table "{{contrib_email}}".
  *
- * The followings are the available columns in table '{{_email}}':
+ * The followings are the available columns in table '{{contrib_email}}':
  * @property integer $id
  * @property integer $user_id
  * @property string $email
@@ -12,7 +12,7 @@
  * @property integer $create_time
  * @property integer $sent_time
  */
-class Email extends CActiveRecord
+class Email extends ContribActiveRecord
 {
 	/**
 	 * @return string the associated database table name
