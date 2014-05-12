@@ -29,7 +29,14 @@ class UserController extends Controller
 
 	public function beforeAction($action)
 	{
-		$this->layout = 'front';
+		if(in_array($action->getId(), ['password', 'profile']))
+		{
+			$this->layout = 'console';
+		}
+		else
+		{
+			$this->layout = 'front';
+		}
 		return parent::beforeAction($action);
 	}
 
@@ -63,35 +70,99 @@ class UserController extends Controller
 				$user->login($identity);
 				if($user->checkAccess('audit'))
 				{
-					$this->renderJson(['success' => true, 'url' => 'audit/index']);
+					$this->renderJson(['success' => true, 'url' => '/audit/index']);
 				}
 
-				$this->renderJson(['success' => true, 'url' => 'article/index']);
+				$this->renderJson(['success' => true, 'url' => '/article/index']);
 			}
 			else
 			{
 				$this->renderJson(['success' => false, 'message' => '用户名不存在或密码错误']);
 			}
 		}
-
-		if(($referer = Yii::app()->request->urlReferrer) and !preg_match('/' . preg_quote(Yii::app()->request->hostInfo, '/') . self::$skipRedirect . '/', $referer))
-		{
-			$_SESSION['login_redirect'] = $referer;
-		}
-
-		$this->redirect('/');
 	}
 
 	public function actionRegister()
 	{
 		if('POST' == $_SERVER['REQUEST_METHOD'])
 		{
-			// 成功后跳转
-			$this->redirect('/');
+			$transaction = Yii::app()->db->beginTransaction();
+			try
+			{
+				$user = new User;
+				$user->attributes = $_POST;
+				$user['role_id'] = 0;
+				$user['visit_time'] = time();
+				if(!$user->validate())
+				{
+					$this->renderJson(['success' => false, 'errors' => $user->errors]);
+				}
+
+				$author = new Author;
+				$author->attributes = $_POST;
+				$author['user_id'] = 0;
+				if(isset($_POST['region_district']) && !empty($_POST['region_district']))
+				{
+					$author['region_id'] = $_POST['region_district'];
+				}
+				else if(isset($_POST['region_city']) && !empty($_POST['region_city']))
+				{
+					$author['region_id'] = $_POST['region_city'];
+				}
+				else if(isset($_POST['region_state']) && !empty($_POST['region_state']))
+				{
+					$author['region_id'] = $_POST['region_state'];
+				}
+				if(!$author->validate())
+				{
+					$this->renderJson(['success' => false, 'errors' => $author->errors]);
+				}
+
+				// 验证码
+				$captcha = Yii::createComponent(['class' => 'Captcha', 'attributes' => $_POST]);
+				if(!$captcha->validate())
+				{
+					$this->renderJson(['success' => false, 'errors' => $captcha->errors]);
+				}
+
+				$user['password'] = md5($user['password']);
+				if(!$user->save())
+				{
+					$this->renderJson(['success' => false, 'errors' => $user->errors]);
+				}
+
+				$author['user_id'] = $user['id'];
+				if(!$author->save())
+				{
+					$this->renderJson(['success' => false, 'errors' => $author->errors]);
+				}
+
+				$transaction->commit();
+
+				// 成功后自动登录跳转
+				$identity = new UserIdentity($_POST['username'], $_POST['password']);
+				$identity->authenticate();
+				$user = Yii::app()->user;
+				$user->login($identity);
+				if($user->checkAccess('audit'))
+				{
+					$this->renderJson(['success' => true, 'url' => '/audit/index']);
+				}
+				$this->renderJson(['success' => true, 'url' => '/article/index']);
+			}
+			catch(Exception $e)
+			{
+				$transaction->rollback();
+				$this->renderJson(['success' => false, 'message' => $e->getMessage()]);
+			}
 		}
 
-		
-		$this->render('register', ['degree_list' => Yii::app()->params['degree']]);
+		$this->render('register', [
+			'gender_list' => Yii::app()->params['gender'],
+			'degree_list' => Yii::app()->params['degree'],
+			'language_list' => Yii::app()->params['language'],
+			'request' => $_REQUEST
+		]);
 	}
 
 	public function actionFieldExists($key, $val)
@@ -99,7 +170,7 @@ class UserController extends Controller
 		if(in_array($key, ['username', 'email']))
 		{
 			$obj = User::model()->findByAttributes([$key => $val]);
-			$this->renderJson(['success' => !$obj]);
+			$this->renderJson(['success' => !$obj, 'message' => '已经存在']);
 		}
 		throw new CHttpException(404, 'The requested page does not exist.');
 	}

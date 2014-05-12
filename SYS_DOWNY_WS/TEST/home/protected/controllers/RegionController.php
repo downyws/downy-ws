@@ -6,7 +6,7 @@ class RegionController extends Controller
 	{
 		$data = Yii::app()->cache->get('region_children');
 
-	//	if(!isset($data))
+		if(!isset($data))
 		{
 			$regions = Region::model()->findAllByAttributes(['is_delete' => 0]);
 			$temp = $data = [];

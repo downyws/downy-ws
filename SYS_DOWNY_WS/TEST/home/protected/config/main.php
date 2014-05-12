@@ -78,6 +78,8 @@ return array_merge_recursive([
 
 	'params' => [
 		'defaultRole' => '投稿人',
-		'degree' => ['1' => '学士', '2' => '硕士', '3' => '博士']
+		'gender' => ['1' => '男', '2' => '女'],
+		'degree' => ['1' => '学士', '2' => '硕士', '3' => '博士'],
+		'language' => ['1' => '汉语', '2' => '英语', '3' => '法语', '4' => '德语', '5' => '日语']
 	],
 ], require dirname(__FILE__) . '/config.php');
