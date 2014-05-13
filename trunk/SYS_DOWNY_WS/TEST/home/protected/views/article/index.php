@@ -107,7 +107,7 @@ $(function (){
 					var params = {status: checked.val()};
 					
 					var select = checked.parent().find('select');
-					if(select.size())
+					if(select.size()){
 						if(!parseInt(select.val())){
 							alert('请选择指派给的人！');
 							return false;

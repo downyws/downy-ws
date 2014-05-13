@@ -91,7 +91,6 @@ class UserController extends Controller
 			{
 				$user = new User;
 				$user->attributes = $_POST;
-				$user['role_id'] = 0;
 				$user['visit_time'] = time();
 				if(!$user->validate())
 				{
@@ -128,12 +127,14 @@ class UserController extends Controller
 				$user['password'] = md5($user['password']);
 				if(!$user->save())
 				{
+					$transaction->rollback();
 					$this->renderJson(['success' => false, 'errors' => $user->errors]);
 				}
 
 				$author['user_id'] = $user['id'];
 				if(!$author->save())
 				{
+					$transaction->rollback();
 					$this->renderJson(['success' => false, 'errors' => $author->errors]);
 				}
 

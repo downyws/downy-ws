@@ -1,6 +1,6 @@
 <div class="fl b_logbox" style="width:650px;padding:20px;">
 	<h2 style="text-align:center;font-size:28px;">注 册</h2>
-	<form id="register-form" action="<?php echo Yii::app()->request->baseUrl . $this->createUrl('user/register'); ?>" onsubmit="return false;">
+	<form class="form-dl" id="register-form" action="<?php echo Yii::app()->request->baseUrl . $this->createUrl('user/register'); ?>" onsubmit="return false;">
 		<dl>
 			<dt><span>*</span>用户名</dt>
 			<dd class="cc username">

@@ -9,7 +9,6 @@
  * @property string $password
  * @property string $real_name
  * @property string $email
- * @property integer $role_id
  * @property integer $create_time
  * @property integer $visit_time
  */
@@ -58,11 +57,10 @@ class User extends ContribActiveRecord
 	{
 		return array(
 			'id' => '编号',
-			'username' => '会员名',
+			'username' => '用户名',
 			'password' => '密码',
 			'email' => '邮箱',
 			'real_name' => '真实姓名',
-			'role_id' => '角色编号',
 			'create_time' => '创建时间',
 			'visit_time' => '访问时间'
 		);
@@ -77,5 +75,23 @@ class User extends ContribActiveRecord
 	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function resetPassword($email = true)
+	{
+		if($email)
+		{
+			throw new Exception('coding...');
+		}
+		else
+		{
+			$pwd = mt_rand(100000, 999999);
+			$this['password'] = md5($pwd);
+			if($this->save())
+			{
+				return $pwd;
+			}
+			return false;
+		}
 	}
 }

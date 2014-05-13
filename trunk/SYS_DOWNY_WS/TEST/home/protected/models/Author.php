@@ -39,16 +39,14 @@ class Author extends ContribActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('organization, address', 'required', 'on' => 'insert'),
-			array('identity', 'validatorIdentity', 'on' => 'insert'),
-			array('gender, degree', 'validatorGenderDegree', 'on' => 'insert'),
-			array('region_id', 'validatorRegionId', 'on' => 'insert'),
-			array('zip', 'validatorZip', 'on' => 'insert'),
-			array('language', 'validatorLanguage', 'on' => 'insert'),
-			array('phone, mobile', 'validatorMobPho', 'on' => 'insert'),
+			array('organization, address', 'required', 'on' => 'insert, update'),
+			array('identity', 'validatorIdentity', 'on' => 'insert, update'),
+			array('gender, degree', 'validatorGenderDegree', 'on' => 'insert, update'),
+			array('region_id', 'validatorRegionId', 'on' => 'insert, update'),
+			array('zip', 'validatorZip', 'on' => 'insert, update'),
+			array('language', 'validatorLanguage', 'on' => 'insert, update'),
+			array('phone, mobile', 'validatorMobPho', 'on' => 'insert, update'),
 			array('degree, organization, phone, mobile, address, title, subject', 'length', 'max' => 85),
-			array('identity', 'length', 'max' => 18),
-			array('zip', 'length', 'max' => 6),
 			array('feature, brief', 'length', 'max' => 1024)
 		);
 	}
