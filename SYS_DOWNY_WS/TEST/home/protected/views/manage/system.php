@@ -1,6 +1,6 @@
 <h1><?php echo $title; ?></h1>
 <div class="section">
-	<form id="system-form" action="<?php echo Yii::app()->request->baseUrl . $this->createUrl('manage/system'); ?>" onsubmit="return false;">
+	<form class="form-dl" id="system-form" action="<?php echo Yii::app()->request->baseUrl . $this->createUrl('manage/system'); ?>" onsubmit="return false;">
 	<dl>
 		<?php foreach($config as $v){ ?>
 		<dt><span></span><?php echo $v['key']; ?></dt>
