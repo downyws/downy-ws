@@ -15,7 +15,7 @@ class ManageController extends Controller
     public function accessRules()
     {
 		return [
-			['allow', 'actions' => ['document'], 'roles' => ['document']],
+			['allow', 'actions' => ['document', 'documentView', 'documentRows'], 'roles' => ['document']],
 			['allow', 'actions' => ['user', 'userView', 'userRows', 'userDelete', 'userResetPwd'], 'roles' => ['user']],
 			['allow', 'actions' => ['system'], 'roles' => ['system']],
 			['deny']
@@ -27,7 +27,55 @@ class ManageController extends Controller
 	 */
 	public function actionDocument()
 	{
-		$this->render('document');
+		$filters = $this->fetchFilters();
+
+		$criteria = new CDbCriteria;
+
+		$datas = Document::model()->with('column0')->findAll($criteria);
+
+		$this->listDocument($datas, $filters, '内容管理');
+	}
+	public function actionDocumentRows()
+	{
+		$ids = $_POST['ids'];
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('id IN (' . $ids . ')');
+		
+		$datas = Document::model()->findAll($criteria);
+
+		$this->listDocument($datas, null, null, 'ajax');
+	}
+	public function actionDocumentView()
+	{
+		if('POST' == $_SERVER['REQUEST_METHOD'])
+		{
+			$id = $_POST['id'];
+			unset($_POST['id']);
+
+			$document = Document::model()->findByPk($id);
+			$document->attributes = $_POST;
+			if(!$document->validate())
+			{
+				$this->renderJson(['success' => false, 'errors' => $document->errors]);
+			}
+
+			if(!$document->save())
+			{
+				$this->renderJson(['success' => false, 'errors' => $document->errors]);
+			}
+
+			$this->renderJson(['success' => true, 'message' => '保存成功']);
+		}
+
+		$id = $_REQUEST['id'];
+		$document = Document::model()->findByPk($id);
+		$column = Column::model()->findAll();
+
+		$this->layout = '';
+		$this->render('document_view', [
+			'data' => $document,
+			'column' => $column
+		]);
 	}
 
 	/**
@@ -138,6 +186,7 @@ class ManageController extends Controller
 			{
 				$user = User::model()->findByPk($id);
 				$user['real_name'] = $_POST['real_name'];
+				$user['email'] = $_POST['email'];
 			}
 			else
 			{

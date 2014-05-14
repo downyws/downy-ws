@@ -6,7 +6,7 @@
 				<tr><th>编号</th><td><?php echo $data['id']; ?><input type="hidden" name="id" value="<?php echo $data['id']; ?>" /></td></tr>
 				<tr class="real_name"><th>真实姓名</th><td><input type="text" name="real_name" value="<?php echo $data['real_name']; ?>" /><span class="msg real_name"></span></td></tr>
 				<tr><th>用户名</th><td><?php echo $data['username']; ?></td></tr>
-				<tr><th>邮箱</th><td><?php echo $data['email']; ?></td></tr>
+				<tr class="email"><th>邮箱</th><td><input type="text" name="email" value="<?php echo $data['email']; ?>" /><span class="msg email"></span></td></tr>
 				<tr><th>密码</th><td><input type="button" value="重置密码" class="reset_pwd" /></td></tr>
 				<tr><th>访问时间</th><td><?php echo date('Y-m-d', $data['visit_time']); ?></td></tr>
 			</table>
