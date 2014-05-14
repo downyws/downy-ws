@@ -148,18 +148,33 @@ $.fn.extend({
 
 		// 初始化
 		var data = search(id);
+		var sc_4 = true, sc_3 = true;
 		switch(data['level']){
 			case '4':
+				id = data['id'];
 				data = search(data['parent_id']);
 				refresh(district, data['children'], id);
-				id = data['id'];
+				sc_4 = false;
 			case '3':
+				id = data['id'];
 				data = search(data['parent_id']);
 				refresh(city, data['children'], id);
-				id = data['id'];
+				if(id > 0 && sc_4){
+					data = search(id);
+					refresh(district, data['children'], 0);
+				}
+				sc_3 = false;
 			case '2':
+				id = data['id'];
 				data = search(data['parent_id']);
 				refresh(state, data['children'], id);
+				if(id > 0 && sc_3){
+					data = search(id);
+					refresh(city, data['children'], 0);
+				}
+				break;
+			case '1':
+				refresh(state, data['children'], 0);
 		}
 	}
 });

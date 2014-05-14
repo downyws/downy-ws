@@ -29,7 +29,7 @@ class User extends ContribActiveRecord
 	{
 		return array(
 			array('username, email, password, real_name', 'required', 'on' => 'insert'),
-			array('username, email', 'unique', 'message' => '{attribute}已被注册', 'on' => 'insert'),
+			array('username, email', 'unique', 'message' => '{attribute}已被注册', 'on' => 'insert, update'),
 			array('username, password', 'length', 'min' => 6, 'max' => 32, 'on' => 'insert'),
 			array('username', 'match', 'pattern' => '/^[a-z_0-9\-]+$/i', 'on' => 'insert'),
 			array('email', 'email', 'on' => 'insert'),

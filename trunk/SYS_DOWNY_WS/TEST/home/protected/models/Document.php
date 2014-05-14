@@ -32,10 +32,8 @@ class Document extends ContribActiveRecord
 		return array(
 			array('column, title, content, code, create_time, update_time', 'required'),
 			array('column, create_time, update_time', 'numerical', 'integerOnly'=>true),
-			array('title, code', 'length', 'max'=>85),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, column, title, content, code, create_time, update_time', 'safe', 'on'=>'search'),
+			array('title, code', 'length', 'max' => 85),
+			array('code', 'unique', 'message' => '{attribute}已经存在', 'on' => 'insert, update')
 		);
 	}
 
@@ -47,6 +45,7 @@ class Document extends ContribActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'column0' => array(self::BELONGS_TO, 'Column', 'column'),
 		);
 	}
 
@@ -56,45 +55,14 @@ class Document extends ContribActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'column' => 'Column',
-			'title' => 'Title',
-			'content' => 'Content',
-			'code' => 'Code',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
+			'id' => '编号',
+			'column' => '栏目',
+			'title' => '标题',
+			'content' => '内容',
+			'code' => '标识',
+			'create_time' => '创建时间',
+			'update_time' => '更新时间',
 		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id);
-		$criteria->compare('column',$this->column);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('content',$this->content,true);
-		$criteria->compare('code',$this->code,true);
-		$criteria->compare('create_time',$this->create_time);
-		$criteria->compare('update_time',$this->update_time);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
 	}
 
 	/**
@@ -103,7 +71,7 @@ class Document extends ContribActiveRecord
 	 * @param string $className active record class name.
 	 * @return Document the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}

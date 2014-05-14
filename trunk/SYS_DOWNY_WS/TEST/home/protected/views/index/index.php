@@ -1,15 +1,15 @@
 <div class="intro">
 	<ul>
-		<li class="current">投稿须知</li>
-		<li>期刊简介</li>
-		<li>本期目录</li>
-		<li>往期目录</li>
+		<li class="current"><?php echo $documents['GUIDE_POSTING']['title']; ?></li>
+		<li><?php echo $documents['BRIEF_MAGAZINE']['title']; ?></li>
+		<li><?php echo $documents['LATEEST_NOTICE']['title']; ?></li>
+		<li><?php echo $documents['AGMT_COPYRIGHT']['title']; ?></li>
 	</ul>
 	<div class="content">
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
+		<div><?php echo $documents['GUIDE_POSTING']['content']; ?></div>
+		<div><?php echo $documents['BRIEF_MAGAZINE']['content']; ?></div>
+		<div><?php echo $documents['LATEEST_NOTICE']['content']; ?></div>
+		<div><?php echo $documents['AGMT_COPYRIGHT']['content']; ?></div>
 	</div>
 </div>
 <div class="login">

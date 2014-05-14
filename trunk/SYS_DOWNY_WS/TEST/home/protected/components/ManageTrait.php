@@ -52,4 +52,35 @@ trait ManageTrait
 			]);
 		}
 	}
+
+	public function listDocument($datas, $filters, $title, $type = '')
+	{
+		$list = '';
+		foreach($datas as $data)
+		{
+			$temp = [
+				$data['id'],
+				$data['column0']['title'],
+				$data['title'],
+				$data['code'],
+				date('Y-m-d H:i', $data['create_time']),
+				date('Y-m-d H:i', $data['update_time']),
+			];
+
+			$list[] = ($type == 'ajax') ? [$data['id'], $temp] : $temp;
+		}
+
+		if($type == 'ajax')
+		{
+			$this->renderJson(['success' => true, 'data' => $list]);
+		}
+		else
+		{
+			$this->render('/manage/document', [
+				'list' => $list,
+				'filters' => $filters,
+				'title' => $title,
+			]);
+		}
+	}
 }

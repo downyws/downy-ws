@@ -302,7 +302,62 @@ class UserController extends Controller
 	 */
 	public function actionProfile()
 	{
-		$this->render('profile');
+		$user = User::model()->findByPk(Yii::app()->user->id);
+		$author = Author::model()->findByPk(Yii::app()->user->id);
+
+		if('POST' == $_SERVER['REQUEST_METHOD'])
+		{
+			unset($_POST['id']);
+			unset($_POST['user_id']);
+
+			$user->attributes = $_POST;
+			$author->attributes = $_POST;
+
+			if(!$user->validate())
+			{
+				$this->renderJson(['success' => false, 'errors' => $user->errors]);
+			}
+			if(!$author->validate())
+			{
+				$this->renderJson(['success' => false, 'errors' => $author->errors]);
+			}
+			if(isset($_POST['region_district']) && !empty($_POST['region_district']))
+			{
+				$author['region_id'] = $_POST['region_district'];
+			}
+			else if(isset($_POST['region_city']) && !empty($_POST['region_city']))
+			{
+				$author['region_id'] = $_POST['region_city'];
+			}
+			else if(isset($_POST['region_state']) && !empty($_POST['region_state']))
+			{
+				$author['region_id'] = $_POST['region_state'];
+			}
+
+			$transaction = Yii::app()->db->beginTransaction();
+
+			if(!$user->save())
+			{
+				$transaction->rollback();
+				$this->renderJson(['success' => false, 'errors' => $user->errors]);
+			}
+			if(!$author->save())
+			{
+				$transaction->rollback();
+				$this->renderJson(['success' => false, 'errors' => $author->errors]);
+			}
+
+			$transaction->commit();
+			$this->renderJson(['success' => true, 'message' => '修改资料成功']);
+		}
+
+		$this->render('profile', [
+			'title' => '修改资料', 
+			'data' => ['user' => $user, 'author' => $author],
+			'gender_list' => Yii::app()->params['gender'],
+			'degree_list' => Yii::app()->params['degree'],
+			'language_list' => Yii::app()->params['language']
+		]);
 	}
 
 	/**
@@ -310,6 +365,21 @@ class UserController extends Controller
 	 */
 	public function actionPassword()
 	{
-		$this->render('password');
+		if('POST' == $_SERVER['REQUEST_METHOD'])
+		{
+			$user = User::model()->findByPk(Yii::app()->user->id);
+			if(md5($_POST['old_password']) != $user['password'])
+			{
+				$this->renderJson(['success' => false, 'errors' => ['old_password' => '原密码错误']]);
+			}
+			$user['password'] = md5($_POST['password']);
+			if(!$user->save())
+			{
+				$this->renderJson(['success' => false, 'message' => '修改密码失败']);
+			}
+			$this->renderJson(['success' => true, 'message' => '修改密码成功']);
+		}
+
+		$this->render('password', ['title' => '修改密码']);
 	}
 }

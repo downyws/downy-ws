@@ -10,6 +10,18 @@ class IndexController extends Controller
 
 	public function actionIndex()
 	{
-		$this->render('index');
+		$documents = Yii::app()->cache->get('index_page_documents');
+		if($documents === false)
+		{
+			$documents = [];
+			$temp = Document::model()->findAll();
+
+			foreach($temp as $v)
+			{
+				$documents[$v['code']] = $v;
+			}
+			Yii::app()->cache->set('index_page_documents', $documents, 300);
+		}
+		$this->render('index', ['documents' => $documents]);
 	}
 }
