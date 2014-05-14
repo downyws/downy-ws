@@ -27,35 +27,27 @@ $(function (){
 	var struct = <?php echo json_encode([[
 		'title' => '编号',
 		'field' => 'id',
-		'width' => 30,
+		'width' => 50,
 	], [
 		'title' => '会员名',
 		'field' => 'username',
-		'width' => 70,
+		'width' => 120,
 	], [
 		'title' => '真实姓名',
 		'field' => 'real_name',
-		'width' => 60,
-	], [
-		'title' => '工作单位',
-		'field' => 'organization',
-		'width' => 175,
-	], [
-		'title' => '手机/固定电话',
-		'field' => 'phone',
-		'width' => 250,
+		'width' => 80,
 	], [
 		'title' => '邮箱',
 		'field' => 'email',
 		'width' => 180,
 	], [
-		'title' => '身份证号码',
-		'field' => 'identity',
-		'width' => 180,
-	], [
 		'title' => '访问日期',
+		'field' => 'visit_time',
+		'width' => 140,
+	], [
+		'title' => '创建日期',
 		'field' => 'create_time',
-		'width' => 80,
+		'width' => 140,
 	]]); ?>
 
 	var data = <?php echo json_encode($list); ?>;

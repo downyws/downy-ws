@@ -178,7 +178,117 @@ class UserController extends Controller
 
 	public function actionRecover()
 	{
-		$this->render('recover');
+		// 检查重置链接
+		if(isset($_REQUEST['code']))
+		{
+			$validate = Validate::model()->findByAttributes(['code' => $_REQUEST['code'], 'user_id' => base64_decode($_REQUEST['key'])]);
+
+			if(!$validate || $validate['create_time'] + 7200 < time() || $validate['visit_time'] > 0)
+			{
+				$this->render('recover', ['error' => true]);
+			}
+			else if('POST' == $_SERVER['REQUEST_METHOD'])
+			{
+				$transaction = Yii::app()->db->beginTransaction();
+				try
+				{
+					$validate['visit_time'] = time();
+					if(!$validate->save())
+					{
+						throw new Exception('修改密码失败');
+					}
+					$user = User::model()->findByPk($validate['user_id']);
+					$user['password'] = md5($_POST['password']);
+					if(!$user->save())
+					{
+						throw new Exception('修改密码失败');
+					}
+					$transaction->commit();
+				}
+				catch(Exception $e)
+				{
+					$transaction->rollback();
+					$this->renderJson(['success' => false, 'message' => $e->getMessage()]);
+				}
+
+				// 成功后自动登录跳转
+				$identity = new UserIdentity($user['username'], $_POST['password']);
+				$identity->authenticate();
+				$user = Yii::app()->user;
+				$user->login($identity);
+				if($user->checkAccess('audit'))
+				{
+					$this->renderJson(['success' => true, 'url' => '/audit/index']);
+				}
+				$this->renderJson(['success' => true, 'url' => '/article/index']);
+			}
+			else
+			{
+				$this->render('recover', ['code' => $_REQUEST['code'], 'key' => $_REQUEST['key']]);
+			}
+		}
+		// 提交重置密码信息
+		else if('POST' == $_SERVER['REQUEST_METHOD'])
+		{
+			// 验证码
+			$captcha = Yii::createComponent(['class' => 'Captcha', 'attributes' => $_POST]);
+			if(!$captcha->validate())
+			{
+			//	$this->renderJson(['success' => false, 'errors' => $captcha->errors]);
+			}
+
+			// 邮箱
+			$user = User::model()->findByAttributes(['email' => $_POST['email'], 'is_delete' => 0]);
+			if(!$user)
+			{
+				$this->renderJson(['success' => false, 'errors' => ['email' => '邮箱不存在']]);
+			}
+
+			// 攻击检查
+			$config = Yii::app()->params['recoverSafe'];
+			$key = 'user/recover/' . $user['email'];
+			$data = Yii::app()->cache->get($key);
+			if($data !== false)
+			{
+				$this->renderJson(['success' => false, 'interval' => $data - time()]);
+			}
+			Yii::app()->cache->set($key, time() + $config['interval'], $config['interval']);
+			$key = 'user/recover/' . ip2long($_SERVER['REMOTE_ADDR']);
+			$data = Yii::app()->cache->get($key);
+			if($data === false)
+			{
+				$data = [];
+			}
+			$count = 0;
+			foreach($data as $k => $v)
+			{
+				if($v - time() > 300)
+				{
+					unset($data[$k]);
+				}
+				else
+				{
+					$count++;
+				}
+			}
+			if($count > $config['atk']['count'])
+			{
+				$this->renderJson(['success' => false, 'message' => '您的IP重置密码过于频繁，请稍后尝试']);
+			}
+			$data[] = time();
+			Yii::app()->cache->set($key, $data, $config['atk']['time']);
+
+			// 重置
+			if(!$user->resetPassword(true))
+			{
+				$this->renderJson(['success' => false, 'message' => '密码重置邮件发送失败']);
+			}
+			$this->renderJson(['success' => true]);
+		}
+		else
+		{
+			$this->render('recover');
+		}
 	}
 
 	public function actionLogout()

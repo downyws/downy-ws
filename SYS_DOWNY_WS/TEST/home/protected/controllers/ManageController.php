@@ -109,15 +109,11 @@ class ManageController extends Controller
 				' t.email LIKE :keywords ',
 				' t.username LIKE :keywords ',
 				' t.real_name LIKE :keywords ',
-				' author.phone LIKE :keywords ',
-				' author.mobile LIKE :keywords ',
-				' author.identity LIKE :keywords ',
-				' author.organization LIKE :keywords '
 			]));
 			$criteria->params[':keywords'] = '%' . $filters['keywords'] . '%';
 		}
 
-		$datas = User::model()->with('author')->findAll($criteria);
+		$datas = User::model()->with('roles')->findAll($criteria);
 
 		$this->listUser($datas, $filters, '用户管理');
 	}
@@ -127,7 +123,7 @@ class ManageController extends Controller
 		$criteria = new CDbCriteria;
 		$criteria->addCondition('id IN (' . $ids . ')');
 		
-		$datas = User::model()->with('author')->findAll($criteria);
+		$datas = User::model()->findAll($criteria);
 
 		$this->listUser($datas, null, null, 'ajax');
 	}
@@ -141,40 +137,18 @@ class ManageController extends Controller
 			if($id)
 			{
 				$user = User::model()->findByPk($id);
-				$author = Author::model()->findByPk($id);
-
 				$user['real_name'] = $_POST['real_name'];
 			}
 			else
 			{
 				$user = new User;
-				$author = new Author;
-				
 				$user->attributes = $_POST;
 				$user['visit_time'] = time();
-			}
-			$author->attributes = $_POST;
-			$author['user_id'] = 0;
-			if(isset($_POST['region_district']) && !empty($_POST['region_district']))
-			{
-				$author['region_id'] = $_POST['region_district'];
-			}
-			else if(isset($_POST['region_city']) && !empty($_POST['region_city']))
-			{
-				$author['region_id'] = $_POST['region_city'];
-			}
-			else if(isset($_POST['region_state']) && !empty($_POST['region_state']))
-			{
-				$author['region_id'] = $_POST['region_state'];
 			}
 
 			if(!$user->validate())
 			{
 				$this->renderJson(['success' => false, 'errors' => $user->errors]);
-			}
-			if(!$author->validate())
-			{
-				$this->renderJson(['success' => false, 'errors' => $author->errors]);
 			}
 
 			$transaction = Yii::app()->db->beginTransaction();
@@ -185,13 +159,19 @@ class ManageController extends Controller
 					$transaction->rollback();
 					$this->renderJson(['success' => false, 'errors' => $user->errors]);
 				}
-				$author['user_id'] = $user['id'];
-				if(!$author->save())
+				if(!$id)
 				{
-					$transaction->rollback();
-					$this->renderJson(['success' => false, 'errors' => $author->errors]);
+					$author = new Author;
+					$author->attributes = [
+					  'user_id' => $user['id'], 'degree' => 0, 'organization' => '', 'phone' => '', 'mobile' => '',
+					  'gender' => 0, 'identity' => '', 'region_id' => 0, 'address' => '',  'zip' => '',
+					  'title' => '', 'language' => 0, 'subject' => '', 'feature' => '', 'brief' => ''
+					];
+					if(!$author->save(false))
+					{
+						throw new Exception('创建失败');
+					}
 				}
-
 				// auth_assignment
 				AuthAssignment::model()->deleteAllByAttributes(['userid' => $user['id']]);
 				if(empty($_POST['role']))
@@ -209,7 +189,6 @@ class ManageController extends Controller
 					}
 				}
 				
-
 				$transaction->commit();
 			}
 			catch(Exception $e)
