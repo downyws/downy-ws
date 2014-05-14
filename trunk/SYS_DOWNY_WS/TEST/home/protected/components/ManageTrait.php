@@ -31,11 +31,9 @@ trait ManageTrait
 				$data['id'],
 				$data['username'],
 				$data['real_name'],
-				$data['author']['organization'],
-				$data['author']['mobile'] . ($data['author']['mobile'] && $data['author']['phone'] ? '/' : '') . $data['author']['phone'],
 				$data['email'],
-				$data['author']['identity'],
-				date('Y-m-d', $data['visit_time']),
+				date('Y-m-d H:i', $data['visit_time']),
+				date('Y-m-d H:i', $data['create_time']),
 			];
 
 			$list[] = ($type == 'ajax') ? [$data['id'], $temp] : $temp;

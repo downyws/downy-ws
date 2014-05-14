@@ -372,24 +372,5 @@
 		}
 	}
 
-	<?php /*
-	var x = parseInt(Math.random()*10000);
-	$('input[name=username]').val('myj'+x);
-	$('input[name=password]').val('123123');
-	$('input[name=cfm_password]').val('123123');
-	$('input[name=email]').val(x+'@a.a');
-	$('input[name=real_name]').val('asdfasdf');
-	$('input[name=degree]').attr('checked', true);
-	$('input[name=organization]').val('asdfasdf');
-	$('input[name=phone]').val('123');
-	$('input[name=mobile]').val('');
-	$('input[name=gender]').attr('checked', true);
-	$('input[name=identity]').val('310101198809100518');
-	$('input[name=address]').val('asdafasdf');
-	$('input[name=zip]').val('200001');
-	$('input[name=captcha]').val('200001');
-	$('input[name=agree]').attr('checked', true);
-	$('select[name=region_state]').val('890');
-	*/ ?>
 })();
 </script>

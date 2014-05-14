@@ -39,7 +39,7 @@ class Author extends ContribActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('organization, address', 'required', 'on' => 'insert, update'),
+			array('user_id, organization, address', 'required', 'on' => 'insert, update'),
 			array('identity', 'validatorIdentity', 'on' => 'insert, update'),
 			array('gender, degree', 'validatorGenderDegree', 'on' => 'insert, update'),
 			array('region_id', 'validatorRegionId', 'on' => 'insert, update'),

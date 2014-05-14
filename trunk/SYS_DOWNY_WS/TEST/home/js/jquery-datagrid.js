@@ -551,10 +551,10 @@ $.fn.extend({
 
 			var order = i, lastOrder = selected;
 
-			if(event.ctrlKey){
+			/*if(event.ctrlKey){
 				data[order].selected = !(data[order].selected);
 				res = false;
-			}else{
+			}else*/{
 				if(selected >= 0){
 					if(selected == order){
 						return false;
@@ -569,7 +569,7 @@ $.fn.extend({
 				res = false;
 			}
 
-			if(event.shiftKey && lastOrder >= 0){
+			/*if(event.shiftKey && lastOrder >= 0){
 				if(order < lastOrder){
 					for(i = order; i <= lastOrder; i++){
 						data[i].selected = true;
@@ -581,7 +581,7 @@ $.fn.extend({
 				}
 
 				res = false;
-			}else if(data[order].selected){
+			}else */if(data[order].selected){
 				selected = order;
 			}else{
 				selected = -1;

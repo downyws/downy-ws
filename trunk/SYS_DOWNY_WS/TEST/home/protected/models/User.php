@@ -77,11 +77,66 @@ class User extends ContribActiveRecord
 		return parent::model($className);
 	}
 
-	public function resetPassword($email = true)
+	public function resetPassword($use_email = true)
 	{
-		if($email)
+		if(!$this['id'] || !$this['email'])
 		{
-			throw new Exception('coding...');
+			return false;
+		}
+
+		if($use_email)
+		{
+			$validate = new Validate;
+			$validate->attributes = [
+				'user_id' => $this['id'],
+				'code' => md5(time() . mt_rand()),
+				'create_time' => time(),
+				'visit_time' => 0
+			];
+
+			if(!$validate->save())
+			{
+				return false;
+			}
+			$url = Yii::app()->params['siteUrl'] . '/user/recover/?key=' . base64_encode($this['id']) . '&code=' . $validate['code'];
+
+			// 发送email
+			Yii::import('ext.phpmailer.PHPMailer');
+			$config = Yii::app()->params['email'];
+			$email = new PHPMailer(true);
+			$email->IsSMTP();
+			$email->SMTPAuth = $config['SMTPAuth'];
+			$email->Port = $config['Port'];
+			$email->Host = $config['Host'];
+			$email->Username = $config['Username'];
+			$email->Password = $config['Password'];
+			$email->From = $config['From'];
+			$email->FromName = $config['FromName'];
+			$email->IsHTML($config['IsHTML']);
+			$email->CharSet = 'UTF-8';
+			try
+			{
+				$email->AddAddress($this['email']);
+				$email->Subject = '密码重置';
+				$email->MsgHTML(
+					'<table>' .
+					'<tr><td>您好，</td><td>&nbsp;</td></tr>' .
+					'<tr><td>&nbsp;</td><td>请点击以下链接继续找回密码：</td></tr>' .
+					'<tr><td>&nbsp;</td><td>' . $url . '</td></tr>' .
+					'<tr><td>&nbsp;</td><td>如不能直接点击请复制上一行的地址到浏览器中。</td></tr>' .
+					'<tr><td>&nbsp;</td><td>谢谢！</td></tr>' .
+					'<tr><td>&nbsp;</td><td>&nbsp;</td></tr>' .
+					'<tr><td>&nbsp;</td><td style="text-align:right">' . $config['FromName'] . '</td></tr>' .
+					'</table>'
+				);
+				return $email->Send();
+			}
+			catch(phpmailerException $e)
+			{
+				return false;
+			}
+
+			return true;
 		}
 		else
 		{

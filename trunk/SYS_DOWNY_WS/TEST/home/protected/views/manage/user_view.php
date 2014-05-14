@@ -20,6 +20,8 @@
 				<tr><th>访问时间</th><td>-</td></tr>
 			</table>
 		<?php } ?>
+	</div>
+	<div class="fr">
 		<h2>角色</h2>
 		<table>
 			<?php 
@@ -35,45 +37,6 @@
 			<?php foreach($roles as $v){ ?>
 			<tr><th><?php echo $v['name']; ?></th><td><input type="checkbox" name="role[]" <?php echo (in_array($v['name'], $exists) ? 'checked="checked"' : ''); ?> value="<?php echo $v['name']; ?>" /></td></tr>
 			<?php } ?>
-		</table>
-	</div>
-	<div class="fr">
-		<h2>会员信息</h2>
-		<table>
-			<tr class="degree"><th>学位</th><td>
-				<?php foreach($degree_list as $k => $v){ ?>
-					<?php echo $v; ?><input type="radio" name="degree" value="<?php echo $k; ?>" />
-				<?php } ?>
-				<span class="msg degree"></span>
-			</td></tr>
-			<tr class="organization"><th>工作单位</th><td><input type="text" name="organization" /><span class="msg organization"></span></td></tr>
-			<tr class="phone"><th>电话号码</th><td><input type="text" name="phone" /><span class="msg phone"></span></td></tr>
-			<tr class="mobile"><th>手机号码</th><td><input type="text" name="mobile" /><span class="msg mobile"></span></td></tr>
-			<tr class="gender"><th>性别</th><td>
-				<?php foreach($gender_list as $k => $v){ ?>
-					<?php echo $v; ?><input type="radio" name="gender" value="<?php echo $k; ?>" />
-				<?php } ?>
-				<span class="msg gender"></span>
-			</td></tr>
-			<tr class="identity"><th>身份证号码</th><td><input type="text" name="identity" /><span class="msg identity"></span></td></tr>
-			<tr class="region_id"><th>地区</th><td>
-				<select name="region_state"><option value="0">请选择</option></select>
-				<select name="region_city"><option value="0">请选择</option></select>
-				<select name="region_district"><option value="0">请选择</option></select>
-				<span class="msg region_id"></span>
-			</td></tr>
-			<tr class="address"><th>通讯地址</th><td><input type="text" name="address" /><span class="msg address"></span></td></tr>
-			<tr class="zip"><th>邮编</th><td><input type="text" name="zip" /><span class="msg zip"></span></td></tr>
-			<tr class="title"><th>职称</th><td><input type="text" name="title" /><span class="msg title"></span></td></tr>
-			<tr class="language"><th>工作语言</th><td>
-				<?php foreach($language_list as $k => $v){ ?>
-					<?php echo $v; ?><input type="radio" name="language" value="<?php echo $k; ?>" />
-				<?php } ?>
-				<span class="msg language"></span>
-			</td></tr>
-			<tr class="subject"><th>研究方向</th><td><input type="text" name="subject" /><span class="msg subject"></span></td></tr>
-			<tr class="feature"><th>专长</th><td><textarea name="feature"></textarea><span class="msg feature"></span></td></tr>
-			<tr class="brief"><th>个人简介</th><td><textarea name="brief"></textarea><span class="msg brief"></span></td></tr>
 		</table>
 	</div>
 	<div class="cc"><input type="submit" value="保存" /></div>
@@ -145,36 +108,5 @@
 			$('span.msg.' + field).html('<img src="/images/false.png" title="' + msg + '" />');
 		}
 	}
-
-	// 初始化
-	<?php if($data['id']){ ?>
-		var AUTHOR = <?php echo CJavaScript::jsonEncode($data['author']);?>;
-		$('input[name=degree]').each(function(){
-			if($(this).val() == AUTHOR.degree){
-				$(this).attr('checked', 'checked');
-			}
-		});
-		$('input[name=organization]').val(AUTHOR.organization);
-		$('input[name=phone]').val(AUTHOR.phone);
-		$('input[name=mobile]').val(AUTHOR.mobile);
-		$('input[name=gender]').each(function(){
-			if($(this).val() == AUTHOR.gender){
-				$(this).attr('checked', 'checked');
-			}
-		});
-		$('input[name=identity]').val(AUTHOR.identity);
-		$('input[name=address]').val(AUTHOR.address);
-		$('input[name=zip]').val(AUTHOR.zip);
-		$('input[name=title]').val(AUTHOR.title);
-		$('input[name=language]').each(function(){
-			if($(this).val() == AUTHOR.language){
-				$(this).attr('checked', 'checked');
-			}
-		});
-		$('input[name=subject]').val(AUTHOR.subject);
-		$('textarea[name=feature]').val(AUTHOR.feature);
-		$('textarea[name=brief]').val(AUTHOR.brief);
-	<?php } ?>
-	$.fn.regionSel(<?php echo ($data['id'] ? $data['author']['region_id'] : 1); ?>, 'select[name=region_state]', 'select[name=region_city]', 'select[name=region_district]');
 })();
 </script>
