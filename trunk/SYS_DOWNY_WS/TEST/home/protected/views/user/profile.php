@@ -1,5 +1,5 @@
 <h1><?php echo $title; ?></h1>
-<div class="section" style="overflow:scroll;height:500px;">
+<div class="section">
 	<form class="form-dl" id="profile-form" action="<?php echo Yii::app()->request->baseUrl . $this->createUrl('user/profile'); ?>" onsubmit="return false;">
 	<dl>
 		
@@ -131,7 +131,7 @@
 			<span class="tips"></span>
 		</dd>
 
-		<dt><span></span>专长</dt>
+		<dt><span></span>个人简介</dt>
 		<dd class="cc brief">
 			<span class="ctrl"><textarea name="brief"></textarea></span>
 			<span class="msg brief"></span>
@@ -148,6 +148,21 @@
 </div>
 <script type="text/javascript">
 (function (){
+
+	var setDetailHeight = function (){
+		var height = 0;
+		var div = $('.body').parent();
+		div.prevAll().each(function (){
+			height += $(this).outerHeight();
+		});
+
+		height = $('nav').height() - height;
+		height -= div.outerHeight() - div.height();
+
+		$('.body').css({height: height, overflow: 'auto'});
+	};
+	setDetailHeight();
+
 	var FIELDS = [
 		['邮箱', 'email', ['input[name=email]', function(){
 			var re = /\w@\w*\.\w/;
