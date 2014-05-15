@@ -1,5 +1,5 @@
 <form id="document-view-form" action="<?php echo Yii::app()->request->baseUrl . $this->createUrl('manage/documentView'); ?>" onsubmit="return false;">
-	<div class="fl">
+	<div class="div-rows">
 		<table>
 			<tr><th>编号</th><td><?php echo $data['id']; ?><input type="hidden" name="id" value="<?php echo $data['id']; ?>" /></td></tr>
 			<tr class="column"><th>栏目</th><td>
@@ -15,7 +15,7 @@
 			<tr class="code"><th>标识</th><td><input type="text" name="code" value="<?php echo $data['code']; ?>" /><span class="msg code"></span></td></tr>
 		</table>
 	</div>
-	<div class="cc"><input type="submit" value="保存" /></div>
+	<div class="div-rows tac"><input type="submit" value="保存" /></div>
 </form>
 <script type="text/javascript">
 (function (){

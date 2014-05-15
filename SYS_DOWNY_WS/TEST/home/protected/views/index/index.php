@@ -91,5 +91,7 @@
 	obj.find('img').click()
 		.css({'vertical-align':'middle', 'width':'100px', 'height':'36px'})
 		.attr('title', '如果看不清楚验证码，请点击本图片框刷新．不区分大小写');
+
+	$('.intro').tab('ul li', '.content div', {fade:true, speed: 3000, css: 'current'});
 })();
 </script>

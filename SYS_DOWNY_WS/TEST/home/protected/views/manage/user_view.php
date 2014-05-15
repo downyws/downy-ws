@@ -1,45 +1,47 @@
 <form id="user-view-form" action="<?php echo Yii::app()->request->baseUrl . $this->createUrl('manage/userView'); ?>" onsubmit="return false;">
-	<div class="fl">
-		<h2>基本信息</h2>
-		<?php if($data['id']){ ?>
-			<table>
-				<tr><th>编号</th><td><?php echo $data['id']; ?><input type="hidden" name="id" value="<?php echo $data['id']; ?>" /></td></tr>
-				<tr class="real_name"><th>真实姓名</th><td><input type="text" name="real_name" value="<?php echo $data['real_name']; ?>" /><span class="msg real_name"></span></td></tr>
-				<tr><th>用户名</th><td><?php echo $data['username']; ?></td></tr>
-				<tr class="email"><th>邮箱</th><td><input type="text" name="email" value="<?php echo $data['email']; ?>" /><span class="msg email"></span></td></tr>
-				<tr><th>密码</th><td><input type="button" value="重置密码" class="reset_pwd" /></td></tr>
-				<tr><th>访问时间</th><td><?php echo date('Y-m-d', $data['visit_time']); ?></td></tr>
-			</table>
-		<?php }else{ ?>
-			<table>
-				<tr><th>编号</th><td>-<input type="hidden" name="id" value="0" /></td></tr>
-				<tr class="real_name"><th>真实姓名</th><td><input type="text" name="real_name" /><span class="msg real_name"></span></td></tr>
-				<tr class="username"><th>用户名</th><td><input type="text" name="username" /><span class="msg username"></span></td></tr>
-				<tr class="email"><th>邮箱</th><td><input type="text" name="email" /><span class="msg email"></span></td></tr>
-				<tr class="password"><th>密码</th><td><input type="password" name="password" /><span class="msg password"></span></td></tr>
-				<tr><th>访问时间</th><td>-</td></tr>
-			</table>
-		<?php } ?>
-	</div>
-	<div class="fr">
-		<h2>角色</h2>
-		<table>
-			<?php 
-				$exists = [];
-				if($data['id'])
-				{
-					foreach($data['roles'] as $v)
-					{
-						$exists[] = $v['name'];
-					}
-				}
-			?>
-			<?php foreach($roles as $v){ ?>
-			<tr><th><?php echo $v['name']; ?></th><td><input type="checkbox" name="role[]" <?php echo (in_array($v['name'], $exists) ? 'checked="checked"' : ''); ?> value="<?php echo $v['name']; ?>" /></td></tr>
+	<div class="cc div-rows">
+		<div class="fl">
+			<h2>基本信息</h2>
+			<?php if($data['id']){ ?>
+				<table>
+					<tr><th>编号</th><td><?php echo $data['id']; ?><input type="hidden" name="id" value="<?php echo $data['id']; ?>" /></td></tr>
+					<tr class="real_name"><th>真实姓名</th><td><input type="text" name="real_name" value="<?php echo $data['real_name']; ?>" /><span class="msg real_name"></span></td></tr>
+					<tr><th>用户名</th><td><?php echo $data['username']; ?></td></tr>
+					<tr class="email"><th>邮箱</th><td><input type="text" name="email" value="<?php echo $data['email']; ?>" /><span class="msg email"></span></td></tr>
+					<tr><th>密码</th><td><input type="button" value="重置密码" class="reset_pwd" /></td></tr>
+					<tr><th>访问时间</th><td><?php echo date('Y-m-d', $data['visit_time']); ?></td></tr>
+				</table>
+			<?php }else{ ?>
+				<table>
+					<tr><th>编号</th><td>-<input type="hidden" name="id" value="0" /></td></tr>
+					<tr class="real_name"><th>真实姓名</th><td><input type="text" name="real_name" /><span class="msg real_name"></span></td></tr>
+					<tr class="username"><th>用户名</th><td><input type="text" name="username" /><span class="msg username"></span></td></tr>
+					<tr class="email"><th>邮箱</th><td><input type="text" name="email" /><span class="msg email"></span></td></tr>
+					<tr class="password"><th>密码</th><td><input type="password" name="password" /><span class="msg password"></span></td></tr>
+					<tr><th>访问时间</th><td>-</td></tr>
+				</table>
 			<?php } ?>
-		</table>
+		</div>
+		<div class="fr">
+			<h2>角色</h2>
+			<table>
+				<?php 
+					$exists = [];
+					if($data['id'])
+					{
+						foreach($data['roles'] as $v)
+						{
+							$exists[] = $v['name'];
+						}
+					}
+				?>
+				<?php foreach($roles as $v){ ?>
+				<tr><th><?php echo $v['name']; ?></th><td><input type="checkbox" name="role[]" <?php echo (in_array($v['name'], $exists) ? 'checked="checked"' : ''); ?> value="<?php echo $v['name']; ?>" /></td></tr>
+				<?php } ?>
+			</table>
+		</div>
 	</div>
-	<div class="cc"><input type="submit" value="保存" /></div>
+	<div class="cc div-rows tac"><input type="submit" value="保存" /></div>
 </form>
 <script type="text/javascript">
 (function (){
