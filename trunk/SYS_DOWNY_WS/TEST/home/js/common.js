@@ -148,34 +148,62 @@ $.fn.extend({
 
 		// 初始化
 		var data = search(id);
-		var sc_4 = true, sc_3 = true;
 		switch(data['level']){
 			case '4':
-				id = data['id'];
 				data = search(data['parent_id']);
 				refresh(district, data['children'], id);
-				sc_4 = false;
-			case '3':
 				id = data['id'];
 				data = search(data['parent_id']);
 				refresh(city, data['children'], id);
-				if(id > 0 && sc_4){
-					data = search(id);
-					refresh(district, data['children'], 0);
-				}
-				sc_3 = false;
-			case '2':
 				id = data['id'];
 				data = search(data['parent_id']);
 				refresh(state, data['children'], id);
-				if(id > 0 && sc_3){
-					data = search(id);
+				break;
+			case '3':
+				if(id > 0){
+					refresh(district, data['children'], 0);
+				}
+				data = search(data['parent_id']);
+				refresh(city, data['children'], id);
+				id = data['id'];
+				data = search(data['parent_id']);
+				refresh(state, data['children'], id);
+				break;
+			case '2':
+				if(id > 0){
 					refresh(city, data['children'], 0);
 				}
+				data = search(data['parent_id']);
+				refresh(state, data['children'], id);
 				break;
 			case '1':
 				refresh(state, data['children'], 0);
+				break;
 		}
+	},
+
+	errorMsg: function(field, msg){
+		if(msg == ''){
+			$('span.msg.' + field).html('');
+		}else{
+			$('span.msg.' + field).html('<img src="/images/false.gif" title="' + msg + '" />');
+			$.fn.errorFocus();
+		}
+	},
+
+	errorFocus: function(){
+		var need_break = false;
+		var focus_obj = '';
+		$('span.msg').each(function(){
+			if(!need_break &&　$(this).html() != ''){
+				need_break = true;
+				focus_obj = $(this).data('focus-obj');
+				if(typeof($(this).data('focus-obj')) == 'undefined'){
+					focus_obj = 'input';
+				}
+				$(this).parent().find('.ctrl ' + focus_obj).focus();
+			}
+		});
 	}
 });
 

@@ -29,11 +29,11 @@
 	$('#system-form').submit(function (){
 		var post = true;
 		for(var k in FIELDS){
-			errorMsg(FIELDS[k][1], '');
+			$.fn.errorMsg(FIELDS[k][1], '');
 			if(typeof(FIELDS[k][2]) == 'object' && FIELDS[k][2].length > 0){
 				for(var _k in FIELDS[k][2]){
 					if($.trim($(this).find(FIELDS[k][2][_k]).val()) == ''){
-						errorMsg(FIELDS[k][1], '请填写值');
+						$.fn.errorMsg(FIELDS[k][1], '请填写值');
 						post = false;
 						break;
 					}
@@ -58,7 +58,7 @@
 						}else{
 							alert('无法解析返回信息');
 						}
-						errorMsg(k, msg);
+						$.fn.errorMsg(k, msg);
 					}
 				}else if(res.success && !res.message){
 					alert('保存成功');
@@ -74,15 +74,6 @@
 		$('span.msg.' + FIELDS[k][1]).parent().bind('click keyup', function(){
 			$(this).find('span.msg').html('');
 		});
-	}
-
-	// 错误信息
-	var errorMsg = function(field, msg){
-		if(msg == ''){
-			$('span.msg.' + field).html('');
-		}else{
-			$('span.msg.' + field).html('<img src="/images/false.png" title="' + msg + '" />');
-		}
 	}
 })();
 </script>
