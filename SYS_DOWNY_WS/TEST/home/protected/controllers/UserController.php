@@ -234,7 +234,7 @@ class UserController extends Controller
 			$captcha = Yii::createComponent(['class' => 'Captcha', 'attributes' => $_POST]);
 			if(!$captcha->validate())
 			{
-			//	$this->renderJson(['success' => false, 'errors' => $captcha->errors]);
+				$this->renderJson(['success' => false, 'errors' => $captcha->errors]);
 			}
 
 			// 邮箱

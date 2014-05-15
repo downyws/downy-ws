@@ -1,15 +1,13 @@
 <div class="intro">
 	<ul>
-		<li class="current"><?php echo $documents['GUIDE_POSTING']['title']; ?></li>
-		<li><?php echo $documents['BRIEF_MAGAZINE']['title']; ?></li>
+		<li class="current"><?php echo $documents['BRIEF_MAGAZINE']['title']; ?></li>
+		<li><?php echo $documents['GUIDE_POSTING']['title']; ?></li>
 		<li><?php echo $documents['LATEEST_NOTICE']['title']; ?></li>
-		<li><?php echo $documents['AGMT_COPYRIGHT']['title']; ?></li>
 	</ul>
 	<div class="content">
-		<div><?php echo $documents['GUIDE_POSTING']['content']; ?></div>
-		<div><?php echo $documents['BRIEF_MAGAZINE']['content']; ?></div>
-		<div><?php echo $documents['LATEEST_NOTICE']['content']; ?></div>
-		<div><?php echo $documents['AGMT_COPYRIGHT']['content']; ?></div>
+		<div><?php echo htmlspecialchars($documents['BRIEF_MAGAZINE']['content']); ?></div>
+		<div><?php echo htmlspecialchars($documents['GUIDE_POSTING']['content']); ?></div>
+		<div><?php echo htmlspecialchars($documents['LATEEST_NOTICE']['content']); ?></div>
 	</div>
 </div>
 <div class="login">
@@ -22,7 +20,7 @@
 			<dd><input type="password" class="text" name="password" /></dd>
 			<dt>验证码：</dt>
 			<dd class="captcha_img">
-				<input type="text" class="captcha" name="captcha" />
+				<input type="text" maxlength="7" autocomplete="off" class="captcha" name="captcha" />
 			</dd>
 		</dl>
 		<input type="submit" class="submit" value="登录">

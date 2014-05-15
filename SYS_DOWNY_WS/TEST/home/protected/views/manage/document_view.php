@@ -3,16 +3,25 @@
 		<table>
 			<tr><th>编号</th><td><?php echo $data['id']; ?><input type="hidden" name="id" value="<?php echo $data['id']; ?>" /></td></tr>
 			<tr class="column"><th>栏目</th><td>
-				<select name="column">
+				<span class="ctrl"><select name="column">
 					<?php foreach($column as $v){ ?>
 						<option <?php echo ($v['id'] == $data['column']) ? 'selected="selected"' : ''; ?> value="<?php echo $v['id']; ?>"><?php echo $v['title']; ?></option>
 					<?php } ?>
-				</select>
-				<span class="msg column"></span>
+				</select></span>
+				<span class="msg column" data-focus-obj="select"></span>
 			</td></tr>
-			<tr class="title"><th>标题</th><td><input type="text" name="title" value="<?php echo $data['title']; ?>" /><span class="msg title"></span></td></tr>
-			<tr class="content"><th>内容</th><td><textarea name="content"><?php echo $data['content']; ?></textarea><span class="msg content"></span></td></tr>
-			<tr class="code"><th>标识</th><td><input type="text" name="code" value="<?php echo $data['code']; ?>" /><span class="msg code"></span></td></tr>
+			<tr class="title"><th>标题</th><td>
+				<span class="ctrl"><input type="text" class="w300" name="title" value="<?php echo $data['title']; ?>" /></span>
+				<span class="msg title"></span>
+			</td></tr>
+			<tr class="content"><th>内容</th><td>
+				<span class="ctrl"><textarea class="w450 h200" name="content"><?php echo $data['content']; ?></textarea></span>
+				<span class="msg content"></span>
+			</td></tr>
+			<tr class="code"><th>标识</th><td>
+				<span class="ctrl"><input type="text" class="w300" name="code" value="<?php echo $data['code']; ?>" /></span>
+				<span class="msg code"></span>
+			</td></tr>
 		</table>
 	</div>
 	<div class="div-rows tac"><input type="submit" value="保存" /></div>
@@ -39,7 +48,7 @@
 						}else{
 							alert('无法解析返回信息');
 						}
-						errorMsg(k, msg);
+						$.fn.errorMsg(k, msg);
 					}
 				}
 			}else{
@@ -55,14 +64,5 @@
 			$(this).find('span.msg').html('');
 		});
 	});
-
-	// 错误信息
-	var errorMsg = function(field, msg){
-		if(msg == ''){
-			$('span.msg.' + field).html('');
-		}else{
-			$('span.msg.' + field).html('<img src="/images/false.png" title="' + msg + '" />');
-		}
-	}
 })();
 </script>

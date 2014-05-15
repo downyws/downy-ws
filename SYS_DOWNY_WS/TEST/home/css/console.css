@@ -12,6 +12,10 @@ a{text-decoration: none;}
 .fr{float:right}
 .tac{text-align:center;}
 
+.w300{width:300px;}
+.w450{width:450px;}
+.h200{height:200px;}
+
 html{
 	height:100%;
 	width:100%;

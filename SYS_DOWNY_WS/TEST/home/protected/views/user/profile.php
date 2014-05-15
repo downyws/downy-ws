@@ -81,7 +81,7 @@
 				<select name="region_city"><option value="0">请选择</option></select>
 				<select name="region_district"><option value="0">请选择</option></select>
 			</span>
-			<span class="msg region_id"></span>
+			<span class="msg region_id" data-focus-obj="select[name=region_state]"></span>
 			<span class="tips"></span>
 		</dd>
 
@@ -109,11 +109,13 @@
 		<dt><span></span>工作语言</dt>
 		<dd class="cc language">
 			<span class="ctrl">
+				<select name="language"><option value="0">请选择</option>
 				<?php foreach($language_list as $k => $v){ ?>
-					<?php echo $v; ?><input type="radio" name="language" value="<?php echo $k; ?>" />
+					<option value="<?php echo $k; ?>"><?php echo $v; ?></option>
 				<?php } ?>
+				</select>
 			</span>
-			<span class="msg language"></span>
+			<span class="msg language" data-focus-obj="select[name=language]"></span>
 			<span class="tips"></span>
 		</dd>
 
@@ -226,7 +228,7 @@
 		var need_break = false;
 		for(var k in FIELDS){
 			need_break = false;
-			errorMsg(FIELDS[k][1], '');
+			$.fn.errorMsg(FIELDS[k][1], '');
 			if(typeof(FIELDS[k][2]) == 'object' && FIELDS[k][2].length > 0){
 				for(var _k in FIELDS[k][2]){
 					if(need_break){
@@ -235,7 +237,7 @@
 					switch(typeof(FIELDS[k][2][_k])){
 						case 'string':
 							if($.trim($(this).find(FIELDS[k][2][_k]).val()) == ''){
-								errorMsg(FIELDS[k][1], '请填写' + FIELDS[k][0]);
+								$.fn.errorMsg(FIELDS[k][1], '请填写' + FIELDS[k][0]);
 								post = false;
 								need_break = true;
 							}
@@ -243,7 +245,7 @@
 						case 'function':
 							var data = FIELDS[k][2][_k]();
 							if(typeof(data) == 'object' && data.length == 2){
-								errorMsg(data[0], data[1]);
+								$.fn.errorMsg(data[0], data[1]);
 								post = false;
 								need_break = true;
 							}
@@ -270,7 +272,7 @@
 						}else{
 							alert('无法解析返回信息');
 						}
-						errorMsg(k, msg);
+						$.fn.errorMsg(k, msg);
 					}
 				}else if(res.success && !res.message){
 					alert('保存成功');
@@ -286,15 +288,6 @@
 		$('span.msg.' + FIELDS[k][1]).parent().bind('click keyup', function(){
 			$(this).find('span.msg').html('');
 		});
-	}
-
-	// 错误信息
-	var errorMsg = function(field, msg){
-		if(msg == ''){
-			$('span.msg.' + field).html('');
-		}else{
-			$('span.msg.' + field).html('<img src="/images/false.png" title="' + msg + '" />');
-		}
 	}
 
 	var USER = <?php echo CJavaScript::jsonEncode($data['user']);?>;
@@ -318,15 +311,15 @@
 	$('input[name=address]').val(AUTHOR.address);
 	$('input[name=zip]').val(AUTHOR.zip);
 	$('input[name=title]').val(AUTHOR.title);
-	$('input[name=language]').each(function(){
+	$('select[name=language] option').each(function(){
 		if($(this).val() == AUTHOR.language){
-			$(this).attr('checked', 'checked');
+			$(this).attr('selected', 'selected');
 		}
 	});
 	$('input[name=subject]').val(AUTHOR.subject);
 	$('textarea[name=feature]').val(AUTHOR.feature);
 	$('textarea[name=brief]').val(AUTHOR.brief);
 
-	$.fn.regionSel(AUTHOR.region_id, 'select[name=region_state]', 'select[name=region_city]', 'select[name=region_district]');
+	$.fn.regionSel(parseInt(AUTHOR.region_id) ? AUTHOR.region_id : 1, 'select[name=region_state]', 'select[name=region_city]', 'select[name=region_district]');
 })();
 </script>

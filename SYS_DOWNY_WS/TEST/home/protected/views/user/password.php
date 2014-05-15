@@ -32,6 +32,21 @@
 </div>
 <script type="text/javascript">
 (function (){
+
+	var setDetailHeight = function (){
+		var height = 0;
+		var div = $('.body').parent();
+		div.prevAll().each(function (){
+			height += $(this).outerHeight();
+		});
+
+		height = $('nav').height() - height;
+		height -= div.outerHeight() - div.height();
+
+		$('.body').css({height: height, overflow: 'auto'});
+	};
+	setDetailHeight();
+
 	var FIELDS = [
 		['旧密码', 'old_password', ['input[name=old_password]']],
 		['新密码', 'password', ['input[name=password]', function(){
@@ -51,7 +66,7 @@
 		var need_break = false;
 		for(var k in FIELDS){
 			need_break = false;
-			errorMsg(FIELDS[k][1], '');
+			$.fn.errorMsg(FIELDS[k][1], '');
 			if(typeof(FIELDS[k][2]) == 'object' && FIELDS[k][2].length > 0){
 				for(var _k in FIELDS[k][2]){
 					if(need_break){
@@ -60,7 +75,7 @@
 					switch(typeof(FIELDS[k][2][_k])){
 						case 'string':
 							if($.trim($(this).find(FIELDS[k][2][_k]).val()) == ''){
-								errorMsg(FIELDS[k][1], '请填写' + FIELDS[k][0]);
+								$.fn.errorMsg(FIELDS[k][1], '请填写' + FIELDS[k][0]);
 								post = false;
 								need_break = true;
 							}
@@ -68,7 +83,7 @@
 						case 'function':
 							var data = FIELDS[k][2][_k]();
 							if(typeof(data) == 'object' && data.length == 2){
-								errorMsg(data[0], data[1]);
+								$.fn.errorMsg(data[0], data[1]);
 								post = false;
 								need_break = true;
 							}
@@ -95,7 +110,7 @@
 						}else{
 							alert('无法解析返回信息');
 						}
-						errorMsg(k, msg);
+						$.fn.errorMsg(k, msg);
 					}
 				}else if(res.success && !res.message){
 					alert('保存成功');
@@ -114,15 +129,6 @@
 		$('span.msg.' + FIELDS[k][1]).parent().bind('click keyup', function(){
 			$(this).find('span.msg').html('');
 		});
-	}
-
-	// 错误信息
-	var errorMsg = function(field, msg){
-		if(msg == ''){
-			$('span.msg.' + field).html('');
-		}else{
-			$('span.msg.' + field).html('<img src="/images/false.png" title="' + msg + '" />');
-		}
 	}
 })();
 </script>
