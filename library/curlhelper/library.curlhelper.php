@@ -81,13 +81,8 @@ class CurlHelper
 		if(!empty($post) && is_array($post) && count($post) > 0)
 		{
 			curl_setopt($this->_curl, CURLOPT_POST, 1);
-			$data = array();
-			foreach($post as $k => $v)
-			{
-				$data[] = $k . '=' . urlencode($v);
-			}
-			$data = implode('&', $data);
-			curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $data);
+			curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($this->_curl, CURLOPT_HTTPHEADER, ['Expect:']);
 		}
 
 		// COOKIE…Ë÷√
