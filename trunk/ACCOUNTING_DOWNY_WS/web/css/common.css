@@ -1,0 +1,83 @@
+/* Base style */
+*{outline:0;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, fieldset, form,  label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;}
+h1, h2, h3, h4, h5{font-weight:normal;}
+a{outline:none;text-decoration:none;}
+html, body{min-height:100%;font-family:Arial;}
+ul, ol, dl{margin:0;padding:0;}
+table{border-collapse:collapse;}
+
+/* Define style */
+.clearfix:after{clear:both;content:" ";display:block;height:0;}
+.mgb10{margin-bottom:10px;}
+.tac{text-align:center;}
+.hide{display:none;}
+
+/* Layout style */
+body{background:url("../images/bg.png") top no-repeat;background-color:#D5E7FF;font-size:12px;}
+.header{width:980px;margin:0px auto 5px;height:100px;padding-top:220px;background:url("../images/common.png");box-shadow:0 -3px 3px 2px rgba(0, 0, 0, 0.2);position:relative;}
+.header .portrait{width:120px;height:120px;background:url("../images/common.png");float:left;background-position:0px -320px;position:absolute;bottom:10px;left:20px;}
+.header .intro{padding-left:160px;color:#FFFFFF;font-size:12px;}
+.header .intro h3{margin-top:10px;font-size:20px;line-height:28px;}
+.header .intro p{line-height:24px;}
+
+.content{width:940px;margin:0px auto;background:#FFFFFF;box-shadow:0 1px 3px 2px rgba(0, 0, 0, 0.2);padding:20px;}
+.content.statistics{margin-bottom:10px;padding:10px 20px;}
+.content.statistics ul li{float:left;display:block;height:120px;width:230px;margin-left:15px;list-style:none;overflow:hidden;}
+.content.statistics ul li.block1{margin-left:0px;width:205px;overflow:hidden;}
+.content.statistics ul li.block1 div{width:210px;}
+.content.statistics ul li.block1 p{line-height:20px;float:left;width:100px;margin-right:5px;height:20px;overflow:hidden;white-space:nowrap;}
+.content.statistics ul li.block1 a.link{width:203px;text-align:center;height:18px;line-height:18px;background:#EDEFF4;border:1px solid #D8DFEA;display:block;color:#2C76C0;}
+.content.statistics ul li.block2{width:720px;height:120px;overflow:hidden;}
+.content .loading{margin:0px auto;}
+.content .loading img{float:left;}
+.content .loading div{margin-top:10px;padding:0px 30px 0px 10px;float:left;line-height:50px;background:url("../images/loading.gif") no-repeat scroll right center;}
+.content .error{font-size:20px;text-align:center;color:#FF0000;}
+.content .showmore{background:#EDEFF4;border:1px solid #D8DFEA;text-align:center;font-size:14px;font-weight:bold;cursor:pointer;margin-top:10px;padding:5px;color:#2C76C0;}
+.content .record li{cursor:pointer;list-style:none;margin-bottom:20px;width:940px;height:60px;overflow:hidden;}
+.content .record li a{display:block;color:#000000;}
+.content .record li .cate{width:75px;background:#6699C9;float:left;text-align:center;color:#FFFFFF;font-size:14px;font-weight:bold;}
+.content .record li .cate.lv1{height:60px;line-height:60px;}
+.content .record li .cate.lv2{height:55px;line-height:24px;padding-top:5px;}
+.content .record li .info{float:left;line-height:20px;margin-left:10px;}
+.content .record li .info span{margin-right:20px;}
+.content .record li .info i{margin-right:20px;}
+.content .record li .surplus{height:40px;float:right;padding:10px;color:#FFFFFF;font-size:14px;font-weight:bold;line-height:20px;text-align:center;}
+.content .record li .surplus.income{background:#009900;}
+.content .record li .surplus.expenditure{background:#990000;}
+.content.edit select .lv2{padding-left:20px;}
+.content.edit .lrecord{float:left;width:285px;background:#F2F5F9;border:1px solid #DDDDDD;padding:9px;margin-right:30px;font-size:14px;line-height:35px;}
+.content.edit .lrecord ul{list-style:none;}
+.content.edit .lrecord ul span{width:75px;display:block;float:left;}
+.content.edit .lrecord ul select{width:210px;}
+.content.edit .lrecord ul input[type="text"]{background:#F2F5F9;border:0px;border-bottom:1px solid #000000;font-size:14px;padding:2px;width:206px;}
+.content.edit .lrecord ul textarea{width:279px;height:90px;}
+.content.edit .lrecord ul label{margin-right:10px;}
+.content.edit .rdetail{float:left;width:605px;}
+.content.edit .rdetail .item, .content.edit .rdetail .btn{background:#F2F5F9;border:1px solid #DDDDDD;padding:5px 9px 9px;margin-bottom:10px;}
+.content.edit .rdetail .btn{margin-bottom:0px;text-align:center;}
+.content.edit .rdetail .btn a{margin:0px 10px;}
+.content.edit .rdetail .item table{width:100%;}
+.content.edit .rdetail .item table .deldetail td{text-align:right;line-height:12px;font-weight:bold;}
+.content.edit .rdetail .item table .deldetail td span{padding:0;margin:0;float:right;cursor:pointer;width:12px;}
+.content.edit .rdetail .item table td{width:50%;line-height:30px;vertical-align:top;}
+.content.edit .rdetail .item table td span{display:block;float:left;width:65px;}
+.content.edit .rdetail .item table td span.br{float:none;}
+.content.edit .rdetail .item table td textarea{vertical-align:top;width:285px;height:80px;}
+.content.edit .rdetail .item table td input[type="text"]{width:210px;background:#F2F5F9;border:0px;border-bottom:1px solid #000000;padding:2px;}
+.content.edit .rdetail .item table td input[type="file"]{width:165px;}
+.content.edit .rdetail .item table td select{width:214px;}
+.content.edit .rdetail .item table td ul{list-style:none;}
+.content.edit .rdetail .item table td .file{background:#ffffff;border:1px solid #BBBBBB;float:left;padding:0px 10px;margin:5px 10px 5px 0px;}
+.content.edit .rdetail .item table td .file i{font-size:11px;margin-right:10px;}
+.content.edit .rdetail .item table td .file .name{color:#4F72A2;margin-right:10px;}
+.content.edit .rdetail .item table td .file .del{color:#FF0000;}
+
+.footer{width:980px;margin:15px auto;text-align:center;font-size:14px;color:#2C76C0;}
+.footer .icp{float:left;width:30%;text-align:left;}
+.footer .copy{float:left;width:40%;text-align:center;}
+.footer .mobi{float:left;width:30%;text-align:right;}
+.footer .mobi a{color:#2C76C0;}
+
+.mod-go-top{background:url("../images/common.png");background-position:-120px -320px;background-color:#F4F4F4;width:55px;height:55px;bottom:47px;right:0px;position:fixed;display:block;cursor:pointer;}
+.mod-go-top:hover{background:url("../images/common.png");background-position:-120px -375px;background-color:#6699C9;}

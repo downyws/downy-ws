@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<link type="text/css" rel="stylesheet" href="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/cupertino/jquery-ui-1.10.4.custom.min.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}chartjs/chart.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/jquery-ui-1.10.4.custom.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-ui-timepicker-addon.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.fileupload.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.iframe-transport.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.downy.ext.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+	var DATA = {$data};
+	var CATEGORY = {$category};
+	var CURRENCY = {$currency};
+	{literal}
+	$(function(){
+		// 控件初始化
+		if(DATA.id == 0){
+			$('.delrecord').remove();
+			$.fn.addDetail(null);
+		}
+		$('.jqdt').each(function(){
+			$(this).datetimepicker({
+				dateFormat: 'yy-mm-dd',
+				timeFormat: 'hh:mm'
+			});
+		});
+
+		// 数据填充
+		$('#id').html(DATA.id > 0 ? DATA.id : 'N/A');
+		$('input[name=id]').val(DATA.id);
+		$.fn.fullSel($('select[name=category_id]'), CATEGORY, DATA.category_id, null);
+		$('#surplus').html(DATA.surplus);
+		$('textarea[name=remark]').val(DATA.remark);
+		if(DATA.create_time > 0){
+			$('input[name=create_time]').val($.fn.convertTimestamp(DATA.create_time, 'yyyy-MM-dd hh:mm'));
+		}
+		$('input[name=address_id]').val(DATA.address.id);
+		$('input[name=address_title]').val(DATA.address.title);
+		$('input[name=address_type]').each(function(){
+			if($(this).val() == DATA.address.type){
+				$(this).prop('checked', true);
+			}
+		});
+		$('textarea[name=address_detail]').val(DATA.address.detail);
+		$('input[name=address_lon]').val(DATA.address.lon);
+		$('input[name=address_lat]').val(DATA.address.lat);
+		$('input[name=state]').each(function(){
+			if($(this).val() == DATA.state){
+				$(this).prop('checked', true);
+			}
+		});
+		if(DATA.finish_time > 0){
+			$('input[name=finish_time]').val($.fn.convertTimestamp(DATA.finish_time, 'yyyy-MM-dd hh:mm'));
+		}
+		if(DATA.remind_time > 0){
+			$('input[name=remind_time]').val($.fn.convertTimestamp(DATA.remind_time, 'yyyy-MM-dd hh:mm'));
+		}
+		for(var i = 0; i < DATA.detail.length; i++){
+			$.fn.addDetail(DATA.detail[i]);
+		}
+
+		// 事件 - 添加条目
+		$('.additem').click(function(){
+			$.fn.addDetail(null);
+		});
+		// 事件 - 经纬度填充
+		$('.lonlat').click(function(){
+			$('input[name=address_lon]').val('loading...');
+			$('input[name=address_lat]').val('loading...');
+			if(navigator.geolocation){
+				navigator.geolocation.getCurrentPosition(function(position){
+					$('input[name=address_lon]').val(position.coords.longitude);
+					$('input[name=address_lat]').val(position.coords.latitude);
+				});
+			}else{
+				alert('Geolocation is not supported by this browser.');
+			}
+		});
+		// 事件 - 删除记录
+		$('.rdetail .delrecord').click(function(){
+			if(confirm('确认删除该记录？')){
+				$.ajax({type: 'GET', url: '/delete_' + DATA.id + '.html', dataType: 'JSON', success: function(response){
+					if(typeof(response.message) == 'string'){
+						alert(response.message);
+					}
+					if(typeof(response.error) == 'undefined'){
+						window.location.href = '/';
+					}
+				}});
+			}
+		});
+
+		// 事件 - 删除明细
+		$('.rdetail').on('click', '.item .deldetail', function(){
+			if(confirm('确认删除该明细？')){
+				$(this).parent().parent().parent().hide(500, function(){
+					$(this).remove();
+				});
+			}
+		});
+		// 事件 - 删除凭证
+		$('.rdetail').on('click', '.item .del', function(){
+			if(confirm('确认删除该凭证？')){
+				$(this).parent().hide(500, function(){
+					$(this).remove();
+				});
+			}
+		});
+		// 事件 - 地址搜索
+		$('input[name=address_title]').autocomplete({
+			source: 'index.php?a=index&m=searchaddress&t=ajax',
+			minLength: 0,
+			select: function(event, ui){
+				var obj = $.parseJSON(ui.item.value);
+				$('input[name=address_id]').val(obj.id);
+				$('input[name=address_type]').each(function(){
+					if($(this).val() == obj.type){
+						$(this).prop('checked', true);
+					}
+				});
+				$('textarea[name=address_detail]').val(obj.detail);
+				$('input[name=address_lon]').val(obj.lon);
+				$('input[name=address_lat]').val(obj.lat);
+				$('input[name=address_title]').val(ui.item.label);
+				return false;
+			}
+		});
+		// 事件 - 保存
+		$('.save').click(function(){
+			var data = {
+				id: $('input[name=id]').val(),
+				category_id: $('select[name=category_id]').val(),
+				remark: $('textarea[name=remark]').val(),
+				create_time: $('input[name=create_time]').val(),
+				address: {
+					title: $('input[name=address_title]').val(),
+					type: $('input[name=address_type]:checked').val(),
+					detail: $('textarea[name=address_detail]').val(),
+					lon: $('input[name=address_lon]').val(),
+					lat: $('input[name=address_lat]').val(),
+				},
+				state: $('input[name=state]:checked').val(),
+				finish_time: $('input[name=finish_time]').val(),
+				remind_time: $('input[name=remind_time]').val(),
+				detail: []
+			};
+			$('.rdetail .item').each(function(){
+				var item = {
+					id: $(this).find('input[name=detail_id]').val(),
+					create_time: $(this).find('input[name=detail_create_time]').val(),
+					amount_currency_id: $(this).find('select[name=detail_amount_currency_id]').val(),
+					amount: $(this).find('input[name=detail_amount]').val(),
+					exchange_rate: $(this).find('input[name=detail_exchange_rate]').val(),
+					remark: $(this).find('textarea[name=detail_remark]').val(),
+					files: []
+				};
+				$(this).find('.files .file').each(function(){
+					item.files.push($(this).find('input[name=file_id]').val());
+				});
+				data.detail.push(item);
+			});
+
+			$.ajax({type: 'POST', url: '/save.html', data: data, dataType: 'JSON', success: function(response){
+				if(typeof(response.message) == 'string'){
+					alert(response.message);
+				}
+				if(typeof(response.error) == 'undefined'){
+					window.location.href = '/update_' + response.id + '.html';
+				}
+			}});
+		});
+
+		$.fn.goTop();
+	});
+	{/literal}
+	</script>
+</head>
+<body>
+	{include file="common_header.html"}
+	<div class="content clearfix edit">
+		<div class="lrecord">
+			<ul>
+				<li><span>编　　号：</span><font id="id">N/A</font><input type="hidden" name="id" /></li>
+				<li><span>分　　类：</span><select name="category_id"></select></li>
+				<li><span>结余货币：</span>{$surplus}</li>
+				<li><span>结余金额：</span><font id="surplus">&nbsp;</font></li>
+				<li><span>说　　明：</span><textarea name="remark"></textarea></li>
+				<li><span>发生时间：</span><input type="text" name="create_time" class="tac jqdt" /></li>
+				<li><span>地址简称：</span><input type="text" name="address_title" /></li>
+				<li>
+					<span>地址类型：</span>
+					<label><input type="radio" name="address_type" value="1" />实体</label>
+					<label><input type="radio" name="address_type" value="2" />虚拟</label>
+				</li>
+				<li><span>详细地址：</span><textarea name="address_detail"></textarea></li>
+				<li><span>经　　度：</span><input type="text" name="address_lon" /></li>
+				<li><span>纬　　度：</span><input type="text" name="address_lat" /></li>
+				<li>
+					<span>状　　态：</span>
+					<label><input type="radio" name="state" value="2" />进行中</label>
+					<label><input type="radio" name="state" value="1" />已完成</label>
+				</li>
+				<li><span>完成时间：</span><input type="text" name="finish_time" class="tac jqdt" /></li>
+				<li><span>提醒时间：</span><input type="text" name="remind_time" class="tac jqdt" /></li>
+			</ul>
+		</div>
+		<div class="rdetail">
+			<div class="btn">
+				<a class="additem" href="javascript:;">添加明细</a>
+				<a class="lonlat" href="javascript:;">经纬度填充</a>
+				<a class="save" href="javascript:;">保存记录</a>
+				<a class="delrecord" href="javascript:;">删除记录</a>
+			</div>
+		</div>
+	</div>
+	{include file="common_footer.html"}
+</body>
+</html>

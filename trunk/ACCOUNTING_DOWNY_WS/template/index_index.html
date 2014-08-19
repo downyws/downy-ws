@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}chartjs/chart.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.downy.ext.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+	{literal}
+	$(function(){
+		$('.showmore').click(function(){
+			$(this).hide();
+			$('.loading').show();
+
+			$.ajax({type: 'GET', url: '/list_' + ($('.record li').length + 1) + '.html', async: true, dataType: 'JSON', success: function(response){
+				var html = '';
+				var temp = null;
+				for(var i = 0; i < response.data.length; i++){
+					temp = response.data[i];
+
+					html += '<li class="clearfix">';
+					html += '	<a href="update_' + temp.id + '.html">';
+					if(typeof(temp.category_parent_title) != "undefined"){
+						html += '	<div class="cate lv2">' + temp.category_parent_title + '<br />' + temp.category_title + '</div>';
+					}else{
+						html += '	<div class="cate lv1">' + temp.category_title + '</div>';
+					}
+					html += '		<div class="info">';
+					html += '			<p>';
+					html += '				<span>' + temp.remark + '</span>';
+					html += '				<span>' + $.fn.convertTimestamp(temp.create_time, 'yyyy-MM-dd hh:mm') + '</span>';
+					html += '				<span>' + temp.address_title + '</span>';
+					html += '			</p><p>';
+					html += '				<span>状态：' + (temp.state == 1 ? '已完成' : '进行中') + '</span>';
+					html += '				<span>明细条数：' + temp.detail_count + '</span>';
+					html += '				<span>凭证数：' + temp.file_count + '</span>';
+					html += '				<span>完成时间：' + $.fn.convertTimestamp(temp.finish_time, 'yyyy-MM-dd hh:mm') + '</span>';
+					html += '			</p><p>';
+					html += '				<i>' + temp.address_detail + '</i>';
+					html += '				<i>Lon: ' + temp.address_lon + '</i>';
+					html += '				<i>Lat: ' + temp.address_lat + '</i>';
+					html += '			</p>';
+					html += '		</div>';
+					html += '		<div class="surplus ' + (temp.surplus >= 0 ? 'income' : 'expenditure') + '">' + temp.surplus_currency_abbr + '<br />' + Math.abs(temp.surplus) + '</div>';
+					html += '	</a>';
+					html += '</li>';
+				}
+				$('.record').append(html);
+
+				$('.loading').hide();
+				if(response.count > $('.record li').length){
+					$('.showmore').show();
+				}
+			}, error: function(){
+				$('.loading').hide();
+				$('.error').show();
+			}});
+		});
+		$('.showmore').click();
+	});
+	{/literal}
+	</script>
+</head>
+<body>
+	{include file="common_header.html"}
+	<div class="content clearfix">
+		<ul class="record"></ul>
+		<div class="loading clearfix">
+			<img src="images/hard.gif" />
+			<div>Sushi墨迹墨迹中，请稍后，等不及了先戳她。。。</div>
+		</div>
+		<div class="showmore hide">加载更多</div>
+		<div class="error hide">Ajax response error.</div>
+	</div>
+	{include file="common_footer.html"}
+</body>
+</html>
