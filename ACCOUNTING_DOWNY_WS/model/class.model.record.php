@@ -15,12 +15,12 @@ class ModelRecord extends Model
 		$result = $this->getObject([['id' => ['eq', $id]]]);
 		if($result != null)
 		{
-			$result['surplus'] = sprintf('%.6f', $result['surplus']);
+			$result['surplus'] = $result['surplus'];
 			$result['address'] = $this->getObject([['id' => ['eq', $result['address_id']]]], [], 'address');
 			$result['detail'] = $this->getObjects([['record_id' => ['eq', $id]]], [], 'detail');
 			foreach($result['detail'] as $k => $v)
 			{
-				$result['detail'][$k]['amount'] = sprintf('%.2f', $result['detail'][$k]['amount']);
+				$result['detail'][$k]['amount'] = $result['detail'][$k]['amount'];
 				$result['detail'][$k]['file'] = $this->getObjects([['detail_id' => ['eq', $v['id']]]], ['id', 'detail_id', 'title', 'hash', 'create_time'], 'file');
 			}
 		}
