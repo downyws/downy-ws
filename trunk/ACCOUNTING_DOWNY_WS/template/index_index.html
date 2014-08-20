@@ -38,11 +38,15 @@
 					html += '				<span>状态：' + (temp.state == 1 ? '已完成' : '进行中') + '</span>';
 					html += '				<span>明细条数：' + temp.detail_count + '</span>';
 					html += '				<span>凭证数：' + temp.file_count + '</span>';
-					html += '				<span>完成时间：' + $.fn.convertTimestamp(temp.finish_time, 'yyyy-MM-dd hh:mm') + '</span>';
+					if(temp.remind_time > 0){
+						html += '				<span>提醒时间：' + $.fn.convertTimestamp(temp.remind_time, 'yyyy-MM-dd hh:mm') + '</span>';
+					}else{
+						html += '				<span>完成时间：' + $.fn.convertTimestamp(temp.finish_time, 'yyyy-MM-dd hh:mm') + '</span>';
+					}
 					html += '			</p><p>';
 					html += '				<i>' + temp.address_detail + '</i>';
-					html += '				<i>Lon: ' + temp.address_lon + '</i>';
-					html += '				<i>Lat: ' + temp.address_lat + '</i>';
+					html += '				<i>Lon: ' + (temp.address_lon == '' ? 'N/A' : temp.address_lon) + '</i>';
+					html += '				<i>Lat: ' + (temp.address_lat == '' ? 'N/A' : temp.address_lat) + '</i>';
 					html += '			</p>';
 					html += '		</div>';
 					html += '		<div class="surplus ' + (temp.surplus >= 0 ? 'income' : 'expenditure') + '">' + temp.surplus_currency_abbr + '<br />' + Math.abs(temp.surplus) + '</div>';
