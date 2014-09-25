@@ -20,7 +20,6 @@ class ModelRecord extends Model
 			$result['detail'] = $this->getObjects([['record_id' => ['eq', $id]]], [], 'detail');
 			foreach($result['detail'] as $k => $v)
 			{
-				$result['detail'][$k]['amount'] = $result['detail'][$k]['amount'];
 				$result['detail'][$k]['file'] = $this->getObjects([['detail_id' => ['eq', $v['id']]]], ['id', 'detail_id', 'title', 'hash', 'create_time'], 'file');
 			}
 		}
