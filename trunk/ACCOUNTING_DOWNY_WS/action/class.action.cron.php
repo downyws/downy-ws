@@ -54,7 +54,7 @@ class ActionCron extends Action
 				}
 				else
 				{
-					$update_list[] = $v['abbr'];
+					$update_list[] = '[' . $v['abbr'] . ' ' . $exchange_rate . ']';
 				}
 			}
 
