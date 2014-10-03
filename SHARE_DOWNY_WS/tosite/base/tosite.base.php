@@ -1,7 +1,7 @@
 <?php
 class ToSiteBase
 {
-	public $sites = array();
+	public $sites = [];
 
 	public function __construct($site = '')
 	{
@@ -61,7 +61,7 @@ class ToSiteBase
 			if($site != 'base')
 			{
 				$handle = fopen(APP_DIR_TOSITE . $site . '/tosite.' . $site . '.php', 'r');
-				$config = array();
+				$config = [];
 				while($line = fgets($handle, 1024))
 				{
 					if(strripos($line, '#- ') === 0)
@@ -73,7 +73,7 @@ class ToSiteBase
 						}
 					}
 				}
-				$site = array('key' => $site, 'name' => $config[0], 'sort' => floatval($config[1]));
+				$site = ['key' => $site, 'name' => $config[0], 'sort' => floatval($config[1])];
 				if(empty($this->sites))
 				{
 					$this->sites[] = $site;
@@ -81,7 +81,7 @@ class ToSiteBase
 				else
 				{
 					$temp = $this->sites;
-					$this->sites = array();
+					$this->sites = [];
 					foreach($temp as $k => $v)
 					{
 						if(!empty($site) && $v['sort'] < $site['sort'])
