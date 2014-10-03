@@ -8,17 +8,17 @@ class ActionShare extends Action
 
 	public function methodIndex()
 	{
-		$params = $this->_submit->obtain($_REQUEST, array(
-			'tosite' => array(array('valid', 'function', '', '', function($arg){
+		$params = $this->_submit->obtain($_REQUEST, [
+			'tosite' => [['valid', 'function', '', '', function($arg){
 				return ($arg != 'base') && file_exists(APP_DIR_TOSITE . $arg . '/tosite.' . $arg . '.php');
-			})),
-			'url' => array(array('valid', 'url', '', '', null)),
-			'desc' => array(array('format', 'trim'))
-		));
-		$images = $this->_submit->obtainArray($_REQUEST, array(
-			'img' => array(array('valid', 'url', '', '', null))
-		));
-		$params['img'] = array();
+			}]],
+			'url' => [['valid', 'url', '', '', null]],
+			'desc' => [['format', 'trim']]
+		]);
+		$images = $this->_submit->obtainArray($_REQUEST, [
+			'img' => [['valid', 'url', '', '', null]]
+		]);
+		$params['img'] = [];
 		foreach($images as $v)
 		{
 			if(!empty($v['img']))
