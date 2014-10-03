@@ -12,7 +12,7 @@ table{border-collapse:collapse;}
 
 /* Layout style */
 body{background:url("../images/bg.png") top no-repeat;background-color:#D5E7FF;font-size:12px;}
-.header{width:980px;margin:0px auto 5px;height:100px;padding-top:220px;background:url("../images/common.png");box-shadow:0 -3px 3px 2px rgba(0, 0, 0, 0.2);position:relative;}
+.header{width:980px;margin:0px auto 10px;height:100px;padding-top:220px;background:url("../images/common.png");box-shadow:0 0px 3px 2px rgba(0, 0, 0, 0.2);position:relative;}
 .header .portrait{width:120px;height:120px;background:url("../images/common.png");float:left;background-position:0px -320px;position:absolute;bottom:10px;left:20px;}
 .header .intro{padding-left:160px;color:#FFFFFF;font-size:12px;}
 .header .intro h3{margin-top:10px;font-size:20px;line-height:28px;}
