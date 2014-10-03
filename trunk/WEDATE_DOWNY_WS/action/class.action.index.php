@@ -13,13 +13,13 @@ class ActionIndex extends Action
 
 	public function methodDatesAjax()
 	{
-		$params = $this->_submit->obtain($_REQUEST, array(
-			'year' => array(
-				array('format', 'int'),
-				array('valid', 'between', '', 2010, array(2010, 2014))
-			),
-			'all' => array(array('valid', 'in', '', 0, array(0, 1)))
-		));
+		$params = $this->_submit->obtain($_REQUEST, [
+			'year' => [
+				['format', 'int'],
+				['valid', 'between', '', 2010, [2010, 2014]]
+			],
+			'all' => [['valid', 'in', '', 0, [0, 1]]]
+		]);
 
 		$filecache = new Filecache();
 		$key = 'dates.temp';
@@ -27,14 +27,14 @@ class ActionIndex extends Action
 		if(!$result)
 		{
 			$dateObj = Factory::getModel('date');
-			$result = array('years' => array(), 'dates' => $dateObj->getAll());
+			$result = ['years' => [], 'dates' => $dateObj->getAll()];
 			for($i = 0; $i < count($result['dates']); $i++)
 			{
 				for($j = $i; $j < count($result['dates']); $j++)
 				{
 					if($result['dates'][$i]['meet_time'] < $result['dates'][$j]['meet_time'])
 					{
-						list($result['dates'][$i], $result['dates'][$j]) = array($result['dates'][$j], $result['dates'][$i]);
+						list($result['dates'][$i], $result['dates'][$j]) = [$result['dates'][$j], $result['dates'][$i]];
 					}
 				}
 				$result['years'][] = $result['dates'][$i]['y'];
