@@ -10,12 +10,12 @@ class ModelDate extends Model
 
 	public function getAll()
 	{
-		$fields = array(
+		$fields = [
 			'id', 'location', 'meet_time', 
 			'FROM_UNIXTIME(meet_time, \'%Y\') AS y', 
 			'FROM_UNIXTIME(meet_time, \'%m\') AS m', 
 			'FROM_UNIXTIME(meet_time, \'%d\') AS d'
-		);
+		];
 		return $this->getObjects(null, $fields);
 	}
 }
