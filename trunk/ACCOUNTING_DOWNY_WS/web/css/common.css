@@ -53,6 +53,8 @@ body{background:url("../images/bg.png") top no-repeat;background-color:#D5E7FF;f
 .content.edit .lrecord ul input[type="text"]{background:#F2F5F9;border:0px;border-bottom:1px solid #000000;font-size:14px;padding:2px;width:206px;}
 .content.edit .lrecord ul textarea{width:279px;height:90px;}
 .content.edit .lrecord ul label{margin-right:10px;}
+.content.edit .lrecord ul #create_time_label, 
+.content.edit .lrecord ul #finish_time_label{cursor:pointer;}
 .content.edit .rdetail{float:left;width:605px;}
 .content.edit .rdetail .item, .content.edit .rdetail .btn{background:#F2F5F9;border:1px solid #DDDDDD;padding:5px 9px 9px;margin-bottom:10px;}
 .content.edit .rdetail .btn{margin-bottom:0px;text-align:center;}
@@ -72,6 +74,7 @@ body{background:url("../images/bg.png") top no-repeat;background-color:#D5E7FF;f
 .content.edit .rdetail .item table td .file i{font-size:11px;margin-right:10px;}
 .content.edit .rdetail .item table td .file .name{color:#4F72A2;margin-right:10px;}
 .content.edit .rdetail .item table td .file .del{color:#FF0000;}
+.content.edit .rdetail .item table td .detail_create_time_label{cursor:pointer;}
 
 .footer{width:980px;margin:15px auto;text-align:center;font-size:14px;color:#2C76C0;}
 .footer .icp{float:left;width:30%;text-align:left;}
