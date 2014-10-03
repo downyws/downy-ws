@@ -20,7 +20,7 @@ class ModelWeixinApi extends Model
 		$q_id = $this->getOne($condition, 'id', 'question');
 		if(!$q_id)
 		{
-			$data = 'val' => $question, 'is_adjust' => $level >= NOT_NEED_AUDIT_LEVEL ? 1 : 0];
+			$data = ['val' => $question, 'is_adjust' => $level >= NOT_NEED_AUDIT_LEVEL ? 1 : 0];
 			$q_id = $this->insert($data, 'question');
 		}
 
