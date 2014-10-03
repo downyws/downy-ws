@@ -15,34 +15,34 @@ class ModelWeixinApi extends Model
 			$question = str_replace('_', '', $question);
 		}
 
-		$condition = array();
-		$condition[] = array('val' => array('eq', $question));
+		$condition = [];
+		$condition[] = ['val' => ['eq', $question]];
 		$q_id = $this->getOne($condition, 'id', 'question');
 		if(!$q_id)
 		{
-			$data = array('val' => $question, 'is_adjust' => $level >= NOT_NEED_AUDIT_LEVEL ? 1 : 0);
+			$data = 'val' => $question, 'is_adjust' => $level >= NOT_NEED_AUDIT_LEVEL ? 1 : 0];
 			$q_id = $this->insert($data, 'question');
 		}
 
-		$condition = array();
-		$condition[] = array('val' => array('eq', $answer));
-		$condition[] = array('msg_type' => array('eq', 'text'));
+		$condition = [];
+		$condition[] = ['val' => ['eq', $answer]];
+		$condition[] = ['msg_type' => ['eq', 'text']];
 		$a_id = $this->getOne($condition, 'id', 'answer');
 		if(!$a_id)
 		{
-			$data = array('val' => $answer, 'data' => '', 'msg_type' => 'text');
+			$data = ['val' => $answer, 'data' => '', 'msg_type' => 'text'];
 			$a_id = $this->insert($data, 'answer');
 		}
 
 		if($q_id && $a_id)
 		{
-			$data = array('q_id' => $q_id, 'a_id' => $a_id, 'level' => $level, 'is_adjust' => $level >= NOT_NEED_AUDIT_LEVEL ? 1 : 0);
+			$data = ['q_id' => $q_id, 'a_id' => $a_id, 'level' => $level, 'is_adjust' => $level >= NOT_NEED_AUDIT_LEVEL ? 1 : 0];
 			$this->insert($data, 'aq', true);
 			if($level < NOT_NEED_AUDIT_LEVEL)
 			{
-				$condition = array();
-				$condition[] = array('id' => array('eq', $q_id));
-				$data = array('is_adjust' => 0);
+				$condition = [];
+				$condition[] = ['id' => ['eq', $q_id]];
+				$data = ['is_adjust' => 0];
 				$this->update($condition, $data, 'question');
 			}
 			return true;
@@ -58,11 +58,11 @@ class ModelWeixinApi extends Model
 		// 数学运算判断
 		if(preg_match('/^[0-9\+\-\*\/\.\(\)]+$/', $text))
 		{
-			$text = preg_replace(array('/([0-9])(\()/', '/(\))([0-9])/'), '$1*$2', $text);
+			$text = preg_replace(['/([0-9])(\()/', '/(\))([0-9])/'], '$1*$2', $text);
 			@eval('$val=' . $text . ';');
 			if(isset($val))
 			{
-				return array('text', $text . '=' . $val);
+				return ['text', $text . '=' . $val];
 			}
 			else
 			{
@@ -89,7 +89,7 @@ class ModelWeixinApi extends Model
 		$temp = explode("\n", $text);
 		if(count($temp) == 2)
 		{
-			$text = array(trim($temp[0]), trim($temp[1]));
+			$text = [trim($temp[0]), trim($temp[1])];
 			if(preg_match('/^问题.+/', $text[0]) && preg_match('/^回答.+/', $text[1]))
 			{
 				$text[0] = substr($text[0], 6);
@@ -124,7 +124,7 @@ class ModelWeixinApi extends Model
 		{
 			shuffle($val);
 			$val = current($val);
-			return array($val['msg_type'], $val['val']);
+			return [$val['msg_type'], $val['val']];
 		}
 		else if($is_command)
 		{
@@ -135,12 +135,12 @@ class ModelWeixinApi extends Model
 		Factory::loadLibrary('curlhelper');
 		$simconf = $GLOBALS['CONFIG']['SIMSIMI'];
 		$curlhelper = new CurlHelper($simconf['CURL']);
-		$response = $curlhelper->request($simconf['API'] . $text, array());
+		$response = $curlhelper->request($simconf['API'] . $text, []);
 		$response = json_decode($response['body'], true);
 		if($response['result'] == 100)
 		{
 			$this->addAnswer($text, $response['response'], $simconf['LEVEL']);
-			return array('text', $response['response']);
+			return ['text', $response['response']];
 		}
 
 		// 请求调教
@@ -149,9 +149,9 @@ class ModelWeixinApi extends Model
 
 	public function cancelFollow($openid)
 	{
-		$condition = array();
-		$condition[] = array('openid' => array('eq', $openid));
-		$data = array('state' => FOLLOWER_STATE_CANCEL);
+		$condition = [];
+		$condition[] = ['openid' => ['eq', $openid]];
+		$data = ['state' => FOLLOWER_STATE_CANCEL];
 		$this->update($condition, $data, 'follower');
 	}
 
@@ -161,16 +161,15 @@ class ModelWeixinApi extends Model
 		{
 			return false;
 		}
-		$condition = array();
-		$condition[] = array('id' => array('eq', $fofollower['id']));
-		$data = array('nickname' => $nickname);
+		$condition = [];
+		$condition[] = ['id' => ['eq', $fofollower['id']]];
+		$data = ['nickname' => $nickname];
 		return $this->update($condition, $data, 'follower');
 	}
 
 	public function filterText($content)
 	{
-		$filter = array
-		(
+		$filter = [
 			'`', '-', '=', '[', ']', ';', ',', '.', '/', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
 			'_', '+', '{', '}', '|', ':', '"', '<', '>', '?', '‘', '’', '~', '·', '%', '…', '&', '*', '·', '“',
 			'”', '—', ' ',
@@ -184,29 +183,29 @@ class ModelWeixinApi extends Model
 			'≈', '≡', '≠', '＝', '≤', '≥', '＜', '＞', '≮', '≯', '∷', '±', '＋', '－', '×', '÷', '／', '∫', '∮', '∝', '∞', '∧', '∨', '∑', '∏', '∪', '∩', '∈', '∵', '∴', '⊥', '∥', '∠', '⌒', '⊙', '≌', '∽', '√',
 			'┌', '┍', '┎', '┏', '┐', '┑', '┒', '┓', '─', '┄', '┈', '├', '┝', '┞', '┟', '┠', '┡', '┢', '┣', '│', '┆', '┊', '┬', '┭', '┮', '┯', '┰', '┱', '┲', '┳', '┼', '┽', '┾', '┿', '╀', '╁', '╂', '╋', '└', '┕', '┖', '┗', '┘', '┙', '┚', '┛', '━', '┅', '┉', '┤', '┥', '┧', '┦', '┨', '┩', '┪', '┫', '┃', '┇', '┋', '┴', '┵', '┶', '┷', '┸', '┹', '┺', '┻', '╄', '╅', '╆', '╇', '╈', '╉', '╊',
 			'§', '€', '№', '☆', '★', '○', '◎', '●', '◇', '◆', '□', '℃', '‰', '°', '¤', '〓', '↓', '↑', '←', '→', '※', '▲', '△', '■', '＃', '＆', '＠', '＼', '︿', '￣', '―', '♂', '♀', '　'
-		);
+		];
 		return str_replace($filter, '', $content);
 	}
 
 	public function getFollower($openid)
 	{
-		$condition = array();
-		$condition[] = array('openid' => array('eq', $openid));
-		$follower = $this->getObject($condition, array(), 'follower');
+		$condition = [];
+		$condition[] = ['openid' => ['eq', $openid]];
+		$follower = $this->getObject($condition, [], 'follower');
 		if(!empty($follower) && $follower['state'] == FOLLOWER_STATE_CANCEL)
 		{
-			$data = array('state' => FOLLOWER_STATE_NORMAL);
+			$data = ['state' => FOLLOWER_STATE_NORMAL];
 			$this->update($condition, $data, 'follower');
 		}
 		else if(empty($follower))
 		{
-			$follower = array(
+			$follower = [
 				'openid' => $openid,
 				'nickname' => $this->getNickname($openid),
 				'level' => 0,
 				'state' => FOLLOWER_STATE_NORMAL,
 				'create_time' => time()
-			);
+			];
 			$follower['id'] = $this->insert($follower, 'follower');
 			if($follower['id'] < 1)
 			{
@@ -218,9 +217,9 @@ class ModelWeixinApi extends Model
 
 	public function getNickname($openid)
 	{
-		$condition = array();
-		$condition[] = array('openid' => array('eq', $openid));
-		$follower = $this->getObject($condition, array(), 'follower');
+		$condition = [];
+		$condition[] = ['openid' => ['eq', $openid]];
+		$follower = $this->getObject($condition, [], 'follower');
 		if(!empty($follower) && $follower['nickname'] != '')
 		{
 			return $follower['nickname'];
@@ -232,7 +231,7 @@ class ModelWeixinApi extends Model
 	{
 		$data = simplexml_load_string($request, 'SimpleXMLElement', LIBXML_NOCDATA);
 
-		$response = array();
+		$response = [];
 		$response['toUserName'] = $data->FromUserName;
 		$response['fromUserName'] = $data->ToUserName;
 		$response['createTime'] = time();
@@ -272,12 +271,12 @@ class ModelWeixinApi extends Model
 				break;
 		}
 
-		$log = array(
+		$log = [
 			'follower_id' => $follower['id'],
 			'request' => $request, 
 			'response' => json_encode($response),
 			'create_time' => $response['createTime']
-		);
+		];
 		$this->insert($log, 'log');
 
 		return $response;

@@ -1,0 +1,32 @@
+/* Base style */
+*{outline:0;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, fieldset, form,  label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;}
+h1, h2, h3, h4, h5{font-weight:normal;}
+a{outline:none;text-decoration:none;}
+html, body{min-height:100%;font-family:Arial;}
+ul, ol, dl{margin:0;padding:0;}
+table{border-collapse:collapse;}
+
+/* Define style */
+.clearfix:after{clear:both;content:" ";display:block;height:0;}
+
+/* Layout style */
+body{font-size:12px;background:url("../images/bg.png");}
+
+.header{margin:20px auto 10px;width:400px;}
+.header .title{margin:0px auto;width:190px;height:30px;background:url("../images/common.png");}
+
+.content{width:400px;margin:0px auto;text-align:center;position:relative;padding-bottom:70px;}
+.content .qr{margin:0px 50px 10px;}
+.content .qr img{box-shadow: 0 4px 3px #333333;}
+.content .phone{position: absolute;left:100px;top:-35px;width:330px;height:490px;display:none;background:url("../images/phone.png");}
+.content .info{color:#B4B7BC;margin:20px 50px;}
+.content .info .left, .content .info .right{width:26px;height:48px;}
+.content .info .left{float:left;background:url("../images/common.png");background-position:0px -30px;}
+.content .info .right{float:right;background:url("../images/common.png");background-position:-30px -30px;}
+.content .info .tips{height:48px;float:left;line-height:48px;text-shadow: 0 1px 1px #333333;text-align:center;width:248px;background:url("../images/common.png");background-position:0px -81px;}
+
+.footer{width:400px;margin:10px auto 20px;background:url("../images/common.png")no-repeat scroll 0px -130px;}
+.footer .i{display:block;width:27px;height:27px;margin:0px auto 10px;background:url("../images/common.png") no-repeat scroll 0 0px transparent;background-position:-90px -30px;}
+.footer p, .footer a{color:#242627;text-shadow:0 1px 0 #5B5C5E;font-size:14px;text-align:center;line-height:22px;}
+.footer a{margin-left:30px;}

@@ -8,12 +8,12 @@ class ActionWeixinApi extends Action
 
 	public function methodIndexApi()
 	{
-		$params = $this->_submit->obtain($_REQUEST, array(
-			'signature' => array(array('format', 'trim')),
-			'timestamp' => array(array('valid', 'between', 'timestamp out.', null, array(time() - 30, time() + 30))),
-			'nonce' => array(array('format', 'trim')),
-			'echostr' => array(array('format', 'trim'))
-		));
+		$params = $this->_submit->obtain($_REQUEST, [
+			'signature' => [['format', 'trim']],
+			'timestamp' => [['valid', 'between', 'timestamp out.', null, [time() - 30, time() + 30]]],
+			'nonce' => [['format', 'trim']],
+			'echostr' => [['format', 'trim']]
+		]);
 
 		if(count($this->_submit->errors) > 0)
 		{
@@ -21,7 +21,7 @@ class ActionWeixinApi extends Action
 			exit;
 		}
 
-		$sign = array(WEIXIN_TOKEN, $params['timestamp'], $params['nonce']);
+		$sign = [WEIXIN_TOKEN, $params['timestamp'], $params['nonce']];
 		sort($sign);
 		$sign = implode($sign);
 

@@ -3,8 +3,44 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>{$smarty.const.APP_NAME}</title>
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript">
+	{literal}
+		$(function() {
+			$('.content').mouseover(function(){
+				$('.qr .phone').css({'display': 'block'}).stop().animate({
+					opacity: 1,
+					left: 360,
+				}, 500);
+			});
+			$('.content').mouseout(function(){
+				$('.qr .phone').css({'display': 'block'}).stop().animate({
+					opacity: 0,
+					left: 100,
+				}, 500);
+			});
+		});
+	{/literal}
+	</script>
 </head>
 <body>
-	<center><h1>Website is building...</h1></center>
+	<div class="header"><div class="title"></div></div>
+	<div class="content">
+		<div class="qr"><img src="/images/qr_300.jpg" /><div class="phone"></div></div>
+		<div class="info clearfix">
+			<div class="left"></div>
+			<div class="right"></div>
+			<div class="tips">请使用微信扫描二维码以关注</div>
+		</div>
+	</div>
+	<div class="footer">
+		<a class="i"></a>
+		<div class="info">
+			<p>Copyright &copy; 2014-2015 Downy All Rights Reserved</p>
+			<p>Shanghai ICP No.13039079<a href="/index.php?a=cookie&m=set&s=PC&expire=max&key=SITE_TYPE&val=MOBI&callback=%2Fmobi%2F">Goto PC site</a></p>
+		</div>
+	</div>
 </body>
 </html>

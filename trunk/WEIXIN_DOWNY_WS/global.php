@@ -32,21 +32,19 @@ define('ONEDIT_NICKNAME_SUCCESS', '_DOWNY_NICKNAME_SUCCESS');	// 编辑昵称成功
 define('NOT_NEED_AUDIT_LEVEL', 25);
 
 // Simsimi
-$GLOBALS['CONFIG']['SIMSIMI'] = array
-(
+$GLOBALS['CONFIG']['SIMSIMI'] = [
 	'LEVEL' => 5,
 	'API' => 'http://api.simsimi.com/request.p?lc=ch&ft=0.0&key=' . SIMSIMI_KEY . '&text=',
 	// http://sandbox.api.simsimi.com/request.p?lc=ch&ft=0.0&key=your_paid_key&text=内容
 	// http://api.simsimi.com/request.p?lc=ch&ft=0.0&key=your_paid_key&text=内容
-	'CURL' => array
-	(
+	'CURL' => [
 		'TIMEOUT' => 3,
 		'ENCODING' => 'gzip, deflate',
 		'PROXY' => false, 
 		'PROXYPORT' => '',
-		'COOKIE' => array('OPEN' => false, 'LOCK' => false, 'PATH' => ''),
-		'REFERER' => array('OPEN' => false, 'LOCK' => false, 'VALUE' => ''),
-		'USERAGENT' => array('OPEN' => false, 'VALUE' => '0'),
+		'COOKIE' => ['OPEN' => false, 'LOCK' => false, 'PATH' => ''],
+		'REFERER' => ['OPEN' => false, 'LOCK' => false, 'VALUE' => ''],
+		'USERAGENT' => ['OPEN' => false, 'VALUE' => '0'],
 		'AUTO_REDIRECT_COUNT' => 1
-	)
-);
+	]
+];

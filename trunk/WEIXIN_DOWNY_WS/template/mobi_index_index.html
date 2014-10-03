@@ -7,21 +7,15 @@
 	<link type="text/css" rel="stylesheet" href="css/common.css" />
 </head>
 <body>
-	<p>微信扫一扫</p>
-	<p class="tc"><img src="images/tdcode.jpg" /></p>
-	<p><span id="add_type">搜索</span><a href="weixin://profile/gh_7ddac677a9cc" onclick="WeiXinAddContact()">DownyHelper</a>关注我们</p>
-	{literal}
-	<script type="text/javascript">
-		function WeiXinAddContact(){
-			if(typeof WeixinJSBridge != "undefined"){
-				WeixinJSBridge.invoke("addContact", {
-					webtype: "1",
-					username: "gh_7ddac677a9cc"
-				},  function(d) {});
-			}
-		}
-	</script>
-	{/literal}
+	<div class="header">Downy Weixin</div>
+	<div class="content">
+		<p><img src="images/qr_460.jpg" /></p>
+		<p>微信搜索<b>DownyHelper</b></p>
+	</div>
+	<div class="footer">
+		<p>Copyright © 2014-2015 Downy All Rights Reserved</p>
+		<p>Shanghai ICP No.13039079<a href="#">Goto PC site</a></p>
+	</div>
 	{include file="mobi_common_statistics.html"}
 </body>
 </html>
