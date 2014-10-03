@@ -97,7 +97,6 @@
 				}});
 			}
 		});
-
 		// 事件 - 删除明细
 		$('.rdetail').on('click', '.item .deldetail', function(){
 			if(confirm('确认删除该明细？')){
@@ -132,6 +131,21 @@
 				$('input[name=address_title]').val(ui.item.label);
 				return false;
 			}
+		});
+		// 事件 - 发生时间 || 完成时间
+		$('#create_time_label, #finish_time_label').click(function(){
+			var val = $(this).parent().find('input').val();
+			$('input[name=create_time], input[name=finish_time]').val(val);
+			$('input[name=detail_create_time]').each(function(){
+				$(this).val(val);
+			});
+		});
+		$('.rdetail').on('click', '.item .detail_create_time_label', function(){
+			var val = $(this).parent().find('input').val();
+			$('input[name=create_time], input[name=finish_time]').val(val);
+			$('input[name=detail_create_time]').each(function(){
+				$(this).val(val);
+			});
 		});
 		// 事件 - 保存
 		$('.save').click(function(){
@@ -193,7 +207,7 @@
 				<li><span>结余货币：</span>{$surplus}</li>
 				<li><span>结余金额：</span><font id="surplus">&nbsp;</font></li>
 				<li><span>说　　明：</span><textarea name="remark"></textarea></li>
-				<li><span>发生时间：</span><input type="text" name="create_time" class="tac jqdt" /></li>
+				<li><span id="create_time_label">发生时间：</span><input type="text" name="create_time" class="tac jqdt" /></li>
 				<li><span>地址简称：</span><input type="text" name="address_title" /></li>
 				<li>
 					<span>地址类型：</span>
@@ -208,7 +222,7 @@
 					<label><input type="radio" name="state" value="2" />进行中</label>
 					<label><input type="radio" name="state" value="1" />已完成</label>
 				</li>
-				<li><span>完成时间：</span><input type="text" name="finish_time" class="tac jqdt" /></li>
+				<li><span id="finish_time_label">完成时间：</span><input type="text" name="finish_time" class="tac jqdt" /></li>
 				<li><span>提醒时间：</span><input type="text" name="remind_time" class="tac jqdt" /></li>
 			</ul>
 		</div>

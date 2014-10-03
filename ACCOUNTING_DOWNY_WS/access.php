@@ -7,18 +7,18 @@ if($_GETA == 'access' && $_GETM == 'set' && $_GETT == 'api')
 {
 	if(abs(time() - $_REQUEST['timestamp']) > 15)
 	{
-		$result = array('error' => array('code' => '', 'msg' => 'timestamp expire.'));
+		$result = ['error' => ['code' => '', 'msg' => 'timestamp expire.']];
 	}
 	else if($_REQUEST['sign'] != md5(base64_encode(ACCESS_API_KEY . $_REQUEST['password'] . $_REQUEST['expire'] . $_REQUEST['ip'] . $_REQUEST['timestamp'] . $_REQUEST['useragent'])))
 	{
-		$result = array('error' => array('code' => '', 'msg' => 'sign error.'));
+		$result = ['error' => ['code' => '', 'msg' => 'sign error.']];
 	}
 	else
 	{
-		$result = array();
+		$result = [];
 		$filecache = new Filecache();
 		$key = 'access/' . md5(base64_encode($_REQUEST['password'] . $_REQUEST['ip'] . $_REQUEST['useragent'])) . '.key';
-		$filecache->set($key, array('password' => $_REQUEST['password'], 'ip' => $_REQUEST['ip'], 'useragent' => $_REQUEST['useragent']), intval($_REQUEST['expire']));
+		$filecache->set($key, ['password' => $_REQUEST['password'], 'ip' => $_REQUEST['ip'], 'useragent' => $_REQUEST['useragent']], intval($_REQUEST['expire']));
 	}
 	echo json_encode($result);
 	exit;

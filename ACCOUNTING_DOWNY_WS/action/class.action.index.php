@@ -9,8 +9,8 @@ class ActionIndex extends Action
 	// 统计信息
 	public function methodIndex()
 	{
-		$recordObj = Factory::getModel('record');
-		$statistics = $recordObj->getStatistics();
+		$statisticsObj = Factory::getModel('statistics');
+		$statistics = $statisticsObj->getMain();
 
 		$this->assign('statistics', $statistics);
 	}
@@ -35,7 +35,7 @@ class ActionIndex extends Action
 	public function methodSearchAddressAjax()
 	{
 		$params = $this->_submit->obtain($_REQUEST, [
-			'term' => array(array('format', 'trim'))
+			'term' => [['format', 'trim']]
 		]);
 
 		$addressObj = Factory::getModel('address');
@@ -62,7 +62,8 @@ class ActionIndex extends Action
 		$data = $recordObj->getRecord($params['id']);
 
 		// 统计信息
-		$statistics = $recordObj->getStatistics();
+		$statisticsObj = Factory::getModel('statistics');
+		$statistics = $statisticsObj->getMain();
 
 		// 分类
 		$categoryObj = Factory::getModel('category');

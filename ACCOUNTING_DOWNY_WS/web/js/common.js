@@ -79,7 +79,7 @@ $.fn.extend({
 		html += '<div class="item"><table>';
 		html += '	<tr class="deldetail"><td colspan="2"><input type="hidden" name="detail_id" /><span>X</span></td></tr>';
 		html += '	<tr>';
-		html += '		<td><span>发生时间：</span><input type="text" class="tac" name="detail_create_time" /></td>';
+		html += '		<td><span class="detail_create_time_label">发生时间：</span><input type="text" class="tac" name="detail_create_time" /></td>';
 		html += '		<td rowspan="4"><span class="br">说　　明：</span><textarea name="detail_remark"></textarea></td>';
 		html += '	</tr>';
 		html += '	<tr><td><span>所用货币：</span><select name="detail_amount_currency_id"></select></td></tr>';
