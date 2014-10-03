@@ -2,7 +2,7 @@
 
 class Factory
 {
-	public static $objs = array();
+	public static $objs = [];
 
 	public static function getModel($name, $param = null)
 	{

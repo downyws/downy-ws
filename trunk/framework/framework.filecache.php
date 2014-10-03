@@ -40,7 +40,7 @@ class Filecache
 			return false;
 		}
 
-		return file_put_contents($path, json_encode(array('value' => $value, 'expire' => time() + $expire)), LOCK_EX);
+		return file_put_contents($path, json_encode(['value' => $value, 'expire' => time() + $expire]), LOCK_EX);
 	}
 
 	public function setMulti($pairs, $expire = FRAMEWORLK_FILECACHE_EXPIRE)
@@ -74,10 +74,10 @@ class Filecache
 	{
 		if(empty($keys) || !is_array($keys))
 		{
-			return array();
+			return [];
 		}
 
-		$res = array();
+		$res = [];
 
 		foreach($keys as $key)
 		{

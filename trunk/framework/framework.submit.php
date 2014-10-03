@@ -2,20 +2,20 @@
 
 class Submit
 {
-	public $errors = array();
+	public $errors = [];
 
-	/*$params = array(
-		'user_name' => array(
-			array('mapping', 'new name'),
-			array('format', 'trim'),
-			array('valid', 'set', 'message', 'default value', data),
+	/*$params = [
+		'user_name' => [
+			['mapping', 'new name'],
+			['format', 'trim'],
+			['valid', 'set', 'message', 'default value', data],
 			......
-		)
-	);*/
+		]
+	];*/
 	public function obtain($values, $params)
 	{
-		$this->errors = array();
-		$result = array();
+		$this->errors = [];
+		$result = [];
 
 		foreach($params as $field => $rules)
 		{
@@ -74,7 +74,7 @@ class Submit
 
 	public function obtainArray($values, $params)
 	{
-		$result = array(); $request = array(); $l = null;
+		$result = []; $request = []; $l = null;
 		foreach($params as $field => $rules)
 		{
 			if(isset($values[$field]) && is_array($values[$field]))

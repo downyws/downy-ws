@@ -26,7 +26,7 @@ class Front
 				if(class_exists($actionName))
 				{
 					$actionObj = new $actionName;
-					if(is_callable(array($actionObj, $methodName)))
+					if(is_callable([$actionObj, $methodName]))
 					{
 						if(empty($type) && file_exists(APP_DIR_TEMPLATE . $action . '_' . $method . '.html'))
 						{

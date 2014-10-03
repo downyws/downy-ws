@@ -4,8 +4,8 @@ class Model extends Db
 {
 	protected $_prefix = '';
 	protected $_table = null;
-	protected $_fields = array();
-	protected $_trans = array('sqls' => array(), 'errors' => array());
+	protected $_fields = [];
+	protected $_trans = ['sqls' => [], 'errors' => []];
 
 	public function __construct($config = null)
 	{
@@ -25,7 +25,7 @@ class Model extends Db
 		return (strpos($table, '`') === false) ? ('`' . $this->_prefix . $table . '`') : $table;
 	}
 
-	public function fieldFilter($table, $datas, $fields = array())
+	public function fieldFilter($table, $datas, $fields = [])
 	{
 		if(empty($this->_fields[$table]))
 		{
@@ -54,7 +54,7 @@ class Model extends Db
 	{
 		$table = $this->table($table);
 
-		$data = $this->fieldFilter($table, array($data));
+		$data = $this->fieldFilter($table, [$data]);
 		$data = $data[0];
 
 		$sql = ' INSERT ' . ($ignore ? ' IGNORE ' : '') . ' INTO ' . $table . ' (`' . implode('`, `', array_keys($data)) . '`) VALUES ("' . implode('", "', $data) . '")';
@@ -74,7 +74,7 @@ class Model extends Db
 
 		$datas = $this->fieldFilter($table, $datas, $fields);
 
-		$batch = array(); $i = 0; $item; $b = 0; $byte = 0;
+		$batch = []; $i = 0; $item; $b = 0; $byte = 0;
 		foreach($datas as $k => $v)
 		{
 			$item = '("' . implode('", "', $datas[$k]) . '")';
@@ -103,7 +103,7 @@ class Model extends Db
 	{
 		$table = $this->table($table);
 
-		$data = $this->fieldFilter($table, array($data));
+		$data = $this->fieldFilter($table, [$data]);
 		$data = $data[0];
 		foreach($data as $k => $v)
 		{
@@ -124,10 +124,10 @@ class Model extends Db
 	{
 		$table = $this->table($table);
 
-		$data = $this->fieldFilter($table, array($data));
+		$data = $this->fieldFilter($table, [$data]);
 		$data = $data[0];
 
-		$object = $this->getObject($condition, array(), $table);
+		$object = $this->getObject($condition, [], $table);
 		if(!!$object)
 		{
 			foreach($data as $k => $v)
@@ -177,13 +177,13 @@ class Model extends Db
 		return $this->fetchOne($sql);
 	}
 
-	public function getObject($condition, $fields = array(), $table = '')
+	public function getObject($condition, $fields = [], $table = '')
 	{
 		$sql = 'SELECT ' . (empty($fields) ? '*' : implode(', ', $fields)) . ' FROM ' . $this->table($table) . $this->getWhere($condition) . ' LIMIT 1 ';
 		return $this->fetchRow($sql);
 	}
 
-	public function getObjects($condition, $fields = array(), $table = '')
+	public function getObjects($condition, $fields = [], $table = '')
 	{
 		$sql = 'SELECT ' . (empty($fields) ? '*' : implode(', ', $fields)) . ' FROM ' . $this->table($table) . $this->getWhere($condition);
 		return $this->fetchRows($sql);
@@ -203,14 +203,14 @@ class Model extends Db
 
 	public function getWhere($condition)
 	{
-		$result = array();
+		$result = [];
 		if(!is_array($condition))
 		{
 			return '';
 		}
 		foreach($condition as $v)
 		{
-			$_item = array();
+			$_item = [];
 			foreach($v as $_k => $_v)
 			{
 				switch($_v[0])
@@ -226,11 +226,11 @@ class Model extends Db
 					case 'between': $_item[] = '(' . $_k . ' BETWEEN "' . $this->escape($_v[1][0]) . '" AND "' . $this->escape($_v[1][1]) . '")'; break;
 					case 'not between': $_item[] = '(' . $_k . ' NOT BETWEEN "' . $this->escape($_v[1][0]) . '" AND "' . $this->escape($_v[1][1]) . '")'; break;
 					case 'in': 
-						$temp = array();
+						$temp = [];
 						foreach($_v[1] as $__v) $temp[] = $this->escape($__v);
 						$_item[] = '(' . $_k . ' IN ("' . implode('","', $temp) . '"))'; break;
 					case 'not in': 
-						$temp = array();
+						$temp = [];
 						foreach($_v[1] as $__v) $temp[] = $this->escape($__v);
 						$_item[] = '(' . $_k . ' NOT IN ("' . implode('","', $temp) . '"))'; break;
 					case 'exp': $_item[] = '(' . $_v[1] . ')'; break;
@@ -249,7 +249,7 @@ class Model extends Db
 
 	public function getPager($p, $count, $ps = APP_PAGER_SIZE, $pc = APP_PAGER_COUNT)
 	{
-		$result = array();
+		$result = [];
 		$result['total'] = $count;
 		$result['first'] = 1;
 		$result['last'] = intval(ceil($count / $ps));
@@ -304,11 +304,11 @@ class Model extends Db
 
 	public function transStart($isolation = '')
 	{
-		$this->_trans['sqls'] = array();
-		$this->_trans['errors'] = array();
+		$this->_trans['sqls'] = [];
+		$this->_trans['errors'] = [];
 
-		$this->addTrigger('after', array($this, 'transAfterTrigger'));
-		$this->addTrigger('error', array($this, 'transErrorTrigger'));
+		$this->addTrigger('after', [$this, 'transAfterTrigger']);
+		$this->addTrigger('error', [$this, 'transErrorTrigger']);
 
 		if(!empty($isolation))
 		{
@@ -325,7 +325,7 @@ class Model extends Db
 		if($this->_trans['errors'])
 		{
 			$sql = ' ROLLBACK ';
-			$logs_file = $this->_logs->attachment('query', array('sqls' => $this->_trans['sqls'], 'errors' => $this->_trans['errors']));
+			$logs_file = $this->_logs->attachment('query', ['sqls' => $this->_trans['sqls'], 'errors' => $this->_trans['errors']]);
 			$this->_logs->message('query', 'Error: Transaction rollbacked, see ' . $logs_file);
 			$res = false;
 		}
@@ -337,8 +337,8 @@ class Model extends Db
 
 		$this->query($sql);
 
-		$this->removeTrigger('after', array($this, 'transAfterTrigger'));
-		$this->removeTrigger('error', array($this, 'transErrorTrigger'));
+		$this->removeTrigger('after', [$this, 'transAfterTrigger']);
+		$this->removeTrigger('error', [$this, 'transErrorTrigger']);
 
 		return $res;
 	}
@@ -348,7 +348,7 @@ class Model extends Db
 		$sql = ' ROLLBACK ';
 		$this->query($sql);
 
-		$this->removeTrigger('after', array($this, 'transAfterTrigger'));
-		$this->removeTrigger('error', array($this, 'transErrorTrigger'));
+		$this->removeTrigger('after', [$this, 'transAfterTrigger']);
+		$this->removeTrigger('error', [$this, 'transErrorTrigger']);
 	}
 }
