@@ -2,16 +2,16 @@
 
 class Db
 {
-	static $dbs = array();
+	static $dbs = [];
 	private $db = null;
-	protected $_config = array();
+	protected $_config = [];
 	protected $_logs = null;
 	protected $_error = '';
-	protected $_trigger = array(
-		'before' => array(),
-		'after' => array(),
-		'error' => array()
-	);
+	protected $_trigger = [
+		'before' => [],
+		'after' => [],
+		'error' => []
+	];
 
 	public function __construct($config)
 	{
@@ -79,7 +79,7 @@ class Db
 			{
 				call_user_func($v, $sql, $errno, $error);
 			}
-			$logs_file = $this->_logs->attachment('query', array('sql' => $sql, 'errno' => $errno, 'error' => $error));
+			$logs_file = $this->_logs->attachment('query', ['sql' => $sql, 'errno' => $errno, 'error' => $error]);
 			$this->_logs->message('query', 'Error: Query Failed, see ' . $logs_file);
 		}
 		else
@@ -107,7 +107,7 @@ class Db
 
 	public function &fetchPairs($sql)
 	{
-		$data = array();
+		$data = [];
 		$res = $this->query($sql);
 		if($res !== false)
 		{
@@ -121,7 +121,7 @@ class Db
 
 	public function &fetchCol($sql)
 	{
-		$data = array();
+		$data = [];
 		$res = $this->query($sql);
 		if($res !== false)
 		{
@@ -135,7 +135,7 @@ class Db
 
 	public function &fetchRow($sql)
 	{
-		$data = array();
+		$data = [];
 		$res = $this->query($sql);
 		if($res !== false)
 		{
@@ -146,7 +146,7 @@ class Db
 
 	public function &fetchRows($sql, $id = '')
 	{
-		$data = array();
+		$data = [];
 		$res = $this->query($sql);
 		if($res !== false)
 		{

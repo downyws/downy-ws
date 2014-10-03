@@ -60,7 +60,7 @@ class Action
 
 	public function params($fields)
 	{
-		$result = array();
+		$result = [];
 		foreach($fields as $k => $v)
 		{
 			$result[$k] = empty($_REQUEST[$k]) ? '' : $_REQUEST[$k];
