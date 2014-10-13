@@ -1,5 +1,7 @@
 RewriteEngine On
 
-RewriteRule ^$			/index.php?a=index&m=index
+RewriteRule ^$				/index.php?a=index&m=index
+RewriteRule ^index_pc.html$		/index.php?a=index&m=index&plugs_sitesetting=\%7B\%22S\%22\%3A\%22PC\%22\%7D
 
-RewriteRule ^mobi/$		/mobi/index.php?a=index&m=index
+RewriteRule ^mobi/$			/mobi/index.php?a=index&m=index
+RewriteRule ^mobi/index_mobi.html$	/mobi/index.php?a=index&m=index&plugs_sitesetting=\%7B\%22S\%22\%3A\%22MOBI\%22\%7D

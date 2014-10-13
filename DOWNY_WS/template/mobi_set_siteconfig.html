@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>{$smarty.const.APP_NAME} - 设置查看方式</title>
+	<link type="text/css" rel="stylesheet" href="/mobi/css/common.css" />
+	<script type="text/javascript" src="/mobi/js/common.js"></script>
+</head>
+<body>
+	{include file="mobi_common_header.html"}
+	<div class="content">
+		<div class="terms">
+			<p>查看方式(传统桌面/手持设备)，默认根据系统判断自动选择查看方式。</p>
+		</div>
+		<form method="post" action="">
+			{foreach from=$sites key=k item=v}
+			<div class="section site">
+				<p><span>For</span>{$k}</p>
+				<input type="radio" value="[MOBI]{$k}" name="r_{md5($k)}" id="_{md5($k)}_mobi" {if $v.TYPE == 'MOBI'}checked="checked"{/if} {if $v.ONLY_TYPE == 'PC'}disabled="disabled"{/if} /><label for="_{md5($k)}_mobi">Mobile</label>
+				<input type="radio" value="[PC]{$k}" name="r_{md5($k)}" id="_{md5($k)}_pc" {if $v.TYPE == 'PC'}checked="checked"{/if} {if $v.ONLY_TYPE == 'MOBI'}disabled="disabled"{/if}  /><label for="_{md5($k)}_pc">PC</label>
+				<input type="checkbox" value="[WARNING]{$k}" name="c_{md5($k)}" id="_{md5($k)}_warning" {if $v.WARNING}checked="checked"{/if} /><label for="_{md5($k)}_warning">PC Site Warning</label>
+			</div>
+			{/foreach}
+			<div class="bar">
+				<input type="button" class="btn mgr10" value="取消" onclick="window.location.href='../';" />
+				<input type="submit" class="btn" value="保存" />
+			</div>
+		</form>
+	</div>
+	{include file="mobi_common_footer.html"}
+</body>
+</html>

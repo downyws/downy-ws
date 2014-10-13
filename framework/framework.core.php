@@ -16,6 +16,7 @@ define('APP_DIR_CACHE',		APP_DIR . 'cache/');
 define('APP_DIR_DOC',		APP_DIR . 'doc/');
 define('APP_DIR_LOGS',		APP_DIR . 'logs/');
 define('APP_DIR_MODEL',		APP_DIR . 'model/');
+define('APP_DIR_PLUGS',		APP_DIR . 'plugs/');
 define('APP_DIR_TEMPLATE',	APP_DIR . 'template/');
 
 define('FRAMEWORLK_FILECACHE_EXPIRE', 3600);

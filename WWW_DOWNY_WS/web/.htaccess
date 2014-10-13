@@ -1,11 +1,13 @@
 RewriteEngine On
 
-RewriteRule ^$			/index.php?a=index&m=index
-RewriteRule ^downy.html$	/index.php?a=index&m=downy
-RewriteRule ^master.html$	/index.php?a=index&m=master
-RewriteRule ^servant.html$	/index.php?a=index&m=servant
+RewriteRule ^$				/index.php?a=index&m=index
+RewriteRule ^index_pc.html$		/index.php?a=index&m=index&plugs_sitesetting=\%7B\%22S\%22\%3A\%22PC\%22\%7D
+RewriteRule ^downy.html$		/index.php?a=index&m=downy
+RewriteRule ^master.html$		/index.php?a=index&m=master
+RewriteRule ^servant.html$		/index.php?a=index&m=servant
 
-RewriteRule ^mobi/$		/mobi/index.php?a=index&m=index
-RewriteRule ^mobi/downy.html$	/mobi/index.php?a=index&m=downy
-RewriteRule ^mobi/master.html$	/mobi/index.php?a=index&m=master
-RewriteRule ^mobi/servant.html$	/mobi/index.php?a=index&m=servant
+RewriteRule ^mobi/$			/mobi/index.php?a=index&m=index
+RewriteRule ^mobi/index_mobi.html$	/mobi/index.php?a=index&m=index&plugs_sitesetting=\%7B\%22S\%22\%3A\%22MOBI\%22\%7D
+RewriteRule ^mobi/downy.html$		/mobi/index.php?a=index&m=downy
+RewriteRule ^mobi/master.html$		/mobi/index.php?a=index&m=master
+RewriteRule ^mobi/servant.html$		/mobi/index.php?a=index&m=servant

@@ -4,25 +4,42 @@ define('APP_NAME', 'Downy Set');
 
 define('APP_TIMEZONE', 'Asia/Shanghai');
 
+session_start();
+
 $GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE'] = true;
 
-$GLOBALS['CONFIG']['TRY_SAFE'] = array(
-	'ACCESS' => array(
-		'KEY' => array('REMOTE_IP_ADDRESS'),
-		'EXPIRE' => 600,
-		'MAX_TRY' => 10,
-		'PUNISH' => 900
-	)
-);
+$GLOBALS['CONFIG']['SITES'] = [
+	'Downy Accounting' => ['ONLY_TYPE' => 'PC'],
+	'Downy Hodgepodge' => ['ONLY_TYPE' => 'PC'],
+	'Downy Set' => ['ONLY_TYPE' => false],
+	'Downy Share' => ['ONLY_TYPE' => false],
+	'Downy Wedate' => ['ONLY_TYPE' => 'PC'],
+	'Downy Wedding' => ['ONLY_TYPE' => false],
+	'Downy Weixin' => ['ONLY_TYPE' => false],
+	'Downy Site' => ['ONLY_TYPE' => false]
+];
 
-$GLOBALS['CONFIG']['CURL'] = array
-(
-	'TIMEOUT' => 60,
-	'ENCODING' => 'gzip, deflate',
-	'PROXY' => false, 
-	'PROXYPORT' => '',
-	'COOKIE' => array('OPEN' => false, 'LOCK' => false, 'PATH' => ''),
-	'REFERER' => array('OPEN' => false, 'LOCK' => false, 'VALUE' => ''),
-	'USERAGENT' => array('OPEN' => false, 'VALUE' => '0'),
-	'AUTO_REDIRECT_COUNT' => 5
-);
+$GLOBALS['CONFIG']['MESSAGE'] = [
+	'WARNING' => [
+		'UNKNOW_CODE' => '未知错误代码',
+		'REQUEST_PARAMS_ERROR' => '请求参数错误'
+	]
+];
+
+$GLOBALS['CONFIG']['ACCESS_SET'] = [
+	'TRY_SAFE' => [
+		'EXPIRE' => 600,
+		'MAX_TRY' => 5,
+		'PUNISH' => 900
+	],
+	'CURL' => [
+		'TIMEOUT' => 60,
+		'ENCODING' => 'gzip, deflate',
+		'PROXY' => false, 
+		'PROXYPORT' => '',
+		'COOKIE' => ['OPEN' => false, 'LOCK' => false, 'PATH' => ''],
+		'REFERER' => ['OPEN' => false, 'LOCK' => false, 'VALUE' => ''],
+		'USERAGENT' => ['OPEN' => false, 'VALUE' => '0'],
+		'AUTO_REDIRECT_COUNT' => 5
+	]
+];

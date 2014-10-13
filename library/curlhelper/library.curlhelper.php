@@ -3,7 +3,7 @@ class CurlHelper
 {
 	public $_curl = null;
 	public $_split_line = "\r\n\r\n";
-	public $_useragents = array('file' => '', 'size' => 0, 'data' => array());
+	public $_useragents = ['file' => '', 'size' => 0, 'data' => []];
 
 	public function __construct($config)
 	{
@@ -161,7 +161,7 @@ class CurlHelper
 
 	public function format($response)
 	{
-		$result = array('code' => 0, 'header' => array(), 'body' => '');
+		$result = ['code' => 0, 'header' => [], 'body' => ''];
 
 		// 取出分割点
 		$split_point = strpos($response, $this->_split_line);
@@ -176,7 +176,7 @@ class CurlHelper
 			// 取出响应header
 			if(preg_match_all('/^([^ :]+) *: *(.+?)$/mi', $result['header'], $m))
 			{
-				$header = array();
+				$header = [];
 				foreach($m[0] as $k => $v)
 				{
 					$header[$m[1][$k]] = trim($m[2][$k]);
@@ -192,7 +192,7 @@ class CurlHelper
 
 	public function assemblyGet($url, $get)
 	{
-		$temp = array();
+		$temp = [];
 		foreach($get as $k => $v)
 		{
 			$temp[] = $k . '=' . urlencode($v);

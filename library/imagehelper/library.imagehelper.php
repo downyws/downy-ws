@@ -13,7 +13,7 @@ class ImageHelper
 			{
 				if($file != '.' && $file != '..')
 				{
-					$this->_fonts[] = array('name' => $file, 'path' => $path . $file);
+					$this->_fonts[] = ['name' => $file, 'path' => $path . $file];
 				}
 			}
 		}
@@ -21,7 +21,7 @@ class ImageHelper
 
 	public function getVersion()
 	{
-		static $version = array(-2, '');
+		static $version = [-2, ''];
 		
 		if($version[0] == -2)
 		{
@@ -74,16 +74,16 @@ class ImageHelper
 		switch(intval($version))
 		{
 			case 0:
-				$version = array(0, 'N/A');
+				$version = [0, 'N/A'];
 				break;
 			case 1:
-				$version = array(1, 'GD1');
+				$version = [1, 'GD1'];
 				break;
 			case 2:
-				$version = array(2, 'GD2');
+				$version = [2, 'GD2'];
 				break;
 			default:
-				$version = array(-1, 'Unknow');
+				$version = [-1, 'Unknow'];
 				break;
 		}
 
@@ -95,8 +95,8 @@ class ImageHelper
 		$this->_initFonts();
 
 		// 颜色
-		$ftcolor = array('r' => 0, 'g' => 0, 'b' => 0);
-		$bgcolor = array('r' => 255, 'g' => 255, 'b' => 255);
+		$ftcolor = ['r' => 0, 'g' => 0, 'b' => 0];
+		$bgcolor = ['r' => 255, 'g' => 255, 'b' => 255];
 
 		// 创建画板
 		$image = ImageCreate($options['width'], $options['height']);
@@ -110,7 +110,7 @@ class ImageHelper
 
 		// 计算大小位置 
 		$font_size = floor(0.9 * $options['width'] / strlen($code));
-		$pos = array('x' => $options['width'] * 0.05, 'y' => ($options['height'] - $font_size) / 2 + $font_size);
+		$pos = ['x' => $options['width'] * 0.05, 'y' => ($options['height'] - $font_size) / 2 + $font_size];
 		ImageTtfText($image, $font_size, 0, $pos['x'], $pos['y'], $ftcolor, $font, $code);
 
 		return $image;

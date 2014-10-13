@@ -1,0 +1,70 @@
+<div class="ctrl">
+	<input type="checkbox" {if isset($data['cb_1'])}checked="checked"{/if} /><label>数字</label>
+	<input type="checkbox" {if isset($data['cb_2'])}checked="checked"{/if} /><label>小写字母</label>
+	<input type="checkbox" {if isset($data['cb_3'])}checked="checked"{/if} /><label>大写字母</label>
+	<input type="checkbox" {if isset($data['cb_4'])}checked="checked"{/if} /><label>符号</label>
+	<input type="text" maxlength="2" value="{$data['len']}" /><label>长度</label>
+</div>
+<div class="output">
+	<input type="text" />
+	<input type="button" value="生成" />
+</div>
+{literal}
+<style>
+	.app .ctrl{padding:0px 10px 10px;}
+	.app .ctrl label{margin:0px 10px 0px 5px;}
+	.app .ctrl input[type=text]{width:25px;text-align:center;}
+	.app .output{border-top:1px solid #D9D9D9;padding:10px 10px 0px;}
+	.app .output input[type=text]{width:200px;margin-right:10px;}
+</style>
+<script type="text/javascript">
+	var CHARS = [
+		"1234567890", 
+		"abcdefghijklmnopqrstuvwxyz",
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+		"`~!@#$%^&*()-=_+[]{}\|;',./:\"<>?"
+	];
+	$("input[type=button]").click(function(){
+		var hit = [false, false, false, false];
+		var length = $(".ctrl input[type=text]").val();
+		$("input[type=checkbox]").each(function(index){
+			if(!$(this).is(":checked")){
+				hit[index] = true;
+			}
+		});
+		if(
+			length <= 0 
+			|| isNaN(length)
+			|| (hit[0] && hit[1] && hit[2] && hit[3])
+			|| (length - (hit[0] ? 0 : 1) - (hit[1] ? 0 : 1) - (hit[2] ? 0 : 1) - (hit[3] ? 0 : 1)) < 0
+		){
+			$("span").text("凸(- -)凸");
+			return;
+		}
+
+		var pwd = "", type = null, l = [
+			hit[0] ? 0 : CHARS[0].length, 
+			hit[1] ? 0 : CHARS[1].length, 
+			hit[2] ? 0 : CHARS[2].length, 
+			hit[3] ? 0 : CHARS[3].length
+		];
+		for(var i = 0; i < length; i++){
+			type = parseInt(Math.random() * 4);
+			if(l[type] == 0){
+				i--;
+			}else{
+				index = parseInt(Math.random() * l[type]);
+				hit[type] = true;
+				pwd += CHARS[type][index];
+			}
+		}
+
+		if(hit[0] && hit[1] && hit[2] && hit[3]){
+			$(".output input[type=text]").val(pwd);
+		}else{
+			$(this).click();
+		}
+	});
+	$("input[type=button]").click();
+</script>
+{/literal}

@@ -1,0 +1,39 @@
+/* Base style */
+*{outline:0;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, fieldset, form,  label, legend, table, caption, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;border:0;}
+h1, h2, h3, h4, h5{font-weight:normal;}
+a{outline:none;text-decoration:none;}
+html, body{min-height:100%;font-family:Arial;}
+ul, ol, dl{margin:0;padding:0;}
+table{border-collapse:collapse;}
+
+/* Define style */
+.clearfix:after{clear:both;content:" ";display:block;height:0;}
+.mgb10{margin-bottom:10px;}
+.tac{text-align:center;}
+.hide{display:none;}
+
+/* Layout style */
+body{background:url("../images/bg.png") top no-repeat;background-color:#D5E7FF;font-size:12px;}
+.header{width:980px;margin:0px auto 10px;height:100px;padding-top:220px;background:url("../images/common.png");box-shadow:0 0px 3px 2px rgba(0, 0, 0, 0.2);position:relative;}
+.header .portrait{width:120px;height:120px;background:url("../images/common.png");float:left;background-position:0px -320px;position:absolute;bottom:10px;left:20px;}
+.header .intro{padding-left:160px;color:#FFFFFF;font-size:12px;}
+.header .intro h3{margin-top:10px;font-size:20px;line-height:28px;}
+.header .intro p{line-height:24px;}
+
+.content{width:980px;margin:0px auto;}
+.content ul.apps{width:990px;}
+.content ul.apps li{list-style:none;width:320px;height:160px;overflow:hidden;background:#FFFFFF;float:left;margin:0px 10px 10px 0px;box-shadow:0 1px 3px 2px rgba(0, 0, 0, 0.2);}
+.content ul.apps li a{display:block;color:#000000;width:320px;height:160px;}
+
+.content.app{width:940px;background:#FFFFFF;box-shadow:0 1px 3px 2px rgba(0, 0, 0, 0.2);padding:20px;}
+.content.app .message{font-size:14px;font-weight:bold;padding-left:20px;color:#CC0000;}
+
+.footer{width:980px;margin:15px auto;text-align:center;font-size:14px;color:#2C76C0;}
+.footer .icp{float:left;width:30%;text-align:left;}
+.footer .copy{float:left;width:40%;text-align:center;}
+.footer .mobi{float:left;width:30%;text-align:right;}
+.footer .mobi a{color:#2C76C0;}
+
+.mod-go-top{background:url("../images/common.png");background-position:-120px -320px;background-color:#F4F4F4;width:55px;height:55px;bottom:47px;right:0px;position:fixed;display:block;cursor:pointer;}
+.mod-go-top:hover{background:url("../images/common.png");background-position:-120px -375px;background-color:#6699C9;}
