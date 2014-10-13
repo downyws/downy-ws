@@ -8,6 +8,6 @@ class ActionIndex extends Action
 
 	public function methodIndex()
 	{
-		$this->redirect('http://www.' . ROOT_DOMAIN . '/');
+
 	}
 }

@@ -1,13 +1,13 @@
 <?php
 class StringHelper
 {
-	public $_data_type = array(
+	public $_data_type = [
 		'email' => '/^[\w\._]+@(?:[\w-]+\.)+\w{2,4}$/',
 		'mobile' => '/^1[358]\d{9}$/',
 		'telephone' => '/^\+?\d+(?:-\d+)$/',
 		'url' => '/^https?:\/\/([0-9a-z-]+\.)+[a-z]{2,4}\//',
 		'zip' => '/^\d{6}$/'
-	);
+	];
 
 	public function dataTypeTrue($value, $type)
 	{
@@ -41,10 +41,10 @@ class StringHelper
 				$is_minus = false;
 			}
 
-			$w = array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '百', '千', '万', '亿', '负');
+			$w = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '百', '千', '万', '亿', '负'];
 			$r = '';
 			$value = str_pad($value, 12, '0', STR_PAD_LEFT);
-			$v = array(substr($value, 0, 4), substr($value, 4, 4), substr($value, 8, 4));	// 将数字分成三等份
+			$v = [substr($value, 0, 4), substr($value, 4, 4), substr($value, 8, 4)];	// 将数字分成三等份
 
 			for($i = 0; $i < 3; $i++)
 			{

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+	{include file="common_header.html"}
+	<div class="content clearfix">
+		<ul class="apps">
+			{foreach from=$apps item=app}
+			<li>
+				{if $app.link != ''}
+					<a target="_blank" href="{$app.link}">{$app.thumb}</a>
+				{else}
+					{$app.thumb}
+				{/if}
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+	{include file="common_footer.html"}
+</body>
+</html>

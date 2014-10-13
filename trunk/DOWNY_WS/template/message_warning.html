@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME} - 错误警告</title>
+	<link rel="shortcut icon" href="/images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="/css/common.css" />
+	<script type="text/javascript" src="/js/common.js"></script>
+</head>
+<body>
+	{include file="common_header.html"}
+	<div class="content setting">
+		<div class="name">访问设置</div>
+		<div class="panel clearfix">
+			{include file="common_navigation.html"}
+			<div class="main">
+				<div class="warning">
+					<p class="message">{$message}</p>
+					<p class="code">错误代码: {$params.code}</p>
+					<p class="data">{$params.data}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	{include file="common_footer.html"}
+</body>
+</html>

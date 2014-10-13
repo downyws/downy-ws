@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>{$smarty.const.APP_NAME} - 错误警告</title>
+	<link type="text/css" rel="stylesheet" href="/mobi/css/common.css" />
+	<script type="text/javascript" src="/mobi/js/common.js"></script>
+</head>
+<body>
+	{include file="mobi_common_header.html"}
+	<div class="content">
+		<div class="warning">
+			<p class="message">{$message}</p>
+			<p class="code">错误代码: {$params.code}</p>
+			<p class="data">{$params.data}</p>
+		</div>
+	</div>
+	{include file="mobi_common_footer.html"}
+</body>
+</html>

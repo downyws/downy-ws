@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME} - 设置查看方式</title>
+	<link rel="shortcut icon" href="/images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="/css/common.css" />
+	<script type="text/javascript" src="/js/common.js"></script>
+</head>
+<body>
+	{include file="common_header.html"}
+	<div class="content setting">
+		<div class="name">访问设置</div>
+		<div class="panel clearfix">
+			{include file="common_navigation.html"}
+			<div class="main">
+				<div class="tips">
+					<p class="head">传统桌面或者手持设备</p>
+					<p>Using mobile data package to visit websites on PC sites will cause huge loss of your mobile data.</p>
+				</div>
+				<form method="post" action="">
+					{foreach from=$sites key=k item=v}
+					<div class="section">
+						<input type="radio" value="[MOBI]{$k}" name="r_{md5($k)}" id="_{md5($k)}_mobi" {if $v.TYPE == 'MOBI'}checked="checked"{/if} {if $v.ONLY_TYPE == 'PC'}disabled="disabled"{/if} /><label for="_{md5($k)}_mobi">Mobile</label>
+						<input type="radio" value="[PC]{$k}" name="r_{md5($k)}" id="_{md5($k)}_pc" {if $v.TYPE == 'PC'}checked="checked"{/if} {if $v.ONLY_TYPE == 'MOBI'}disabled="disabled"{/if} /><label for="_{md5($k)}_pc">PC</label>
+						<input type="checkbox" value="[WARNING]{$k}" name="c_{md5($k)}" id="_{md5($k)}_warning" {if $v.WARNING}checked="checked"{/if} /><label for="_{md5($k)}_warning">PC site warning</label>
+						<span>For</span><span>{$k}</span>
+					</div>
+					{/foreach}
+					<div class="bar">
+						<input type="button" class="mgr10 link" value="取消" onclick="window.location.href='../';" />
+						<input type="submit" value="保存" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	{include file="common_footer.html"}
+</body>
+</html>

@@ -5,11 +5,15 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // 资源站点
-define('RESOURCES_DOMAIN', '');
+define('RESOURCES_DOMAIN', 'http://resources.mydowny.ws/');
 
-$GLOBALS['CONFIG']['ACCESS'] = array(
-	'' => array(
-		'API_KEY' => '', 
-		'PASSWORDS' => array('')
-	)
-);
+// 站点访问密码
+$GLOBALS['CONFIG']['ACCESS'] = [
+	'' => [
+		'NAME' => '',
+		'LOGO' => '',
+		'URL' => '',
+		'KEY' => '',
+		'PASSWORDS' => ['']
+	]
+];

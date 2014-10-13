@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>{$smarty.const.APP_NAME} - Warning</title>
+	<link type="text/css" rel="stylesheet" href="/mobi/css/common.css" />
+	<script type="text/javascript" src="/mobi/js/common.js"></script>
+</head>
+<body>
+	{include file="mobi_common_header.html"}
+	<div class="content">
+		<form method="post" action="">
+			<input type="hidden" name="app_name" value="{$params.app_name}" />
+			<input type="hidden" name="callback" value="{$params.callback}" />
+			<div class="terms">
+				{if $params.only_pc}
+					<p class="mgb10">系统检测到您使用的可能是手持设备，<b>{$params.app_name}</b>站点没有支持手持设备的版本。</p>
+					<p class="mgb10">是否继续访问该{$params.app_name}站点的传统桌面版？</p>
+					<p class="mgb10">使用手持设备访问传统桌面网站会消耗您大量的移动数据流量。</p>
+				{else}
+					<p class="mgb10">系统检测到您使用的可能是手持设备，是否继续访问<b>{$params.app_name}</b>站点的传统桌面版？</p>
+					<p class="mgb10">使用手持设备访问传统桌面网站会消耗您大量的移动数据流量。</p>
+				{/if}
+				<p><input type="checkbox" id="close_warning" name="close_warning" value="1" /><label for="close_warning">不再提醒</label></p>
+			</div>
+			<div class="bar">
+				<input type="submit" class="btn" value="继续访问" />
+			</div>
+		</form>
+	{include file="mobi_common_footer.html"}
+</body>
+</html>

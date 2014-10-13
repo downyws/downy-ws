@@ -1,5 +1,16 @@
 RewriteEngine On
 
-RewriteRule ^$			/index.php?a=index&m=index
+RewriteRule ^$						/index.php?a=index&m=index
+RewriteRule ^index_pc.html$				/index.php?a=index&m=index&plugs_sitesetting=\%7B\%22S\%22\%3A\%22PC\%22\%7D
+RewriteRule ^set/siteconfig.html$			/index.php?a=set&m=siteconfig
+RewriteRule ^set/accesslogin.html$			/index.php?a=set&m=accesslogin
+RewriteRule ^set/accesspassword.html$			/index.php?a=set&m=accesspassword
+RewriteRule ^message/warning_([_0-9A-Za-z]+).html$	/index.php?a=message&m=warning&code=$1
 
-RewriteRule ^mobi/$		/mobi/index.php?a=index&m=index
+RewriteRule ^mobi/$					/mobi/index.php?a=index&m=index
+RewriteRule ^mobi/index_mobi.html$			/mobi/index.php?a=index&m=index&plugs_sitesetting=\%7B\%22S\%22\%3A\%22MOBI\%22\%7D
+RewriteRule ^mobi/set/siteconfig.html$			/mobi/index.php?a=set&m=siteconfig
+RewriteRule ^mobi/set/accesslogin.html$			/mobi/index.php?a=set&m=accesslogin
+RewriteRule ^mobi/set/accesspassword.html$		/mobi/index.php?a=set&m=accesspassword
+RewriteRule ^mobi/message/pcsitewarning.html$		/mobi/index.php?a=message&m=pcsitewarning
+RewriteRule ^mobi/message/warning_([_0-9A-Za-z]+).html$	/mobi/index.php?a=message&m=warning&code=$1
