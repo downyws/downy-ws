@@ -14,8 +14,7 @@ define('WEIXIN_TOKEN', '');
 define('SIMSIMI_KEY', '');
 
 // 数据库配置
-$GLOBALS['CONFIG']['DB'] = array
-(
+$GLOBALS['CONFIG']['DB'] = [
 	'HOST' => '',
 	'PORT' => '',
 	'USERNAME' => '',
@@ -24,4 +23,4 @@ $GLOBALS['CONFIG']['DB'] = array
 	'CHARSET' => '',
 	'PREFIX' => '',
 	'QUERY_LIMIT_BYTE' => ''
-);
+];
