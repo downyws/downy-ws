@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="/css/common.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+</head>
+<body class="navi">
+	<div class="topbar">
+		<a href="/" target="_top" class="logo"></a>
+	</div>
+	<div class="items">
+		{foreach from=$sites key=k item=v}
+			<a href="{if $v.url != ''}{$v.url}{else}javascript:void(0);{/if}" target="main" class="item" data-app_name="{$k}">
+				<div class="logo" style="{$v.LOGO}"></div><span class="name">{substr($k, 6, -8)}</span>
+			</a>
+		{/foreach}
+	</div>
+</body>
+</html>
