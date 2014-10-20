@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+	<link rel="shortcut icon" href="/images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="/css/common.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript">
+	var PREG = /^http\:\/\/[a-z0-9A-Z]+\.{$smarty.const.APP_DOMAIN}$/i;
+	{literal}
+	$(function(){
+		$('frame[name=main]').load(function(){
+			$(window.parent.frames["navi"].document).find('a.item').each(function(){
+				$(this).removeClass('current').find('.arrow').remove();
+			});
+		});
+		// HTML5 postMessage
+		var messageChange = function(e){
+			if(PREG.exec(e.origin) != null){
+				$(window.parent.frames["navi"].document).find('a.item').each(function(){
+					if($(this).data('app_name') == e.data){
+						$(this).addClass('current').append('<div class="arrow"></div>');
+					}
+				});
+			}
+		};
+		if(typeof window.addEventListener != 'undefined'){
+			window.addEventListener('message', messageChange, false);
+		}else if(typeof window.attachEvent != 'undefined'){
+			window.attachEvent('onmessage', messageChange);
+		}
+	});
+	{/literal}
+	</script>
+</head>
+<frameset cols="240,*" frameborder="no" border="0" framespacing="0">
+	<frame name="navi" src="/index.php?a=index&m=navi" scrolling="No" noresize="noresize" />
+	<frame name="main" src="/index.php?a=index&m=welcome" />
+</frameset>
+<noframes>
+	<body>
+		<div class="msgbox error">
+			<span class="logo"></span>
+			<p class="title">浏览器不支持<b>Frameset</b>框架</p>
+			<p class="detail">请修改浏览器设置或更换其他浏览器，建议使用Firefox。</p>
+		</div>
+	</body>
+</noframes>
+</html>

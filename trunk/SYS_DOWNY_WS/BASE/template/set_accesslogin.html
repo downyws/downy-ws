@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="/css/common.css" />
+</head>
+<body>
+	{include file="common_header.html"}
+	<div class="loginfrom">
+		<form method="post" action="">
+			<img src="{$site.LOGO}" class="logo" />
+			<p>您正在访问{$site.NAME}。</p>
+			<p>请输入该站点后台的管理员密码。</p>
+			<p class="error">{$params.message}&nbsp;</p>
+			<input type="password" name="password" />
+			<input type="submit" value="确认" />
+		</form>
+	</div>
+</body>
+</html>
