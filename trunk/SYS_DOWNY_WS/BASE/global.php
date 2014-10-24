@@ -40,7 +40,10 @@ $GLOBALS['CONFIG']['MESSAGE'] = [
 		}],
 		'APP_UNEXISTS' => ['TYPE' => 'error', 'TITLE' => '应用不存在', 'DETAIL' => function($params){
 			return 'App Name: ' . $params['data'];
-		}]
+		}],
+		'UNSUPPORT_FRAMESET' => ['TYPE' => 'error', 'TITLE' => '浏览器不支持<b>Frameset</b>框架', 'DETAIL' => 
+			'请修改浏览器设置或更换其他浏览器，建议使用Firefox。'
+		]
 ];
 
 $GLOBALS['CONFIG']['ACCESS_SET'] = [

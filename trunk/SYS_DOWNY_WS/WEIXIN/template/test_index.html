@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="/css/common.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	{include file="common_navi.html"}
+	<script type="text/javascript">
+		var PARAMS = {json_encode($params)};
+		var RESPONSE = {if isset($response)}{json_encode($response)}{else}'';{/if}
+		{literal}
+		$(function(){
+			$('input[name=type]').click(function(){
+				if($(this).val() == 'weixin'){
+					$('.request form p, input[name=reset], input[name=follow]').show();
+				}else{
+					$('.request form p, input[name=reset], input[name=follow]').hide();
+					$('input[name=type], textarea[name=content], input[name=send]').parent().show();
+				}
+			}).each(function(){
+				if($(this).val() == PARAMS.type){
+					$(this).click();
+				}
+			});
+			$('input[name=url]').val(PARAMS.url);
+			$('textarea[name=content]').val(PARAMS.content);
+			$('input[name=menu]').val(PARAMS.menu);
+			$('input[name=encode]').each(function(){
+				if($(this).val() == PARAMS.encode){
+					$(this).click();
+				}
+			});
+			if(RESPONSE != ''){
+				$('.response').append('<p><textarea readonly="readonly"></textarea></p>');
+				var OBJ = $('.response').find('textarea');
+				OBJ.val(RESPONSE);
+				OBJ.css('height', OBJ.prop('scrollHeight') + 'px');
+			}
+		});
+		{/literal}
+	</script>
+</head>
+<body>
+	<div class="block test">
+		<table><tr><td class="request">
+			<form action="" method="post">
+				<p>接口类型：
+					<input type="radio" name="type" value="weixin" id="type_weixin" />
+					<label for="type_weixin">微信</label>
+					<input type="radio" name="type" value="simsimi" id="type_simsimi" />
+					<label for="type_simsimi">Simsimi</label>
+				</p>
+				<p>请求地址：<input type="text" name="url" class="w400" /></p>
+				<p>数据信息：<textarea class="w400" name="content" onfocus="this.select()"></textarea></p>
+				<p class="mgt10">菜单项值：<input type="text" name="menu" onfocus="this.select()" /></p>
+				<p>接口编码：
+					<input type="radio" value="utf8" name="encode" id="encode_utf8" /><label for="encode_utf8">UTF8</label>
+					<input type="radio" value="gbk" name="encode" id="encode_gbk" /><label for="encode_gbk">GBK</label>
+				</p>
+				<p class="tar">
+					<input type="button" name="reset" value="重置" class="mgr20" />
+					<input type="submit" name="follow" value="关注" class="mgr20" />
+					<input type="submit" name="send" value="发送数据" class="mgr30"/>
+				</p>
+			</form>
+		</td><td class="response"></td></tr></table>
+	</div>
+</body>
+</html>

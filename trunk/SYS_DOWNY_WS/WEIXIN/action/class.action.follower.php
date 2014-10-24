@@ -8,42 +8,62 @@ class ActionFollower extends Action
 
 	public function methodIndex()
 	{
-		$params = $this->_submit->obtain($_REQUEST, array(
-			'p' => array(array('valid', 'gte', '', 1, 1)),
-			'nickname' => array(array('format', 'trim'))
-		));
+		if(!empty($_POST))
+		{
+			$params = $this->_submit->obtain($_POST, [
+				'index' => [['valid', 'gte', '', 1, 1]],
+				'search' => [['format', 'trim']],
+				'state' => [['valid', 'in', '', null, [1, 2]]],
+				'sort_field' => [['valid', 'in', '', '', ['id', 'nickname', 'level', 'state', 'create_time']]],
+				'sort_type' => [['valid', 'in', '', '', ['asc', 'ASC', 'desc', 'DESC']]]
+			]);
 
-		$followerObj = Factory::getModel('follower');
-		$list = $followerObj->getPageList($params['p'], $params);
-		$this->assign('list', $list);
-		$this->assign('params', $params);
-		$this->assign('navgurl', '/index.php?a=follower&m=index&nickname=' . urlencode($params['nickname']) . '&p=');
+			$followerObj = Factory::getModel('follower');
+			$result = $followerObj->getPageList($params['index'], $params, ['field' => $params['sort_field'], 'type' => $params['sort_type']]);
+			if(!$result)
+			{
+				$result = ['message' => 'search data error.'];
+			}
+			echo json_encode($result);
+			exit;
+		}
 	}
 
 	public function methodEdit()
 	{
-		$params = $this->_submit->obtain($_REQUEST, array(
-			'id' => array(array('valid', 'gte', '', 0, 1)),
-			'save' => array(array('format', 'trim'))
-		));
+		$params = $this->_submit->obtain($_REQUEST, [
+			'id' => [['valid', 'int', '', 0, null], ['valid', 'gte', '', 0, 1]],
+		]);
 
 		$followerObj = Factory::getModel('follower');
 
-		if(!empty($params['save']))
+		if(empty($_POST))
 		{
-			$params = $this->_submit->obtain($_REQUEST, array(
-				'id' => array(array('valid', 'gte', '', 0, 1)),
-				'nickname' => array(array('format', 'trim')),
-				'level' => array(array('valid', 'gte', '', 0, 0)),
-				'state' => array(array('valid', 'gte', '', 0, 0)),
-			));
-			$followerObj->save($params);
+			$detail = $followerObj->getDetail($params['id']);
+			$this->assign('detail', $detail);
 		}
-		$detail = $followerObj->getDetail($params['id']);
-		if(!$detail)
+		else
 		{
-			$this->redirect('', 404);
+			$params = $this->_submit->obtain($_REQUEST, [
+				'id' => [['valid', 'int', '', 0, null], ['valid', 'gte', '', 0, 1]],
+				'nickname' =>  [['format', 'trim'], ['valid', 'empty', '昵称不能为空', null, null]],
+				'level' => [['valid', 'int', '', 0, null], ['valid', 'between', '权限不能超出[0-100]', null, [0, 100]]]
+			]);
+
+			if(!empty($this->_submit->errors))
+			{
+				$result = ['success' => false, 'message' => implode('；', $this->_submit->errors)];
+			}
+			else if($followerObj->save($params))
+			{
+				$result = ['success' => true];
+			}
+			else
+			{
+				$result = ['success' => false, 'message' => '保存失败'];
+			}
+			echo json_encode($result);
+			exit;
 		}
-		$this->assign('detail', $detail);
 	}
 }

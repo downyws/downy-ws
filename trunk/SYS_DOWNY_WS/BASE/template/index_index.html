@@ -12,14 +12,14 @@
 	{literal}
 	$(function(){
 		$('frame[name=main]').load(function(){
-			$(window.parent.frames["navi"].document).find('a.item').each(function(){
+			$(window.frames["navi"].document).find('a.item').each(function(){
 				$(this).removeClass('current').find('.arrow').remove();
 			});
 		});
 		// HTML5 postMessage
 		var messageChange = function(e){
 			if(PREG.exec(e.origin) != null){
-				$(window.parent.frames["navi"].document).find('a.item').each(function(){
+				$(window.frames["navi"].document).find('a.item').each(function(){
 					if($(this).data('app_name') == e.data){
 						$(this).addClass('current').append('<div class="arrow"></div>');
 					}

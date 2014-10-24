@@ -2,47 +2,79 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>{$smarty.const.APP_NAME}</title>
+	<link type="text/css" rel="stylesheet" href="/css/common.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.downy.ext.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	{include file="common_navi.html"}
+	{literal}
+	<script type="text/javascript">
+	$(function(){
+		$.fn.dyDataTab({
+			obj: $('.datatab'),
+			url: '/index.php?a=follower&m=index',
+			fields: {
+				id: ['编号', true],
+				openid: ['OPEN ID', false],
+				nickname: ['昵称', true],
+				level: ['权限', true],
+				state: ['状态', true],
+				create_time: ['关注时间', true]
+			},
+			defSort: {field: 'id', type: 'DESC'},
+			onEvent: {
+				formatData: function(datas){
+					for(key in datas){
+						switch(datas[key].state){
+							case '1':
+								datas[key].state = '已关注';
+								break;
+							case '2':
+								datas[key].state = '已取消';
+								break;
+							default:
+								datas[key].state = '未知[' + datas[key].state + ']';
+								break;
+						}
+						datas[key].create_time = $.fn.convertTimestamp(datas[key].create_time, 'yyyy-MM-dd hh:mm');
+					}
+
+					return datas;
+				},
+				clickItem: function(obj){
+					obj.parent().find(".current").removeClass("current");
+					obj.addClass("current");
+					var panel = obj.parent().parent().parent().parent().parent();
+					$.ajax({type: 'GET', url: '/index.php?a=follower&m=edit', data: {id: obj.data('id')}, dataType: 'HTML', async: false, success: function(response){
+						panel.find('.detail_main').html(response);
+					}, error: function(jqXHR, textStatus, errorThrown){
+						panel.find('.detail_main').html('错误信息：' + JSON.stringify(jqXHR));
+					}});
+				}
+			}
+		});
+	});
+	</script>
+	{/literal}
 </head>
 <body>
-	<form action="/index.php" method="get">
-		<input type="hidden" name="a" value="follower" />
-		<input type="hidden" name="m" value="index" />
-		<table border="1px" cellpadding="3"><tr>
-			<td>nickname: <input type="text" name="nickname" value="{$params.nickname}" /></td>
-			<td><input type="submit" value="确定" /></td>
-		</tr></table>
-	</form>
-	<br />
-	<table border="1px" cellpadding="3">
-		<thead><tr><td>id</td><td>openid</td><td>nickname</td><td>level</td><td>state</td><td>create_time</td><td>operate</td></tr></thead>
-		<tbody>
-			{foreach from=$list.datas item=v}
-			<tr>
-				<td>{$v.id}</td>
-				<td>{$v.openid}</td>
-				<td>{$v.nickname}</td>
-				<td>{$v.level}</td>
-				<td>{$v.state}</td>
-				<td>{$v.create_time|date_format:"%Y-%m-%d %T"}</td>
-				<td><a target="_blank" href="/index.php?a=follower&m=edit&id={$v.id}">edit</a></td>
-			</tr>
-			{/foreach}
-		</tbody>
-	</table>
-	<br />
-	<table border="1px" cellpadding="3"><tr>
-		<td><a href="{$navgurl}{$list.pager.first}">首页</a></td>
-		<td><a href="{$navgurl}{$list.pager.prev}">上一页</a></td>
-		{section name=loop loop=$list.pager.end - $list.pager.start + 1}
-			{if $smarty.section.loop.index + $list.pager.start == $list.pager.current}
-				<td><b>{$smarty.section.loop.index + $list.pager.start}</b></td>
-			{else}
-				<td><a href="{$navgurl}{$smarty.section.loop.index + $list.pager.start}">{$smarty.section.loop.index + $list.pager.start}</a></td>
-			{/if}
-		{/section}
-		<td><a href="{$navgurl}{$list.pager.next}">下一页</a></td>
-		<td><a href="{$navgurl}{$list.pager.last}">尾页</a></td>
-	</tr></table>
+	<div class="block datatab">
+		<table class="main"><tr><td colspan="2" class="toolbar">
+			<div class="toolbar_main">
+				<div class="search filter">
+					<input type="text" class="w300" name="search" /><button><img src="/images/search.png" /></button>
+				</div>
+				<div class="filter">
+					<select name="state" class="dy_select" data-text="状态" data-width="100" data-height="90">
+						<option value="0">状态</option><option value="1">已关注</option><option value="2">已取消</option>
+					</select>
+				</div>
+			</div>
+		</td></tr><tr><td class="list">
+			<div class="list_main"></div>
+		</td><td class="detail">
+			<div class="detail_main"></div>
+		</td></tr></table>
+	</div>
 </body>
 </html>

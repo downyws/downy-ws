@@ -1,82 +1,109 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>{$smarty.const.APP_NAME}</title>
-	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
-	<script type="text/javascript">
-	var DETAIL = {$detail};
-	{literal}
-	$(function(){
-		$("form").attr("action", "/index.php?a=aq&m=edit&id=" + DETAIL.id);
-		$(".detail_id").text(DETAIL.id);
-		$(".detail_val").text(DETAIL.val);
-		if(DETAIL.is_adjust == "1"){
-			$(".detail_is_adjust").attr("checked","checked");
-		}
-		for(var i = 0; i < DETAIL.answer.length; i++){
-			$(".detail_answer").append(
-				"<tr class='lasttr_info'>" + 
-					"<td class='a_id'><input type='hidden' name='a_id[]' /></td>" +
-					"<td class='aq_is_adjust'><input type='hidden' name='aq_is_adjust[]' value='0' /><input type='checkbox' /></td>" +
-					"<td class='a_msg_type'><select name='a_msg_type[]'><option value='text'>text</option><option value='news'>news</option></select></td>" +
-					"<td class='aq_level'><input type='text' autocomplete='off' style='width:50px;' name='aq_level[]' /></td>" +
-					"<td class='aq_need_del'><input type='hidden' name='aq_need_del[]' value='hld' /><a href='javascript:;'>删除</a></td>" +
-				"</tr><tr class='lasttr_val'>" +
-					"<td colspan='5' class='a_val'><textarea rows='3' cols='30' name='a_val[]'></textarea></td>" +
-				"</tr>"
-			);
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<form action="/index.php?a=aq&m=edit&id={$detail.id}" method="post" class="detail_form">
+	<div class="item">
+		<label class="name">编号</label>
+		<div class="ctrl"><label>{$detail.id}</label></div>
+	</div>
+	<div class="item">
+		<label class="name">问题</label>
+		<div class="ctrl"><label>{$detail.val}</label></div>
+	</div>
+	<div class="bbar">
+		<div class="ctrl">
+			<input type="button" id="add" value="添加" />
+			<input type="button" id="reset" value="重置" />
+			<input type="button" id="save" value="保存" />
+		</div>
+		<div class="message"></div>
+	</div>
+</form>
+<script type="text/javascript">
+var DETAIL = {json_encode($detail)};
+{literal}
+var MSGBOX = $('.detail_form .message');
+var CTRLBOX = $('.detail_form .bbar .ctrl');
+var TRCURRENT = $('.list_main .items .current');
 
-			$(".detail_answer .lasttr_info .a_id input").val(DETAIL.answer[i].id);
-			if(DETAIL.answer[i].is_adjust == "1"){
-				$(".detail_answer .lasttr_info .aq_is_adjust input[type='checkbox']").attr("checked","checked");
-				$(".detail_answer .lasttr_info .aq_is_adjust input[type='hidden']").val("1");
-			}
-			$(".detail_answer .lasttr_info .a_msg_type select").val(DETAIL.answer[i].msg_type);
-			$(".detail_answer .lasttr_val .a_val textarea").val(DETAIL.answer[i].val);
-			$(".detail_answer .lasttr_info .aq_level input").val(DETAIL.answer[i].level);
-
-			$(".detail_answer .lasttr_info").removeClass("lasttr_info");
-			$(".detail_answer .lasttr_val").removeClass("lasttr_val");
+function drawGroup(data){
+	var t_id = data.id;
+	if(t_id == 0){
+		while($('#_g_' + t_id).length){
+			t_id++;
 		}
-		$(".detail_answer").on("click", ".aq_is_adjust input[type='checkbox']", function(){
-			$(this).parent().find("input[type='hidden']").val($(this).is(":checked") ? "1" : "0");
-		});
-		$(".detail_answer").on("click", ".aq_need_del a", function(){
-			if($(this).parent().parent().find(".a_id input[type='hidden']").val() == "0"){
-				$(this).parent().parent().next("tr").remove();
-				$(this).parent().parent().remove();
-			}else{
-				$(this).parent().find("input").val("del");
-				$(this).parent().parent().next("tr").css("display", "none");
-				$(this).parent().parent().css("display", "none");
+	}
+	var html = '<div class="item">' +
+				'	<div class="group" id="_g_' + t_id + '">' +
+				'		<input type="hidden" name="a_id[]" value="' + data.id + '" />' +
+				'		<input type="hidden" name="aq_operation[]" value="hold" />' +
+				'		<textarea class="mgb10" name="a_val[]"></textarea>' +
+				'		<input type="checkbox" class="is_adjust" ' + (data.is_adjust == '1' ? 'checked="checked"' : '') + ' />' +
+				'		<input type="hidden" name="aq_is_adjust[]" value="' + data.is_adjust + '" />' +
+				'		<label>审核</label>' +
+				'		<select name="a_msg_type[]"><option value="text">text</option><option value="news">news</option></select>' +
+				'		<label>类型</label>' +
+				'		<input type="text" class="w30" name="aq_level[]" value="' + data.level + '" />' +
+				'		<label>优先级</label>' +
+				'		<button class="del" onclick="return false;">删除</button>' +
+				'	</div>' +
+				'</div>';
+	$(html).insertBefore('.detail_form .bbar');
+	$('#_g_' + t_id).find('textarea[name="a_val[]"]').val(data.val);
+	$('#_g_' + t_id).find('select[name="a_msg_type[]"]').val(data.msg_type);
+}
+
+for(key in DETAIL.answer){
+	drawGroup(DETAIL.answer[key]);
+}
+
+$('#add').click(function(){
+	drawGroup({id: 0, val: '', is_adjust: 0, msg_type: 'text', level: 0});
+});
+
+$('#reset').click(function(){
+	TRCURRENT.click();
+});
+
+$('.detail_form').on('click', '.item .group .is_adjust', function(event){
+	$(this).parent().find('input[name="aq_is_adjust[]"]').val($(this).is(':checked') ? '1' : '0');
+});
+$('.detail_form').on('click', '.item .group .del', function(event){
+	if($(this).parent().find('input[name="a_id[]"]').val() == 0){
+		$(this).parent().parent().remove();
+	}else{
+		$(this).parent().parent().hide();
+		$(this).parent().find('input[name="aq_operation[]"]').val('del');
+	}
+	return false;
+});
+
+$('#save').click(function(){
+	MSGBOX.text('saving...').removeClass().addClass('message tips');
+	CTRLBOX.hide();
+	$.fn.dyAjaxForm('.detail_form', {
+		dataType: 'JSON',
+		onEvent: {
+			success: function(response){
+				if(response.success){
+					MSGBOX.text('save success').removeClass().addClass('message tips').click(function(){
+						MSGBOX.removeClass('tips');
+						CTRLBOX.show();
+					});
+					TRCURRENT.find('._f_is_adjust').text('已审核');
+				}else{
+					MSGBOX.text(response.message ? response.message : '未知错误').removeClass().addClass('message error').click(function(){
+						MSGBOX.removeClass('error');
+						CTRLBOX.show();
+					});
+				} 
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				MSGBOX.text(JSON.stringify(jqXHR)).removeClass().addClass('message error').click(function(){
+					MSGBOX.removeClass('error');
+					CTRLBOX.show();
+				});
 			}
-		});
-		$(".add_answer").click(function(){
-			$(".detail_answer").append(
-				"<tr>" + 
-					"<td class='a_id'><input type='hidden' name='a_id[]' value='0' /></td>" +
-					"<td class='aq_is_adjust'><input type='hidden' name='aq_is_adjust[]' value='0' /><input type='checkbox' /></td>" +
-					"<td class='a_msg_type'><select name='a_msg_type[]'><option value='text'>text</option><option value='news'>news</option></select></td>" +
-					"<td class='aq_level'><input type='text' autocomplete='off' style='width:50px;' name='aq_level[]' /></td>" +
-					"<td class='aq_need_del'><input type='hidden' name='aq_need_del[]' value='hld' /><a href='javascript:;'>删除</a></td>" +
-				"</tr><tr>" +
-					"<td colspan='5' class='a_val'><textarea rows='3' cols='30' name='a_val[]'></textarea></td>" +
-				"</tr>"
-			);
-		});
+		}
 	});
-	{/literal}
-	</script>
-</head>
-<body>
-	<form method="post">
-		<table border="1px" cellpadding="3">
-			<tr><td>id</td><td class="detail_id"></td></tr>
-			<tr><td>val</td><td class="detail_val"></td></tr>
-			<tr><td></td><td><table class="detail_answer"></table></td></tr>
-			<tr><td></td><td><input type="submit" name="save" value="保存修改" /><input type="button" class="add_answer" value="添加回答" /></td></tr>
-		</table>
-	</form>
-</body>
-</html>
+});
+{/literal}
+</script>
