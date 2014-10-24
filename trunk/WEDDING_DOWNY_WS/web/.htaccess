@@ -2,11 +2,6 @@ RewriteEngine On
 
 RewriteRule ^$				/index.php?a=index&m=index
 RewriteRule ^index_pc.html$		/index.php?a=index&m=index&plugs_sitesetting=\%7B\%22S\%22\%3A\%22PC\%22\%7D
-RewriteRule ^map.html			/index.php?a=index&m=map
-RewriteRule ^map_jw.html		/index.php?a=index&m=map&location=j
 
 RewriteRule ^mobi/$			/mobi/index.php?a=index&m=index
 RewriteRule ^mobi/index_mobi.html$	/mobi/index.php?a=index&m=index&plugs_sitesetting=\%7B\%22S\%22\%3A\%22MOBI\%22\%7D
-RewriteRule ^mobi/map.html		/mobi/index.php?a=index&m=map
-RewriteRule ^mobi/weixin_map_xj.html	/mobi/index.php?a=index&m=weixinmap&location=x
-RewriteRule ^mobi/weixin_map_jw.html	/mobi/index.php?a=index&m=weixinmap&location=j

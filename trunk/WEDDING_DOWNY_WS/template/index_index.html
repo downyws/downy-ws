@@ -15,9 +15,9 @@
 		var DOWNY_SHARE_URL_PREFIX = "http://share.downy.ws/index.php?a=share&m=index"
 			+ "&url=" + encodeURIComponent(window.location.href)
 			+ "&desc=" + encodeURIComponent(document.title)
+			+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_7.jpg")
 			+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_4.jpg")
-			+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_5.jpg")
-			+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_6.jpg");
+			+ "&img[]=" + encodeURIComponent("http://wedding.downy.ws/images/photos_thumb_5.jpg");
 		function DOWNY_SHARE_URL(site){
 			return DOWNY_SHARE_URL_PREFIX + "&tosite=" + site;
 		}
@@ -59,14 +59,14 @@
 			<div class="bar"></div>
 			<div class="photos">
 				<ul class="items">
+					<li><img src="images/photos_origin_7.jpg" /></li>
 					<li><img src="images/photos_origin_4.jpg" /></li>
 					<li><img src="images/photos_origin_5.jpg" /></li>
-					<li><img src="images/photos_origin_6.jpg" /></li>
 				</ul>
 				<ul class="btns">
+					<li><img src="images/photos_thumb_7.jpg" /></li>
 					<li><img src="images/photos_thumb_4.jpg" /></li>
 					<li><img src="images/photos_thumb_5.jpg" /></li>
-					<li><img src="images/photos_thumb_6.jpg" /></li>
 				</ul>
 			</div>
 		</div>
@@ -101,11 +101,8 @@
 					</ul>
 					<div class="cb"></div>
 				</div>
-				<div class="map">
-					<a href="/index.php?a=index&m=map" target="_blank">
-						<img src="images/map.jpg" />
-						<img title="We tied the knot here!" class="heart" src="images/map_heart.gif" />
-					</a>
+				<div class="ceremony">
+					<img src="images/ceremony.jpg" />
 				</div>
 			</div>
 			<div class="cb"></div>

@@ -22,7 +22,7 @@ body{background-color:#EFEFEF;}
 .content .story{box-shadow:0 0 6px #909090;background:#FFFFFF;margin:15px 0px;font-size:12px;}
 .content .story h3{background:#A17CFC;font-weight:bold;margin-bottom:5px;font-size:16px;color:#FFFFFF;padding:5px 10px;}
 .content .story p{font-style:italic;padding:5px 10px;}
-.content .map{box-shadow:0 0 6px #909090;width:280px;height:130px;overflow:hidden;}
+.content .ceremony{box-shadow:0 0 6px #909090;width:280px;height:130px;overflow:hidden;}
 .footer{margin:10px 0px;font-weight:bold;width:300px;font-size:12px;color:#A17CFC;line-height:20px;}
 .footer .icp{float:left;}
 .footer .mobi{float:right;}
