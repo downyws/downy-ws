@@ -8,6 +8,13 @@ class ActionIndex extends Action
 
 	public function methodIndex()
 	{
-		
+	}
+
+	public function methodWelcome()
+	{
+	}
+
+	public function methodNavi()
+	{
 	}
 }

@@ -8,37 +8,42 @@ class ModelFollower extends Model
 		parent::__construct($GLOBALS['CONFIG']['DB']);
 	}
 
-	public function getDetail($id)
+	public function getPageList($index, $filter, $sort)
 	{
-		$condition = array();
-		$condition[] = array('id' => array('eq', $id));
-		return $this->getObject($condition);
+		$result = [];
+
+		$condition = [];
+		if($filter['search'] != '')
+		{
+			$condition[] = ['nickname' => ['like', $filter['search']]];
+		}
+		if(isset($filter['state']))
+		{
+			$condition[] = ['state' => ['eq', $filter['state']]];
+		}
+		$sql = 'SELECT * FROM ' . $this->_prefix . $this->_table . $this->getWhere($condition);
+		if(!empty($sort['field']) && !empty($sort['type']))
+		{
+			$sql .= ' ORDER BY ' . $sort['field'] . ' ' . $sort['type'];
+		}
+		$sql .= ' LIMIT ' . ($index - 1) . ', ' . APP_PAGER_SIZE;
+
+		$result['datas'] = $this->fetchRows($sql);
+		$result['amount'] = $this->getOne($condition, 'COUNT(*)');
+
+		return $result;
 	}
 
-	public function getPageList($page, $params)
+	public function getDetail($id)
 	{
-		$list = array();
-		$condition = array();
-		if($params['nickname'] != '')
-		{
-			$condition[] = array('nickname' => array('like', $params['nickname']));
-		}
-
-		$sql = 'SELECT * FROM ' . $this->_prefix . $this->_table . 
-				$this->getWhere($condition) .
-				' ORDER BY nickname ASC ' .
-				$this->getLimit($page);
-		$list['datas'] = $this->fetchRows($sql);
-
-		$count = $this->getOne($condition, 'COUNT(*)');
-		$list['pager'] = $this->getPager($page, $count);
-
-		return $list;
+		$condition = [];
+		$condition[] = ['id' => ['eq', $id]];
+		return $this->getObject($condition);
 	}
 
 	public function save($detail)
 	{
-		$data = array();
+		$data = [];
 		if(isset($detail['nickname']))
 		{
 			$data['nickname'] = $detail['nickname'];
@@ -47,15 +52,11 @@ class ModelFollower extends Model
 		{
 			$data['level'] = $detail['level'];
 		}
-		if(isset($detail['state']))
-		{
-			$data['state'] = $detail['state'];
-		}
 
 		if(!empty($data))
 		{
-			$condition = array();
-			$condition[] = array('id' => array('eq', $detail['id']));
+			$condition = [];
+			$condition[] = ['id' => ['eq', $detail['id']]];
 			return $this->update($condition, $data);
 		}
 		return false;

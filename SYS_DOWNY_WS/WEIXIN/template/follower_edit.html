@@ -1,20 +1,79 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>{$smarty.const.APP_NAME}</title>
-</head>
-<body>
-	<form action="/index.php?a=follower&m=edit&id={$detail.id}" method="post">
-		<table border="1px" cellpadding="3">
-			<tr><td>id</td><td>{$detail.id}</td></tr>
-			<tr><td>openid</td><td>{$detail.openid}</td></tr>
-			<tr><td>nickname</td><td><input type="text" name="nickname" value="{$detail.nickname}" /></td></tr>
-			<tr><td>level</td><td><input type="text" name="level" value="{$detail.level}" /></td></tr>
-			<tr><td>state</td><td><input type="text" name="state" value="{$detail.state}" /></td></tr>
-			<tr><td>create_time</td><td>{$detail.create_time|date_format:"%Y-%m-%d %T"}</td></tr>
-			<tr><td></td><td><input type="submit" name="save" value="保存修改" /></td></tr>
-		</table>
-	</form>
-</body>
-</html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<form action="/index.php?a=follower&m=edit&id={$detail.id}" method="post" class="detail_form">
+	<div class="item">
+		<label class="name">编号</label>
+		<div class="ctrl"><label>{$detail.id}</label></div>
+	</div>
+	<div class="item">
+		<label class="name">OPEN ID</label>
+		<div class="ctrl"><label>{$detail.openid}</label></div>
+	</div>
+	<div class="item">
+		<label class="name">昵称</label>
+		<div class="ctrl"><input type="text" value="123" name="nickname" /></div>
+	</div>
+	<div class="item">
+		<label class="name">权限</label>
+		<div class="ctrl"><input type="text" value="{$detail.level}" name="level" /></div>
+		<div class="tips">0-100</div>
+	</div>
+	<div class="item">
+		<label class="name">状态</label>
+		<div class="ctrl"><label>{if $detail.state == '1'}已关注{else}已取消{/if}</label></div>
+	</div>
+	<div class="item">
+		<label class="name">关注时间</label>
+		<div class="ctrl"><label>{$detail.create_time|date_format:"%Y-%m-%d %T"}</label></div>
+	</div>
+	<div class="bbar">
+		<div class="ctrl">
+			<input type="button" id="reset" value="重置" />
+			<input type="button" id="save" value="保存" />
+		</div>
+		<div class="message"></div>
+	</div>
+</form>
+<script type="text/javascript">
+var DETAIL = {json_encode($detail)};
+{literal}
+var MSGBOX = $('.detail_form .message');
+var CTRLBOX = $('.detail_form .bbar .ctrl');
+var TRCURRENT = $('.list_main .items .current');
+$('input[name=nickname]').val(DETAIL.nickname);
+
+$('#reset').click(function(){
+	TRCURRENT.click();
+});
+
+$('#save').click(function(){
+	MSGBOX.text('saving...').removeClass().addClass('message tips');
+	CTRLBOX.hide();
+	$.fn.dyAjaxForm('.detail_form', {
+		dataType: 'JSON',
+		onEvent: {
+			success: function(response){
+				if(response.success){
+					MSGBOX.text('save success').removeClass().addClass('message tips').click(function(){
+						MSGBOX.removeClass('tips');
+						CTRLBOX.show();
+					});
+					TRCURRENT.find('._f_nickname').text($('input[name=nickname]').val());
+					TRCURRENT.find('._f_level').text($('input[name=level]').val());
+				}else{
+					MSGBOX.text(response.message ? response.message : '未知错误').removeClass().addClass('message error').click(function(){
+						MSGBOX.removeClass('error');
+						CTRLBOX.show();
+					});
+				} 
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				MSGBOX.text(JSON.stringify(jqXHR)).removeClass().addClass('message error').click(function(){
+					MSGBOX.removeClass('error');
+					CTRLBOX.show();
+				});
+			}
+		}
+	});
+});
+{/literal}
+</script>

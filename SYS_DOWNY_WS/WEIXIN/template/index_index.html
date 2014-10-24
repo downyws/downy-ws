@@ -3,9 +3,50 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>{$smarty.const.APP_NAME}</title>
+	<link rel="shortcut icon" href="/images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="/css/common.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript">
+	var APP_URL = '{$smarty.const.APP_URL}';
+	var SYS_ROOT_URL = '{$smarty.const.SYS_ROOT_URL}';
+	{literal}
+	$(function(){
+		$('frame[name=subMain]').load(function(){
+			$(window.frames["subNavi"].document).find('a').each(function(){
+				$(this).removeClass('current');
+			});
+		});
+		// HTML5 postMessage
+		var messageChange = function(e){
+			if(APP_URL == e.origin + '/'){
+				$(window.frames["subNavi"].document).find('a').each(function(){
+					if($(this).data('action_name') == e.data){
+						$(this).addClass('current');
+					}
+				});
+				window.parent.postMessage(document.title, SYS_ROOT_URL);
+			}
+		};
+		if(typeof window.addEventListener != 'undefined'){
+			window.addEventListener('message', messageChange, false);
+		}else if(typeof window.attachEvent != 'undefined'){
+			window.attachEvent('onmessage', messageChange);
+		}
+	});
+	{/literal}
+	</script>
 </head>
-<body>
-	<a href="/index.php?a=follower&m=index">关注管理</a>
-	<a href="/index.php?a=aq&m=index">问答管理</a>
-</body>
+<frameset rows="50,*" frameborder="no" border="0" framespacing="0">
+	<frame name="subNavi" src="/index.php?a=index&m=navi" scrolling="No" noresize="noresize" />
+	<frame name="subMain" src="/index.php?a=index&m=welcome" />
+</frameset>
+<noframes>
+	<body>
+		<center>浏览器不支持<b>Frameset</b>框架</center>
+		<center>请修改浏览器设置或更换其他浏览器，建议使用Firefox。</center>
+		<script type="text/javascript">
+			window.location.href = URL + '/index.php?a=index&m=message&code=UNSUPPORT_FRAMESET';
+		</script>
+	</body>
+</noframes>
 </html>

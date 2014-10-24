@@ -8,55 +8,62 @@ class ActionAQ extends Action
 
 	public function methodIndex()
 	{
-		$params = $this->_submit->obtain($_REQUEST, array(
-			'p' => array(array('valid', 'int', '', 1, null), array('valid', 'gte', '', 1, 1)),
-			'question' => array(array('format', 'trim')),
-			'is_adjust' => array(array('valid', 'in', '', 'all', array('true', 'false', 'all')))
-		));
+		if(!empty($_POST))
+		{
+			$params = $this->_submit->obtain($_POST, [
+				'index' => [['valid', 'gte', '', 1, 1]],
+				'is_adjust' => [['valid', 'empty', '', null, null], ['valid', 'in', '', null, [0, 1]]],
+				'search' => [['format', 'trim']],
+				'sort_field' => [['valid', 'in', '', '', ['id', 'val', 'is_adjust']]],
+				'sort_type' => [['valid', 'in', '', '', ['asc', 'ASC', 'desc', 'DESC']]]
+			]);
 
-		$aqObj = Factory::getModel('aq');
-		$list = $aqObj->getPageList($params['p'], $params);
-		$this->assign('list', $list);
-		$this->assign('params', $params);
-		$this->assign('navgurl', '/index.php?a=aq&m=index&question=' . urlencode($params['question']) . '&is_adjust=' . $params['is_adjust'] . '&p=');
+			$aqObj = Factory::getModel('aq');
+			$result = $aqObj->getPageList($params['index'], $params, ['field' => $params['sort_field'], 'type' => $params['sort_type']]);
+			if(!$result)
+			{
+				$result = ['message' => 'search data error.'];
+			}
+			echo json_encode($result);
+			exit;
+		}
 	}
 
 	public function methodEdit()
 	{
-		$params = $this->_submit->obtain($_REQUEST, array(
-			'id' => array(array('valid', 'int', '', 0, null), array('valid', 'gte', '', 0, 1)),
-			'save' => array(array('format', 'trim'))
-		));
+		$params = $this->_submit->obtain($_REQUEST, [
+			'id' => [['valid', 'int', '', 0, null], ['valid', 'gte', '', 0, 1]],
+		]);
 
 		$aqObj = Factory::getModel('aq');
 
-		if(!empty($params['save']))
+		if(empty($_POST))
 		{
-			$params['answer'] = $this->_submit->obtainArray($_REQUEST, array(
-				'a_id' => array(array('valid', 'int', '回答编号错误', null, null), array('valid', 'gte', '回答编号错误', null, 0)),
-				'aq_is_adjust' => array(array('valid', 'in', '', '0', array('0', '1'))),
-				'a_msg_type' => array(array('valid', 'in', '', 'text', array('text', 'news'))),
-				'a_val' => array(array('format', 'trim'), array('valid', 'empty', '回答不能为空。', null, null)),
-				'aq_level' => array(array('valid', 'int', '', 0, null), array('valid', 'between', '', 0, array(0, 255))),
-				'aq_need_del' => array(array('valid', 'in', '', 'hld', array('hld', 'del')))
-			));
-			if(count($this->_submit->errors) > 0)
+			$detail = $aqObj->getDetail($params['id']);
+			$this->assign('detail', $detail);
+		}
+		else
+		{
+			$params['answer'] = $this->_submit->obtainArray($_REQUEST, [
+				'a_id' => [['valid', 'int', '回答编号错误', null, null], ['valid', 'gte', '回答编号错误', null, 0]],
+				'aq_is_adjust' => [['valid', 'in', '', '0', ['0', '1']]],
+				'a_msg_type' => [['valid', 'in', '', 'text', ['text', 'news']]],
+				'a_val' => [['format', 'trim'], ['valid', 'empty', '回答不能为空。', null, null]],
+				'aq_level' => [['valid', 'int', '', 0, null], ['valid', 'between', '优先级不能超出[0-100]', null, [0, 100]]],
+				'aq_operation' => [['valid', 'in', '', 'hold', ['hold', 'del']]]
+			]);
+
+			if(!empty($this->_submit->errors))
 			{
-				$result = current($this->_submit->errors);
-				echo	"<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />" .
-						"<script>alert('" . $result . "');window.history.go(-1);</script>";
-				exit;
+				$result = ['success' => false, 'message' => implode('；', $this->_submit->errors)];
 			}
 			else
 			{
-				$aqObj->save($params);
+				$result = $aqObj->save($params);
+				$result = ($result === true) ? ['success' => true] : ['success' => false, 'message' => $result];
 			}
+			echo json_encode($result);
+			exit;
 		}
-		$detail = $aqObj->getDetail($params['id']);
-		if(!$detail)
-		{
-			$this->redirect('', 404);
-		}
-		$this->assign('detail', json_encode($detail));
 	}
 }
