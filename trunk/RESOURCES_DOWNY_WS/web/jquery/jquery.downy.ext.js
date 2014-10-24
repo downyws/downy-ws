@@ -288,6 +288,37 @@ $.fn.extend({
 		xhr.send(formData);
 	},
 
+	// AJAX表单提交
+	dyAjaxForm: function(form, option){
+		if(typeof(option.dataType) == "undefined") option.dataType = "HTML";
+		if(typeof(option.onEvent) == "undefined") option.onEvent = {};
+		if(typeof(option.onEvent.success) == "undefined") option.onEvent.success = function(){};
+		if(typeof(option.onEvent.error) == "undefined") option.onEvent.error = function(jqXHR, textStatus, errorThrown){};
+		if(typeof(option.onEvent.beforeSend) == "undefined") option.onEvent.beforeSend = function(){};
+
+		var data = {};
+		var list = $(form).serializeArray();
+		var method = $(form).attr('method');
+		var action = $(form).attr('action');
+
+		$.each(list, function(){
+			if(typeof(data[this.name]) !== "undefined"){
+				if(!data[this.name].push){
+					data[this.name] = [data[this.name]];
+				}
+				data[this.name].push(this.value || "");
+			}else{
+				data[this.name] = this.value || "";
+			}
+		});
+		option.onEvent.beforeSend();
+		$.ajax({type: method, dataType: option.dataType, url: action, data: data, async: false, success: function(result){
+			option.onEvent.success(result);
+		}, error: function(jqXHR, textStatus, errorThrown){
+			option.onEvent.error(jqXHR, textStatus, errorThrown);
+		}});
+	},
+
 	// 创建URL
 	createUrl: function (url, params){
 		var split = (url.indexOf("?") >= 0) ? "&" : "?";
