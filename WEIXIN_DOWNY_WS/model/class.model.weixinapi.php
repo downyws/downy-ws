@@ -139,7 +139,6 @@ class ModelWeixinApi extends Model
 		$response = json_decode($response['body'], true);
 		if($response['result'] == 100)
 		{
-			$this->addAnswer($text, $response['response'], $simconf['LEVEL']);
 			return ['text', $response['response']];
 		}
 
