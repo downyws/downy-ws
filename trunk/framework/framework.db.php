@@ -16,7 +16,7 @@ class Db
 	public function __construct($config)
 	{
 		$this->_config = $config;
-		$this->_config['POST'] = empty($this->_config['POST']) ? ini_get("mysqli.default_port") : $this->_config['PORT'];
+		$this->_config['PORT'] = empty($this->_config['PORT']) ? ini_get("mysqli.default_port") : $this->_config['PORT'];
 		$this->_logs = new Logs();
 	}
 
@@ -29,7 +29,7 @@ class Db
 			$key = md5(serialize($this->_config));
 			if(empty(db::$dbs[$key]) || !$ping)
 			{
-				$this->db = mysqli_connect($this->_config['HOST'], $this->_config['USERNAME'], $this->_config['PASSWORD'], $this->_config['DBNAME'], $this->_config['POST']);
+				$this->db = mysqli_connect($this->_config['HOST'], $this->_config['USERNAME'], $this->_config['PASSWORD'], $this->_config['DBNAME'], $this->_config['PORT']);
 				if($this->_config['CHARSET'])
 				{
 					mysqli_set_charset($this->db, $this->_config['CHARSET']);
