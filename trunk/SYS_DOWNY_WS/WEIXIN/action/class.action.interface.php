@@ -1,5 +1,5 @@
 <?php
-class ActionTest extends Action
+class ActionInterface extends Action
 {
 	public function __construct()
 	{
