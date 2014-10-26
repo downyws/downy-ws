@@ -70,8 +70,17 @@ else if(!isset($_SESSION['PLUGS.ACCESS']))
 			if(empty($access['remember']))
 			{
 				$filecache->delete('access/' . $SITE_SETTING[APP_NAME]['ACCESS']);
+				unset($SITE_SETTING[APP_NAME]['ACCESS']);
+				$_COOKIE['SITE_SETTING'] = json_encode($SITE_SETTING);
+				setcookie('SITE_SETTING', $_COOKIE['SITE_SETTING'], time() + 86400000, '/', ROOT_DOMAIN);
 			}
 			$_SESSION['PLUGS.ACCESS'] = $access;
+		}
+		else
+		{
+			unset($SITE_SETTING[APP_NAME]['ACCESS']);
+			$_COOKIE['SITE_SETTING'] = json_encode($SITE_SETTING);
+			setcookie('SITE_SETTING', $_COOKIE['SITE_SETTING'], time() + 86400000, '/', ROOT_DOMAIN);
 		}
 	}
 

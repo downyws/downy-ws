@@ -10,13 +10,13 @@ define('ROOT_DIR', dirname(dirname(__FILE__)) . '/');
 
 define('FRAMEWORK_DIR',		dirname(__FILE__) . '/');
 define('LIBRARY_DIR',		ROOT_DIR . 'library/');
+define('SCRIPT_DIR',		ROOT_DIR . 'script/');
 
 define('APP_DIR_ACTION',	APP_DIR . 'action/');
 define('APP_DIR_CACHE',		APP_DIR . 'cache/');
 define('APP_DIR_DOC',		APP_DIR . 'doc/');
 define('APP_DIR_LOGS',		APP_DIR . 'logs/');
 define('APP_DIR_MODEL',		APP_DIR . 'model/');
-define('APP_DIR_PLUGS',		APP_DIR . 'plugs/');
 define('APP_DIR_TEMPLATE',	APP_DIR . 'template/');
 
 define('FRAMEWORLK_FILECACHE_EXPIRE', 3600);
