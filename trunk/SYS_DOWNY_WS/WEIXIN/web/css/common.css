@@ -45,17 +45,17 @@ textarea:focus{border:1px solid #4D90FE;box-shadow:1px 2px 3px #666666;}
 .topbar a.current{color:#FFFFFF;border:1px solid #79ADFF;border-radius: 5px;background:#357AE8;}
 
 .block{padding:20px;font-size:12px;}
-.block.test p{line-height:40px;}
-.block.test .tar{text-align:right;}
-.block.test .w400{width:400px;}
-.block.test .mgr20{margin-right:20px;}
-.block.test .mgr30{margin-right:30px;}
-.block.test .mgt10{margin-top:10px;}
-.block.test textarea{font-size:13px;vertical-align:top;margin-top:10px;font-family:arial;}
-.block.test table{width:100%;}
-.block.test .request{width:500px;vertical-align:top;}
-.block.test .response{padding-top:5px;vertical-align:top;}
-.block.test .response textarea{width:100%;margin-top:0px;}
+.block.interface p{line-height:40px;}
+.block.interface .tar{text-align:right;}
+.block.interface .w400{width:400px;}
+.block.interface .mgr20{margin-right:20px;}
+.block.interface .mgr30{margin-right:30px;}
+.block.interface .mgt10{margin-top:10px;}
+.block.interface textarea{font-size:13px;vertical-align:top;margin-top:10px;font-family:arial;}
+.block.interface table{width:100%;}
+.block.interface .request{width:500px;vertical-align:top;}
+.block.interface .response{padding-top:5px;vertical-align:top;}
+.block.interface .response textarea{width:100%;margin-top:0px;}
 
 .block.datatab{padding:0px;}
 .block.datatab .main{width:100%;}
