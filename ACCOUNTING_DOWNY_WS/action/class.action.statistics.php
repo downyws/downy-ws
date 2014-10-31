@@ -78,6 +78,22 @@ class ActionStatistics extends Action
 
 	public function formatPie($data, $option)
 	{
+		$exists_id = 0;
+
+		// 排除不需要的
+		foreach($data as $k => $v)
+		{
+			if($option['exclude']($v))
+			{
+				unset($data[$k]);
+			}
+			else if($v['id'] == 0 || $v['name'] == '未分类' || $v['name'] == '其它')
+			{
+				$exists_id += $v['value'];
+				unset($data[$k]);
+			}
+		}
+
 		// 排序
 		$data = array_values($data);
 		$c = count($data);
@@ -97,27 +113,20 @@ class ActionStatistics extends Action
 			}
 		}
 
-		// 排除不需要的
-		foreach($data as $k => $v)
-		{
-			if($option['exclude']($v))
-			{
-				unset($data[$k]);
-			}
-		}
-
 		// 合并过多的选项
-		if(count($data) > $option['max_count'])
-		{
+		if(count($data) + ($exists_id ? 1 : 0) > $option['max_count'])
+		{			
 			$data = array_values($data);
 			$c = count($data);
-			$t = ['id' => 0, 'name' => '其它', 'value' => 0];
-			for($i = $option['max_count']; $i < $c; $i++)
+			for($i = $option['max_count'] - ($exists_id ? 1 : 0); $i < $c; $i++)
 			{
-				$t['value'] += $data[$i]['value'];
+				$exists_id += $data[$i]['value'];
 			}
-			$data = array_slice($data, 0, $option['max_count'] - 1);
-			$data[] = $t;
+			$data = array_slice($data, 0, $option['max_count'] - ($exists_id ? 1 : 0));
+		}
+		if($exists_id)
+		{
+			$data[] = ['id' => 0, 'name' => 'Other', 'value' => $exists_id];
 		}
 
 		return $data;
