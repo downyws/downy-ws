@@ -51,10 +51,21 @@ else if($P_REQUEST['action'] == 'once')
 		echo 'timestamp expired.';
 		exit;
 	}
-	else if(!isset($P_REQUEST['sign']) || $P_REQUEST['sign'] != md5(ACCESS_API_KEY . REMOTE_IP_ADDRESS . $P_REQUEST['timestamp']))
+	else if(!isset($P_REQUEST['sign']) || $P_REQUEST['sign'] != md5(ACCESS_API_KEY . $P_REQUEST['random'] . REMOTE_IP_ADDRESS . $P_REQUEST['timestamp']))
 	{
 		echo 'sign error.';
 		exit;
+	}
+	else
+	{
+		$filecache = new Filecache();
+		$random = $filecache->get('access/once/' . $P_REQUEST['sign']);
+		if($random !== false)
+		{
+			echo 'sign of the random is used.';
+			exit;
+		}
+		$filecache->set('access/once/' . $P_REQUEST['sign'], true, 300);
 	}
 }
 // 访问权限检查
