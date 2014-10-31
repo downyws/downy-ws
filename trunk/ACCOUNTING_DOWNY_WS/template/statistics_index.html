@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$smarty.const.APP_NAME}</title>
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<link type="text/css" rel="stylesheet" href="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/cupertino/jquery-ui-1.10.4.custom.min.css" />
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}chartjs/chart.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/jquery-ui-1.10.4.custom.min.js"></script>
+	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.downy.ext.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+	var CATEGORY = {json_encode($category)};
+	var CHART_DATAS = {json_encode($datas)};
+	{literal}
+	// Chart 绘图
+	var CHART_COLORS = [
+		'#BF616A', // RED
+		'#D08770', // ORANGE
+		'#EBCB8B', // YELLOW
+		'#A3BE8C', // GREEN
+		'#96B5B4', // TEAL
+		'#8FA1B3', // PALEBLUE
+		'#5B90BF', // BLUE
+		'#B48EAD', // PURPLE
+		'#AB7967', // BROWN
+		'#FF80A9', // PINK
+	];
+	function DrawPie(obj, data, options){
+		if(typeof(options.tooltipTemplate) == 'undefined'){
+			options.tooltipTemplate = '<%= value %>';
+		}
+		if(typeof(options.percentage) == 'undefined'){
+			options.percentage = 50;
+		}
+
+
+		var chartObj = new Chart(
+			document.getElementById(obj).getContext('2d')
+		).Doughnut(data, {tooltipTemplate: options.tooltipTemplate, animation: false, percentageInnerCutout: options.percentage});
+
+		var legendHolder = document.createElement('div');
+		legendHolder.innerHTML = chartObj.generateLegend();
+
+		var CHART_HELPERS = Chart.helpers;
+		CHART_HELPERS.each(legendHolder.firstChild.childNodes, function(legendNode, index){
+			CHART_HELPERS.addEvent(legendNode, 'mouseenter', function(){
+				var activeSegment = chartObj.segments[index];
+				activeSegment.save();
+				activeSegment.fillColor = activeSegment.highlightColor;
+				chartObj.showTooltip([activeSegment]);
+				activeSegment.restore();
+			});
+		});
+		CHART_HELPERS.addEvent(legendHolder.firstChild, 'mouseleave', function(){
+			chartObj.draw();
+		});
+
+		document.getElementById(obj).parentNode.parentNode.appendChild(legendHolder.firstChild);
+	}
+	function DrawLine(obj, data){
+		new Chart(
+			document.getElementById(obj).getContext('2d')
+		).Line(data, {tooltipTemplate : '<%= value %>', responsive: true});
+	}
+	function DrawColour(col, amt){
+		col = col.slice(1);
+		var num = parseInt(col, 16);
+		var r = (num >> 16) + amt;
+		if(r > 255) r = 255;
+		else if(r < 0) r = 0;
+		var b = ((num >> 8) & 0x00FF) + amt;
+		if(b > 255) b = 255;
+		else if(b < 0) b = 0;
+		var g = (num & 0x0000FF) + amt;
+		if(g > 255) g = 255;
+		else if(g < 0) g = 0;
+		return '#' + (g | (b << 8) | (r << 16)).toString(16);
+	}
+	$(function(){
+		var temp_data = null, temp_color = 0, temp_index = 1, temp_option = null;
+		for(item in CHART_DATAS){
+			switch(item){
+				case 'cate_30':		case 'cate_180':		case 'cate_0':
+				case 'shopping_30':	case 'shopping_180':	case 'shopping_0':
+					temp_option = {tooltipTemplate: '<%if (label){%><%=label%>: <%}%><%= value %>', percentage: !(temp_index % 3) ? 0 : (100 - temp_index % 3 * 25)};
+				case 'address_30':	case 'address_180':		case 'address_0':
+					if(temp_option == null){
+						temp_option = {tooltipTemplate: '<%= value %>', percentage: !(temp_index % 3) ? 0 : (100 - temp_index % 3 * 25)};
+					}
+					temp_data = [];
+					temp_color = 0;
+					for(data in CHART_DATAS[item]){
+						temp_data.push({
+							label: CHART_DATAS[item][data].name,
+							value: parseInt(CHART_DATAS[item][data].value * 100) / 100,
+							color: CHART_COLORS[temp_color],
+							highlight: DrawColour(CHART_COLORS[temp_color], 10)
+						});
+						temp_color++;
+					}
+					DrawPie('stats_' + item, temp_data, temp_option);
+					temp_index++;
+					temp_option = null;
+					break;
+				case 'year_income':	case 'year_expenditure':
+					temp_data = {
+						labels: [],
+						datasets: [{
+							fillColor: 'rgba(151,187,205,0.2)',
+							strokeColor: 'rgba(151,187,205,1)',
+							pointColor: 'rgba(151,187,205,1)',
+							pointStrokeColor: '#FFF',
+							pointHighlightFill: '#FFF',
+							pointHighlightStroke: 'rgba(151,187,205,1)',
+							data: []
+						}]
+					};
+					for(data in CHART_DATAS[item]){
+						temp_data.labels.push(CHART_DATAS[item][data].name);
+						temp_data.datasets[0].data.push(Math.abs(parseInt(CHART_DATAS[item][data].value * 100) / 100));
+					}
+					DrawLine('stats_' + item, temp_data);
+					break;
+			}
+		}
+
+
+
+		// 记录搜索
+		// 地址
+		$('input[name=address_title]').autocomplete({
+			source: 'index.php?a=index&m=searchaddress&t=ajax',
+			minLength: 0,
+			select: function(event, ui){
+				var obj = $.parseJSON(ui.item.data);
+				$('input[name=address_title]').val(ui.item.label);
+				return false;
+			}
+		});
+		// 分类
+		$.fn.fullSel($('select[name=category_id]'), CATEGORY, 0, {not_plzchoose: true});
+		// 时间
+		$('input[name=start_time]').datepicker({
+			dateFormat: 'yy-mm-dd',
+			onClose: function(selectedDate) {
+				$('input[name=end_time]').datepicker('option', 'minDate', selectedDate);
+			}
+		});
+		$('input[name=end_time]').datepicker({
+			dateFormat: 'yy-mm-dd',
+			onClose: function(selectedDate) {
+				$('input[name=start_time]').datepicker('option', 'maxDate', selectedDate);
+			}
+		});
+		// 统计
+		$('input[name=stats]').click(function(){
+			var data = {
+				'address_title': $('input[name=address_title]').val(),
+				'start_time': $('input[name=start_time]').val(),
+				'end_time': $('input[name=end_time]').val(),
+				'category_id': $('select[name=category_id]').val()
+			};
+			$.ajax({type: 'POST', url: '/index.php?a=statistics&m=search', data: data, dataType: 'JSON', async: false, success: function(response){
+				if(typeof(response.data) != 'undefined'){
+					var html = '';
+					for(key in response.data){
+						html += '<tr title="' + response.data[key]['remark'] + '" data-rid="' + response.data[key]['rid'] + '">' +
+								'	<td class="id">' + response.data[key]['id'] + '</td>' +
+								'	<td class="amount">' + parseInt(response.data[key]['amount'] * 100) / 100 + '</td>' +
+								'	<td class="category">' + response.data[key]['category_title'] + '</td>' +
+								'	<td class="address">' + response.data[key]['address_title'] + '</td>' +
+								'	<td class="create_time">' + $.fn.convertTimestamp(response.data[key]['create_time'], 'yyyy-MM-dd hh:mm') + '</td>' +
+								'</tr>';
+					}
+				}else{
+					html = '<tr class="message"><td colspan="5">' + (typeof(response.message) != 'undefined' ? response.message : '未知错误') + '</td></tr>'
+				}
+				$('.block1 .list table tbody').html(html);
+			}, error: function(jqXHR, textStatus, errorThrown){
+				var html = '<tr class="message"><td colspan="5">' + JSON.stringify(jqXHR) + '</td></tr>';
+				$('.block1 .list table tbody').html(html);
+			}});
+		});
+		// 操作
+		$('.block1 .list table thead th').click(function(){
+			var sort_field = $(this).data('sort_field');
+			if(typeof($(this).parent().data('sort_type')) == 'undefined' || $(this).parent().data('sort_type') == 'utl'){
+				$(this).parent().data('sort_type', 'ltu');
+			}else{
+				$(this).parent().data('sort_type', 'utl');
+			}
+			var sort_type = $(this).parent().data('sort_type');
+
+			var data = [];
+			$('.block1 .list table tbody tr').each(function(){
+				data.push({
+					rid: $(this).data('rid'),
+					remark: $(this).attr('title'),
+					id: $(this).find('.id').text(),
+					amount: $(this).find('.amount').text(),
+					category: $(this).find('.category').text(),
+					address: $(this).find('.address').text(),
+					create_time: $(this).find('.create_time').text()
+				});
+			});
+
+			var c = data.length, t = null, i_val = null, j_val = null;
+			for(var i = 0; i < c; i++){
+				for(var j = i; j < c; j++){
+					i_val = data[i][sort_field];
+					j_val = data[j][sort_field];
+					if(!isNaN(i_val) && !isNaN(j_val)){
+						i_val = parseFloat(i_val);
+						j_val = parseFloat(j_val);
+					}
+					if((i_val > j_val && sort_type == 'ltu') || (i_val < j_val && sort_type == 'utl')){
+						t = data[i];
+						data[i] = data[j];
+						data[j] = t;
+					}
+				}
+			}
+
+			var html = '';
+			for(var i = 0; i < c; i++){
+				html += '<tr title="' + data[i]['remark'] + '" data-rid="' + data[i]['rid'] + '">' +
+						'	<td class="id">' + data[i]['id'] + '</td>' +
+						'	<td class="amount">' + data[i]['amount'] + '</td>' +
+						'	<td class="category">' + data[i]['category'] + '</td>' +
+						'	<td class="address">' + data[i]['address'] + '</td>' +
+						'	<td class="create_time">' + data[i]['create_time'] + '</td>' +
+						'</tr>';
+			}
+			$('.block1 .list table tbody').html(html);
+		});
+		$('.block1 .list table tbody').on('click', 'tr', function(){
+			if($(this).hasClass('sel')){
+				$(this).removeClass('sel');
+			}else{
+				$(this).addClass('sel');
+			}
+		}).on('dblclick', 'tr', function(){
+			window.open('/update_' + $(this).data('rid') + '.html');
+		});
+		$('input.resbtn').click(function(){
+			var type = $(this).data('type');
+			if(type == 'd_s'){
+				$('.block1 .list table tbody tr.sel').remove();
+			}else if(type == 'd_us'){
+				$('.block1 .list table tbody tr').each(function(){
+					if(!$(this).hasClass('sel')){
+						$(this).remove();
+					}
+				});
+			}else{
+				var detail = {amount: 0, count: 0, average: 0, max: null, min: null};
+				var amount = 0;
+				$('.block1 .list table tbody tr').each(function(){
+					amount = parseFloat($(this).find('.amount').html());
+					if($(this).hasClass('sel') && type == 's_s'){
+						detail.amount += amount;
+						detail.count++;
+						if(detail.max == null || detail.max < amount){
+							detail.max = amount;
+						}
+						if(detail.min == null || detail.min > amount){
+							detail.min = amount;
+						}
+					}
+					else if(!$(this).hasClass('sel') && type == 's_us'){
+						detail.amount += amount;
+						detail.count++;
+						if(detail.max == null || detail.max < amount){
+							detail.max = amount;
+						}
+						if(detail.min == null || detail.min > amount){
+							detail.min = amount;
+						}
+					}
+				});
+				detail.amount = parseInt(detail.amount * 100) / 100;
+				detail.average = parseInt(detail.amount / detail.count * 100) / 100;
+
+				$('.block1 .result p.amount font').text(detail.amount);
+				$('.block1 .result p.count font').text(detail.count);
+				$('.block1 .result p.average font').text(detail.average);
+				$('.block1 .result p.max font').text(detail.max);
+				$('.block1 .result p.min font').text(detail.min);
+			}
+		});
+	});
+	{/literal}
+	</script>
+</head>
+<body>
+	{include file="common_header.html"}
+	<div class="content clearfix">
+		<div class="stats">
+			<div class="block block1 clearfix">
+				<div class="filter">
+					<p><span>地点简称：</span></p>
+					<p><input type="text" name="address_title" /></p>
+					<p><span>分　　类：</span></p>
+					<p><select name="category_id" multiple="multiple"></select></p>
+					<p><span>时间范围：</span></p>
+					<p class="time"><input type="text" name="start_time" /><span>~</span><input type="text" name="end_time" /></p>
+					<p><input type="button" value="统计" name="stats" /></p>
+				</div>
+				<div class="list">
+					<table>
+						<thead><tr>
+							<th data-sort_field="id">编号</th>
+							<th data-sort_field="amount">金额</th>
+							<th data-sort_field="category">分类</th>
+							<th data-sort_field="address">地点</th>
+							<th data-sort_field="create_time">时间</th>
+						</tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+				<div class="result">
+					<p class="amount"><span>金额：</span><font></font></p>
+					<p class="count"><span>笔数：</span><font></font></p>
+					<p class="average"><span>平均：</span><font></font></p>
+					<p class="max"><span>最高：</span><font></font></p>
+					<p class="min"><span>最低：</span><font></font></p>
+					<p class="hr"><span>&nbsp;</span></p>
+					<p><input type="button" value="排除已选" class="resbtn mgr10" data-type="d_s" /><input type="button" value="排除未选" class="resbtn" data-type="d_us" /></p>
+					<p><input type="button" value="统计已选" class="resbtn mgr10" data-type="s_s" /><input type="button" value="统计未选" class="resbtn" data-type="s_us" /></p>
+				</div>
+			</div>
+			<div class="block block2 clearfix">
+				<div class="item">
+					<div class="title">amount of category in 30 days</div>
+					<div class="chart"><canvas id="stats_cate_30" width="200" height="200"></canvas></div>
+				</div>
+				<div class="item sec">
+					<div class="title">amount of category in 180 days</div>
+					<div class="chart"><canvas id="stats_cate_180" width="200" height="200"></canvas></div>
+				</div>
+				<div class="item">
+					<div class="title">total amount of category</div>
+					<div class="chart"><canvas id="stats_cate_0" width="200" height="200"></canvas></div>
+				</div>
+			</div>
+			<div class="block block2 clearfix">
+				<div class="item">
+					<div class="title">amount of shopping in 30 days</div>
+					<div class="chart"><canvas id="stats_shopping_30" width="200" height="200"></canvas></div>
+				</div>
+				<div class="item sec">
+					<div class="title">amount of shopping in 180 days</div>
+					<div class="chart"><canvas id="stats_shopping_180" width="200" height="200"></canvas></div>
+				</div>
+				<div class="item">
+					<div class="title">total amount of shopping</div>
+					<div class="chart"><canvas id="stats_shopping_0" width="200" height="200"></canvas></div>
+				</div>
+			</div>
+			<div class="block block2 clearfix">
+				<div class="item long_legend">
+					<div class="title">times to the address in 30 days</div>
+					<div class="chart"><canvas id="stats_address_30" width="310" height="200"></canvas></div>
+				</div>
+				<div class="item long_legend sec">
+					<div class="title">times to the address in 180 days</div>
+					<div class="chart"><canvas id="stats_address_180" width="310" height="200"></canvas></div>
+				</div>
+				<div class="item long_legend">
+					<div class="title">total times to the address</div>
+					<div class="chart"><canvas id="stats_address_0" width="310" height="200"></canvas></div>
+				</div>
+			</div>
+			<div class="block block3 clearfix">
+				<div class="item fst">
+					<div class="title">income throughout year</div>
+					<canvas id="stats_year_income" height="150px" width="465px"></canvas>
+				</div>
+				<div class="item">
+					<div class="title">expenditure throughout year</div>
+					<canvas id="stats_year_expenditure" height="150px" width="465px"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	{include file="common_footer.html"}
+</body>
+</html>

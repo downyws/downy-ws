@@ -9,6 +9,7 @@ session_start();
 $GLOBALS['CONFIG']['REMOTE_DEVICE_TYPE'] = true;
 
 define('DEFAULT_SURPLUS_CURRENCY', 1);	// accounting_currency表的id
+define('CATE_SHOPPING_ID', 13);	// 购物分类id
 
 define('PAGE_SIZE', 20);
 define('ADDRESS_SEARCH_SIZE', 10);
