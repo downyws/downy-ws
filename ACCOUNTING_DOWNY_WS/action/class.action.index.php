@@ -6,13 +6,9 @@ class ActionIndex extends Action
 		parent::__construct();
 	}
 
-	// 统计信息
 	public function methodIndex()
 	{
-		$statisticsObj = Factory::getModel('statistics');
-		$statistics = $statisticsObj->getMain();
-
-		$this->assign('statistics', $statistics);
+		$this->assign('stats_thumb', Factory::getModel('statistics')->getThumbnail());
 	}
 
 	// 列表
@@ -43,7 +39,7 @@ class ActionIndex extends Action
 		$result = [];
 		foreach($temp as $v)
 		{
-			$result[] = ['label' => $v['title'], 'value' => json_encode($v)];
+			$result[] = ['label' => $v['title'], 'value' => $v['title'], 'data' => json_encode($v)];
 		}
 
 		echo json_encode($result);
@@ -61,50 +57,24 @@ class ActionIndex extends Action
 		// 数据
 		$data = $recordObj->getRecord($params['id']);
 
-		// 统计信息
-		$statisticsObj = Factory::getModel('statistics');
-		$statistics = $statisticsObj->getMain();
-
 		// 分类
 		$categoryObj = Factory::getModel('category');
-		$temp = $categoryObj->getObjects(null);
-		$category = [];
-		foreach($temp as $v)
-		{
-			if($v['parent_id'] == 0)
-			{
-				$category[$v['id']] = ['id' => $v['id'], 'title' => $v['title'], 'child' => [], 'sort_array' => $v['sort']];
-			}
-		}
-		foreach($temp as $v)
-		{
-			if($v['parent_id'] > 0)
-			{
-				$category[$v['parent_id']]['child'][] = ['id' => $v['id'], 'title' => $v['title'], 'sort_array' => $v['sort']];
-			}
-		}
-		$category = $this->sortArray($category, 'utl');
-		foreach($category as $k => $v)
-		{
-			$category[$k]['child'] = $this->sortArray($category[$k]['child'], 'utl');
-		}
+		$category = $categoryObj->getAllForSelect();
 
 		// 货币
 		$currencyObj = Factory::getModel('currency');
-		$temp = $currencyObj->getObjects(null);
-		$currency = [];
-		foreach($temp as $v)
+		$currency = $currencyObj->getAllForSelect();
+		foreach($currency as $v)
 		{
-			$currency[$v['id']] = ['id' => $v['id'], 'title' => $v['abbr'] . ' - ' . $v['title'], 'sort_array' => $v['sort']];
 			if($v['id'] == DEFAULT_SURPLUS_CURRENCY)
 			{
-				$surplus = $v['title'] . ' (' . $v['abbr'] . ')';
+				$surplus = $v['title'];
+				break;
 			}
 		}
-		$currency = $this->sortArray($currency, 'utl');
 
 		$this->assign('data', json_encode($data));
-		$this->assign('statistics', $statistics);
+		$this->assign('stats_thumb', Factory::getModel('statistics')->getThumbnail());
 		$this->assign('category', json_encode($category));
 		$this->assign('currency', json_encode($currency));
 		$this->assign('surplus', $surplus);
@@ -167,47 +137,5 @@ class ActionIndex extends Action
 		header('Content-type: ' . $result['type']);
 		header('Content-Disposition: attachment; filename="' . $result['title'] . '"');
 		echo $result['data'];
-	}
-
-	public function sortArray($arr, $type = '')
-	{
-		$result = [];
-
-		if(!in_array($type, ['utl', 'ltu']))
-		{
-			$type = 'utl';
-		}
-
-		$temp = [];
-		foreach($arr as $k => $v)
-		{
-			$s = $v['sort_array'];
-			$i = isset($v['id']) && is_numeric($v['id']) ? $v['id'] : 0;
-			unset($v['sort_array']);
-			$temp[] = ['s' => $s, 'i' => $i, 'key' => $k, 'val' => $v];
-		}
-		$c = count($temp);
-		for($i = 0; $i < $c; $i++)
-		{
-			for($j = $i; $j < $c; $j++)
-			{
-				if(
-					($type == 'utl' && ($temp[$i]['s'] < $temp[$j]['s'] || ($temp[$i]['s'] == $temp[$j]['s'] && $temp[$i]['i'] < $temp[$j]['i']))) ||
-					($type == 'ltu' && ($temp[$i]['s'] > $temp[$j]['s'] || ($temp[$i]['s'] == $temp[$j]['s'] && $temp[$i]['i'] > $temp[$j]['i'])))
-				)
-				{
-					$t = $temp[$i];
-					$temp[$i] = $temp[$j];
-					$temp[$j] = $t;
-				}
-			}
-		}
-
-		for($i = 0; $i < $c; $i++)
-		{
-			$result[] = $temp[$i]['val'];
-		}
-
-		return $result;
 	}
 }

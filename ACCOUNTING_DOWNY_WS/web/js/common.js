@@ -40,8 +40,11 @@ $.fn.extend({
 		objFade();
 	},
 
-	fullSel: function(obj, list, defval, callback){
-		var html = '<option class="lv0" value="0">请选择</option>';
+	fullSel: function(obj, list, defval, options){
+		var html = '';
+		if(typeof(options.not_plzchoose) == 'undefined'){
+			html += '<option class="lv0" value="0">请选择</option>';
+		}
 		var selval = null;
 		for(i = 0; i < list.length; i++){
 			if(list[i].id == defval || list[i].title == defval){
@@ -59,8 +62,8 @@ $.fn.extend({
 			}
 		}
 
-		if(callback != null){
-			callback(html, selval);
+		if(typeof(options.callback) != 'undefined'){
+			options.callback(html, selval);
 		}else{
 			obj.html(html);
 			if(selval != null){
@@ -101,7 +104,7 @@ $.fn.extend({
 			obj.find('input[name="detail_create_time"]').val($.fn.convertTimestamp(detail.create_time, 'yyyy-MM-dd hh:mm'));
 		}
 		obj.find('textarea[name="detail_remark"]').val(detail.remark);
-		$.fn.fullSel(obj.find('select[name="detail_amount_currency_id"]'), CURRENCY, detail.amount_currency_id, null);
+		$.fn.fullSel(obj.find('select[name="detail_amount_currency_id"]'), CURRENCY, detail.amount_currency_id, {});
 		obj.find('input[name="detail_amount"]').val(detail.amount);
 		obj.find('input[name="detail_exchange_rate"]').val(detail.exchange_rate);
 		for(var i = 0; i < detail.file.length; i++){

@@ -36,7 +36,7 @@
 		// 数据填充
 		$('#id').html(DATA.id > 0 ? DATA.id : 'N/A');
 		$('input[name=id]').val(DATA.id);
-		$.fn.fullSel($('select[name=category_id]'), CATEGORY, DATA.category_id, null);
+		$.fn.fullSel($('select[name=category_id]'), CATEGORY, DATA.category_id, {});
 		$('#surplus').html(DATA.surplus);
 		$('textarea[name=remark]').val(DATA.remark);
 		if(DATA.create_time > 0){
@@ -87,7 +87,7 @@
 		// 事件 - 删除记录
 		$('.rdetail .delrecord').click(function(){
 			if(confirm('确认删除该记录？')){
-				$.ajax({type: 'GET', url: '/delete_' + DATA.id + '.html', dataType: 'JSON', success: function(response){
+				$.ajax({type: 'GET', url: '/delete_' + DATA.id + '.html', dataType: 'JSON', async: false, success: function(response){
 					if(typeof(response.message) == 'string'){
 						alert(response.message);
 					}
@@ -118,7 +118,7 @@
 			source: 'index.php?a=index&m=searchaddress&t=ajax',
 			minLength: 0,
 			select: function(event, ui){
-				var obj = $.parseJSON(ui.item.value);
+				var obj = $.parseJSON(ui.item.data);
 				$('input[name=address_id]').val(obj.id);
 				$('input[name=address_type]').each(function(){
 					if($(this).val() == obj.type){
@@ -182,7 +182,7 @@
 				data.detail.push(item);
 			});
 
-			$.ajax({type: 'POST', url: '/save.html', data: data, dataType: 'JSON', success: function(response){
+			$.ajax({type: 'POST', url: '/save.html', data: data, dataType: 'JSON', async: false, success: function(response){
 				if(typeof(response.message) == 'string'){
 					alert(response.message);
 				}

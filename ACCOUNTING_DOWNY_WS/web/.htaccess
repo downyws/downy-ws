@@ -3,10 +3,9 @@ RewriteEngine On
 RewriteRule ^$					/index.php?a=index&m=index
 
 RewriteRule ^list_([0-9]+).html$		/index.php?a=index&m=list&t=ajax&start=$1
+RewriteRule ^statistics.html$			/index.php?a=statistics&m=index
 RewriteRule ^insert.html$			/index.php?a=index&m=edit&id=0
 RewriteRule ^update_([0-9]+).html$		/index.php?a=index&m=edit&id=$1
 RewriteRule ^delete_([0-9]+).html$		/index.php?a=index&m=del&id=$1
 RewriteRule ^save.html$				/index.php?a=index&m=save
 RewriteRule ^upload.html$			/index.php?a=index&m=fileupload
-RewriteRule ^cron.html$				/index.php?a=cron&m=exchangerate&must=0
-RewriteRule ^cron_must.html$			/index.php?a=cron&m=exchangerate&must=1

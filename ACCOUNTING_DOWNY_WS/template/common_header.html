@@ -9,57 +9,52 @@
 <div class="content clearfix statistics">
 	<ul>
 		<li class="block1">
-			<div class="clearfix">
-				<p>总支出：{$statistics.expenditure}</p><p>总收入：{$statistics.income}</p>
-				<p>已完成：{$statistics.state_1}</p><p>进行中：{$statistics.state_2}</p>
-				<p>提　醒：{$statistics.remind}</p><p>&nbsp;</p>
-				<p>地址数：{$statistics.address}</p><p>凭据数：{$statistics.file}</p>
-				<p>货币数：{$statistics.currency}</p><p>分类数：{$statistics.category}</p>
-			</div>
-			{if isset($data)}
-				<a class="link" href="/">返回首页</a>
-			{else}
+			<a class="stats" href="/statistics.html" title="查看统计数据"></a>
+			{if $action == 'index' && $method == 'index'}
 				<a class="link" href="/insert.html">添加记录</a>
+			{else}
+				<a class="link" href="/">返回首页</a>
 			{/if}
 		</li>
-		<li class="block2">
-			<canvas id="statistics_chart" height="120px" width="720px"></canvas>
+		<li class="block2">	
+			<canvas id="chart_hs" height="120px" width="720px"></canvas>
 		</li>
 	</ul>
 </div>
 <script type="text/javascript">
-var CHART_DATA = {json_encode($statistics.chart)};
+var CHART_DATA_HS = {json_encode($stats_thumb)};
 {literal}
-var CHART_CONF = {
-	labels: [],
-	datasets: [{
-		label: 'Income',
-		fillColor: 'rgba(220,220,220,0.2)',
-		strokeColor: 'rgba(220,220,220,1)',
-		pointColor: 'rgba(220,220,220,1)',
-		pointStrokeColor: '#fff',
-		pointHighlightFill: '#fff',
-		pointHighlightStroke: 'rgba(220,220,220,1)',
-		data: []
-	}, {
-		label: 'Expenditure',
-		fillColor: 'rgba(151,187,205,0.2)',
-		strokeColor: 'rgba(151,187,205,1)',
-		pointColor: 'rgba(151,187,205,1)',
-		pointStrokeColor: '#fff',
-		pointHighlightFill: '#fff',
-		pointHighlightStroke: 'rgba(151,187,205,1)',
-		data: []
-	}]
-}
-for(key in CHART_DATA){
-	CHART_CONF.labels.push(key);
-	CHART_CONF.datasets[0].data.push(CHART_DATA[key]['i']);
-	CHART_CONF.datasets[1].data.push(Math.abs(CHART_DATA[key]['e']));
-}
-window.onload = function(){
-	var ctx = document.getElementById('statistics_chart').getContext('2d');
-	window.myLine = new Chart(ctx).Line(CHART_CONF, {responsive: true});
-}
+$(function(){
+	var CHART_CONF_HS = {
+		labels: [],
+		datasets: [{
+			label: 'Income',
+			fillColor: 'rgba(220, 220, 220, 0.2)',
+			strokeColor: 'rgba(220, 220, 220, 1)',
+			pointColor: 'rgba(220, 220, 220, 1)',
+			pointStrokeColor: '#FFF',
+			pointHighlightFill: '#FFF',
+			pointHighlightStroke: 'rgba(220, 220, 220, 1)',
+			data: []
+		}, {
+			label: 'Expenditure',
+			fillColor: 'rgba(151, 187, 205, 0.2)',
+			strokeColor: 'rgba(151, 187, 205, 1)',
+			pointColor: 'rgba(151, 187, 205, 1)',
+			pointStrokeColor: '#FFF',
+			pointHighlightFill: '#FFF',
+			pointHighlightStroke: 'rgba(151, 187, 205, 1)',
+			data: []
+		}]
+	}
+	for(key in CHART_DATA_HS){
+		CHART_CONF_HS.labels.push(key);
+		CHART_CONF_HS.datasets[0].data.push(CHART_DATA_HS[key]['i']);
+		CHART_CONF_HS.datasets[1].data.push(Math.abs(CHART_DATA_HS[key]['e']));
+	}
+	new Chart(
+		document.getElementById('chart_hs').getContext('2d')
+	).Line(CHART_CONF_HS, {responsive: true});
+});
 {/literal}
 </script>
