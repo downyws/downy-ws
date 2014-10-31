@@ -255,10 +255,10 @@ class ModelStatistics extends Model
 			$now_month = $start_month;
 			while(true)
 			{
-				$key = date('y.m', $now_month);
-				if(!isset($result[$key]))
+				$k = date('y.m', $now_month);
+				if(!isset($result[$k]))
 				{
-					$result[$key] = ['name' => $key, 'value' => 0];
+					$result[$k] = ['name' => $k, 'value' => 0];
 				}
 				$now_month = strtotime(date('Y-m-01', strtotime(date('Y-m-01', $now_month)) + 32 * 86400));
 				if($now_month > $end_month)
