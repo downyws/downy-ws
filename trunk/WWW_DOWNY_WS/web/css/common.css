@@ -8,7 +8,7 @@ ul, ol, dl{margin:0;padding:0;}
 table{border-collapse:collapse;}
 
 /* Layout style */
-.header{min-width:990px;border-top:10px solid #83C526;background:#0996DC;padding:15px 0px 0px;color:#FFFFFF;border-bottom:1px solid #DEE3E8;}
+.header{min-width:990px;border-top:10px solid #2CB3F6;background:#0996DC;padding:15px 0px 0px;color:#FFFFFF;border-bottom:1px solid #DEE3E8;}
 .header_panel{margin:0px auto;width:580px;overflow:hidden;}
 .header_panel .title:before{margin-left:-50%;right:12px;}
 .header_panel .title:after{margin-right:-50%;left:12px;}
