@@ -21,6 +21,14 @@ body{background:url("../images/bg.png") top no-repeat;background-color:#D5E7FF;f
 .header .intro h3{margin-top:10px;font-size:20px;line-height:28px;}
 .header .intro p{line-height:24px;}
 
+.search{width:960px;margin:0px auto 10px;box-shadow:0 0px 3px 2px rgba(0, 0, 0, 0.2);background:#FFFFFF;padding:10px;text-align:right;}
+.search .error{color:#FF0000;font-weight:bold;margin-right:10px;display:inline-block;width:630px;overflow:hidden;font-size:12px;height:15px;}
+.search input[type="text"]{border:1px solid #D6D6D6;padding:5px 3px;width:220px;margin-right:20px;}
+.search input[type="text"]:hover{border:1px solid #D6D6D6;}
+.search input[type="text"]:focus{border:1px solid #4D90FE;}
+.search input[type="button"]{background:#4d90FE;border: 1px solid #3079ED;color:#FFFFFF;padding:5px 15px;border-radius:2px;font-weight:bold;font-size:12px;cursor:pointer;}
+.search input[type="button"]:hover{background:#357AE8;border: 1px solid #2F5BB7;}
+
 .content{width:980px;margin:0px auto;}
 .content ul.apps{width:990px;}
 .content ul.apps li{list-style:none;width:320px;height:160px;overflow:hidden;background:#FFFFFF;float:left;margin:0px 10px 10px 0px;box-shadow:0 1px 3px 2px rgba(0, 0, 0, 0.2);}
