@@ -7,17 +7,65 @@
 	<link type="text/css" rel="stylesheet" href="css/common.css" />
 	<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+	{literal}
+	$(function(){
+		$('.search input[value="搜索"]').click(function(){
+			$.ajax({type: 'POST', url: 'search.html', data: {name: $('.search input[type=text]').val()}, dataType: 'JSON', async: false, success: function(response){
+				$('.search .error').text('');
+				if(typeof(response.message) == 'string'){
+					$('.search .error').text(response.message);
+				}else if(typeof(response.data) == 'string'){
+					switch(response.data){
+						case 'all_show':
+							$('.apps li').each(function(){
+								$(this).show();
+							});
+							break;
+						case 'not_found':
+							$('.search .error').text('没有匹配的应用');
+							break;
+					}
+				}else{
+					$('.apps li').each(function(){
+						var key = $(this).data('key');
+						var hide = true;
+						for(var i in response.data){
+							if(response.data[i] == key){
+								hide = false;
+								break;
+							}
+						}
+						if(hide){
+							$(this).hide();
+						}else{
+							$(this).show();
+						}
+					});
+				}
+			}, error: function(jqXHR, textStatus, errorThrown){
+				$('.search .error').text('错误信息：' + JSON.stringify(jqXHR));
+			}});
+		});
+	});
+	{/literal}
+	</script>
 </head>
 <body>
 	{include file="common_header.html"}
+	<div class="search">
+		<p class="error"></p>
+		<input type="text" />
+		<input type="button" value="搜索" />
+	</div>
 	<div class="content clearfix">
 		<ul class="apps">
 			{foreach from=$apps item=app}
-			<li>
+			<li data-key="{$app.key}">
 				{if $app.link != ''}
-					<a target="_blank" href="{$app.link}">{$app.thumb}</a>
+					<a target="_blank" href="{$app.link}">{include file=$app.thumb}</a>
 				{else}
-					{$app.thumb}
+					{include file=$app.thumb}
 				{/if}
 			</li>
 			{/foreach}
