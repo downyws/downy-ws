@@ -1,0 +1,40 @@
+<script type="text/javascript" src="http://resources.mydowny.ws/jquery/jquery.downy.ext.js"></script>
+<form method="post" action="/app_{$config.key}.html" name="app">
+	<input type="hidden" name="ajax" value="1" />
+	<input type="hidden" name="type" value="" />
+	<textarea name="content"></textarea>
+	<div>
+		<input type="button" value="解密" data-type="decode" />
+		<input type="button" value="加密" data-type="encode" />
+		<input type="button" value="清空" />
+	</div>
+</form>
+{literal}
+<style type="text/css">
+	.app div{text-align:right;}
+	.app textarea{width:100%;box-sizing:border-box;height:100px;}
+	.app label{margin:0px 20px 0px 5px;font-size:14px;}
+	.app input{padding:5px;margin:10px 0px;text-align:center;font-size:14px;margin-left:10px;}
+</style>
+{/literal}
+<script type="text/javascript">
+	var DATA = {json_encode($data)};
+	$('textarea[name=content]').val(DATA.content);
+
+	$('input[value="清空"]').click(function(){
+		$('textarea[name=content]').val('');
+	});
+	$('input[value="加密"], input[value="解密"]').click(function(){
+		$('input[name=type]').val($(this).data('type'));
+		$.fn.dyAjaxForm('form[name=app]', {
+			dataType: 'JSON',
+			onEvent: {
+				success: function(result){
+					$('textarea[name=content]').val(result.response);
+				}, error: function(jqXHR, textStatus, errorThrown){
+					alert(JSON.stringify(jqXHR));
+				}
+			}
+		});
+	});
+</script>

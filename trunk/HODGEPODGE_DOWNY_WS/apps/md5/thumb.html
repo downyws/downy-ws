@@ -1,0 +1,11 @@
+<form method="post" target="_blank" action="/app_{$app.key}.html">
+	<div style="padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</div>
+	<div style="padding:10px;">
+		<textarea style="width:100%" name="content"></textarea>
+	</div>
+	<div style="padding:0px 10px;">
+		<input type="radio" name="chr" value="l" id="char_l" checked="checked" /><label for="char_l" style="margin-right:10px;">32位[小写]</label>
+		<input type="radio" name="chr" value="u" id="char_u" /><label for="char_u" style="margin-right:10px;">32位[大写]</label>
+		<input type="submit" value="加密" />
+	</div>
+</form>

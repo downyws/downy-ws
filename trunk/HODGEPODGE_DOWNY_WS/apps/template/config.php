@@ -3,6 +3,5 @@ return [
 	'online' => false,
 	'title' => 'Random Password', // 应用名称
 	'link' => '',	// 站外工具链接地址,thumb.html中只需要写个界面,首页会自动生成链接
-	'rank' => 1000,	// 页面上从大到小排序
-	'tag' => ['', '']	// 被搜索时用的标签
+	'tag' => ''	// 被搜索时用的标签
 ];

@@ -1,0 +1,55 @@
+<script type="text/javascript" src="http://resources.mydowny.ws/jquery/jquery.downy.ext.js"></script>
+<form method="post" action="/app_{$config.key}.html" name="app">
+	<input type="hidden" name="ajax" value="1" />
+	<input type="hidden" name="type" value="" />
+	<div class="ctrl">
+		<input type="text" name="content" />
+		<input type="button" value="解密" data-type="decode" />
+		<input type="button" value="加密" data-type="encode" />
+	</div>
+	<div class="response"></div>
+</form>
+{literal}
+<style type="text/css">
+	.app .ctrl{text-align:center;}
+	.app .ctrl input[type=text]{width:500px;text-align:left;}
+	.app label{margin:0px 20px 0px 5px;font-size:14px;}
+	.app input{padding:5px;margin:10px 0px;text-align:center;font-size:14px;margin-left:10px;}
+	.app .response p{line-height:30px;word-break:break-all;}
+	.app .response p span{font-weight:bold;color:#2C76C0;}
+</style>
+{/literal}
+<script type="text/javascript">
+	var DATA = {json_encode($data)};
+	$('input[name=content]').val(DATA.content);
+	$('.response').html('');
+	var index = 0;
+	for(key in DATA.data){
+		$('.response').append('<p class="_' + index + '"><span>' + key + '</span><font></font></p>');
+		$('.response ._' + index + ' font').text(DATA.data[key]);
+		index++;
+	}
+	$('input[value="加密"], input[value="解密"]').click(function(){
+		$('input[name=type]').val($(this).data('type'));
+		$.fn.dyAjaxForm('form[name=app]', {
+			dataType: 'JSON',
+			onEvent: {
+				success: function(result){
+					if(typeof(result.error) != 'undefined'){
+						alert(result.error);
+					}else{
+						$('.response').html('');
+						index = 0;
+						for(key in result.data){
+							$('.response').append('<p class="_' + index + '"><span>' + key + '</span><font></font></p>');
+							$('.response ._' + index + ' font').text(result.data[key]);
+							index++;
+						}
+					}
+				}, error: function(jqXHR, textStatus, errorThrown){
+					alert(JSON.stringify(jqXHR));
+				}
+			}
+		});
+	});
+</script>
