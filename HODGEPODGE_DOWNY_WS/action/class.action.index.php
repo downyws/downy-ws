@@ -37,24 +37,28 @@ class ActionIndex extends Action
 				}
 			}
 
-			// 排序
-			for($i = 0; $i < count($result); $i++)
+			$sort = include_once(APP_DIR_APPS . 'sort.php');
+			$temp = [];
+			foreach($sort as $v)
 			{
-				for($j = $i + 1; $j < count($result); $j++)
+				foreach($result as $_k => $_v)
 				{
-					if($result[$i]['rank'] < $result[$j]['rank'])
+					if($v == $_v['key'])
 					{
-						$t = $result[$j]['rank'];
-						$result[$j]['rank'] = $result[$i]['rank'];
-						$result[$i]['rank'] = $t;
+						$temp[] = $_v;
+						unset($result[$_k]);
 					}
 				}
 			}
+			foreach($result as $_k => $_v)
+			{
+				$temp[] = $_v;
+			}
+			$result = $temp;
 
 			$filecache->set($key, $result, strtotime(date('Y-m-d')) + 86399 - time());
 		}
 
-		$this->assign('color', $GLOBALS['CONFIG']['COLOR']);
 		$this->assign('apps', $result);
 	}
 
@@ -162,8 +166,10 @@ class ActionIndex extends Action
 			return;
 		}
 
+		$key = $params['name'];
 		include_once($path['main']);
 		$config['view'] = $path['view'];
+		$config['key'] = $key;
 		$this->assign('config', $config);
 	}
 }

@@ -1,8 +1,8 @@
 <?php
 return [
 	'online' => true,
-	'title' => 'Random Password',
+	'title' => 'url escape encode/decode',
 	'link' => '',
-	'tag' => 'random password pwd',
+	'tag' => 'url escape encode decode',
 	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
 ];

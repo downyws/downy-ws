@@ -3,6 +3,6 @@ return [
 	'online' => true,
 	'title' => 'Taobao Tools',
 	'link' => '',
-	'rank' => 100,
-	'tag' => 'taobao tools'
+	'tag' => 'taobao tools',
+	'color' => $GLOBALS['CONFIG']['COLOR']['TEAL']
 ];

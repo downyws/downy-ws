@@ -1,8 +1,8 @@
 <?php
 return [
 	'online' => true,
-	'title' => 'Random Password',
+	'title' => 'thunder flashget qq encode/decode',
 	'link' => '',
-	'tag' => 'random password pwd',
+	'tag' => 'thunder flashget qq encode decode',
 	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
 ];
