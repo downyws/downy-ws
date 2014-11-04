@@ -34,19 +34,19 @@
 		"YX": "┛"
 	};
 	$(function(){
-		$("input[value=add]").data("html", $(".list").html()).click(function(){
-			$(".list").append($(this).data("html"));
+		$(".app input[value=add]").data("html", $(".list").html()).click(function(){
+			$(".app .list").append($(this).data("html"));
 		});
-		$("input[value=sub]").click(function(){
+		$(".app input[value=sub]").click(function(){
 			$(".list div:last-child").remove();
 		});
-		$("input[value=create]").click(function(){
+		$(".app input[value=create]").click(function(){
 			var count = 0;
 			var list = [];
 			var length = 0;
 			var space = [false, false, ""];
 			var result = ["", "", ""];
-			$(".list div input").each(function(){
+			$(".app .list div input").each(function(){
 				count++;
 				list.push($(this).val());
 				length += $(this).val().length;
@@ -107,10 +107,10 @@
 				result[1] += KEY.S;
 			}
 
-			$("textarea").val(result[0] + space[2] + result[1] + space[2] + result[2]);
+			$(".app textarea").val(result[0] + space[2] + result[1] + space[2] + result[2]);
 		});
 		{/literal}
-		{if !empty($data)}$("input[value=create]").click();{/if}
+		{if !empty($data)}$(".app input[value=create]").click();{/if}
 		{literal}
 	});
 </script>

@@ -24,10 +24,10 @@
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 		"`~!@#$%^&*()-=_+[]{}\|;',./:\"<>?"
 	];
-	$("input[type=button]").click(function(){
+	$(".app input[type=button]").click(function(){
 		var hit = [false, false, false, false];
-		var length = $(".ctrl input[type=text]").val();
-		$("input[type=checkbox]").each(function(index){
+		var length = $(".app .ctrl input[type=text]").val();
+		$(".app input[type=checkbox]").each(function(index){
 			if(!$(this).is(":checked")){
 				hit[index] = true;
 			}
@@ -38,7 +38,6 @@
 			|| (hit[0] && hit[1] && hit[2] && hit[3])
 			|| (length - (hit[0] ? 0 : 1) - (hit[1] ? 0 : 1) - (hit[2] ? 0 : 1) - (hit[3] ? 0 : 1)) < 0
 		){
-			$("span").text("凸(- -)凸");
 			return;
 		}
 
@@ -60,11 +59,11 @@
 		}
 
 		if(hit[0] && hit[1] && hit[2] && hit[3]){
-			$(".output input[type=text]").val(pwd);
+			$(".app .output input[type=text]").val(pwd);
 		}else{
 			$(this).click();
 		}
 	});
-	$("input[type=button]").click();
+	$(".app input[type=button]").click();
 </script>
 {/literal}

@@ -27,21 +27,21 @@
 {/literal}
 <script type="text/javascript">
 	var DATA = {json_encode($data)};
-	$('textarea[name=content]').val(DATA.content);
-	$('#char_' + DATA.chr).prop('checked', true);
-	$('.response input').val(DATA.response);
-	$('input[value="清空"]').click(function(){
-		$('textarea[name=content]').val('');
-		$('.response input').val('');
+	$('.app textarea[name=content]').val(DATA.content);
+	$('.app #char_' + DATA.chr).prop('checked', true);
+	$('.app .response input').val(DATA.response);
+	$('.app input[value="清空"]').click(function(){
+		$('.app textarea[name=content]').val('');
+		$('.app .response input').val('');
 	});
-	$('input[value="加密"]').click(function(){
-		$.fn.dyAjaxForm('form[name=md5]', {
+	$('.app input[value="加密"]').click(function(){
+		$.fn.dyAjaxForm('.app form[name=md5]', {
 			dataType: 'JSON',
 			onEvent: {
 				success: function(result){
-					$('.response input').val(result.response);
+					$('.app .response input').val(result.response);
 				}, error: function(jqXHR, textStatus, errorThrown){
-					$('.response input').val(JSON.stringify(jqXHR));
+					$('.app .response input').val(JSON.stringify(jqXHR));
 				}
 			}
 		});
