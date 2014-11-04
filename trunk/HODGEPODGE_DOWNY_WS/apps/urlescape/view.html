@@ -19,18 +19,18 @@
 {/literal}
 <script type="text/javascript">
 	var DATA = {json_encode($data)};
-	$('textarea[name=content]').val(DATA.content);
+	$('.app textarea[name=content]').val(DATA.content);
 
-	$('input[value="清空"]').click(function(){
+	$('.app input[value="清空"]').click(function(){
 		$('textarea[name=content]').val('');
 	});
-	$('input[value="加密"], input[value="解密"]').click(function(){
-		$('input[name=type]').val($(this).data('type'));
-		$.fn.dyAjaxForm('form[name=app]', {
+	$('.app input[value="加密"], .app input[value="解密"]').click(function(){
+		$('.app input[name=type]').val($(this).data('type'));
+		$.fn.dyAjaxForm('.app form[name=app]', {
 			dataType: 'JSON',
 			onEvent: {
 				success: function(result){
-					$('textarea[name=content]').val(result.response);
+					$('.app textarea[name=content]').val(result.response);
 				}, error: function(jqXHR, textStatus, errorThrown){
 					alert(JSON.stringify(jqXHR));
 				}
