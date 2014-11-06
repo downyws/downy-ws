@@ -1,7 +1,7 @@
 <?php
 return [
 	'online' => true,
-	'title' => 'Html Char',
+	'title' => 'Html char',
 	'link' => '',
 	'tag' => 'html char',
 	'color' => $GLOBALS['CONFIG']['COLOR']['RED']

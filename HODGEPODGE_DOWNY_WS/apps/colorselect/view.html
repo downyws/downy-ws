@@ -1,0 +1,14 @@
+{literal}
+<style type="text/css">
+	.app .panel{font-size:12px;background:#2b303b;border-collapse:separate;width:100%;}
+	.app .panel td{width:60px;height:25px;padding:5px;text-align:center;background:#FFFFFF;}
+</style>
+{/literal}
+<table class="panel">
+	{assign var="row_count" value="5"} 
+	{foreach from=$colors item=v name=colors}
+		{if $smarty.foreach.colors.index % $row_count == 0}<tr>{/if}
+		<td style="background:{$v.code}"></td><td>{$v.qcode}<br />{$v.cn}<br />{$v.code}</td>
+		{if ($smarty.foreach.colors.index + 1) % $row_count == 0}</tr>{/if}
+	{/foreach}
+</table>
