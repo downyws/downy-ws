@@ -1,8 +1,8 @@
 <?php
 return [
 	'online' => true,
-	'title' => 'Url escape encode/decode',
+	'title' => 'Color select',
 	'link' => '',
-	'tag' => 'url escape encode decode',
+	'tag' => 'color select',
 	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
 ];
