@@ -2,7 +2,7 @@
 return [
 	'online' => true,
 	'title' => 'MD5 encode',
-	'link' => '',
 	'tag' => 'md5 encode',
+	'link' => '',
 	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
 ];

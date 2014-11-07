@@ -1,0 +1,97 @@
+<input type="text" name="content" />
+<div class="response">&nbsp;</div>
+<div class="option">
+	<input type="button" value="转换" />
+	<input type="button" value="清空" />
+</div>
+{literal}
+<style type="text/css">
+	.app{text-align:center;}
+	.app input[type=text]{width:120px;}
+	.app .response{margin:10px;}
+	.app .option input{padding:5px;font-size:14px;margin:0px 5px;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+$('.app input[name=content]').val(DATA.content);
+$('.app input[value="清空"]').click(function(){
+	$('.app input[name=content]').val('');
+	$('.app .response').html('&nbsp;');
+});
+$('.app input[value="转换"]').click(function(){
+	var MAX_NUM = 999999999999.99999;
+	var content = $('.app input[name=content]').val();
+
+	if(content == ""){
+		$('.app .response').html('转换内容不能为空');
+	}else if(content.match(/[^,.\d]/) != null){
+		$('.app .response').html('请输入大于零的数字');
+	}else if(content.match(/^((\d{1,3}(,\d{3})*(.((\d{3},)*\d{1,3}))?)|(\d+(.\d+)?))$/) == null){
+		$('.app .response').html('请输入大于零的数字');
+	}else if(Number(content) > MAX_NUM){
+		$('.app .response').html('@_@还没见到过这么多钱');
+	}else{
+	/*	content = content.replace(/,/g, '');
+		content = content.replace(/^0+/, "");
+		content = content.split(".");
+
+//		$('.app .response').html(c);
+
+*/
+
+
+
+		content = content.replace(/,/g, '');
+		content = content.replace(/^0+/, '');
+		content = content.split(".");
+		if(content.length > 1){
+			content[1] = content[1].substr(0, 4);
+		}
+
+		var CN_NUM = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+		var CN_PRE = ['圆', '整'];
+		var CN_UNIT1 = ['角', '分', '厘', '毫'];
+		var CN_UNIT2 = ['', '拾', '佰', '仟'];
+		var CN_UNIT3 = ['', '萬', '億'];
+		var result = '', temp = '', temp_unit2 = 0;
+		if(Number(content[0]) > 0){
+			for(var i = j = 0; i < content[0].length; i++){
+				temp = content[0].substr(i, 1);
+				temp_unit2 = (content[0].length - i - 1) % 4;
+				if(temp == '0'){
+					j++;
+				}else{
+					if(j > 0){
+						result += CN_NUM[0];
+					}
+					j = 0;
+					result += CN_NUM[Number(temp)] + CN_UNIT2[temp_unit2];
+				}
+				if(temp_unit2 == 0 && j < 4){
+					result += CN_UNIT3[(content[0].length - i - 1) / 4];
+				}
+			}
+			result += CN_PRE[0];
+		}
+		if(typeof(content[1]) != 'undefined'){
+			for(var i = 0; i < content[1].length; i++){
+				temp = content[1].substr(i, 1);
+				if(temp != '0'){
+					result += CN_NUM[Number(temp)] + CN_UNIT1[i];
+				}
+			}
+		}
+		if(result == ''){
+			result = CN_NUM[0] + CN_PRE[0];
+		}
+		if(typeof(content[1]) == 'undefined'){
+			result += CN_PRE[1];
+		}
+
+		$('.app .response').html(result);
+	}
+});
+{/literal}
+</script>

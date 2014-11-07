@@ -2,7 +2,7 @@
 return [
 	'online' => true,
 	'title' => 'Color select',
-	'link' => '',
 	'tag' => 'color select',
+	'link' => '',
 	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
 ];

@@ -2,7 +2,7 @@
 $params = $this->_submit->obtain($_REQUEST, [
 	'content' => [['format', 'trim']],
 	'chr' => [['valid', 'in', '', 'l', ['l', 'u']]],
-	'ajax' => [['format', 'int']],
+	'ajax' => [['format', 'int']]
 ]);
 
 if(!empty($_POST))
