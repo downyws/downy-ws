@@ -1,8 +1,9 @@
 <?php
 return [
 	'online' => true,
-	'title' => 'Html char',
-	'tag' => 'html char',
+	'crude' => true,
+	'title' => 'Color scheme designer',
+	'tag' => 'color scheme designer',
 	'link' => '',
 	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
 ];

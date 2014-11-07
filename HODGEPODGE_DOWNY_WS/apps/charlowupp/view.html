@@ -1,0 +1,47 @@
+<textarea name="content"></textarea>
+<div class="ctrl">
+	<div class="option">
+		<input type="radio" name="type" value="l" id="type_l" /><label for="type_l">小写</label>
+		<input type="radio" name="type" value="u" id="type_u" /><label for="type_u">大写</label>
+		<input type="radio" name="type" value="fu" id="type_fu" /><label for="type_fu">首字母大写</label>
+		<input type="button" value="转换" />
+		<input type="button" value="清空" />
+	</div>
+</div>
+{literal}
+<style type="text/css">
+	.app textarea{width:100%;box-sizing:border-box;height:100px;}
+	.app .ctrl{padding-top:10px;}
+	.app .ctrl .option{float:right;}
+	.app .ctrl .option label{margin-left:5px;font-size:14px;}
+	.app .ctrl .option input{padding:5px;font-size:14px;margin-left:10px;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+$('.app textarea[name=content]').val(DATA.content);
+$('.app #type_' + DATA.type).prop('checked', true);
+$('.app input[value="清空"]').click(function(){
+	$('.app textarea[name=content]').val('');
+});
+$('.app input[value="转换"]').click(function(){
+	switch($('input[name=type]:checked').val()){
+		case 'l':
+			$('.app textarea[name=content]').val();
+			break;
+		case 'u':
+			$('.app textarea[name=content]').val($('.app textarea[name=content]').val().toUpperCase());
+			break;
+		case 'fu':
+			$('.app textarea[name=content]').val(
+				$('.app textarea[name=content]').val().toLowerCase().replace(/\b(\w)|\s(\w)/g, function(m){
+					return m.toUpperCase();
+				})
+			);
+			break;
+	}
+});
+$('.app input[value="转换"]').click();
+{/literal}
+</script>

@@ -1,0 +1,90 @@
+<a href="/app_{$app.key}.html" target="_blank">
+	<div style="padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</div>
+	<div>
+		<canvas id="app_{$app.key}" width="320" height="125"></canvas>  
+		<script type="text/javascript">
+			function draw{$app.key}(x, y){
+				var myCanvas = document.getElementById("app_{$app.key}");
+				var context = myCanvas.getContext("2d");
+
+				// 背景
+				context.beginPath();
+				context.fillStyle = "#3F92D2";
+				context.fillRect(0, 0, 320, 70);
+				context.fillStyle = "#009900";
+				context.fillRect(0, 70, 320, 125);
+				context.stroke();
+
+				// 太阳
+				context.beginPath();
+				context.fillStyle = "#FF0000";
+				context.strokeStyle = "#FF0000";
+				context.arc(30, 30, 10, 0, Math.PI * 2, true);
+				context.fill();
+				context.stroke();
+				context.beginPath();
+				var sun_contour = [
+					[30, 5, 30, 15], [47, 12, 40, 20], [45, 30, 55, 30], [40, 40, 47, 45], 
+					[30, 45, 30, 55], [12, 47, 20, 40], [5, 30, 15, 30], [12, 12, 20, 20]
+				];
+				for(var i = 0; i < sun_contour.length; i++){
+					context.beginPath();
+					context.moveTo(sun_contour[i][0], sun_contour[i][1]);
+					context.lineTo(sun_contour[i][2], sun_contour[i][3]);
+					context.stroke();
+				}
+				context.stroke();
+
+				// 河马
+				context.strokeStyle = "#000000";
+				context.lineWidth = 2;
+				var homer_contour_arc = [
+					[70, 22, 7, 0.6, 2.1], [130, 22, 7, 0.8, 2.3],	// 耳朵
+					[61, 81, 6, 0.3, 1.3], [139, 81, 6, 1.7, 0.7],	// 脸
+					[78, 75, 5, 0.7, 0.3], [123, 75, 5, 0.7, 0.3],	// 鼻子
+					[167, 69, 50, 1.6, 1.9]							// 身体
+				];
+				for(var i = 0; i < homer_contour_arc.length; i++){
+					context.beginPath();
+					context.arc(
+						homer_contour_arc[i][0] + x,
+						homer_contour_arc[i][1] + y,
+						homer_contour_arc[i][2],
+						homer_contour_arc[i][3] * Math.PI,
+						homer_contour_arc[i][4] * Math.PI
+					);
+					context.stroke();
+				}
+				var homer_contour_strokeRect = [
+					[70, 87, 15, 3], [115, 87, 15, 3]	// 牙齿
+				];
+				for(var i = 0; i < homer_contour_strokeRect.length; i++){
+					context.beginPath();
+					context.strokeRect(
+						homer_contour_strokeRect[i][0] + x,
+						homer_contour_strokeRect[i][1] + y,
+						homer_contour_strokeRect[i][2],
+						homer_contour_strokeRect[i][3]
+					);
+					context.stroke();
+				}
+				var homer_contour_line = [
+					[138, 22, 185, 22], [215, 52, 215, 110],												// 身体
+					[75, 25, 125, 25], [64, 87, 136, 87], [67, 27, 55, 80], [133, 27, 145, 80],				// 头型
+					[58, 53, 85, 53], [115, 53, 142, 53],													// 眼睛
+					[95, 110, 115, 110], [125, 110, 145, 110], [165, 110, 185, 110], [195, 110, 215, 110],	// 脚1
+					[95, 87, 95, 110], [115, 110, 115, 100], [125, 110, 125, 100], [145, 110, 145, 100],	// 脚2
+					[165, 110, 165, 100], [185, 110, 185, 100], [195, 110, 195, 100], [115, 100, 125, 100],	// 脚3
+					[145, 100, 165, 100], [185, 100, 195, 100]												// 脚4
+				];
+				for(var i = 0; i < homer_contour_line.length; i++){
+					context.beginPath();
+					context.moveTo(homer_contour_line[i][0] + x, homer_contour_line[i][1] + y);
+					context.lineTo(homer_contour_line[i][2] + x, homer_contour_line[i][3] + y);
+					context.stroke();
+				}
+			}
+			draw{$app.key}(95, 10);
+		</script>
+	</div>
+</a>
