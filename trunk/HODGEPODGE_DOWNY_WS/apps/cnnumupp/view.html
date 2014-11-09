@@ -93,5 +93,8 @@ $('.app input[value="转换"]').click(function(){
 		$('.app .response').html(result);
 	}
 });
+if($('.app input[name=content]').val() != ''){
+	$('.app input[value="转换"]').click();
+}
 {/literal}
 </script>

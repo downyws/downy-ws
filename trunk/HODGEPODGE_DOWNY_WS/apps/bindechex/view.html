@@ -1,0 +1,128 @@
+<div><input type="text" name="content"  /></div>
+<div>
+	<select name="from"></select>
+	<span>转</span>
+	<select name="to"></select>
+	<input type="button" value="确定" />
+	<span>数值范围：0-9-A-Z-a-z</span>
+</div>
+<div class="result"><textarea readonly="readonly"></textarea></div>
+{literal}
+<style type="text/css">
+.app div{width:500px;margin:0px auto 15px;}
+.app input[type=text], .app .result textarea{width:100%;}
+.app input[type=text], .app select{box-sizing:border-box;border:1px solid #D6D6D6;box-sizing:border-box;padding:5px;}
+.app input[type=text]:hover, .app select:hover{border:1px solid #4D90FE;box-shadow:1px 2px 3px #666666;}
+.app input[type=button]{border-radius:3px;color:#FFFFFF;border:1px solid #3079ED;padding:5px 15px;cursor:pointer;background:#4d90FE;}
+.app input[type=button]:hover{background:#357AE8;border:1px solid #2F5BB7;}
+.app span{margin:0px 10px;}
+.app input[type=button]{margin-left:20px;}
+.app .result textarea{border:1px solid #D6D6D6;box-sizing:border-box;padding:5px;font-size:12px;}
+.app .result textarea:hover{border:1px solid #4D90FE;box-shadow:1px 2px 3px #666666;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var html = '<option style="text-align:right" value="0">请选择</option>';
+for(var i = 2; i <= 62; i++){
+	html += '<option style="text-align:right;" value="' + i + '">' + i + '进制</option>';
+}
+$('.app select[name=from]').html(html);
+$('.app select[name=to]').html(html);
+$('.app input[type=button]').click(function(){
+	var content = $('.app input[type=text]').val();
+	var from = $('.app select[name=from]').val();
+	var to = $('.app select[name=to]').val();
+
+	var temp = '';
+	if(content == ''){
+		temp += "请输入需要转换的数值\n";
+	}
+	if(from < 2){
+		temp += "请选择被转换数值的进制\n";
+	}
+	if(to < 2){
+		temp += "请选择数值转换后的进制\n";
+	}
+	if(temp != ''){
+		$('.app textarea').val(temp);
+		return;
+	}
+
+	content = nToDec(from, content);
+	if(!content[0]){
+		$('.app textarea').val(content[1]);
+		return;
+	}
+	content = DecToN(to, content[1]);
+	$('.app textarea').val(content[1]);
+});
+$('.app input[type=text]').val(DATA.content);
+$('.app select[name=from]').val(DATA.from);
+$('.app select[name=to]').val(DATA.to);
+if(DATA.content != '' && DATA.from > 0 && DATA.to > 0){
+	$('.app input[type=button]').click();
+}
+function nToDec(n, val){
+	var result = parseFloat(0), count = val.length, temp = null;
+	val = '' + val;
+	for(var i = 0; i < count; i++){
+		temp = chrToNum(val[i]);
+		if(temp === false){alert('2');
+			return [false, '数值只能包含数字和字母'];
+		}else if(temp + 1 > n){alert('3');
+			return [false, '被转换数值超过所选进制'];
+		}
+		result += parseFloat(temp * Math.pow(n, count - i - 1));
+	}
+	return [true, result];
+}
+function DecToN(n, val){
+	var result = [], temp = null, temp2 = null;
+
+	while(val >= n){
+		result.push(val % n);
+		val = (val - val % n) / n;
+	}
+
+	result.push(val);
+	temp = result;
+	result = '';
+
+	for(var i = temp.length - 1; i >= 0; i--){
+		temp2 = numToChr(temp[i]);
+		if(temp === false){alert('1');
+			return [false, 'error, find undefined value'];
+		}
+		result += ('' + temp2);
+	}
+
+	return [true, result];
+}
+function chrToNum(chr){
+	chr = chr.charCodeAt(0);
+	
+	if(chr >= 48 && chr <= 57){
+		return chr - 48;
+	}else if(chr >= 65 && chr <= 90){
+		return chr - 55;
+	}else if(chr >= 97 && chr <= 122){
+		return chr - 61;
+	}
+
+	return false;
+}
+function numToChr(num){
+	if(num >= 0 && num <= 9){
+		return num;
+	}else if(num >= 10 && num <= 35){
+		return String.fromCharCode(num + 55);
+	}else if(num >= 36 && num <= 61){
+		return String.fromCharCode(num + 61);
+	}
+
+	return false;
+}
+{/literal}
+</script>

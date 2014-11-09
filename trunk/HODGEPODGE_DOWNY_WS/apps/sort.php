@@ -9,6 +9,11 @@ return [
 	'htmlchar',
 	'cnnumupp',
 	'charlowupp',
+	'bindechex',
+
+	'unixtime',
+	'countdown',
+	'stopwatch',
 
 	'colormatch',
 	'colorschemedesigner',

@@ -1,0 +1,16 @@
+<form method="post" target="_blank" action="/app_{$app.key}.html">
+	<div style="padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</div>
+	<div style="padding:10px;">
+		<script type="text/javascript">
+			var html = '<option style="text-align:right" value="0">请选择</option>';
+			for(var i = 2; i <= 62; i++){
+				html += '<option style="text-align:right;" value="' + i + '">' + i + '进制</option>';
+			}
+			document.write('<input type="text" style="width:100%;margin-bottom:15px;" name="content" />');
+			document.write('<select name="from">' + html + '</select>');
+			document.write('<span style="margin:0px 20px;">转换成</span>');
+			document.write('<select name="to">' + html + '</select>');
+		</script>
+		<input type="submit" value="转换" style="float:right;" />
+	</div>
+</form>
