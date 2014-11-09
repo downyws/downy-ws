@@ -1,0 +1,91 @@
+<div class="clock">00:00:00:00</div>
+<input type="button" value="开始" />
+<input type="button" value="暂停" />
+<input type="button" value="计次" />
+<input type="button" value="复位" />
+<div class="logs"></div>
+{literal}
+<style type="text/css">
+	.app .clock{font-size:80px;padding:5px 50px;height:120px;width:680px;border:5px solid #D6D6D6;text-align:center;float:left;box-sizing:border-box;font-family:Tahoma;}
+	.app .clock:hover{border:5px solid #4D90FE;box-shadow:1px 2px 3px #666666;}
+	.app input{border-radius:5px;color:#FFFFFF;border: 5px solid #3079ED;font-size:30px;padding:5px 15px;margin-left:20px;height:55px;margin-bottom:10px;cursor:pointer;background:#4d90FE;}
+	.app input:hover{background:#357AE8;border: 5px solid #2F5BB7;}
+	.app div.log{font-size:20px;padding:5px 0px;color:#666666;float:left;width:188px;text-align:center;}
+	.app div.log:hover{box-shadow:1px 2px 3px #666666;color:#4D90FE;}
+</style>
+{/literal}
+<script type="text/javascript">
+{literal}
+var clockpoint = null;
+var clockstart = null;
+var clockvalue = 0;
+function clock(){
+	var timestamp = clockvalue + new Date().valueOf() - clockstart;
+	$('.app .clock').html(formatStamp(timestamp));
+}
+function formatStamp(timestamp){
+	if(timestamp > 359999999){
+		$('.app .clock').css('color', '#BBBB00');
+		return '99:59:59:99';
+	}
+
+	var result = '' + timestamp + '';
+	result = result.substr(-3);
+	if(result.length == 3){
+		result = result.substr(0, 1);
+	}else{
+		result = '0';
+	}
+	result += parseInt(Math.random()*10);
+
+	timestamp = parseInt(timestamp / 1000);
+	temp = timestamp % 60;
+	result = ((temp < 10) ? '0' + temp : temp) + ':' + result;
+
+	timestamp -= temp;
+	temp = timestamp % 3600 / 60;
+	result = ((temp < 10) ? '0' + temp : temp) + ':' + result;
+
+	timestamp -= temp * 60;
+	temp = timestamp / 3600;
+	result = ((temp < 10) ? '0' + temp : temp) + ':' + result;
+
+	return result;
+}
+$('.app input[value="开始"]').click(function(){
+	if(clockpoint == null){
+		clockstart = new Date().valueOf();
+		clockpoint = setInterval('clock()', 99);
+		$('.app .clock').css('color', '#000000');
+	}
+});
+$('.app input[value="暂停"]').click(function(){
+	if(clockpoint != null){
+		clearInterval(clockpoint);
+		clockpoint = null;
+		clockvalue += new Date().valueOf() - clockstart;
+		clockstart = 0;
+		$('.app .clock').css('color', '#BB0000');
+	}
+});
+$('.app input[value="计次"]').click(function(){
+	if(clockstart != null){
+		var val = $('.app .log').length;
+		if(val < 99){
+			val = ++val < 10 ? '0' + val : val;
+			$('.app .logs').append('<div class="log">' + val + '. ' + $('.app .clock').html() + '</div>');
+		}
+	}
+});
+$('.app input[value="复位"]').click(function(){
+	if(clockpoint != null){
+		clearInterval(clockpoint);
+	}
+	clockpoint = null;
+	clockstart = null;
+	clockvalue = 0;
+	$('.app .clock').html('00:00:00:00').css('color', '#000000');
+	$('.app .logs').html('');
+});
+{/literal}
+</script>
