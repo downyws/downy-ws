@@ -109,7 +109,7 @@ class ActionSet extends Action
 		if(!empty($_POST))
 		{
 			Factory::loadLibrary('cipherhelper');
-			$cipherHelper = new CipherHelper();
+			$cipherhelper = new CipherHelper();
 
 			foreach($SITES as $k => $v)
 			{
@@ -130,7 +130,7 @@ class ActionSet extends Action
 							$filecache->set
 							(
 								'pre_access/' . substr($key, 0, 16), 
-								$cipherHelper->keyvalv1_encode(substr($key, 16), $_POST['p_' . md5($k)]), 
+								$cipherhelper->keyvalv1_encode(substr($key, 16), $_POST['p_' . md5($k)]), 
 								time() + 86400000
 							);
 							$SITE_SETTING[$k]['PRE_ACCESS'] = $key;
@@ -204,8 +204,8 @@ class ActionSet extends Action
 					if($val !== false)
 					{
 						Factory::loadLibrary('cipherhelper');
-						$cipherHelper = new CipherHelper();
-						$pwd = $cipherHelper->keyvalv1_decode(substr($key, 16), $val);
+						$cipherhelper = new CipherHelper();
+						$pwd = $cipherhelper->keyvalv1_decode(substr($key, 16), $val);
 						if($pwd !== false && in_array($pwd, $SITES[$params['app_name']]['PASSWORDS']))
 						{
 							$passport = $accessObj->createPassport($SITES[$params['app_name']], false, $pwd);
