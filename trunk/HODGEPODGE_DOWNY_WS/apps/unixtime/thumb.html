@@ -1,4 +1,4 @@
-<div style="padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</div>
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
 <form method="post" target="_blank" action="/app_{$app.key}.html" style="padding:10px;">
 	<label>Unix时间戳</label><input type="text" style="margin:0px 10px;" name="timestamp" /><input type="submit" name="todate" value="转换" style="float:right;" />
 </form>

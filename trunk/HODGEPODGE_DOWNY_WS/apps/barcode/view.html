@@ -1,0 +1,119 @@
+<link type="text/css" rel="stylesheet" href="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/cupertino/jquery-ui-1.10.4.custom.min.css" />
+<link type="text/css" rel="stylesheet" href="{$smarty.const.RESOURCES_DOMAIN}jquery/colorpicker-master/css/evol.colorpicker.css" />
+<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/colorpicker-master/js/evol.colorpicker.js"></script>
+<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.downy.ext.js"></script>
+<form method="post" action="/app_{$config.key}.html" name="app" target="_blank">
+	<input type="hidden" name="ajax" value="0" />
+	<table class="ctrl"><tr>
+		<th class="item">条码类型*</th><td class="item"><select name="type">
+			<option value="">请选择</option>
+			<option value="code39">Code39</option>
+			<option value="code128-a">Code128A</option>
+			<option value="code128-b">Code128B</option>
+			<option value="code128-c">Code128C</option>
+		</select></td>
+		<th class="item">条码内容*</th><td class="item" colspan="3"><input type="text" name="code" class="w200" maxlength="100" /></td>
+	</tr><tr>
+		<th class="item">条码粗细</th><td class="item"><select name="unit_width">
+			<option value="0">请选择</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+		</select></td>
+		<th class="item">显示文字</th><td class="item" colspan="3"><input type="text" name="text" class="w200" maxlength="100" /></td>
+	</tr><tr>
+		<th class="item">文字属性</th><td class="item" colspan="5">
+			<input type="radio" value="top" name="font_0" id="font_0_top" /><label class="tit" for="font_0_top">置顶</label>
+			<input type="radio" value="bottom" name="font_0" id="font_0_bottom" /><label class="tit" for="font_0_bottom">置底</label>
+			<input type="text" name="font_0_0" class="w25" maxlength="3" /><label class="tit">置顶/底距离</label>
+			<input type="radio" value="left" name="font_1" id="font_1_left" /><label class="tit" for="font_1_left">居左</label>
+			<input type="radio" value="center" name="font_1" id="font_1_center" /><label class="tit" for="font_1_center">居中</label>
+			<input type="radio" value="right" name="font_1" id="font_1_right" /><label class="tit" for="font_1_right">居右</label>
+			<input type="text" name="font_2" class="w25" maxlength="3" /><label class="tit">文字像素</label>
+		</td>
+	</tr><tr>
+		<th class="item" width="60px">条码颜色</th><td class="item" width="100px"><input type="text" name="color" class="w55" /></td>
+		<th class="item" width="60px">背景颜色</th><td class="item" width="100px"><input type="text" name="bgcolor" class="w55" /></td>
+		<th class="item" width="60px">条码高度</th><td class="item" width="100px"><input type="text" name="height" class="w25" maxlength="3" /></td>
+	</tr><tr>
+		<th class="item">边剧像素</th><td colspan="3" class="item">
+			<label class="tit l" style="margin-left:0px;">上</label><input type="text" name="margin_0" class="w25" maxlength="3" />
+			<label class="tit l">右</label><input type="text" name="margin_1" class="w25" maxlength="3" />
+			<label class="tit l">下</label><input type="text" name="margin_2" class="w25" maxlength="3" />
+			<label class="tit l">左</label><input type="text" name="margin_3" class="w25" maxlength="3" />
+		</td>
+		<td colspan="2" class="item btns">
+			<input type="button" value="生成" />
+			<input type="submit" name="download" value="下载" />
+		</td>
+	</tr></table>
+	<div class="result"></div>
+</form>
+{literal}
+<style type="text/css">
+	.app .w25{width:25px;text-align:center;}
+	.app .w55{width:55px;text-align:center;}
+	.app .w200{width:200px;}
+	.app label.tit{margin:0px 5px;}
+	.app label.tit.l{margin:0px 5px 0px 20px;}
+	.app table.ctrl{width:600px;box-shadow:1px 2px 3px #666666;float:left;}
+	.app table.ctrl tr th.item, .app table.ctrl tr td.item{padding:10px 10px;border:1px solid #D6D6D6;}
+	.app table.ctrl tr td.item:hover{border:1px solid #4D90FE;box-shadow:1px 2px 3px #666666;}
+	.app .btns{text-align:center;}
+	.app .btns input{margin:0px 10px;}
+	.app .result{width:300px;height:198px;float:right;box-shadow:1px 2px 3px #666666;padding:10px;overflow:hidden;text-align:center;}
+	.app .result img{max-width:300px;max-height:198px;}
+	.app .result .msg{text-align:left;color:#FF0000;font-size:14px;}
+	.app .result .msg li{list-style:none;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+function imgMiddle(){
+	var h_div = $('.app .result').height();
+	var h_img = $('.app .result img').height();
+	$('.app .result img').css('margin-top', ((h_div - h_img) / 2) + 'px');
+}
+function errorMsg(content){
+	$('.app .result').html('<ul class="msg"></ul>');
+	for(var key in content){
+		$('.app .result .msg').append('<li class="currnet"></li>');
+		$('.app .result .msg .currnet').text(content[key]).removeClass('currnet');
+	}
+}
+$(".app input[name=color], .app input[name=bgcolor]").colorpicker({valign_top: true});
+$('.app input[value="生成"]').click(function(){
+	$('.app input[name=ajax]').val(1);
+	$.fn.dyAjaxForm('form[name=app]', {
+		dataType: 'JSON',
+		onEvent: {
+			success: function(result){
+				if(result.message){
+					errorMsg(result.message);
+				}else{
+					$('.app .result').html('<img src="' + result.img + '" onload="imgMiddle()" />');
+				}
+			}, error: function(jqXHR, textStatus, errorThrown){
+				errorMsg([JSON.stringify(jqXHR)]);
+			}
+		}
+	});
+	$('.app input[name=ajax]').val(0);
+});
+
+$('.app select[name=type]').val(DATA.type);
+$('.app input[name=code]').val(DATA.code);
+if(typeof(DATA.code) != 'undefined' && DATA.code != ''){
+	$('.app input[value="生成"]').click();
+}
+{/literal}
+</script>
