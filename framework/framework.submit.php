@@ -149,6 +149,16 @@ class Submit
 		return strip_tags($value);
 	}
 
+	public function formatUpper($rule, $value)
+	{
+		return strtoupper($value);
+	}
+
+	public function formatLower($rule, $value)
+	{
+		return strtolower($value);
+	}
+
 	public function validEmpty($rule, $value)
 	{
 		return !($value == '');
