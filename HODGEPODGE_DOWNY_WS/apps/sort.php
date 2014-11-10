@@ -5,7 +5,10 @@ return [
 	'urlescape',
 	'thflqq',
 
+	'qrcode',
+	'barcode',
 	'cpwd',
+
 	'htmlchar',
 	'cnnumupp',
 	'charlowupp',
