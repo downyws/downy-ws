@@ -938,9 +938,9 @@
     class QRimage {
     
         //----------------------------------------------------------------------
-        public static function png($frame, $filename = false, $pixelPerPoint = 4, $outerFrame = 4,$saveandprint=FALSE) 
+        public static function png($frame, $filename = false, $pixelPerPoint = 4, $outerFrame = 4,$saveandprint=FALSE, $color = '#000000', $bgcolor = '#FFFFFF') 
         {
-            $image = self::image($frame, $pixelPerPoint, $outerFrame);
+            $image = self::image($frame, $pixelPerPoint, $outerFrame, $color, $bgcolor);
             
             if ($filename === false) {
                 Header("Content-type: image/png");
@@ -959,9 +959,9 @@
         }
     
         //----------------------------------------------------------------------
-        public static function jpg($frame, $filename = false, $pixelPerPoint = 8, $outerFrame = 4, $q = 85) 
+        public static function jpg($frame, $filename = false, $pixelPerPoint = 8, $outerFrame = 4, $q = 85, $color = '#000000', $bgcolor = '#FFFFFF') 
         {
-            $image = self::image($frame, $pixelPerPoint, $outerFrame);
+            $image = self::image($frame, $pixelPerPoint, $outerFrame, $color, $bgcolor);
             
             if ($filename === false) {
                 Header("Content-type: image/jpeg");
@@ -974,7 +974,7 @@
         }
     
         //----------------------------------------------------------------------
-        private static function image($frame, $pixelPerPoint = 4, $outerFrame = 4) 
+        private static function image($frame, $pixelPerPoint = 4, $outerFrame = 4, $color = '#000000', $bgcolor = '#FFFFFF') 
         {
             $h = count($frame);
             $w = strlen($frame[0]);
@@ -983,9 +983,21 @@
             $imgH = $h + 2*$outerFrame;
             
             $base_image =ImageCreate($imgW, $imgH);
-            
-            $col[0] = ImageColorAllocate($base_image,255,255,255);
-            $col[1] = ImageColorAllocate($base_image,0,0,0);
+
+			$preg_color = '/^\#[0-9A-F]{6}$/i';
+			$bgcolor = preg_match($preg_color, $bgcolor) ? $bgcolor : '#000000';
+			$color = preg_match($preg_color, $color) ? $color : '#FFFFFF';
+
+			$col[0] = ImageColorAllocate($base_image,
+				hexdec(substr($bgcolor, 1, 2)), 
+				hexdec(substr($bgcolor, 3, 2)), 
+				hexdec(substr($bgcolor, 5, 2))
+			);
+			$col[1] = ImageColorAllocate($base_image,
+				hexdec(substr($color, 1, 2)), 
+				hexdec(substr($color, 3, 2)), 
+				hexdec(substr($color, 5, 2))
+			);
 
             imagefill($base_image, 0, 0, $col[0]);
 
@@ -3088,9 +3100,9 @@
         }
         
         //----------------------------------------------------------------------
-        public static function png($text, $outfile = false, $level = QR_ECLEVEL_L, $size = 3, $margin = 4, $saveandprint=false) 
+        public static function png($text, $outfile = false, $level = QR_ECLEVEL_L, $size = 3, $margin = 4, $saveandprint=false, $color = '#000000', $bgcolor = '#FFFFFF') 
         {
-            $enc = QRencode::factory($level, $size, $margin);
+            $enc = QRencode::factory($level, $size, $margin, $color, $bgcolor);
             return $enc->encodePNG($text, $outfile, $saveandprint=false);
         }
 
@@ -3209,6 +3221,8 @@
         public $version = 0;
         public $size = 3;
         public $margin = 4;
+		public $color = '#000000';
+		public $bgcolor = '#FFFFFF';
         
         public $structured = 0; // not supported yet
         
@@ -3216,11 +3230,13 @@
         public $hint = QR_MODE_8;
         
         //----------------------------------------------------------------------
-        public static function factory($level = QR_ECLEVEL_L, $size = 3, $margin = 4)
+        public static function factory($level = QR_ECLEVEL_L, $size = 3, $margin = 4, $color = '#000000', $bgcolor = '#FFFFFF')
         {
             $enc = new QRencode();
             $enc->size = $size;
             $enc->margin = $margin;
+            $enc->color = $color;
+            $enc->bgcolor = $bgcolor;
             
             switch ($level.'') {
                 case '0':
@@ -3299,7 +3315,7 @@
                 
                 $maxSize = (int)(QR_PNG_MAXIMUM_SIZE / (count($tab)+2*$this->margin));
                 
-                QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin,$saveandprint);
+                QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin,$saveandprint, $this->color, $this->bgcolor);
             
             } catch (Exception $e) {
             
