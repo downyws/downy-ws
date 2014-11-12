@@ -9,6 +9,7 @@ return [
 	'barcode',
 	'cpwd',
 
+	'regex',
 	'htmlchar',
 	'cnnumupp',
 	'charlowupp',
@@ -21,6 +22,9 @@ return [
 	'colormatch',
 	'colorschemedesigner',
 	'colorselect',
+
+	'currencyconverter',
+	'weather',
 
 	'html5piano',
 	'html5homer',

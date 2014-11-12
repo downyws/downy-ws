@@ -1,0 +1,25 @@
+<a href="/app_{$app.key}.html" target="_blank">
+	<div style="padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</div>
+	<div style="padding:10px;">
+		<script type="text/javascript">
+		{literal}
+		var ITEMS = [
+			'(pattern)', '\\', '^', '\\b', '\\B', '\\cx', '{n,}', '{n,m}',
+			'(?:pattern)', '$', '*', '\\d', '\\D', '\\f', '{i}{i,j}', 'x|y',
+			'(?=pattern)', '+', '?', '\\n', '\\r', '\\s', '[xyz]', '[^xyz]',
+			'(?!pattern)', '?', '.', '\\S', '\\t', '\\v', '[a-z]', '[^a-z]',
+			'(?&#60;=pattern)', '|', '+', '\\w', '\\W', '\\xn', '\\&#60; \\&#62;', '\\( \\)',
+			'(?&#60;!pattern)', '?', '{n}', '\\n', '\\un', '\\num', '\\nm', '\\nml'
+		];
+		var html = '';
+		for(var i = 0; i < ITEMS.length; i++){
+			html += '<td style="padding:0px 6px 1px 5px;border:1px solid #000000;text-align:center;">' + ITEMS[i] + '</td>';
+			if((i + 1) % 8 == 0){
+				html += '</tr><tr>';
+			}
+		}
+		document.write('<table><tr>' + html + '</tr></table>');
+		{/literal}
+		</script>
+	</div>
+</a>
