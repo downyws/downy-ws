@@ -93,7 +93,7 @@ function errorMsg(content){
 $(".app input[name=color], .app input[name=bgcolor]").colorpicker({valign_top: true});
 $('.app input[value="生成"]').click(function(){
 	$('.app input[name=ajax]').val(1);
-	$.fn.dyAjaxForm('form[name=app]', {
+	$.fn.dyAjaxForm('.app form[name=app]', {
 		dataType: 'JSON',
 		onEvent: {
 			success: function(result){

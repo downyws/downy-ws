@@ -4,13 +4,10 @@
 		<textarea style="width:100%;box-sizing:border-box;" name="content"></textarea>
 	</div>
 	<div style="padding:0px 10px;">
-		<label>纠错能力：</label><select name="level">
-			<option value="">请选择</option>
-			<option value="0">L - 7%</option>
-			<option value="1">M - 15%</option>
-			<option value="2">Q - 25%</option>
-			<option value="3">H - 30%</option>
-		</select>
-		<input type="submit" style="float:right;" value="生成" />
+		<label>行数：</label><input type="text" name="row" style="width:30px;text-align:center;" maxlength="3" />
+		<div style="float:right">
+			<input type="submit" name="type" value="解密" />
+			<input type="submit" name="type" value="加密" />
+		</div>
 	</div>
 </form>

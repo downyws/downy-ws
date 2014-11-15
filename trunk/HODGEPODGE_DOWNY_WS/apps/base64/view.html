@@ -24,12 +24,12 @@
 	$('.app textarea[name=response]').val(DATA.response);
 
 	$('.app input[value="清空"]').click(function(){
-		$('textarea[name=content]').val('');
-		$('textarea[name=response]').val('');
+		$('.app textarea[name=content]').val('');
+		$('.app textarea[name=response]').val('');
 	});
-	$('.app input[value="加密"], input[value="解密"]').click(function(){
+	$('.app input[value="加密"], .app input[value="解密"]').click(function(){
 		$('.app input[name=type]').val($(this).data('type'));
-		$.fn.dyAjaxForm('form[name=app]', {
+		$.fn.dyAjaxForm('.app form[name=app]', {
 			dataType: 'JSON',
 			onEvent: {
 				success: function(result){

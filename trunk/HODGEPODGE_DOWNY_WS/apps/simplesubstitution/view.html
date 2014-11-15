@@ -1,0 +1,72 @@
+<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery/jquery.downy.ext.js"></script>
+<form method="post" action="/app_{$config.key}.html" name="app">
+	<input type="hidden" name="ajax" value="1" />
+	<input type="hidden" name="type" value="" />
+	<div><label>内容</label><textarea name="cont_from"></textarea>
+	</div>
+	<div class="dictionary">
+		<label>字典</label>
+		<input type="text" name="dict_from" />
+		<input type="text" name="dict_to" />
+	</div>
+	<div class="ctrl">
+		<input type="button" value="随机字典加密" data-type="dictionary" />
+		<input type="button" value="加密" data-type="encode" />
+		<input type="button" value="解密" data-type="decode" />
+		<input type="button" value="清空" />
+	</div>
+</form>
+<div><label>结果</label><textarea name="cont_to"></textarea></div>
+{literal}
+<style type="text/css">
+	.app textarea{width:100%;box-sizing:border-box;height:150px;}
+	.app input[type=text]{width:100%;box-sizing:border-box;}
+	.app label{margin-bottom:5px;display:block;}
+	.app div{margin-bottom:10px;}
+	.app input[name=dict_to]{margin-top:5px;}
+	.app .ctrl{text-align:center;}
+	.app .ctrl input{margin:0px 5px;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+$('.app textarea[name=cont_from]').val(DATA.cont_from);
+$('.app textarea[name=cont_to]').val(DATA.cont_to);
+$('.app input[name=dict_from]').val(DATA.dict_from);
+$('.app input[name=dict_to]').val(DATA.dict_to);
+
+$('.app input[value="清空"]').click(function(){
+	$('.app textarea[name=cont_from]').val('');
+	$('.app textarea[name=cont_to]').val('');
+	$('.app input[name=dict_from]').val('');
+	$('.app input[name=dict_to]').val('');
+});
+
+$('.app input[value="加密"], .app input[value="随机字典加密"], .app input[value="解密"]').click(function(){
+	$('.app input[name=type]').val($(this).data('type'));
+	$.fn.dyAjaxForm('.app form[name=app]', {
+		dataType: 'JSON',
+		onEvent: {
+			success: function(result){
+				if(typeof(result.message) != 'undefined'){
+					$('.app textarea[name=cont_to]').val(result.message);
+				}else{
+					if(typeof(result.dict_from) != 'undefined'){
+						$('.app input[name=dict_from]').val(result.dict_from);
+					}
+					if(typeof(result.dict_to) != 'undefined'){
+						$('.app input[name=dict_to]').val(result.dict_to);
+					}
+					if(typeof(result.cont_to) != 'undefined'){
+						$('.app textarea[name=cont_to]').val(result.cont_to);
+					}
+				}
+			}, error: function(jqXHR, textStatus, errorThrown){
+				$('.app textarea[name=cont_to]').val(JSON.stringify(jqXHR));
+			}
+		}
+	});
+});
+{/literal}
+</script>

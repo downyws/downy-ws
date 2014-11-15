@@ -2,27 +2,36 @@
 <form method="post" action="/app_{$config.key}.html" name="app">
 	<input type="hidden" name="ajax" value="1" />
 	<input type="hidden" name="type" value="" />
-	<textarea name="content"></textarea>
-	<div>
+	<div><textarea name="content"></textarea></div>
+	<div class="ctrl">
+		<label>行数：</label><input type="text" name="row" maxlength="3" />
 		<input type="button" value="解密" data-type="decode" />
 		<input type="button" value="加密" data-type="encode" />
 		<input type="button" value="清空" />
 	</div>
+	<div><textarea name="response"></textarea></div>
 </form>
 {literal}
 <style type="text/css">
-	.app div{text-align:right;}
-	.app textarea{width:100%;box-sizing:border-box;height:100px;}
-	.app label{margin:0px 20px 0px 5px;font-size:14px;}
-	.app input{padding:5px;margin:10px 0px;text-align:center;font-size:14px;margin-left:10px;}
+	.app textarea{width:100%;box-sizing:border-box;height:150px;}
+	.app .dictionary{line-height:30px;}
+	.app .dictionary input[type=text]{width:100%;box-sizing:border-box;}
+	.app .ctrl{margin:10px auto;text-align:right;}
+	.app .ctrl label{line-height:20px;float:left;}
+	.app .ctrl input[type=text]{float:left;width:25px;text-align:center;}
+	.app .ctrl input[type=button]{margin-left:10px;}
 </style>
 {/literal}
 <script type="text/javascript">
 	var DATA = {json_encode($data)};
 	$('.app textarea[name=content]').val(DATA.content);
+	$('.app input[name=row]').val(DATA.row > 0 ? DATA.row : '');
+	$('.app textarea[name=response]').val(DATA.response);
 
 	$('.app input[value="清空"]').click(function(){
 		$('.app textarea[name=content]').val('');
+		$('.app input[name=row]').val('');
+		$('.app textarea[name=response]').val('');
 	});
 	$('.app input[value="加密"], .app input[value="解密"]').click(function(){
 		$('.app input[name=type]').val($(this).data('type'));
@@ -30,9 +39,9 @@
 			dataType: 'JSON',
 			onEvent: {
 				success: function(result){
-					$('.app textarea[name=content]').val(result.response);
+					$('.app textarea[name=response]').val(result.response);
 				}, error: function(jqXHR, textStatus, errorThrown){
-					alert(JSON.stringify(jqXHR));
+					$('.app textarea[name=response]').val(JSON.stringify(jqXHR));
 				}
 			}
 		});
