@@ -20,36 +20,38 @@
 </style>
 {/literal}
 <script type="text/javascript">
-	var DATA = {json_encode($data)};
-	$('.app input[name=content]').val(DATA.content);
-	$('.app .response').html('');
-	var index = 0;
-	for(key in DATA.data){
-		$('.app .response').append('<p class="_' + index + '"><span>' + key + '</span><font></font></p>');
-		$('.app .response ._' + index + ' font').text(DATA.data[key]);
-		index++;
-	}
-	$('.app input[value="加密"], .app input[value="解密"]').click(function(){
-		$('.app input[name=type]').val($(this).data('type'));
-		$.fn.dyAjaxForm('.app form[name=app]', {
-			dataType: 'JSON',
-			onEvent: {
-				success: function(result){
-					if(typeof(result.error) != 'undefined'){
-						alert(result.error);
-					}else{
-						$('.app .response').html('');
-						index = 0;
-						for(key in result.data){
-							$('.app .response').append('<p class="_' + index + '"><span>' + key + '</span><font></font></p>');
-							$('.app .response ._' + index + ' font').text(result.data[key]);
-							index++;
-						}
+var DATA = {json_encode($data)};
+{literal}
+$('.app input[name=content]').val(DATA.content);
+$('.app .response').html('');
+var index = 0;
+for(key in DATA.data){
+	$('.app .response').append('<p class="_' + index + '"><span>' + key + '</span><font></font></p>');
+	$('.app .response ._' + index + ' font').text(DATA.data[key]);
+	index++;
+}
+$('.app input[value="加密"], .app input[value="解密"]').click(function(){
+	$('.app input[name=type]').val($(this).data('type'));
+	$.fn.dyAjaxForm('.app form[name=app]', {
+		dataType: 'JSON',
+		onEvent: {
+			success: function(result){
+				if(typeof(result.error) != 'undefined'){
+					alert(result.error);
+				}else{
+					$('.app .response').html('');
+					index = 0;
+					for(key in result.data){
+						$('.app .response').append('<p class="_' + index + '"><span>' + key + '</span><font></font></p>');
+						$('.app .response ._' + index + ' font').text(result.data[key]);
+						index++;
 					}
-				}, error: function(jqXHR, textStatus, errorThrown){
-					alert(JSON.stringify(jqXHR));
 				}
+			}, error: function(jqXHR, textStatus, errorThrown){
+				alert(JSON.stringify(jqXHR));
 			}
-		});
+		}
 	});
+});
+{/literal}
 </script>
