@@ -19,25 +19,25 @@
 </style>
 {/literal}
 <script type="text/javascript">
-	var DATA = {json_encode($data)};
-	$('.app textarea[name=content]').val(DATA.content);
-	$('.app textarea[name=response]').val(DATA.response);
+var DATA = {json_encode($data)};
+$('.app textarea[name=content]').val(DATA.content);
+$('.app textarea[name=response]').val(DATA.response);
 
-	$('.app input[value="清空"]').click(function(){
-		$('.app textarea[name=content]').val('');
-		$('.app textarea[name=response]').val('');
-	});
-	$('.app input[value="加密"], .app input[value="解密"]').click(function(){
-		$('.app input[name=type]').val($(this).data('type'));
-		$.fn.dyAjaxForm('.app form[name=app]', {
-			dataType: 'JSON',
-			onEvent: {
-				success: function(result){
-					$('.app textarea[name=response]').val(result.response);
-				}, error: function(jqXHR, textStatus, errorThrown){
-					$('.app textarea[name=response]').val(JSON.stringify(jqXHR));
-				}
+$('.app input[value="清空"]').click(function(){
+	$('.app textarea[name=content]').val('');
+	$('.app textarea[name=response]').val('');
+});
+$('.app input[value="加密"], .app input[value="解密"]').click(function(){
+	$('.app input[name=type]').val($(this).data('type'));
+	$.fn.dyAjaxForm('.app form[name=app]', {
+		dataType: 'JSON',
+		onEvent: {
+			success: function(result){
+				$('.app textarea[name=response]').val(result.response);
+			}, error: function(jqXHR, textStatus, errorThrown){
+				$('.app textarea[name=response]').val(JSON.stringify(jqXHR));
 			}
-		});
+		}
 	});
+});
 </script>
