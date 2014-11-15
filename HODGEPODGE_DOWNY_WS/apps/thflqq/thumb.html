@@ -1,9 +1,9 @@
 <form method="post" target="_blank" action="/app_{$app.key}.html">
 	<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
 	<div style="padding:10px;">
-		<input type="text" style="width:100%" name="content">
+		<input type="text" style="width:100%;box-sizing:border-box;" name="content">
 	</div>
-	<div style="padding:0px 10px;">
+	<div style="padding:0px 10px;text-align:right;">
 		<input type="submit" name="type" value="解密" />
 		<input type="submit" name="type" value="加密" />
 	</div>

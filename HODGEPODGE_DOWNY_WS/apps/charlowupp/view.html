@@ -26,7 +26,7 @@ $('.app input[value="清空"]').click(function(){
 	$('.app textarea[name=content]').val('');
 });
 $('.app input[value="转换"]').click(function(){
-	switch($('input[name=type]:checked').val()){
+	switch($('.app input[name=type]:checked').val()){
 		case 'l':
 			$('.app textarea[name=content]').val();
 			break;

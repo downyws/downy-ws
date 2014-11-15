@@ -4,6 +4,8 @@ return [
 	'md5',
 	'urlescape',
 	'thflqq',
+	'simplesubstitution',
+	'railfence',
 
 	'qrcode',
 	'barcode',
@@ -16,6 +18,8 @@ return [
 	'bindechex',
 
 	'unixtime',
+	'unitconverter',
+
 	'countdown',
 	'stopwatch',
 

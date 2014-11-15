@@ -1,9 +1,9 @@
 <form method="post" target="_blank" action="/app_{$app.key}.html">
 	<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
 	<div style="padding:10px;">
-		<textarea style="width:100%" name="content"></textarea>
+		<textarea style="width:100%;box-sizing:border-box;" name="content"></textarea>
 	</div>
-	<div style="padding:0px 10px;">
+	<div style="padding:0px 10px;text-align:right;">
 		<input type="radio" name="chr" value="l" id="char_l" checked="checked" /><label for="char_l" style="margin-right:10px;">32位[小写]</label>
 		<input type="radio" name="chr" value="u" id="char_u" /><label for="char_u" style="margin-right:10px;">32位[大写]</label>
 		<input type="submit" value="加密" />
