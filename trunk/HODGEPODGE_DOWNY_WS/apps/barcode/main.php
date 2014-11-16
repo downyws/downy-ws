@@ -100,7 +100,7 @@ if(!empty($_POST))
 				'margin_2' => [['valid', 'empty', '', 2, null], ['valid', 'gte', '', 2, 0], ['format', 'int']],
 				'margin_3' => [['valid', 'empty', '', 2, null], ['valid', 'gte', '', 2, 0], ['format', 'int']]
 			]);
-			$font = $params['text'] != '' ? [$params['font_0'] => $params['font_0_0'], 'align' => $params['font_1'], 'size' => $params['font_2']] : null;
+			$font = $params['text'] != '' ? [$params['font_0'] => $params['font_0_0'], 'align' => $params['font_1'], 'size' => $params['font_2'], 'path' => APP_DIR_APPS . '/' . $key . '/font.ttf'] : null;
 
 			$filename = md5(json_encode([$code, $ext, $type, $params]));
 			$temp = new Filecache();
