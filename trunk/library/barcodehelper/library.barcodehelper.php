@@ -13,7 +13,7 @@ class BarcodeHelper
 	private $_width = null;
 	private $_height = null;		// 高度 > 0
 	private $_margin = null;		// 边距 [0,0,0,0] >= 0
-	private $_font = null;			// 文字 ['top||bottom' => 0, 'align' => 'left||right||center', 'size' => 0]
+	private $_font = null;			// 文字 ['top||bottom' => 0, 'align' => 'left||right||center', 'size' => 0, 'path' => 'path']
 	private $_ext = null;			// 扩展
 
 	private $_digit = null;
@@ -89,18 +89,22 @@ class BarcodeHelper
 		$ys = $this->_margin[0];
 		if($this->_font != null)
 		{
-			$height_barcode -= imagefontheight($this->_font['size']);
+			$xy4 = imagettfbbox($this->_font['size'], 0, $this->_font['path'] , $this->_text);
+			$xyw = abs($xy4[2] - $xy4[0]);
+			$xyh = abs($xy4[1] - $xy4[7]);
+			$height_barcode -= $xyh;
+
 			if(isset($this->_font['top']))
 			{
 				$height_barcode -= $this->_font['top'];
-				$ys += imagefontheight($this->_font['size']) + $this->_font['top'];
+				$ys += $xyh + $this->_font['top'];
 			}
 			if(isset($this->_font['bottom']))
 			{
 				$height_barcode -= $this->_font['bottom'];
 			}
 		}
-		$ye = $this->_margin[0] + $height_barcode - 1;
+		$ye = $ys + $height_barcode - 1;
 		$xs = $this->_margin[3];
 		for($i = 0; $i < strlen($digit); $i++)
 		{
@@ -117,28 +121,27 @@ class BarcodeHelper
 		{
 			if(isset($this->_font['top']))
 			{
-				$y = $this->_margin[0];
+				$y = $this->_margin[0] + $xyh;
 			}
 			else
 			{
-				$y = $this->_height - $this->_margin[2] - imagefontheight($this->_font['size']);
+				$y = $this->_height - $this->_margin[2];
 			}
 
-			$width = strlen($this->_text) * imagefontwidth($this->_font['size']);
 			if($this->_font['align'] == 'left')
 			{
 				$x = $this->_margin[3];
 			}
 			else if($this->_font['align'] == 'right')
 			{
-				$x = $this->_width - $this->_margin[1] - $width;
+				$x = $this->_width - $this->_margin[1] - $xyw;
 			}
 			else
 			{
-				$x = $this->_margin[3] + ($this->_width - $this->_margin[1] - $this->_margin[3]) / 2 - $width / 2;
+				$x = $this->_margin[3] + ($this->_width - $this->_margin[1] - $this->_margin[3]) / 2 - $xyw / 2;
 			}
 
-			imagestring($img, $this->_font['size'], $x, $y, $this->_text, $this->_color);
+			ImageTtfText($img, $this->_font['size'], 0, $x, $y, $this->_color, $this->_font['path'], $this->_text);
 		}
 
 		// 返回图片对象
@@ -153,6 +156,7 @@ class BarcodeHelper
 			header("Content-type: image/png");
 			imagepng($img);
 			imagedestroy($img);
+			exit;
 		}
 
 		// 输出文件
