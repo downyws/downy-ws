@@ -1,0 +1,65 @@
+<div></div>
+{literal}
+<style type="text/css">
+.content.app{width:960px;padding-right:0px;}
+.app table{margin:0px 20px 50px 0px;width:300px;border-bottom:1px solid #4BACC6;float:left;}
+.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+.app table tr.odd{background:#D2EAF1;}
+.app table tr.even{background:#FFFFFF;}
+.app table th{text-align:left;padding:5px 10px;}
+.app table th.unit{text-align:right;font-weight:400;}
+.app table td{padding:5px 10px;}
+</style>
+<script type="text/javascript">
+var DATA = {
+	'国际标准尺寸-A系列': {
+		'4A': '1682 x 2378', '2A': '1189 x 1682', 'A0': '841 x 1189', 'A1': '594 x 841', 'A2': '420 x 594',
+		'A3': '297 x 420', 'A4': '210 x 297', 'A5': '148 x 210', 'A6': '105 x 148', 'A7': '74 x 105',
+		'A8': '52 x 74', 'A9': '37 x 52', 'A10': '26 x 37'
+	},
+	'国际标准尺寸-B系列': {
+		'4B': '2000 x 2828', '2B': '1414 x 2000', 'B0': '1000 x 1414', 'B1': '707 x 1000', 'B2': '500 x 707',
+		'B3': '353 x 500', 'B4': '250 x 353', 'B5': '176 x 250', 'B6': '125 x 176', 'B7': '88 x 125',
+		'B8': '62 x 88', 'B9': '44 x 62', 'B10': '31 x 44'
+	},
+	'国际标准尺寸-C系列': {
+		'C0': '917 x 1297', 'C1': '648 x 917', 'C2': '458 x 648', 'C3': '324 x 458', 'C4': '229 x 324',
+		'DL': '220 x 110', 'C5': '162 x 229', 'C6': '114 x 162', 'C7/6': '81 x 162', 'C7': '81 x 114',
+		'C8': '57 x 81', 'C9': '40 x 57', 'C10': '28 x 40'
+	},
+	'北美尺寸': {
+		'Letter': '216 x 279', 'Legal': '216 x 356', 'Ledger': '432 x 279', 'Tabloid': '279 x 432', 'ANSI A (letter)': '216 x 279',
+		'ANSI B (ledger)': '432 x 279', 'ANSI B (tabloid)': '279 x 432', 'ANSI C': '432 x 559', 'ANSI D': '559 x 864', 'ANSI E': '864 x 1118',
+		'ANSI F': '711,2 x 1016', 'Statement Half Letter': '140 x 216', 'Quarto': '203 x 254', 'Foolscap (folio)': '210 x 330', 'Super-B': '330 x 483',
+		'Post': '394 x 489', 'Crown': '381 x 508', 'Demy': '445 x 572', 'Medium': '457 x 584', 'Broadsheet': '457 x 610',
+		'Royal': '508 x 635', 'Elephant': '584 x 711', 'Double Demy': '572 x 889', 'Quad Demy': '889 x 1143'
+	},
+	'日本尺寸': {
+		'JB0': '1030 x 1456', 'JB1': '728 x 1030', 'JB2': '515 x 728', 'JB3': '364 x 515', 'JB4': '257 x 364',
+		'JB5': '182 x 257', 'JB6': '128 x 182', 'JB7': '91 x 128', 'JB8': '64 x 91', 'JB9': '45 x 64',
+		'JB10': '32 x 45', 'JB11': '22 x 32', 'JB12': '16 x 22', 'Shiroku ban 4': '264 x 379', 'Shiroku ban 5': '189 x 262',
+		'Shiroku ban 7': '127 x 188', 'Kiku 4': '227 x 306', 'Kiku 5': '151 x 227'
+	},
+	'以英寸为单位的尺寸': {
+		'Emperor': '1219 x 1829', 'Antiquarian': '787 x 1346', 'Grand Eagle': '730 x 1067', 'Double Elephant': '678 x 1016', 'Atlas': '660 x 864',
+		'Colombier': '597 x 876', 'Imperial': '559 x 762', 'Large Post': '419 x 533', 'Double Large Post': '533 x 838', 'Princess': '546 x 711', 
+		'Cartridge': '533 x 660', 'Sheet Half Post': '495 x 597', 'Double Post': '483 x 762', 'Super Royal': '483 x 686', 'Medium': '470 x 584', 
+		'Copy Draught': '406 x 508', 'Pinched Post': '375 x 470', 'Foolscap': '43 x 432', 'Small Foolscap': '337 x 419', 'Brief': '343 x 406', 
+		'Pott': '318 x 381'
+	}
+};
+
+var html = '', temp = '', i = 1;
+for(key in DATA){
+	temp = '', i = 1;
+	for(k in DATA[key])
+	{
+		temp += '<tr class="' + (i % 2 ? 'odd' : 'even') + '"><td style="width:120px;">' + k + '</td><td>' + DATA[key][k] + '</td></tr>';
+		i++;
+	}
+
+	html += '<table><thead><tr><th>' + key + '</th><th class="unit">单位mm</th></tr></thead><tbody>' + temp + '</tbody></table>';
+}
+$('.app div').html(html);
+</script>
+{/literal}
