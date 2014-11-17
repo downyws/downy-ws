@@ -18,7 +18,6 @@ return [
 	'bindechex',
 
 	'unixtime',
-	'unitconverter',
 
 	'countdown',
 	'stopwatch',
@@ -27,6 +26,7 @@ return [
 	'colorschemedesigner',
 	'colorselect',
 
+	'translate',
 	'currencyconverter',
 	'weather',
 
