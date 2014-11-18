@@ -2,8 +2,8 @@
 <script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/jquery-ui-1.10.4.custom.min.js"></script>
 <div class="info clearfix">
 	<label class="today">今天：<span></span></label>
-	<label class="finishday">您已怀孕<span>xx</span>天</label>
-	<label class="laveday">距离预产期<span>xxx</span>天</label>
+	<label class="finishday">您已怀孕<span></span>天</label>
+	<label class="laveday">距离预产期<span></span>天</label>
 	<label class="menstrual">末次月经的第一天：<input type="text" /></label>
 </div>
 <table></table>
@@ -28,6 +28,7 @@
 var DATA = {json_encode($data)};
 var IMGURL = '{$smarty.const.RESOURCES_DOMAIN}hodgepodge_downy_ws/{$config.key}/';
 {literal}
+var P_MAX_DAY = 280;
 var WEEK_TITLES = [
 	'胎龄： 0 周',
 	'胎龄： 1 周',
@@ -99,6 +100,8 @@ $('.app .menstrual input').change(function(){
 
 		html = '';
 		var h = '', m = null, d = null, t = null, c = null;
+		finishday = 0;
+		laveday = P_MAX_DAY;
 		for(var i = 0; i < WEEK_TITLES.length; i++){
 			m = (parseInt(i / 4) + 1);
 			h = '<td class="week" title="' + WEEK_TITLES[i] + '">' + (i < 10 ? ('0' + i) : i) + '</td>';
@@ -108,6 +111,10 @@ $('.app .menstrual input').change(function(){
 				c = (today.valueOf() > t.valueOf() ? 'over' : (today.valueOf() == t.valueOf() ? 'today' : ''));
 				t = [t.getFullYear(), t.getMonth() + 1, t.getDate()];
 				h += '<td class="' + c + '" title="第' + d + '天">' + (t[0] + '-' + (t[1] < 10 ? ('0' + t[1]) : t[1]) + '-' + (t[2] < 10 ? ('0' + t[2]) : t[2]))  + '</td>';
+				if(c != ''){
+					laveday--;
+					finishday++;
+				}
 			}
 			if(i == 0 || i % 4 == 0){
 				h = '<td rowspan="4" class="month">孕' + m + '月</td>' + h + '<td rowspan="4"><img src="' + IMGURL + m + '.png" /></td>';
@@ -122,6 +129,14 @@ $('.app .menstrual input').change(function(){
 			}
 		}
 		$('.app table').append(html);
+		if(finishday < P_MAX_DAY){
+			$('.app .info .finishday span').text(finishday);
+			$('.app .info .finishday').show();
+		}
+		if(laveday > 0){
+			$('.app .info .laveday span').text(laveday);
+			$('.app .info .laveday').show();
+		}
 	}
 
 	$('.app table tbody tr td.week').tooltip({
