@@ -1,0 +1,12 @@
+<form method="post" target="_blank" action="/app_{$app.key}.html">
+	<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+	<div style="padding:10px;">
+		<label style="margin-right:10px;">末次月经的第一天：</label>
+		<input type="text" name="dy" style="width:35px;text-align:center;" maxlength="4" /><label style="margin:0px 5px 0px 5px;">年</label>
+		<input type="text" name="dm" style="width:25px;text-align:center;" maxlength="2" /><label style="margin:0px 5px 0px 5px;">月</label>
+		<input type="text" name="dd" style="width:25px;text-align:center;" maxlength="2" /><label style="margin:0px 5px 0px 5px;">日</label>
+	</div>
+	<div style="padding:0px 10px;">
+		<input type="submit" style="float:right;" value="确定" />
+	</div>
+</form>
