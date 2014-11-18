@@ -1,0 +1,136 @@
+<link type="text/css" rel="stylesheet" href="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/cupertino/jquery-ui-1.10.4.custom.min.css" />
+<script type="text/javascript" src="{$smarty.const.RESOURCES_DOMAIN}jquery.ui/1.10.4/jquery-ui-1.10.4.custom.min.js"></script>
+<div class="info clearfix">
+	<label class="today">今天：<span></span></label>
+	<label class="finishday">您已怀孕<span>xx</span>天</label>
+	<label class="laveday">距离预产期<span>xxx</span>天</label>
+	<label class="menstrual">末次月经的第一天：<input type="text" /></label>
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+.app .info{margin-bottom:5px;}
+.app .info label{margin-right:20px;color:#5D5D5D;font-size:12px;font-weight:bold;line-height:25px;}
+.app .info label span{color:#F06000;margin:0px 5px;}
+.app .info .menstrual{float:right;margin-right:0px;}
+.app .info .menstrual input{width:70px;text-align:center;}
+.app table{width:100%;}
+.app table thead td{background:#C8C8C8;color:#FFFFFF;border:1px solid #FFFFFF;padding:5px 15px;font-size:14px;font-weight:bold;text-align:center;}
+.app table tbody{border-top:3px solid #FFFFFF;}
+.app table tbody td{background:#E7F2F8;text-align:center;padding:5px 10px;border:1px solid #FFFFFF;}
+.app table tbody td.today{background:#F06000;color:#FFFFFF;}
+.app table tbody td.over{background:#FEC7A3;}
+.app table tbody td.month{background:#F0F0F0;}
+.app table tbody td.week{background:#FFF5E5;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+var IMGURL = '{$smarty.const.RESOURCES_DOMAIN}hodgepodge_downy_ws/{$config.key}/';
+{literal}
+var WEEK_TITLES = [
+	'胎龄： 0 周',
+	'胎龄： 1 周',
+	'胎龄： 2 周<br/>胚龄： 0 周<br/><hr/>受精的卵子，形成一个新的人类有机体---人类受精卵。（怀孕第1天）受精卵进行有丝细胞分裂，但大小不变，又称裂解。空腔形成，这是囊胚阶段的标志。（怀孕第1.5-3天）囊胚只包含一个薄边缘的滋养层细胞和胚胎极，其中包括胚胎干细胞，又称为细胞极。胚胎从它的蛋白质外壳（透明带）孵化，进入母亲子宫的子宫内膜。（怀孕第5-6天）如分离成同卵双生的双胞胎，有1/3的机会于第5天前发生。',
+	'胎龄： 3 周<br/>胚龄： 1 周<br/><hr/>胚胎干细胞周围的滋养层细胞增殖，进入子宫内膜。最终将形成胎盘和胚胎膜。怀孕第7-12天囊胚已完全植入。卵黄囊形成。胚胎干细胞扁平，两个细胞则较厚。如果分离成同卵双生的双胞胎，有2/3的机会，会发生在第5天至第9天。如果是于第9天后发生，极有可能形成连体婴。原条形成。（怀孕第13天）初级干绒毛出现。',
+	'胎龄： 4 周<br/>胚龄： 2 周<br/><hr/>妊娠试验阳性。于脊索中心形成胎盘。（怀孕第16天）原肠胚开始形成。在脊索上形成一个神经沟（脊髓的雏形）并于一端出现隆起的大脑。（怀孕第18天）形成体节，即椎骨的分割物。（怀孕第20天）初步心血管形成。血管开始于胎盘中形成。',
+	'胎龄： 5 周<br/>胚龄： 3 周<br/><hr/>胚胎长度为4毫米（1/8英寸），并蜷曲成C形。心脏凸起，进一步发展，并开始有规律地跳动。出现鼻中隔原发孔。鳃弓的沟槽，形成面部和颈部的结构。神经管闭合。耳朵开始形成耳坑。臂芽和尾巴清晰可见。肺原基分化期，即肺部的第一性状。出现肝板---肝脏的第一性状。颊咽膜破裂，形成嘴部雏形。囊性憩室，这发育成为胆囊和背胰芽，这将成为胰腺。尿直肠隔开始形成。直肠和泌尿道分开。脊髓出现前后角分化。出现健脾。出现输尿管芽。',
+	'胎龄： 6 周<br/>胚龄： 4 周<br/><hr/>胚胎长度为9毫米（1/4英寸）。眼坑和视神经杯开始形成眼睛雏形。鼻坑形式。大脑划分为5个囊泡，包括前脑雏形。手臂上形成船桨状的腿芽和手。基本血液透过原始的血管连接卵黄囊和绒毛膜膜移动。后肾和肾脏前体开始发育。肚子开始隆起。',
+	'胎龄： 7 周<br/>胚龄： 5 周<br/>头顶到臀部的平均长度： 1.6 cm (0.630 inches)<br/>平均重量：   1 grams (0.04 ounces)<br/><hr/>胚胎的长度为13毫米（1/2英寸）。肺开始形成。大脑不断发育。手臂和腿变长，手部和足部开始分开。手和脚开始分开，但仍有蹼。性腺脊开始发育。淋巴系统开始发育。开始形成外生殖器的主要部分。',
+	'胎龄： 8 周<br/>胚龄： 6 周<br/>头顶到臀部的平均长度： 2.3 cm (0.900 inches)<br/>平均重量：   2 grams (0.07 ounces)<br/><hr/>胚胎长度为18毫米（3/4英寸）。使用多普勒可以听到胎儿的心跳音（心脏跳动的声音）。乳头和毛囊开始形成。肘部和脚趾的位置清晰可见。超声波可检测到自发的肢体动作。所有主要器官已全部开始发育。卵黄管通常关闭。',
+	'胎龄： 9 周<br/>胚龄： 7 周<br/>头顶到臀部的平均长度： 3.1 cm (1.220 inches)<br/>平均重量：   4 grams (0.14 ounces)<br/><hr/>胚胎长度为30-80毫米（1.2-3.2英寸）。第8周腹侧和背侧形成胰芽。肠开始蠕动。五官逐渐形成。眼皮基本成形。耳朵外部特征开始成型。胎儿的头部约占身长的一半。面部已成型 眼睑关闭，直到大约第28周才会张开。已出现齿芽，这将形成宝宝的牙齿。四肢又长又细。胎儿可以把手指紧握在一起。阴部出现分化。肝脏形成红血细胞。',
+	'胎龄：10 周<br/>胚龄： 8 周<br/>头顶到臀部的平均长度： 4.1 cm (1.610 inches)<br/>平均重量：   7 grams (0.25 ounces)',
+	'胎龄：11 周<br/>胚龄： 9 周<br/>头顶到臀部的平均长度： 5.4 cm (2.130 inches)<br/>平均重量：  14 grams (0.49 ounces)<br/><hr/>第一次产检。量体重和血压、胎心、验尿、抽血、子宫大小、颈后透明带。',
+	'胎龄：12 周<br/>胚龄：10 周<br/>头顶到臀部的平均长度： 7.4 cm (2.910 inches)<br/>平均重量：  23 grams (0.81 ounces)<br/><hr/>头部开始长出幼细的胎毛。胎儿的皮肤几乎是透明的。已形成更多肌肉组织和骨骼，骨骼变得更硬。胎儿开始作动。开始用嘴巴吸吮。胎粪于肠道中形成。肝脏和胰腺产生流体分泌物。从第13周开始，产科超声检查的性别预测几乎100％准确。',
+	'胎龄：13 周<br/>胚龄：11 周<br/>头顶到臀部的平均长度： 8.7 cm (3.420 inches)<br/>平均重量：  43 grams (1.52 ounces)',
+	'胎龄：14 周<br/>胚龄：12 周<br/>头顶到臀部的平均长度：10.1 cm (3.980 inches)<br/>平均重量：  70 grams (2.47 ounces)<br/><hr/>已过最高风险期。',
+	'胎龄：15 周<br/>胚龄：13 周<br/>头顶到臀部的平均长度：11.6 cm (4.570 inches)<br/>平均重量： 100 grams (3.53 ounces)<br/><hr/>唐氏症筛检，羊膜穿刺。',
+	'胎龄：16 周<br/>胚龄：14 周<br/>头顶到臀部的平均长度：13.0 cm (5.120 inches)<br/>平均重量： 140 grams (4.94 ounces)',
+	'胎龄：17 周<br/>胚龄：15 周<br/>头顶到臀部的平均长度：14.2 cm (5.590 inches)<br/>头顶到脚跟的平均长度：25.6 cm (10.08 inches)<br/>平均重量： 190 grams (6.70 ounces)',
+	'胎龄：18 周<br/>胚龄：16 周<br/>头顶到臀部的平均长度：15.3 cm (6.020 inches)<br/>平均重量： 240 grams (8.47 ounces)<br/><hr/>胎毛覆盖整个身体。已长出眉毛和睫毛。手指和脚趾长出指甲。肌肉进一步发育，胎儿作动更多。经常发生态动（母亲和他人均可感觉到胎儿移动）。可以用听诊器听到胎儿的心跳。',
+	'胎龄：19 周<br/>胚龄：17 周<br/>头顶到臀部的平均长度：16.4 cm (6.460 inches)<br/>平均重量： 300 grams (0.66 pounds)<br/><hr/>您的宝宝可以听到声音。',
+	'胎龄：20 周<br/>胚龄：18 周<br/>头顶到脚跟的平均长度：26.7 cm (10.51 inches)<br/>平均重量： 360 grams (0.79 pounds)',
+	'胎龄：21 周<br/>胚龄：19 周<br/>头顶到脚跟的平均长度：27.8 cm (10.94 inches)<br/>平均重量： 430 grams (0.94 pounds)',
+	'胎龄：22 周<br/>胚龄：20 周<br/>头顶到脚跟的平均长度：28.9 cm (11.38 inches)<br/>平均重量： 501 grams (1.10 pounds)<br/><hr/>形成眉毛和睫毛。形成所有眼部结构。胎儿有一只手和惊跳反射。脚印和指纹逐渐形成。肺泡（空气囊），在肺部形成。',
+	'胎龄：23 周<br/>胚龄：21 周<br/>头顶到脚跟的平均长度：30.0 cm (11.81 inches)<br/>平均重量： 600 grams (1.32 pounds)<br/><hr/>妊娠糖尿病筛检。',
+	'胎龄：24 周<br/>胚龄：22 周<br/>头顶到脚跟的平均长度：34.6 cm (13.62 inches)<br/>平均重量： 660 grams (1.46 pounds)',
+	'胎龄：25 周<br/>胚龄：23 周<br/>头顶到脚跟的平均长度：35.6 cm (14.02 inches)<br/>平均重量： 760 grams (1.68 pounds)',
+	'胎龄：26 周<br/>胚龄：24 周<br/>头顶到脚跟的平均长度：36.6 cm (14.41 inches)<br/>平均重量： 875 grams (1.93 pounds)<br/><hr/>大脑快速发育。神经系统发育到足以控制某些身体机能。眼睑可以张开和闭上。已形成耳蜗，部分听觉系统的髓鞘的神经将逐渐发育，直至出生后18个月为止。呼吸系统虽未成熟，但已发展到气体交换的程度。',
+	'胎龄：27 周<br/>胚龄：25 周<br/>头顶到脚跟的平均长度：37.6 cm (14.80 inches)<br/>平均重量：1005 grams (2.22 pounds)<br/><hr/>您的孩子开始呼吸。',
+	'胎龄：28 周<br/>胚龄：26 周<br/>头顶到脚跟的平均长度：38.6 cm (15.20 inches)<br/>平均重量：1153 grams (2.54 pounds)',
+	'胎龄：29 周<br/>胚龄：27 周<br/>头顶到脚跟的平均长度：39.9 cm (15.71 inches)<br/>平均重量：1319 grams (2.91 pounds)',
+	'胎龄：30 周<br/>胚龄：28 周<br/>头顶到脚跟的平均长度：41.1 cm (16.18 inches)<br/>平均重量：1502 grams (3.31 pounds)<br/><hr/>身体脂肪快速增加。开始有节奏地呼吸，但肺没有完全成熟。感官器官---丘脑和大脑连接形成。骨骼充分发展，但仍然柔软坚韧。胎儿开始储存大量的铁质、钙质和磷。',
+	'胎龄：31 周<br/>胚龄：29 周<br/>头顶到脚跟的平均长度：42.4 cm (16.69 inches)<br/>平均重量：1702 grams (3.75 pounds)<br/><hr/>下肢水肿，子痫前症的发生，预防早产。',
+	'胎龄：32 周<br/>胚龄：30 周<br/>头顶到脚跟的平均长度：43.7 cm (17.20 inches)<br/>平均重量：1918 grams (4.23 pounds)',
+	'胎龄：33 周<br/>胚龄：31 周<br/>头顶到脚跟的平均长度：45.0 cm (17.72 inches)<br/>平均重量：2146 grams (4.73 pounds)<br/><hr/>黑白B超，评估胎儿体重。',
+	'胎龄：34 周<br/>胚龄：32 周<br/>头顶到脚跟的平均长度：46.2 cm (18.19 inches)<br/>平均重量：2383 grams (5.25 pounds)<br/><hr/>胎毛开始消失。体内脂肪增加。指甲到达指尖。36 周出生的婴儿生存机会较大，但可能需要医疗护理。',
+	'胎龄：35 周<br/>胚龄：33 周<br/>头顶到脚跟的平均长度：47.4 cm (18.66 inches)<br/>平均重量：2622 grams (5.78 pounds)<br/><hr/>为生产事宜做准备。除上臂和肩膀外的部位胎毛消失。指甲超出指尖。男婴及女婴均出现小乳芽。头发又粗又厚。',
+	'胎龄：36 周<br/>胚龄：34 周<br/>头顶到脚跟的平均长度：48.6 cm (19.13 inches)<br/>平均重量：2859 grams (6.30 pounds)<br/><hr/>注意胎动。',
+	'胎龄：37 周<br/>胚龄：35 周<br/>头顶到脚跟的平均长度：49.8 cm (19.61 inches)<br/>平均重量：3083 grams (6.80 pounds)<br/><hr/>您的宝宝是足月，胎头入盆，准备生产。',
+	'胎龄：38 周<br/>胚龄：36 周<br/>头顶到脚跟的平均长度：50.7 cm (19.96 inches)<br/>平均重量：3288 grams (7.25 pounds)',
+	'胎龄：39 周<br/>胚龄：37 周<br/>头顶到脚跟的平均长度：51.2 cm (20.16 inches)<br/>平均重量：3462 grams (7.63 pounds)<br/><hr/>您的宝宝将于下周出生。',
+	'胎龄：40 周<br/>胚龄：38 周',
+	'胎龄：41 周<br/>胚龄：39 周<br/><hr/>考虑催生。'
+];
+var today = new Date();
+var y = today.getFullYear(), m = today.getMonth() + 1, d = today.getDate();
+$('.app .info .today span').text(y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d));
+today = new Date($('.app .info .today span').text());
+$('.app .menstrual input').change(function(){
+	$('.app .info .finishday').hide();
+	$('.app .info .laveday').hide();
+	$('.app table').html('');
+
+	var y = parseInt($(this).val().substr(0, 4)), 
+		m = parseInt($(this).val().substr(5, 2)), 
+		d = parseInt($(this).val().substr(8, 2));
+	if(y >= 1900 && y <= 2100 && m >= 1 && m <= 12 && d >= 1 && d <= 31){
+		var start = new Date(y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d));
+		var week = start.getDay();
+		var WCN = ['天', '一', '二', '三', '四', '五', '六'];
+		var html = '';
+		for(var i = week; i < 7; i++){
+			html +='<td>星期' + WCN[i] + '</td>';
+		}
+		for(var i = 0; i < week; i++){
+			html +='<td>星期' + WCN[i] + '</td>';
+		}
+		$('.app table').html('<thead><tr><td>孕期</td><td>周</td>' + html + '<td>胎儿发育过程</td></tr></thead>');
+
+		html = '';
+		var h = '', m = null, d = null, t = null, c = null;
+		for(var i = 0; i < WEEK_TITLES.length; i++){
+			m = (parseInt(i / 4) + 1);
+			h = '<td class="week" title="' + WEEK_TITLES[i] + '">' + (i < 10 ? ('0' + i) : i) + '</td>';
+			for(var j = 0; j < 7; j++){
+				d = (i * 7 + (j + 1));
+				t = new Date(start.valueOf() + (d - 1) * 86400000);
+				c = (today.valueOf() > t.valueOf() ? 'over' : (today.valueOf() == t.valueOf() ? 'today' : ''));
+				t = [t.getFullYear(), t.getMonth() + 1, t.getDate()];
+				h += '<td class="' + c + '" title="第' + d + '天">' + (t[0] + '-' + (t[1] < 10 ? ('0' + t[1]) : t[1]) + '-' + (t[2] < 10 ? ('0' + t[2]) : t[2]))  + '</td>';
+			}
+			if(i == 0 || i % 4 == 0){
+				h = '<td rowspan="4" class="month">孕' + m + '月</td>' + h + '<td rowspan="4"><img src="' + IMGURL + m + '.png" /></td>';
+			}
+
+			if(i == 0 || i % 4 == 0){
+				html += '<tbody><tr>' + h + '</tr>';
+			}else if((i + 1) % 4 == 0){
+				html += '<tr>' + h + '</tr></tbody>';
+			}else{
+				html += '<tr>' + h + '</tr>';
+			}
+		}
+		$('.app table').append(html);
+	}
+
+	$('.app table tbody tr td.week').tooltip({
+		position: {at: 'left top' ,my: "left bottom-10"},
+		content: function(){
+			return $(this).attr("title");
+		}
+	});
+}).datepicker({'dateFormat': 'yy-mm-dd'});
+$('.app .menstrual input').val(DATA.date).change();
+{/literal}
+</script>

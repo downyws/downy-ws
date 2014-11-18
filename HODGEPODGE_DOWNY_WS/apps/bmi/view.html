@@ -1,0 +1,112 @@
+<table>
+	<tr>
+		<td class="title">标准</td><td><select name="type">
+			<option value="">请选择</option>
+			<option value="who">WHO标准</option>
+			<option value="asia">亚洲标准</option>
+			<option value="china">中国标准</option>
+		</select></td>
+		<td class="title">身高</td><td><input type="text" name="height" />米</td>
+		<td class="title">体重</td><td><input type="text" name="weight" />千克</td>
+		<td rowspan="3" class="val"></tr>
+</table>
+<div class="state clearfix">
+	<div class="bar clearfix">
+		<div class="vthin">极严重过瘦</div>
+		<div class="sthin">过瘦</div>
+		<div class="thin">偏瘦</div>
+		<div class="normal">正常</div>
+		<div class="lfat">偏胖</div>
+		<div class="fat">肥胖</div>
+		<div class="sfat">重度肥胖</div>
+		<div class="vfat">极重度肥胖</div>
+		<p class="point"></p>
+	</div>
+</div>
+{literal}
+<style type="text/css">
+	.app table{box-shadow:1px 2px 3px #666666;margin-bottom:20px;}
+	.app table td{padding:10px 15px;}
+	.app table td.title{padding-right:0px;}
+	.app table td input{margin-right:5px;width:40px;text-align:center;}
+	.app table td.val{background:#E5EBFF;text-align:center;font-size:24px;font-weight:bold;min-width:100px;height:60px;}
+	.app .state{text-align:center;}
+	.app .state .bar{width:100%;height:70px;position:relative;}
+	.app .state .bar .point{height:50%;width:1px;top:50%;left:0%;position:absolute;background:#000000;}
+	.app .state .bar div{padding:5px;box-sizing:border-box;}
+	.app .state .bar .vfat{background:#EE9090;float:left;height:100%;width:12.5%;}
+	.app .state .bar .sfat{background:#D6A890;float:left;height:100%;width:12.5%;}
+	.app .state .bar .fat{background:#BFBF90;float:left;height:100%;width:12.5%;}
+	.app .state .bar .lfat{background:#A8D690;float:left;height:100%;width:12.5%;}
+	.app .state .bar .normal{background:#90EE90;float:left;height:100%;width:12.5%;}
+	.app .state .bar .thin{background:#AFCE90;float:left;height:100%;width:12.5%;}
+	.app .state .bar .sthin{background:#CEAF90;float:left;height:100%;width:12.5%;}
+	.app .state .bar .vthin{background:#EE9090;float:left;height:100%;width:12.5%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var STATE = ['极严重过瘦', '过瘦', '偏瘦', '正常', '偏胖', '肥胖', '重度肥胖', '极重度肥胖'];
+var SCOPE = { // 前闭后开
+	'who': [[0, 15], [15, 16.5], [16.5, 18.5], [18.5, 25], [25, 30], [30, 35], [35, 40], [40, 0]],
+	'asia': [[0, 15], [15, 16.5], [16.5, 18.5], [18.5, 23], [23, 25], [25, 30], [30, 40], [40, 0]],
+	'china': [[0, 15], [15, 16.5], [16.5, 18.5], [18.5, 24], [24, 28], [28, 30], [30, 40], [40, 0]]
+};
+$('.app input[name=height], .app input[name=weight]').on('keyup change', function(){
+	var h = $('.app input[name=height]').val();
+	var w = $('.app input[name=weight]').val();
+	var t = $('.app select[name=type]').val();
+	var bmi = 0;
+
+	// clear
+	$('.app .val').html('');
+	$('.app .point').hide();
+
+	if(t != '' && !isNaN(h) && !isNaN(h) && h > 0 && w > 0){
+		bmi = parseInt(w / (h * h) * 100) / 100;
+		var i = 0;
+		for(; i < SCOPE[t].length; i++){
+			if(bmi < SCOPE[t][i][1]){
+				$('.app .val').html(bmi + '<br />' + STATE[i]);
+				i = (bmi - 10) / 35 * 100;
+				if(i < 0){
+					i = 0;
+				}
+				if(i > 100){
+					i = 100;
+				}
+				$('.app .point').show().css('left', i + '%');
+				break;
+			}
+		}
+	}
+});
+$('.app select[name=type]').change(function(){
+	var bar = [12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5, 12.5];
+	var s = 0, e = 0;
+	switch($(this).val()){
+		case 'who':
+		case 'asia':
+		case 'china':
+			bar = [];
+			for(var i = 0; i < SCOPE[$(this).val()].length; i++){
+				s = SCOPE[$(this).val()][i][0] - 10;
+				e = SCOPE[$(this).val()][i][1] - 10;
+				if(s < 0) s = 0;
+				if(e < 0) e = 35;
+				bar.push(parseInt((e - s) / 35 * 10000) / 100);
+			}
+	}
+
+	$('.app .state .bar div').each(function(index){	
+		$(this).css('width', bar[index] + '%');
+	});
+
+	$('.app input[name=height]').change();
+});
+$('.app input[name=height]').val(DATA.height);
+$('.app input[name=weight]').val(DATA.weight);
+$('.app select[name=type]').val(DATA.type).change();
+{/literal}
+</script>
