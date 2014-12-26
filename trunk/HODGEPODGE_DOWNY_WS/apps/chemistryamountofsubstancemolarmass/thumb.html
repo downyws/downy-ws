@@ -1,0 +1,36 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">物质的量</option>
+			<option value="mmol">毫摩尔 (mmol)</option>
+			<option value="mol">莫耳 (mol)</option>
+			<option value="kmol">千摩尔 (kmol)</option>
+			<option value="lb-mol">磅摩尔 (lb-mol)</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">莫耳质量</option>
+			<option value="g/mol">克每摩尔 (g/mol)</option>
+			<option value="kg/mol">公斤每摩尔 (kg/mol)</option>
+			<option value="H">氢 (H)</option>
+			<option value="O">氧 (O)</option>
+			<option value="S">硫 (S)</option>
+			<option value="Cl">氯 (Cl)</option>
+			<option value="Fe">铁 (Fe)</option>
+			<option value="H2">氢分子 (H2)</option>
+			<option value="H2O">水分子 (H2O)</option>
+			<option value="NaCl">食盐（氯化钠）(NaCl)</option>
+			<option value="Cl2">氯分子 (Cl2)</option>
+			<option value="S8">硫分子 (S8)</option>
+			<option value="C12H22O11">餐糖（蔗糖）(C12H22O11)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+
+
+
+
+

@@ -71,8 +71,8 @@ if(!empty($_POST))
 			$params = $this->_submit->obtain($_REQUEST, [
 				'size' => [['valid', 'empty', '', 3, null], ['valid', 'between', '', 3, [1, 10]], ['format', 'int']],
 				'margin' => [['valid', 'empty', '', 4, null], ['valid', 'between', '', 4, [0, 10]], ['format', 'int']],
-				'color' => [['format', 'trim']],
-				'bgcolor' => [['format', 'trim']]
+				'color' => [['valid', 'regex', '', '#000000', '/^#([0-9A-F]{6})$/']],
+				'bgcolor' => [['valid', 'regex', '', '#FFFFFF', '/^#([0-9A-F]{6})$/']]
 			]);
 
 			$filename = md5(json_encode([$content, $level, $params]));

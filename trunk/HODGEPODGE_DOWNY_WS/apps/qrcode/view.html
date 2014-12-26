@@ -90,9 +90,9 @@ $('.app input[value="生成"]').click(function(){
 	$('.app input[name=ajax]').val(0);
 });
 
-$('.app select[name=type]').val(DATA.type);
-$('.app input[name=code]').val(DATA.code);
-if(typeof(DATA.code) != 'undefined' && DATA.code != ''){
+$('.app input[name=level][value=' + DATA.level + ']').attr('checked', true);
+$('.app textarea[name=content]').val(DATA.content);
+if(typeof(DATA.content) != 'undefined' && DATA.content != ''){
 	$('.app input[value="生成"]').click();
 }
 {/literal}

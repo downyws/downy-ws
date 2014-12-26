@@ -1,0 +1,34 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">动力粘滞度</option>
+			<option value="S">斯托克斯 (S)</option>
+			<option value="cS">厘斯托克斯 (cS)</option>
+			<option value="m2/s">平方米每秒 (m²/s)</option>
+			<option value="cm2/s">平方厘米每秒 (cm²/s)</option>
+			<option value="mm2/s">平方毫米每秒 (mm²/s)</option>
+			<option value="ft2/s">平方英尺每秒 (ft²/s)</option>
+			<option value="in2/s">平方英寸每秒 (in²/s)</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">动态粘滞度</option>
+			<option value="Pa.s">帕斯卡秒 (Pa·s)</option>
+			<option value="P">泊 (P)</option>
+			<option value="cP">厘泊 (cP)</option>
+			<option value="kg/(m.s)">千克每米秒 (kg/(m·s))</option>
+			<option value="g/(cm.s)">克每厘米秒 (g/(cm·s))</option>
+			<option value="N.s/m2">牛秒每平方米 (N·s/m²)</option>
+			<option value="lbf.s/in2">磅力秒每平方英寸 (lbf·s/in²)</option>
+			<option value="lbf.s/ft2">磅力秒每平方英尺 (lbf·s/ft²)</option>
+			<option value="lb/(ft.s)">磅每英尺秒 (lb/(ft·s))</option>
+			<option value="lb/(ft.h)">磅每英尺小时 (lb/(ft·h))</option>
+			<option value="slug/(ft.s)">每尺秒的粘滞度 (slug/(ft·s))</option>
+			<option value="poundal_second_per_square_foot">磅达秒每平方英尺</option>
+			<option value="dyn.s/cm2">达因秒每平方厘米 (dyn·s/cm²)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>

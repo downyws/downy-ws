@@ -1,0 +1,85 @@
+<div class="ctrl">
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'放射性': [
+		['bq', '贝克勒尔 (Bq)', 1],
+		['kbq', '千贝克勒尔 (kBq)', 0.001],
+		['mbq', '兆贝克勒尔 (MBq)', 0.000001],
+		['gbq', '吉贝克勒尔 (GBq)', 0.000000001],
+		['tbq', '太贝克勒尔 (TBq)', 0.000000000001],
+		['ci', '居里 (Ci)', 0.00000000002702702702],
+		['dpm', '每分钟衰变数 (dpm)', 60],
+		['rd', '卢瑟福 (Rd)', 0.000001]
+	],
+	'放射剂量': [
+		['sv', '西弗特 (Sv)', 1],
+		['msv', '毫希沃特 (mSv)', 1000],
+		['usv', '微希 (μSv)', 1000000],
+		['rem', '人体伦琴当量 (rem)', 100],
+		['mrem', '毫雷姆 (mrem)', 100000],
+		['x', '牙科X光', 200000],
+		['hpbr', '每小时人均背景辐射剂量', 4347826.086956522],
+		['hpqr', '每小时切尔诺贝利灾难后反应堆堆芯', 0.0033333333333333]
+	],
+	'吸收剂量': [
+		['gy', '灰色 (Gy)', 1],
+		['jkg', '公斤物质的电离辐射（以焦耳显示）(J/kg)', 1],
+		['rad', '弧度 (rad)', 100]
+	]
+};
+
+var html = '';
+html += '<option value="">请选择</option>';
+for(key in DB){
+	html += '<option disabled="disabled"></option>';
+	html += '<option disabled="disabled" class="title">' + key + '</option>';
+	for(k in DB[key]){
+		html += '<option data-rate="' + DB[key][k][2] + '" data-cate="' + key + '" value="' + DB[key][k][0] + '">' + DB[key][k][1] + '</option>';
+	}
+}
+$('.app select').html(html);
+
+$('.app input').on('change keyup', refresh);
+$('.app select').change(refresh);
+
+function refresh(){
+	$('.app table').html('');
+
+	var cate =	$('.app select option:selected').data('cate');
+	var rate =	$('.app select option:selected').data('rate');
+	var inval = $('.app input').val();
+
+	if(cate != '' && rate != '' && inval != ''){
+		html = '';
+		for(key in DB[cate]){
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '"><th>' + DB[cate][key][1] + '</th><td>' + (DB[cate][key][2] * inval / rate) + '</td></tr>';
+		}
+		html = '<thead><tr><th colspan="2">' + cate + '</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+}
+
+$('.app input[type=text]').val(DATA.content);
+$('.app select').val(DATA.type).change();
+{/literal}
+</script>

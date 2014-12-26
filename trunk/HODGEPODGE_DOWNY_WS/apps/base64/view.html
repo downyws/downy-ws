@@ -20,6 +20,7 @@
 {/literal}
 <script type="text/javascript">
 var DATA = {json_encode($data)};
+{literal}
 $('.app textarea[name=content]').val(DATA.content);
 $('.app textarea[name=response]').val(DATA.response);
 
@@ -40,4 +41,5 @@ $('.app input[value="加密"], .app input[value="解密"]').click(function(){
 		}
 	});
 });
+{/literal}
 </script>
