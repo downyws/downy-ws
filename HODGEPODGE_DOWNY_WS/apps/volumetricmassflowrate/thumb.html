@@ -1,0 +1,44 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:50%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">流量</option>
+			<option value="km3">立方千米 km³</option>
+			<option value="m3">立方米 m³</option>
+			<option value="dm3">立方分米 dm³</option>
+			<option value="cm3">立方厘米 cm³</option>
+			<option value="mm3">立方毫米 mm³</option>
+			<option value="in3">立方英寸 in³</option>
+			<option value="ft3">立方英尺 ft³</option>
+			<option value="gallons_per_us_liquid">加仑（美制液体）</option>
+			<option value="gallons_per_imperial">加仑（英制）</option>
+			<option value="l">升 l</option>
+			<option value="cubic_miles_per">立方英里每秒</option>
+			<option value="acre-feet_per">英亩-英尺每秒</option>
+			<option value="bushels_per_us">蒲式耳（美国）</option>
+			<option value="bushels_per_imperial">蒲式耳（英制）</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">质量流率</option>
+			<option value="mg">毫克 mg</option>
+			<option value="g">克 g</option>
+			<option value="kg">公斤 kg</option>
+			<option value="t">吨 t</option>
+			<option value="ounce">安士</option>
+			<option value="lb">镑 lb</option>
+			<option value="short ton">短吨</option>
+			<option value="long ton">长吨</option>
+		</select>
+		<select name="time" style="float:right;width:45%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option value="s">秒</option>
+			<option value="i">分钟</option>
+			<option value="h">小时</option>
+			<option value="d">天</option>
+			<option value="y">年</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>

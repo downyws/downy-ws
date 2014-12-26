@@ -1,0 +1,113 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form class="{$app.key}" method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:5px;" />
+		<select name="cate" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option value="">请选择</option>
+			<option value="capacitance">电容</option>
+			<option value="electric-charge">电荷</option>
+			<option value="electric-current">电流</option>
+			<option value="electric-potential">电势</option>
+			<option value="electrical-conductance">电导</option>
+			<option value="electrical-resistance">电阻</option>
+			<option value="inductance">电感</option>
+		</select>
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option class="empty" value="">请选择</option>
+			<option class="capacitance" value="F">法（拉第） (F)</option>
+			<option class="capacitance" value="daF">十法（拉第） (daF)</option>
+			<option class="capacitance" value="hF">百法（拉第） (hF)</option>
+			<option class="capacitance" value="kF">千法（拉第） (kF)</option>
+			<option class="capacitance" value="MF">兆法（拉第） (MF)</option>
+			<option class="capacitance" value="GF">吉法（拉第） (GF)</option>
+			<option class="capacitance" value="TF">太法（拉第） (TF)</option>
+			<option class="capacitance" value="PF">拍法（拉第） (PF)</option>
+			<option class="capacitance" value="EF">艾法（拉第） (EF)</option>
+			<option class="capacitance" value="ZF">Zettafarad（电容单位） (ZF)</option>
+			<option class="capacitance" value="YF">尧法（拉第） (YF)</option>
+			<option class="capacitance" value="dF">分法（拉第） (dF)</option>
+			<option class="capacitance" value="cF">厘法（拉第） (cF)</option>
+			<option class="capacitance" value="mF">毫法（拉第） (mF)</option>
+			<option class="capacitance" value="µF">微法（拉第） (µF)</option>
+			<option class="capacitance" value="nF">纳法（拉第） (nF)</option>
+			<option class="capacitance" value="pF">皮法（拉第） (pF)</option>
+			<option class="capacitance" value="fF">飞法（拉第） (fF)</option>
+			<option class="capacitance" value="aF">阿法（拉第） (aF)</option>
+			<option class="capacitance" value="zF">仄法（拉第） (zF)</option>
+			<option class="capacitance" value="yF">幺法（拉第） (yF)</option>
+			<option class="capacitance" value="C/V">库仑每伏</option>
+			<option class="capacitance" value="abF">绝对法拉 (abF)</option>
+			<option class="capacitance" value="statF">静法拉 (statF)</option>
+			<option class="electric-charge" value="nC">纳库仑 (nC)</option>
+			<option class="electric-charge" value="µC">微库仑 (µC)</option>
+			<option class="electric-charge" value="mC">毫库仑 (mC)</option>
+			<option class="electric-charge" value="C">库仑 (C)</option>
+			<option class="electric-charge" value="kC">千库仑 (kC)</option>
+			<option class="electric-charge" value="MC">兆库仑 (MC)</option>
+			<option class="electric-charge" value="abC">绝对库仑 (abC)</option>
+			<option class="electric-charge" value="mAh">毫安时 (mAh)</option>
+			<option class="electric-charge" value="Ah">安时 (Ah)</option>
+			<option class="electric-charge" value="F">法（拉第） (F)</option>
+			<option class="electric-charge" value="statC">静库仑 (statC)</option>
+			<option class="electric-charge" value="e">基本电荷 (e)</option>
+			<option class="electric-current" value="nA">纳安（培） (nA)</option>
+			<option class="electric-current" value="µA">微安（培） (µA)</option>
+			<option class="electric-current" value="mA">兆安（培） (mA)</option>
+			<option class="electric-current" value="A">安（培） (A)</option>
+			<option class="electric-current" value="kA">千安（培） (kA)</option>
+			<option class="electric-current" value="MA">兆安 (MA)</option>
+			<option class="electric-current" value="GA">吉安（培） (GA)</option>
+			<option class="electric-current" value="aA">安（培） (aA)</option>
+			<option class="electric-current" value="C/s">库仑每秒 (C/s)</option>
+			<option class="electric-potential" value="nV">纳伏 (nV)</option>
+			<option class="electric-potential" value="µV">微伏 (µV)</option>
+			<option class="electric-potential" value="mV">毫伏 (mV)</option>
+			<option class="electric-potential" value="V">伏 (V)</option>
+			<option class="electric-potential" value="kV">千伏 (kV)</option>
+			<option class="electric-potential" value="MV">兆伏 (MV)</option>
+			<option class="electric-potential" value="GV">吉伏 (GV)</option>
+			<option class="electric-potential" value="W/A">瓦每安 (W/A)</option>
+			<option class="electric-potential" value="abV">绝对伏 (abV)</option>
+			<option class="electric-potential" value="stV">静伏特 (stV)</option>
+			<option class="electrical-conductance" value="nS">纳西 (nS)</option>
+			<option class="electrical-conductance" value="µS">微西 (µS)</option>
+			<option class="electrical-conductance" value="mS">毫西 (mS)</option>
+			<option class="electrical-conductance" value="S">西（门子） (S)</option>
+			<option class="electrical-conductance" value="kS">千西 (kS)</option>
+			<option class="electrical-conductance" value="MS">兆西 (MS)</option>
+			<option class="electrical-conductance" value="GS">吉西 (GS)</option>
+			<option class="electrical-conductance" value="muou">姆欧</option>
+			<option class="electrical-conductance" value="A/V">安每伏 (A/V)</option>
+			<option class="electrical-resistance" value="nΩ">纳欧（姆） (nΩ)</option>
+			<option class="electrical-resistance" value="µΩ">微欧（姆） (µΩ)</option>
+			<option class="electrical-resistance" value="mΩ">毫欧（姆） (mΩ)</option>
+			<option class="electrical-resistance" value="Ω">欧（姆） (Ω)</option>
+			<option class="electrical-resistance" value="kΩ">千欧（姆） (kΩ)</option>
+			<option class="electrical-resistance" value="MΩ">兆欧 (MΩ)</option>
+			<option class="electrical-resistance" value="GΩ">吉欧（姆） (GΩ)</option>
+			<option class="electrical-resistance" value="abΩ">绝对欧姆 (abΩ)</option>
+			<option class="electrical-resistance" value="V/A">伏每安（欧姆） (V/A)</option>
+			<option class="inductance" value="nH">纳亨 (nH)</option>
+			<option class="inductance" value="µH">微亨 (µH)</option>
+			<option class="inductance" value="mH">毫亨 (mH)</option>
+			<option class="inductance" value="H">亨（利） (H)</option>
+			<option class="inductance" value="kH">千亨 (kH)</option>
+			<option class="inductance" value="MH">兆亨 (MH)</option>
+			<option class="inductance" value="GH">吉亨 (GH)</option>
+			<option class="inductance" value="abH">绝对亨利 (abH)</option>
+			<option class="inductance" value="Wb/A">韦伯/安培 (Wb/A)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+<script type="text/javascript">
+$('.{$app.key} select[name=cate]').change(function(){
+	$('.{$app.key} select[name=type] option').hide();
+	$('.{$app.key} select[name=type] .empty').show();
+	$('.{$app.key} select[name=type]').val('');
+	var cate = $(this).val();
+	if(cate != ''){
+		$('.{$app.key} select[name=type] option.' + cate).show();
+	}
+}).change();
+</script>

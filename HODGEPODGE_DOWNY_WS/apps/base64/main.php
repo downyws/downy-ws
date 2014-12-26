@@ -16,7 +16,7 @@ if(!empty($_POST))
 		case 'decode':
 		case '解密':
 			$params['response'] = base64_decode($params['content']);
-			if(!$params['response'] || $params['response'] == '')
+			if(!$params['response'] || $params['response'] == '' || !json_encode($params['response']))
 			{
 				$params['response'] = 'decode faild.';
 			}

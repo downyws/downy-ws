@@ -1,0 +1,45 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">磁感应强度</option>
+			<option value="pT">皮特斯拉 (pT)</option>
+			<option value="nT">纳特斯拉 (nT)</option>
+			<option value="µT">微特斯拉 (µT)</option>
+			<option value="mT">毫特斯拉 (mT)</option>
+			<option value="T">特斯拉 (T)</option>
+			<option value="kT">千特斯拉 (kT)</option>
+			<option value="megatesla">兆特斯拉</option>
+			<option value="Wb/m2">韦伯每平方米 (Wb/m²)</option>
+			<option value="G">高斯 (G)</option>
+			<option value="Mw/cm2">麦克斯韦每平方厘米 (Mw/cm²)</option>
+			<option value="line_per_square_centimetre">线每平方厘米</option>
+			<option value="γ">伽玛 (γ)</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">磁场强度</option>
+			<option value="A/m">安每米 (A/m)</option>
+			<option value="AT/m">安培匝数每米 (AT/m)</option>
+			<option value="Oe">奥斯特 (Oe)</option>
+			<option value="Gi/m">吉伯每米 (Gi/m)</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">磁通量</option>
+			<option value="nWb">纳韦伯 (nWb)</option>
+			<option value="μWb">微韦伯 (μWb)</option>
+			<option value="mWb">毫韦伯 (mWb)</option>
+			<option value="Wb">韦伯 (Wb)</option>
+			<option value="Vs">伏秒 (Vs)</option>
+			<option value="Txm2">特斯拉每米 (T×m²)</option>
+			<option value="Mw">麦克斯韦 (Mw)</option>
+			<option value="Gxcm2">高斯每平方厘米 (G×cm²)</option>
+			<option value="magnetic_flux_quantum">量子磁通量</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">磁动势</option>
+			<option value="AT">安匝 (AT)</option>
+			<option value="Gi">吉尔伯特 (Gi)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>

@@ -1,22 +1,15 @@
 <?php
 $data = [];
 
-$params = $this->_submit->obtain($_REQUEST, [
-	'open' => [['format', 'trim']]
+$params = $this->_submit->obtainArray($_REQUEST, [
+	'item' => [['format', 'trim', '', '', null]]
 ]);
 
-if(empty($params['open']))
+foreach($params as $v)
 {
-	$params = $this->_submit->obtainArray($_REQUEST, [
-		'item' => [['format', 'trim', '', '', null]]
-	]);
-
-	foreach($params as $v)
+	if($v['item'] != '')
 	{
-		if($v['item'] != '')
-		{
-			$data[] = $v['item'];
-		}
+		$data[] = $v['item'];
 	}
 }
 

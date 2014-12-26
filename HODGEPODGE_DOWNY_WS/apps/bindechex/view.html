@@ -69,9 +69,9 @@ function nToDec(n, val){
 	val = '' + val;
 	for(var i = 0; i < count; i++){
 		temp = chrToNum(val[i]);
-		if(temp === false){alert('2');
+		if(temp === false){
 			return [false, '数值只能包含数字和字母'];
-		}else if(temp + 1 > n){alert('3');
+		}else if(temp + 1 > n){
 			return [false, '被转换数值超过所选进制'];
 		}
 		result += parseFloat(temp * Math.pow(n, count - i - 1));
@@ -92,7 +92,7 @@ function DecToN(n, val){
 
 	for(var i = temp.length - 1; i >= 0; i--){
 		temp2 = numToChr(temp[i]);
-		if(temp === false){alert('1');
+		if(temp === false){
 			return [false, 'error, find undefined value'];
 		}
 		result += ('' + temp2);

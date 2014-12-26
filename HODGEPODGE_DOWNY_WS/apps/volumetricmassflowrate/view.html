@@ -1,0 +1,103 @@
+<div class="ctrl">
+	<input type="text" />
+	<select name="type"></select>
+	<select name="time">
+		<option value="">请选择</option>
+		<option data-rate="1" value="s">秒</option>
+		<option data-rate="60" value="i">分钟</option>
+		<option data-rate="3600" value="h">小时</option>
+		<option data-rate="86400" value="d">天</option>
+		<option data-rate="31536000" value="y">年</option>
+	</select>
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'流量': [
+		['km3', '立方千米 km³', 0.000000001],
+		['m3', '立方米 m³', 1],
+		['dm3', '立方分米 dm³', 1000],
+		['cm3', '立方厘米 cm³', 1000000],
+		['mm3', '立方毫米 mm³', 1000000000],
+		['in3', '立方英寸 in³', 61023.7440947319],
+		['ft3', '立方英尺 ft³', 35.3146667214884],
+		['gallons_per_us_liquid', '加仑（美制液体）', 264.172052358147],
+		['gallons_per_imperial', '加仑（英制）', 219.969248299088],
+		['l', '升 l', 1000],
+		['cubic_miles_per', '立方英里每秒', Math.pow(2.39912758578926, -10)],
+		['acre-feet_per', '英亩-英尺每秒', 0.000810713193789908],
+		['bushels_per_us', '蒲式耳（美国）', 28.3775932584017],
+		['bushels_per_imperial', '蒲式耳（英制）', 27.496156037386]
+	],
+	'质量流率': [
+		['mg', '毫克 mg', 1000000],
+		['g', '克 g', 1000],
+		['kg', '公斤 kg', 1],
+		['t', '吨 t', 0.001],
+		['ounce', '安士', 35.2739619495804],
+		['lb', '镑 lb', 2.20462234],
+		['short ton', '短吨', 0.001102311],
+		['long ton', '长吨', 0.0009842065]
+	]
+};
+
+var html = '';
+html += '<option value="">请选择</option>';
+for(key in DB){
+	html += '<option disabled="disabled"></option>';
+	html += '<option disabled="disabled" class="title">' + key + '</option>';
+	for(k in DB[key]){
+		html += '<option data-rate="' + DB[key][k][2] + '" data-cate="' + key + '" value="' + DB[key][k][0] + '">' + DB[key][k][1] + '</option>';
+	}
+}
+$('.app select[name=type]').html(html).change(refresh);
+$('.app select[name=time]').change(refresh);
+$('.app input').on('change keyup', refresh);
+
+function refresh(){
+	$('.app table').html('');
+	
+	var time =	$('.app select[name=time] option:selected').data('rate');
+	var cate =	$('.app select[name=type] option:selected').data('cate');
+	var rate =	$('.app select[name=type] option:selected').data('rate');
+	var inval = $('.app input').val();
+
+	if(time != '' && cate != '' && rate != '' && inval != ''){
+		html = '';
+		for(key in DB[cate]){
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '">'
+					+ '<th>' + DB[cate][key][1] + '</th>'
+					+ '<td>' + (DB[cate][key][2] * inval / rate * (1 / time)) + '</td>'
+					+ '<td>' + (DB[cate][key][2] * inval / rate * (60 / time)) + '</td>'
+					+ '<td>' + (DB[cate][key][2] * inval / rate * (3600 / time)) + '</td>'
+					+ '<td>' + (DB[cate][key][2] * inval / rate * (86400 / time)) + '</td>'
+					+ '<td>' + (DB[cate][key][2] * inval / rate * (31536000 / time)) + '</td>'
+				+ '</tr>';
+		}
+		html = '<thead><tr><th>' + cate + '</th><th>秒</th><th>分钟</th><th>小时</th><th>天</th><th>年</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+}
+
+$('.app input[type=text]').val(DATA.content);
+$('.app select[name=type]').val(DATA.type);
+$('.app select[name=time]').val(DATA.time).change();
+{/literal}
+</script>

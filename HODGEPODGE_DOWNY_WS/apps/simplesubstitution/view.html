@@ -6,11 +6,12 @@
 	</div>
 	<div class="dictionary">
 		<label>字典</label>
-		<input type="text" name="dict_from" />
-		<input type="text" name="dict_to" />
+		<span>键</span><input type="text" name="dict_from" /><br />
+		<span>值</span><input type="text" name="dict_to" />
 	</div>
 	<div class="ctrl">
 		<input type="button" value="随机字典加密" data-type="dictionary" />
+		<input type="button" value="交换字典键值" />
 		<input type="button" value="加密" data-type="encode" />
 		<input type="button" value="解密" data-type="decode" />
 		<input type="button" value="清空" />
@@ -20,7 +21,8 @@
 {literal}
 <style type="text/css">
 	.app textarea{width:100%;box-sizing:border-box;height:150px;}
-	.app input[type=text]{width:100%;box-sizing:border-box;}
+	.app span{box-sizing:border-box;padding-right:20px;}
+	.app input[type=text]{width:95%;box-sizing:border-box;}
 	.app label{margin-bottom:5px;display:block;}
 	.app div{margin-bottom:10px;}
 	.app input[name=dict_to]{margin-top:5px;}
@@ -43,6 +45,11 @@ $('.app input[value="清空"]').click(function(){
 	$('.app input[name=dict_to]').val('');
 });
 
+$('.app input[value="交换字典键值"]').click(function(){
+	var temp = $('.app input[name=dict_from]').val();
+	$('.app input[name=dict_from]').val($('.app input[name=dict_to]').val());
+	$('.app input[name=dict_to]').val(temp);
+});
 $('.app input[value="加密"], .app input[value="随机字典加密"], .app input[value="解密"]').click(function(){
 	$('.app input[name=type]').val($(this).data('type'));
 	$.fn.dyAjaxForm('.app form[name=app]', {

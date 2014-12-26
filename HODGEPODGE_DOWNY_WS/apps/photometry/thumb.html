@@ -1,0 +1,49 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">照度</option>
+			<option value="µlx">微勒克斯 (µlx)</option>
+			<option value="mlx">豪勒克斯 (mlx)</option>
+			<option value="lx">勒克斯 (lx)</option>
+			<option value="klx">千勒克斯 (klx)</option>
+			<option value="lm/m2">流明每平方米 (lm/m²)</option>
+			<option value="lm/cm2">流明每平方厘米 (lm/cm²)</option>
+			<option value="fc">英尺-烛光 (fc)</option>
+			<option value="ph">辐透 (ph)</option>
+			<option value="nox">诺克斯</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">照明</option>
+			<option value="cd/m2">烛光平方米 (cd/m²)</option>
+			<option value="kcd/m2">千烛光平方米 (kcd/m²)</option>
+			<option value="cd/cm2">烛光平方厘米 (cd/cm²)</option>
+			<option value="cd/ft2">烛光平方英尺 (cd/ft²)</option>
+			<option value="fL">英尺郎伯 (fL)</option>
+			<option value="L">郎伯 (L)</option>
+			<option value="nit">尼特</option>
+			<option value="stilb">熙提</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">光能</option>
+			<option value="T">塔尔波特 (T)</option>
+			<option value="lm.s">流明秒 (lm·s)</option>
+			<option value="lm.min">流明分钟 (lm·min)</option>
+			<option value="lm.h">流明小时 (lm·h)</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">光通量</option>
+			<option value="lm">流明 (lm)</option>
+			<option value="cd.sr">蜡烛球面度 (cd·sr)</option>
+			<option value="lx.m2">力士平方米 (lx·m²)</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">发光强度</option>
+			<option value="cd">坎德拉 (cd)</option>
+			<option value="lm/sr">流明每球面度 (lm/sr)</option>
+			<option value="HK">赫夫纳烛光 (HK)</option>
+			<option value="candlepower">烛光</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+

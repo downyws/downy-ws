@@ -1,0 +1,165 @@
+<div class="ctrl">
+	<select name="cate">
+		<option value="">请选择</option>
+		<option value="capacitance">电容</option>
+		<option value="electric-charge">电荷</option>
+		<option value="electric-current">电流</option>
+		<option value="electric-potential">电势</option>
+		<option value="electrical-conductance">电导</option>
+		<option value="electrical-resistance">电阻</option>
+		<option value="inductance">电感</option>
+	</select>
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'capacitance': ['电容', [
+		['F', '法（拉第） (F)', 1],
+		['daF', '十法（拉第） (daF)', 0.1],
+		['hF', '百法（拉第） (hF)', 0.01],
+		['kF', '千法（拉第） (kF)', 0.001],
+		['MF', '兆法（拉第） (MF)', 0.000001],
+		['GF', '吉法（拉第） (GF)', 0.000000001],
+		['TF', '太法（拉第） (TF)', 0.000000000001],
+		['PF', '拍法（拉第） (PF)', 0.000000000000001],
+		['EF', '艾法（拉第） (EF)', 0.000000000000000001],
+		['ZF', 'Zettafarad（电容单位） (ZF)', 0.000000000000000000001],
+		['YF', '尧法（拉第） (YF)', 0.000000000000000000000001],
+		['dF', '分法（拉第） (dF)', 10],
+		['cF', '厘法（拉第） (cF)', 100],
+		['mF', '毫法（拉第） (mF)', 1000],
+		['µF', '微法（拉第） (µF)', 1000000],
+		['nF', '纳法（拉第） (nF)', 1000000000],
+		['pF', '皮法（拉第） (pF)', 1000000000000],
+		['fF', '飞法（拉第） (fF)', 1000000000000000],
+		['aF', '阿法（拉第） (aF)', 1000000000000000000],
+		['zF', '仄法（拉第） (zF)', 1000000000000000000000],
+		['yF', '幺法（拉第） (yF)', 1000000000000000000000000],
+		['C/V', '库仑每伏', 1],
+		['abF', '绝对法拉 (abF)', 0.000000001],
+		['statF', '静法拉 (statF)', 898755178736.5]
+	]],
+	'electric-charge': ['电荷', [
+		['nC', '纳库仑 (nC)', 1000000000],
+		['µC', '微库仑 (µC)', 1000000],
+		['mC', '毫库仑 (mC)', 1000],
+		['C', '库仑 (C)', 1],
+		['kC', '千库仑 (kC)', 0.001],
+		['MC', '兆库仑 (MC)', 0.000001],
+		['abC', '绝对库仑 (abC)', 0.1],
+		['mAh', '毫安时 (mAh)', 0.277777777778],
+		['Ah', '安时 (Ah)', 0.000277777777778],
+		['F', '法（拉第） (F)', 0.00001036426864904],
+		['statC', '静库仑 (statC)', 2997924580],
+		['e', '基本电荷 (e)', 6241509474153816705]
+	]],
+	'electric-current': ['电流', [
+		['nA', '纳安（培） (nA)', 1000000000],
+		['µA', '微安（培） (µA)', 1000000],
+		['mA', '兆安（培） (mA)', 1000],
+		['A', '安（培） (A)', 1],
+		['kA', '千安（培） (kA)', 0.001],
+		['MA', '兆安 (MA)', 0.000001],
+		['GA', '吉安（培） (GA)', 0.000000001],
+		['aA', '安（培） (aA)', 0.1],
+		['C/s', '库仑每秒 (C/s)', 1]
+	]],
+	'electric-potential': ['电势', [
+		['nV', '纳伏 (nV)', 1000000000],
+		['µV', '微伏 (µV)', 1000000],
+		['mV', '毫伏 (mV)', 1000],
+		['V', '伏 (V)', 1],
+		['kV', '千伏 (kV)', 0.001],
+		['MV', '兆伏 (MV)', 0.000001],
+		['GV', '吉伏 (GV)', 0.000000001],
+		['W/A', '瓦每安 (W/A)', 1],
+		['abV', '绝对伏 (abV)', 100000000],
+		['stV', '静伏特 (stV)', 0.0033356409510]
+	]],
+	'electrical-conductance': ['电导', [
+		['nS', '纳西 (nS)', 1000000000],
+		['µS', '微西 (µS)', 1000000],
+		['mS', '毫西 (mS)', 1000],
+		['S', '西（门子） (S)', 1],
+		['kS', '千西 (kS)', 0.001],
+		['MS', '兆西 (MS)', 0.000001],
+		['GS', '吉西 (GS)', 0.000000001],
+		['muou', '姆欧', 1],
+		['A/V', '安每伏 (A/V)', 1]
+	]],
+	'electrical-resistance': ['电阻', [
+		['nΩ', '纳欧（姆） (nΩ)', 1000000000],
+		['µΩ', '微欧（姆） (µΩ)', 1000000],
+		['mΩ', '毫欧（姆） (mΩ)', 1000],
+		['Ω', '欧（姆） (Ω)', 1],
+		['kΩ', '千欧（姆） (kΩ)', 0.001],
+		['MΩ', '兆欧 (MΩ)', 0.000001],
+		['GΩ', '吉欧（姆） (GΩ)', 0.000000001],
+		['abΩ', '绝对欧姆 (abΩ)', 1000000000],
+		['V/A', '伏每安（欧姆） (V/A)', 1]
+	]],
+	'inductance': ['电感', [
+		['nH', '纳亨 (nH)', 1000000000],
+		['µH', '微亨 (µH)', 1000000],
+		['mH', '毫亨 (mH)', 1000],
+		['H', '亨（利） (H)', 1],
+		['kH', '千亨 (kH)', 0.001],
+		['MH', '兆亨 (MH)', 0.000001],
+		['GH', '吉亨 (GH)', 0.000000001],
+		['abH', '绝对亨利 (abH)', 1000000000],
+		['Wb/A', '韦伯/安培 (Wb/A)', 1]
+	]]
+};
+
+$('.app select[name=cate]').change(function(){
+	$('.app table').html('');
+
+	var html = '';
+	html += '<option value="">请选择</option>';
+	for(key in DB[$('.app select[name=cate]').val()][1]){
+		html += '<option data-rate="' + DB[$('.app select[name=cate]').val()][1][key][2]+ '" value="' + DB[$('.app select[name=cate]').val()][1][key][0] + '">' + DB[$('.app select[name=cate]').val()][1][key][1] + '</option>';
+	}
+	$('.app select[name=type]').html(html);
+});
+$('.app select[name=type]').change(function(){
+	$('.app table').html('');
+
+	var cate = $('.app select[name=cate]').val();
+	var type = $('.app select[name=type]').val();
+	var rate = $('.app select[name=type] option:selected').data('rate');
+	var inval = $('.app input').val();
+
+	if(cate != '' && type != '' && inval != ''){
+		var html = '';
+		for(key in DB[cate][1]){
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '"><th>' + DB[cate][1][key][1] + '</th><td>' + (DB[cate][1][key][2] * inval / rate) + '</td></tr>';
+		}
+		html = '<thead><tr><th colspan="2">' + DB[cate][0] + '</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+});
+
+$('.app input[type=text]').val(DATA.content);
+$('.app select[name=cate]').val(DATA.cate).change();
+$('.app select[name=type]').val(DATA.type).change();
+
+{/literal}
+</script>

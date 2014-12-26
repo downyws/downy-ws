@@ -1,0 +1,84 @@
+<div class="ctrl">
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'动力粘滞度': [
+		['S', '斯托克斯 (S)', 10000],
+		['cS', '厘斯托克斯 (cS)', 1000000],
+		['m2/s', '平方米每秒 (m²/s)', 1],
+		['cm2/s', '平方厘米每秒 (cm²/s)', 10000],
+		['mm2/s', '平方毫米每秒 (mm²/s)', 1000000],
+		['ft2/s', '平方英尺每秒 (ft²/s)', 10.7639104167],
+		['in2/s', '平方英寸每秒 (in²/s)', 1550.0031000062]
+	],
+	'动态粘滞度': [
+		['Pa.s', '帕斯卡秒 (Pa·s)', 1],
+		['P', '泊 (P)', 10],
+		['cP', '厘泊 (cP)', 1000],
+		['kg/(m.s)', '千克每米秒 (kg/(m·s))', 1],
+		['g/(cm.s)', '克每厘米秒 (g/(cm·s))', 10],
+		['N.s/m2', '牛秒每平方米 (N·s/m²)', 1],
+		['lbf.s/in2', '磅力秒每平方英寸 (lbf·s/in²)', 0.00014503773773],
+		['lbf.s/ft2', '磅力秒每平方英尺 (lbf·s/ft²)', 0.0208854342332],
+		['lb/(ft.s)', '磅每英尺秒 (lb/(ft·s))', 0.67196897514],
+		['lb/(ft.h)', '磅每英尺小时 (lb/(ft·h))', 2419.0883105022],
+		['slug/(ft.s)', '每尺秒的粘滞度 (slug/(ft·s))', 0.0208854342332],
+		['poundal_second_per_square_foot', '磅达秒每平方英尺', 0.10197162129779],
+		['dyn.s/cm2', '达因秒每平方厘米 (dyn·s/cm²)', 10]
+	]
+};
+
+var html = '';
+html += '<option value="">请选择</option>';
+for(key in DB){
+	html += '<option disabled="disabled"></option>';
+	html += '<option disabled="disabled" class="title">' + key + '</option>';
+	for(k in DB[key]){
+		html += '<option data-rate="' + DB[key][k][2] + '" data-cate="' + key + '" value="' + DB[key][k][0] + '">' + DB[key][k][1] + '</option>';
+	}
+}
+$('.app select').html(html);
+
+$('.app input').on('change keyup', refresh);
+$('.app select').change(refresh);
+
+function refresh(){
+	$('.app table').html('');
+
+	var cate =	$('.app select option:selected').data('cate');
+	var rate =	$('.app select option:selected').data('rate');
+	var inval = $('.app input').val();
+
+	if(cate != '' && rate != '' && inval != ''){
+		html = '';
+		for(key in DB[cate]){
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '"><th>' + DB[cate][key][1] + '</th><td>' + (DB[cate][key][2] * inval / rate) + '</td></tr>';
+		}
+		html = '<thead><tr><th colspan="2">' + cate + '</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+}
+
+$('.app input[type=text]').val(DATA.content);
+$('.app select').val(DATA.type).change();
+{/literal}
+</script>

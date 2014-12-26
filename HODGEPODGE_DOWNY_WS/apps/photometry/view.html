@@ -1,0 +1,98 @@
+<div class="ctrl">
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'照度': [
+		['µlx', '微勒克斯 (µlx)', 1000000],
+		['mlx', '豪勒克斯 (mlx)', 1000],
+		['lx', '勒克斯 (lx)', 1 ],
+		['klx', '千勒克斯 (klx)', 0.001],
+		['lm/m2', '流明每平方米 (lm/m²)', 1],
+		['lm/cm2', '流明每平方厘米 (lm/cm²)', 0.0001],
+		['fc', '英尺-烛光 (fc)', 0.09290304],
+		['ph', '辐透 (ph)', 0.0001],
+		['nox', '诺克斯', 1000]
+	],
+	'照明': [
+		['cd/m2', '烛光平方米 (cd/m²)', 1],
+		['kcd/m2', '千烛光平方米 (kcd/m²)', 0.001],
+		['cd/cm2', '烛光平方厘米 (cd/cm²)', 0.0001],
+		['cd/ft2', '烛光平方英尺 (cd/ft²)', 0.09290304],
+		['fL', '英尺郎伯 (fL)', 0.291863508],
+		['L', '郎伯 (L)', 0.000314159265359],
+		['nit', '尼特', 1],
+		['stilb', '熙提', 0.0001]
+	],
+	'光能': [
+		['T', '塔尔波特 (T)', 1],
+		['lm.s', '流明秒 (lm·s)', 1],
+		['lm.min', '流明分钟 (lm·min)', 1 / 60],
+		['lm.h', '流明小时 (lm·h)', 1 / 3600]
+	],
+	'光通量': [
+		['lm', '流明 (lm)', 1],
+		['cd.sr', '蜡烛球面度 (cd·sr)', 1],
+		['lx.m2', '力士平方米 (lx·m²)', 1]
+	],
+	'发光强度': [
+		['cd', '坎德拉 (cd)', 1],
+		['lm/sr', '流明每球面度 (lm/sr)', 1],
+		['HK', '赫夫纳烛光 (HK)', 1.1069676153091265947006869479882],
+		['candlepower', '烛光', 1.0193679918450560652395514780836]
+	]
+};
+
+var html = '';
+html += '<option value="">请选择</option>';
+for(key in DB){
+	html += '<option disabled="disabled"></option>';
+	html += '<option disabled="disabled" class="title">' + key + '</option>';
+	for(k in DB[key]){
+		html += '<option data-rate="' + DB[key][k][2] + '" data-cate="' + key + '" value="' + DB[key][k][0] + '">' + DB[key][k][1] + '</option>';
+	}
+}
+$('.app select').html(html);
+
+$('.app input').on('change keyup', refresh);
+$('.app select').change(refresh);
+
+function refresh(){
+	$('.app table').html('');
+
+	var cate =	$('.app select option:selected').data('cate');
+	var rate =	$('.app select option:selected').data('rate');
+	var inval = $('.app input').val();
+
+	if(cate != '' && rate != '' && inval != ''){
+		html = '';
+		for(key in DB[cate]){
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '"><th>' + DB[cate][key][1] + '</th><td>' + (DB[cate][key][2] * inval / rate) + '</td></tr>';
+		}
+		html = '<thead><tr><th colspan="2">' + cate + '</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+}
+
+$('.app input[type=text]').val(DATA.content);
+$('.app select').val(DATA.type).change();
+{/literal}
+</script>

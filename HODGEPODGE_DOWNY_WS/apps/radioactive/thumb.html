@@ -1,0 +1,35 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">放射性</option>
+			<option value="bq">贝克勒尔 (Bq)</option>
+			<option value="kbq">千贝克勒尔 (kBq)</option>
+			<option value="mbq">兆贝克勒尔 (MBq)</option>
+			<option value="gbq">吉贝克勒尔 (GBq)</option>
+			<option value="tbq">太贝克勒尔 (TBq)</option>
+			<option value="ci">居里 (Ci)</option>
+			<option value="dpm">每分钟衰变数 (dpm)</option>
+			<option value="rd">卢瑟福 (Rd)</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">放射剂量</option>
+			<option value="sv">西弗特 (Sv)</option>
+			<option value="msv">毫希沃特 (mSv)</option>
+			<option value="usv">微希 (μSv)</option>
+			<option value="rem">人体伦琴当量 (rem)</option>
+			<option value="mrem">毫雷姆 (mrem)</option>
+			<option value="x">牙科X光</option>
+			<option value="hpbr">每小时人均背景辐射剂量</option>
+			<option value="hpqr">每小时切尔诺贝利灾难后反应堆堆芯</option>
+			<option disabled="disabled"></option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">吸收剂量</option>
+			<option value="gy">灰色 (Gy)</option>
+			<option value="jkg">1 公斤物质的电离辐射（以焦耳显示） (J/kg)</option>
+			<option value="rad">弧度 (rad)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
