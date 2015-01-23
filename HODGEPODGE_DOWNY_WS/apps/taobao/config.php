@@ -4,5 +4,5 @@ return [
 	'title' => 'Taobao tools',
 	'tag' => 'taobao tools',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['TEAL']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PINK']
 ];

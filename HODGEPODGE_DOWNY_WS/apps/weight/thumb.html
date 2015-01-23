@@ -1,0 +1,61 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option disabled="disabled">&nbsp;</option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">公制</option>
+			<option value="t">吨 (t)</option>
+			<option value="kN">千牛顿 (kN)</option>
+			<option value="kg">公斤 (kg)</option>
+			<option value="hg">百克 (hg)</option>
+			<option value="g">克 (g)</option>
+			<option value="karat">克拉</option>
+			<option value="centigram">厘克</option>
+			<option value="mg">毫克 (mg)</option>
+			<option value="µg">微克 (µg)</option>
+			<option value="ng">纳克 (ng)</option>
+			<option value="u">原子质量单位 (u)</option>
+			<option disabled="disabled">&nbsp;</option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">美制重量</option>
+			<option value="long_ton">长吨 (英吨)</option>
+			<option value="short_ton">短吨 (美吨)</option>
+			<option value="long_hundredweight">长担 (英担)</option>
+			<option value="short_hundredweight">短担 (美担)</option>
+			<option value="stone">英石</option>
+			<option value="lb">磅 (lb)</option>
+			<option value="ounce:1">盎司</option>
+			<option value="dr">打兰 (dr)</option>
+			<option value="gr">格令 (gr)</option>
+			<option disabled="disabled">&nbsp;</option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">金衡制</option>
+			<option value="pound">磅</option>
+			<option value="ounce">盎司</option>
+			<option value="pennyweight">本尼威特</option>
+			<option value="carat">克拉</option>
+			<option value="grain">谷</option>
+			<option value="mite">Mite（重量单位）</option>
+			<option value="doite">文</option>
+			<option disabled="disabled">&nbsp;</option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">日本</option>
+			<option value="koku">石</option>
+			<option value="kann">卡恩</option>
+			<option value="kinn">日斤</option>
+			<option value="monnme">两（中国制）</option>
+			<option disabled="disabled">&nbsp;</option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">中国制</option>
+			<option value="tael">两</option>
+			<option value="ku_ping">库平两</option>
+			<option disabled="disabled">&nbsp;</option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">旧瑞典</option>
+			<option value="skeppspund">Skeppspund（旧瑞典重量单位）</option>
+			<option value="lispund">Lispund（丹麦及挪威质量单位）</option>
+			<option value="skålpund">Skålpund（瑞典重量单位）</option>
+			<option value="mark">马克</option>
+			<option value="uns">107元素</option>
+			<option value="lod">Lod（重量单位）</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>

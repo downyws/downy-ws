@@ -1,0 +1,66 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form class="{$app.key}" method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:5px;" />
+		<select name="cate" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option value="">请选择</option>
+			<option value="energy">能量</option>
+			<option value="fuel-consumption">燃料消耗量</option>
+			<option value="power">功率</option>
+		</select>
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option class="empty" value="">请选择</option>
+			<option class="energy" value="kWh">千瓦（特）</option>
+			<option class="energy" value="MJ">兆焦（耳）</option>
+			<option class="energy" value="kJ">千焦</option>
+			<option class="energy" value="J">焦（耳）</option>
+			<option class="energy" value="Ws">瓦特秒</option>
+			<option class="energy" value="eV">电子伏（特）</option>
+			<option class="energy" value="quad">四</option>
+			<option class="energy" value="therm">克卡</option>
+			<option class="energy" value="BTU">英热单位 (BTU)</option>
+			<option class="energy" value="foot-pound">英尺磅</option>
+			<option class="energy" value="kcal">千卡</option>
+			<option class="energy" value="cal">卡</option>
+			<option class="energy" value="th">兆卡 (th)</option>
+			<option class="fuel-consumption" value="l/km">升每千米 (l/km)</option>
+			<option class="fuel-consumption" value="l/10km">升每十千米 (l/10 km)</option>
+			<option class="fuel-consumption" value="l/100km">升每百千米 (l/100km)</option>
+			<option class="fuel-consumption" value="km/l">千米每升 (km/l)</option>
+			<option class="fuel-consumption" value="mpg">英里每加仑 (mpg)</option>
+			<option class="fuel-consumption" value="gallons_per_100_miles">加仑每百英里</option>
+			<option class="fuel-consumption" value="mpg:1">英里每加仑 (mpg:1)</option>
+			<option class="fuel-consumption" value="mpl">英里每升 (mpl)</option>
+			<option class="fuel-consumption" value="gallons_per_100_miles:1">加仑每百英里</option>
+			<option class="power" value="Milliwatt">毫瓦</option>
+			<option class="power" value="W">瓦（特） (W)</option>
+			<option class="power" value="kW">千瓦 (kW)</option>
+			<option class="power" value="MW">兆瓦 (MW)</option>
+			<option class="power" value="J/s">焦每秒 (J/s)</option>
+			<option class="power" value="hp">马力 (hp)</option>
+			<option class="power" value="mhp">公制马力</option>
+			<option class="power" value="ehp">电马力</option>
+			<option class="power" value="bhp">锅炉马力</option>
+			<option class="power" value="foot-pound/min">英尺-磅每分钟</option>
+			<option class="power" value="foot-pound/s">英尺-磅每秒</option>
+			<option class="power" value="dBm">毫瓦分贝 (dBm)</option>
+			<option class="power" value="cal/h">卡路里每小时</option>
+			<option class="power" value="kcal/h">千卡路里每小时</option>
+			<option class="power" value="BTU/h">英国热力学单位每小时</option>
+			<option class="power" value="BTU/s">英国热力学单位每秒 (BTU/s)</option>
+			<option class="power" value="ton_of_refrigeration">冷冻吨</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+<script type="text/javascript">
+$('.{$app.key} select[name=cate]').change(function(){
+	$('.{$app.key} select[name=type] option').hide();
+	$('.{$app.key} select[name=type] .empty').show();
+	$('.{$app.key} select[name=type]').val('');
+	var cate = $(this).val();
+	if(cate != ''){
+		$('.{$app.key} select[name=type] option.' + cate).show();
+	}
+}).change();
+</script>

@@ -1,0 +1,50 @@
+<div class="ctrl">
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;border-top:1px solid #4BACC6;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATAS = {json_encode($datas)};
+var PARAMS = {json_encode($params)};
+function convert(val, from, to){
+	{$convert}
+}
+{literal}
+var html = '';
+html += '<option value="">请选择</option>';
+for(key in DATAS){
+	html += '<option value="' + key + '">' + DATAS[key][0] + '</option>';
+}
+$('.app select').html(html).change(refresh);
+$('.app input').on('change keyup', refresh);
+function refresh(){
+	$('.app table').html('');
+
+	var val = $('.app input').val();
+	var from = DATAS[$('.app select option:selected').val()][1];
+	if(val != ''){
+		var i = 0;
+		html = '';
+		for(key in DATAS){
+			html += '<tr class="' + (i++ % 2 ? 'even' : 'odd') + '"><th>' + DATAS[key][0] + '</th><td>' + convert(val, from, DATAS[key][1]) + '</td></tr>';
+		}
+		$('.app table').html('<tbody>' + html + '</tbody>');
+	}
+}
+
+$('.app input[type=text]').val(PARAMS.content);
+$('.app select').val(PARAMS.type).change();
+{/literal}
+</script>

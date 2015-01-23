@@ -1,0 +1,133 @@
+<div class="ctrl">
+	<select name="cate">
+		<option value="">请选择</option>
+		<option value="force">力</option>
+		<option value="torque">力矩</option>
+		<option value="pressure">压力</option>
+	</select>
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'force': ['力', [
+		['nN', '纳牛顿 (nN)', 1000000000],
+		['µN', '微牛顿 (µN)', 1000000],
+		['mN', '毫牛 (mN)', 1000],
+		['N', '牛顿 (N)', 1],
+		['kN', '千牛顿 (kN)', 0.001],
+		['meganewton', '百万牛顿', 0.000001],
+		['GN', '吉牛顿 (GN)', 0.000000001],
+		['dyn', '达因 (dyn)', 100000],
+		['pdl', '磅达 (pdl)', 7.2330138512098943806749934824484],
+		['J/m', '焦耳每平方米 (J/m)', 1],
+		['Pa/m2', '帕斯卡每平方米 (Pa/m²)', 1],
+		['kp', '千磅 (kp)', 0.10197162129779282425700927431896],
+		['sn', 'Sthène（压强单位） (sn)', 0.001],
+		['kip', '千磅 (kip)', 0.00022480894309971048291003941340318],
+		['kgf', '公斤 - 力 (kgf)', 0.10197162129779282425700927431896],
+		['tnf', '吨 - 力 (tnf)', 0.00010197162129779282425700927431896],
+		['lbf', '磅 - 力 (lbf)', 0.22480894309971048291003941340318],
+		['stnf', '短吨 - 力', 0.00011240447154985524145501970670159],
+		['ltnf', '长吨 - 力', 0.0001003611353123707512991247375],
+		['ozf', '安士 - 力 (ozf)', 3.5969430895953683734606101038444],
+		['gravet-force', '重力', 101.97162129779282425700927431896],
+		['mGf', '微克 - 力 (mGf)', 101.97162129779282425700927431896],
+		['Gf', '千克 - 力 (Gf)', 0.10197162129779282425700927431896]
+	]],
+	'torque': ['力矩', [
+		['µN.m', '微牛米 (µN·m)', 1000000],
+		['millinewton_metre', '毫牛米', 1000],
+		['Nm', '牛米 (Nm)', 1],
+		['kN.m', '千牛米 (kN·m)', 0.001],
+		['MN.m', '兆牛米 (MN·m)', 0.000001],
+		['pound-force_foot', '磅力英尺', 0.73756214927726536387808206497105],
+		['lbf.in', '磅力英寸 (lbf·in)', 8.85075],
+		['ozf.ft', '盎司力英尺 (ozf·ft)', 11.8009705],
+		['ozf.in', '盎司力英寸 (ozf·in)', 141.611646],
+		['kgf.m', '千克力米 (kgf·m)', 0.1019716210],
+		['kp.m', '千磅米 (kp·m)', 0.1019716210],
+		['gf.cm', '克力厘米 (gf·cm)', 10197.2],
+		['metre_kg-force', '米千克力', 0.10197162129779],
+		['ft.lb', '英尺磅-力 (ft·lb)', 0.73756214927726536387808206497105],
+		['centimetre_kg-force', '厘米千克-力', 10.197162129779],
+		['inch_ounce-force', '英寸盎司-力', 141.61192893574],
+		['dyn_cm', '达因厘米 (dyn cm)', 10000000]
+	]],
+	'pressure': ['压力', [
+		['MPa', '兆帕(斯卡) (MPa)', 0.000001000000],
+		['bar', '巴', 0.00001000000],
+		['kgf/cm2', '千克力每平方厘米', 0.00001019716],
+		['kPa', '千帕(斯卡) (kPa)', 0.001000000],
+		['hPa', '百帕(斯卡) (hPa)', 0.01000000],
+		['millibar', '豪巴', 0.01000000],
+		['kgf/m2', '千克力每平方米', 0.1019716],
+		['Pa', '帕(斯卡) (Pa)', 1],
+		['ksi', '千磅每平方英寸 (ksi)', 0.0000001450377],
+		['psi', '磅每平方英寸 (psi)', 0.0001450377],
+		['psf', '磅每平方英尺 (psf)', 0.02088543],
+		['mH2O', '米水柱 (mH2O)', 0.0001019744],
+		['inH2O', '英寸水柱 (inH2O)', 0.004014742],
+		['cmH2O', '厘米水柱 (cmH2O)', 0.01019744],
+		['atm', '物理大气压 (atm)', 0.000009869233],
+		['technical_atmosphere', '工程大气压', 0.00001019716],
+		['inHg', '英寸汞柱 (inHg)', 0.0002953007],
+		['cmHg', '厘米汞柱 (cmHg)', 0.0007500638],
+		['mmHg', '毫米汞柱 (mmHg)', 0.007500638],
+		['torr', '托 (torr)', 0.007500638]
+	]]
+};
+
+$('.app select[name=cate]').change(function(){
+	$('.app table').html('');
+
+	var html = '';
+	html += '<option value="">请选择</option>';
+	for(key in DB[$('.app select[name=cate]').val()][1]){
+		html += '<option data-rate="' + DB[$('.app select[name=cate]').val()][1][key][2]+ '" value="' + DB[$('.app select[name=cate]').val()][1][key][0] + '">' + DB[$('.app select[name=cate]').val()][1][key][1] + '</option>';
+	}
+	$('.app select[name=type]').html(html);
+});
+$('.app select[name=type]').change(function(){
+	$('.app table').html('');
+
+	var cate = $('.app select[name=cate]').val();
+	var type = $('.app select[name=type]').val();
+	var rate = $('.app select[name=type] option:selected').data('rate');
+	var inval = $('.app input').val();
+
+	if(cate != '' && type != '' && inval != ''){
+		var html = '';
+		for(key in DB[cate][1]){
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '"><th>' + DB[cate][1][key][1] + '</th><td>' + (DB[cate][1][key][2] * inval / rate) + '</td></tr>';
+		}
+		html = '<thead><tr><th colspan="2">' + DB[cate][0] + '</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+});
+
+$('.app input[type=text]').val(DATA.content).on('change keyup', function(){
+	$('.app select[name=type]').change()
+});
+$('.app select[name=cate]').val(DATA.cate).change();
+$('.app select[name=type]').val(DATA.type).change();
+
+{/literal}
+</script>

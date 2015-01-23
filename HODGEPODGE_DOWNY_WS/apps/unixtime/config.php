@@ -4,5 +4,5 @@ return [
 	'title' => 'Unix timestamp convert',
 	'tag' => 'Unix timestamp convert',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PURPLE']
 ];

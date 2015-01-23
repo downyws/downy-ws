@@ -4,5 +4,5 @@ return [
 	'title' => 'Thunder,Flashget,QQ encode/decode',
 	'tag' => 'thunder flashget qq encode decode',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['YELLOW']
 ];

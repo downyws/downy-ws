@@ -4,5 +4,5 @@ return [
 	'title' => 'Countdown',
 	'tag' => 'countdown clock',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['BLUE']
 ];

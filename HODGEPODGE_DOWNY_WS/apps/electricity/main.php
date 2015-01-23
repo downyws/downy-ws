@@ -23,7 +23,7 @@ $params = $this->_submit->obtain($_REQUEST, [
 		'GΩ', 'abΩ', 'V/A', 'nH', 'µH',
 		'mH', 'H', 'kH', 'MH', 'GH',
 		'abH', 'Wb/A'
-	]]],
+	]]]
 ]);
 
 $this->assign('data', $params);

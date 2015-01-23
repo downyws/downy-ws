@@ -4,5 +4,5 @@ return [
 	'title' => 'Url escape encode/decode',
 	'tag' => 'url escape encode decode',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['YELLOW']
 ];

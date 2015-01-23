@@ -1,0 +1,15 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option value="K">开氏 (K)</option>
+			<option value="C">摄氏 (C)</option>
+			<option value="F">华氏 (F)</option>
+			<option value="R">列氏 (R)</option>
+			<option value="rankine">郎肯</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>

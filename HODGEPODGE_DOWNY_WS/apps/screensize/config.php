@@ -4,5 +4,5 @@ return [
 	'title' => 'Screen size',
 	'tag' => 'screen size',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['BROWN']
 ];

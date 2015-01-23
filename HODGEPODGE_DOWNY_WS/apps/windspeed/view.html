@@ -1,0 +1,31 @@
+<div></div>
+{literal}
+<style type="text/css">
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;text-align:center;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATAS = {json_encode($datas)};
+{literal}
+for(key in DATAS){
+	var html = '', temp = '', index = 0, len = 1;
+	for(k in DATAS[key]){
+		len = DATAS[key][k].length + 1;
+		temp = '<th>' + k + '</th>';
+		for(_k in DATAS[key][k]){
+			temp += '<td>' + DATAS[key][k][_k] + '</td>';
+		}
+		temp = '<tr class="' + (index++ % 2 ? 'odd' : 'even') + '">' + temp + '</tr>';
+		html += temp;
+	}
+	$('.app div').append('<table><thead><tr><th colspan="' + len + '">' + key + '</th></tr></thead><tbody>' + html + '</tbody></table>');
+}
+{/literal}
+</script>

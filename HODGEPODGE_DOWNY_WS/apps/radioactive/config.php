@@ -4,5 +4,5 @@ return [
 	'title' => 'Radioactive',
 	'tag' => 'equivalent dose radioactive decay absorbed',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PALEBLUE']
 ];

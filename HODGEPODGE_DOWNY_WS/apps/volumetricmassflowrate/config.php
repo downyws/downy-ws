@@ -4,5 +4,5 @@ return [
 	'title' => 'volumetric & mass flow rate',
 	'tag' => 'volumetric mass flow rate',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PALEBLUE']
 ];

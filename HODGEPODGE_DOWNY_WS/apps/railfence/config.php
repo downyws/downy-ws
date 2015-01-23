@@ -4,5 +4,5 @@ return [
 	'title' => 'Rail Fence Cipher',
 	'tag' => 'rail rence cipher',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['YELLOW']
 ];

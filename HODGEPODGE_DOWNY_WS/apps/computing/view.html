@@ -1,0 +1,139 @@
+<div class="ctrl">
+	<select name="cate">
+		<option value="">请选择</option>
+		<option value="bandwidth">带宽</option>
+		<option value="data-storage">数据存储</option>
+	</select>
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'bandwidth': ['带宽', [
+		['bit/s', '比特每秒 (bit/s)', 1],
+		['kbit/s', '千比特每秒 (kbit/s)', 0.001],
+		['Mbit/s', '兆比特每秒 (Mbit/s)', 0.000001],
+		['Gbit/s', '吉比特每秒 (Gbit/s)', 0.000000001],
+		['Tbit/s', '太比特每秒 (Tbit/s)', 0.000000000001],
+		['Kibit/s', '(1024制)千比特每秒 (Kibit/s)', 0.0009765625],
+		['Mibit/s', '(1024制)兆比特每秒 (Mibit/s)', 0.00000095367431640625],
+		['Gibit/s', '(1024制)吉比特每秒 (Gibit/s)', 0.000000000931322574615479],
+		['Tibit/s', '(1024制)太比特每秒 (Tibit/s)', 0.000000000000909494701772928],
+		['B/s', '字节每秒 (B/s)', 0.125],
+		['kB/s', '千字节每秒 (kB/s)', 0.000125],
+		['MB/s', '兆字节每秒 (MB/s)', 0.000000125],
+		['GB/s', '吉字节每秒 (GB/s)', 0.000000000125],
+		['TB/s', '太字节每秒 (TB/s)', 0.000000000000125],
+		['KiB/s', '(1024制)千字节每秒 (KiB/s)', 0.0001220703125],
+		['MiB/s', '(1024制)兆比特每秒 (MiB/s)', 0.000000119209289550781],
+		['GiB/s', '(1024制)吉字节每秒 (GiB/s)', 0.000000000116415321826935],
+		['TiB/s', '(1024制)太字节每秒 (TiB/s)', 0.000000000000113686837721616],
+		['bit_per_hour', '比特每小时', 3600],
+		['kilobit_per_hour', '千比特每小时', 3.6],
+		['megabit_per_hour', '兆比特每小时', 0.0036],
+		['gigabit_per_hour', '吉比特每小时', 0.0000036],
+		['terabit_per_hour', '太比特每小时', 0.0000000036],
+		['kibibit_per_hour', '(1024制)千比特每小时', ],
+		['mebibit_per_hour', '(1024制)兆比特每小时', 0.0034332275390625],
+		['gibibit_per_hour', '(1024制)吉比特每小时', 0.00000335276126861572],
+		['tebibit_per_hour', '(1024制)太比特每小时', 0.00000000327418092638254],
+		['byte_per_hour', '字节每小时', 450],
+		['kilobyte_per_hour', '千字节每每小时', 0.45],
+		['megabyte_per_hour', '兆字节每小时', 0.00045],
+		['gigabyte_per_hour', '吉字节每小时', 0.00000045],
+		['terabyte_per_hour', '太字节每小时', 0.00000000045],
+		['kibibyte_per_hour', '(1024制)千字节每小时', 0.439453125],
+		['mebibyte_per_hour', '(1024制)兆字节每小时', 0.000429153442382812],
+		['gibibyte_per_hour', '(1024制)吉比特每小时', 0.000000419095158576965],
+		['tebibyte_per_hour', '(1024制)太字节每小时', 0.000000000409272615797818],
+		['bit_per_day', '比特每天', 86400],
+		['kilobit_per_day', '千比特每天', 86],
+		['megabit_per_day', '兆比特每天', 0.0864],
+		['gigabit_per_day', '吉比特每天', 0.0000864],
+		['terabit_per_day', '太比特每天', 0.0000000864],
+		['kibibit_per_day', '(1024制)千比特每天', 84.375],
+		['mebibit_per_day', '(1024制)兆比特每天', 0.0823974609375],
+		['gibibit_per_day', '(1024制)吉字节每天', 0.0000804662704467773],
+		['tebibit_per_day', '(1024制)太比特每天', 0.000000078580342233181],
+		['byte_per_day', '字节每天', 10800],
+		['kilobyte_per_day', '千字节每天', 10.8],
+		['megabyte_per_day', '兆字节每天', 0.0108],
+		['gigabyte_per_day', '吉字节每天', 0.0000108],
+		['terabyte_per_day', '太字节每天', 0.0000000108],
+		['kibibyte_per_day', '(1024制)千字节每天', 10.546875],
+		['mebibyte_per_day', '(1024制)兆比特每天', 0.0102996826171875],
+		['gibibyte_per_day', '(1024制)吉字节每天', 0.0000100582838058472],
+		['tebibyte_per_day', '(1024制)太字节每天', 0.0000000982254277914762]
+	]],
+	'data-storage': ['数据存储', [
+		['bit', '比特', 8388608],
+		['nibble', '半字节半位', 2097152],
+		['kilobit', '千比特', 8192],
+		['megabit', '兆比特', 8],
+		['gigabit', '吉比特', 0.007812500],
+		['terabit', '太比特', 0.000007629395],
+		['petabit', '拍比特', 0.000000007450581],
+		['exabit', '艾比特', 0.000000000007275958],
+		['B', '字节 (B)', 1048576],
+		['kB', '千字节 (kB)', 1024],
+		['MB', '兆字节 (MB)', 1],
+		['GB', '吉字节 (GB)', 0.0009765625],
+		['TB', '太字节 (TB)', 0.0000009536744],
+		['PB', '拍字节 (PB)', 0.0000000009313227],
+		['EB', '艾字节 (EB)', 0.0000000000009094948]
+	]]
+};
+
+$('.app select[name=cate]').change(function(){
+	$('.app table').html('');
+
+	var html = '';
+	html += '<option value="">请选择</option>';
+	for(key in DB[$('.app select[name=cate]').val()][1]){
+		html += '<option data-rate="' + DB[$('.app select[name=cate]').val()][1][key][2]+ '" value="' + DB[$('.app select[name=cate]').val()][1][key][0] + '">' + DB[$('.app select[name=cate]').val()][1][key][1] + '</option>';
+	}
+	$('.app select[name=type]').html(html);
+});
+$('.app select[name=type]').change(function(){
+	$('.app table').html('');
+
+	var cate = $('.app select[name=cate]').val();
+	var type = $('.app select[name=type]').val();
+	var rate = $('.app select[name=type] option:selected').data('rate');
+	var inval = $('.app input').val();
+
+	if(cate != '' && type != '' && inval != ''){
+		var html = '';
+		for(key in DB[cate][1]){
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '"><th>' + DB[cate][1][key][1] + '</th><td>' + (DB[cate][1][key][2] * inval / rate) + '</td></tr>';
+		}
+		html = '<thead><tr><th colspan="2">' + DB[cate][0] + '</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+});
+
+$('.app input[type=text]').val(DATA.content).on('change keyup', function(){
+	$('.app select[name=type]').change()
+});
+$('.app select[name=cate]').val(DATA.cate).change();
+$('.app select[name=type]').val(DATA.type).change();
+
+{/literal}
+</script>

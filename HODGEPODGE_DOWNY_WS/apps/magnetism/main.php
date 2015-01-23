@@ -8,7 +8,7 @@ $params = $this->_submit->obtain($_REQUEST, [
 		'Gi/m', 'nWb', 'μWb', 'mWb', 'Wb',
 		'Vs', 'Txm2', 'Mw', 'Gxcm2', 'magnetic_flux_quantum',
 		'AT', 'Gi'
-	]]],
+	]]]
 ]);
 
 $this->assign('data', $params);

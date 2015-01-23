@@ -8,7 +8,7 @@ $params = $this->_submit->obtain($_REQUEST, [
 		'nit', 'stilb', 'T', 'lm.s', 'lm.min',
 		'lm.h', 'lm', 'cd.sr', 'lx.m2', 'cd',
 		'lm/sr', 'HK', 'candlepower'
-	]]],
+	]]]
 ]);
 
 $this->assign('data', $params);

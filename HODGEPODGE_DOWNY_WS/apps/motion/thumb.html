@@ -1,0 +1,53 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form class="{$app.key}" method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:5px;" />
+		<select name="cate" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option value="">请选择</option>
+			<option value="speed">速度</option>
+			<option value="acceleration">加速</option>
+		</select>
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option class="empty" value="">请选择</option>
+			<option class="speed" disabled="disabled">&nbsp;</option>
+			<option class="speed" disabled="disabled" style="background:#999999;color:#FFFFFF;">公制</option>
+			<option class="speed" value="km/s">千米每秒</option>
+			<option class="speed" value="m/s">米每秒</option>
+			<option class="speed" value="km/h">千米每小时</option>
+			<option class="speed" value="mm/s">毫米每秒 (mm/s)</option>
+			<option class="speed" value="µm/s">微米每秒 (µm/s)</option>
+			<option class="speed" disabled="disabled">&nbsp;</option>
+			<option class="speed" disabled="disabled" style="background:#999999;color:#FFFFFF;">英/美</option>
+			<option class="speed" value="mile_per_second">英里每秒</option>
+			<option class="speed" value="mph">英里每小时 (mph)</option>
+			<option class="speed" value="foot_per_second">英尺每秒</option>
+			<option class="speed" disabled="disabled">&nbsp;</option>
+			<option class="speed" disabled="disabled" style="background:#999999;color:#FFFFFF;">航海</option>
+			<option class="speed" value="knot">节</option>
+			<option class="speed" disabled="disabled">&nbsp;</option>
+			<option class="speed" disabled="disabled" style="background:#999999;color:#FFFFFF;">其他</option>
+			<option class="speed" value="speed_of_light">光速</option>
+			<option class="speed" value="speed_of_sound">音速</option>
+			<option class="speed" value="speed_of_walk">轻快的步行路程</option>
+			<option class="speed" value="speed_of_snail">普通蜗牛的速度</option>
+			<option class="acceleration" value="m/s2">米每平方秒 (m/s²)</option>
+			<option class="acceleration" value="ft/s2">英尺每平方秒 (ft/s²)</option>
+			<option class="acceleration" value="gal">伽利略</option>
+			<option class="acceleration" value="milligal">豪伽</option>
+			<option class="acceleration" value="standard_gravity">标准重力加速度</option>
+			<option class="acceleration" value="g">重力加速度 (g)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+<script type="text/javascript">
+$('.{$app.key} select[name=cate]').change(function(){
+	$('.{$app.key} select[name=type] option').hide();
+	$('.{$app.key} select[name=type] .empty').show();
+	$('.{$app.key} select[name=type]').val('');
+	var cate = $(this).val();
+	if(cate != ''){
+		$('.{$app.key} select[name=type] option.' + cate).show();
+	}
+}).change();
+</script>
