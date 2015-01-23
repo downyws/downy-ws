@@ -4,5 +4,5 @@ return [
 	'title' => 'HTML5 piano',
 	'tag' => 'HTML5 piano',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['PURPLE']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PINK']
 ];

@@ -8,7 +8,7 @@ $params = $this->_submit->obtain($_REQUEST, [
 		'cubic_miles_per', 'acre-feet_per', 'bushels_per_us', 'bushels_per_imperial', 'mg',
 		'g', 'kg', 't', 'ounce', 'lb',
 		'short ton', 'long ton'
-	]]],
+	]]]
 ]);
 
 $this->assign('data', $params);

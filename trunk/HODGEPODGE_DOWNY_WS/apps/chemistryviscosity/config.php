@@ -4,5 +4,5 @@ return [
 	'title' => 'Chemistry viscosity',
 	'tag' => 'chemistry viscosity',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PALEBLUE']
 ];

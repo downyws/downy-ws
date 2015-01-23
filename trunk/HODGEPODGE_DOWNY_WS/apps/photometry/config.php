@@ -4,5 +4,5 @@ return [
 	'title' => 'Photometry',
 	'tag' => 'photometry illuminance luminance luminous energy flux intensity',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PALEBLUE']
 ];

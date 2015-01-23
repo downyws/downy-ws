@@ -1,0 +1,25 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option value="degree">度</option>
+			<option value="radian">弧度</option>
+			<option value="circle">圆周</option>
+			<option value="turn">次</option>
+			<option value="cycle">周期</option>
+			<option value="rotation">旋转</option>
+			<option value="revolution">圈</option>
+			<option value="right_angle">直角</option>
+			<option value="mil_nato">千分之一寸（北约）</option>
+			<option value="mil_soviet_union">千分之一寸（苏联）</option>
+			<option value="mil_sweden">千分之一寸（瑞典）</option>
+			<option value="grad">度</option>
+			<option value="gon">哥恩</option>
+			<option value="point">点</option>
+			<option value="hour_angle">时角</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>

@@ -1,0 +1,87 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form class="{$app.key}" method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:5px;" />
+		<select name="cate" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option value="">请选择</option>
+			<option value="force">力</option>
+			<option value="torque">力矩</option>
+			<option value="pressure">压力</option>
+		</select>
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option class="empty" value="">请选择</option>
+			<option class="force" value="nN">纳牛顿 (nN)</option>
+			<option class="force" value="µN">微牛顿 (µN)</option>
+			<option class="force" value="mN">毫牛 (mN)</option>
+			<option class="force" value="N">牛顿 (N)</option>
+			<option class="force" value="kN">千牛顿 (kN)</option>
+			<option class="force" value="meganewton">百万牛顿</option>
+			<option class="force" value="GN">吉牛顿 (GN)</option>
+			<option class="force" value="dyn">达因 (dyn)</option>
+			<option class="force" value="pdl">磅达 (pdl)</option>
+			<option class="force" value="J/m">焦耳每平方米 (J/m)</option>
+			<option class="force" value="Pa/m2">帕斯卡每平方米 (Pa/m²)</option>
+			<option class="force" value="kp">千磅 (kp)</option>
+			<option class="force" value="sn">Sthène（压强单位） (sn)</option>
+			<option class="force" value="kip">千磅 (kip)</option>
+			<option class="force" value="kgf">公斤 - 力 (kgf)</option>
+			<option class="force" value="tnf">吨 - 力 (tnf)</option>
+			<option class="force" value="lbf">磅 - 力 (lbf)</option>
+			<option class="force" value="stnf">短吨 - 力</option>
+			<option class="force" value="ltnf">长吨 - 力</option>
+			<option class="force" value="ozf">安士 - 力 (ozf)</option>
+			<option class="force" value="gravet-force">重力</option>
+			<option class="force" value="mGf">微克 - 力 (mGf)</option>
+			<option class="force" value="Gf">千克 - 力 (Gf)</option>
+			<option class="torque" value="µN.m">微牛米 (µN·m)</option>
+			<option class="torque" value="millinewton_metre">毫牛米</option>
+			<option class="torque" value="Nm">牛米 (Nm)</option>
+			<option class="torque" value="kN.m">千牛米 (kN·m)</option>
+			<option class="torque" value="MN.m">兆牛米 (MN·m)</option>
+			<option class="torque" value="pound-force_foot">磅力英尺</option>
+			<option class="torque" value="lbf.in">磅力英寸 (lbf·in)</option>
+			<option class="torque" value="ozf.ft">盎司力英尺 (ozf·ft)</option>
+			<option class="torque" value="ozf.in">盎司力英寸 (ozf·in)</option>
+			<option class="torque" value="kgf.m">千克力米 (kgf·m)</option>
+			<option class="torque" value="kp.m">千磅米 (kp·m)</option>
+			<option class="torque" value="gf.cm">克力厘米 (gf·cm)</option>
+			<option class="torque" value="metre_kg-force">米千克力</option>
+			<option class="torque" value="ft.lb">英尺磅-力 (ft·lb)</option>
+			<option class="torque" value="centimetre_kg-force">厘米千克-力</option>
+			<option class="torque" value="inch_ounce-force">英寸盎司-力</option>
+			<option class="torque" value="dyn_cm">达因厘米 (dyn cm)</option>
+			<option class="pressure" value="MPa">兆帕(斯卡) (MPa)</option>
+			<option class="pressure" value="bar">巴</option>
+			<option class="pressure" value="kgf/cm2">千克力每平方厘米</option>
+			<option class="pressure" value="kPa">千帕(斯卡) (kPa)</option>
+			<option class="pressure" value="hPa">百帕(斯卡) (hPa)</option>
+			<option class="pressure" value="millibar">豪巴</option>
+			<option class="pressure" value="kgf/m2">千克力每平方米</option>
+			<option class="pressure" value="Pa">帕(斯卡) (Pa)</option>
+			<option class="pressure" value="ksi">千磅每平方英寸 (ksi)</option>
+			<option class="pressure" value="psi">磅每平方英寸 (psi)</option>
+			<option class="pressure" value="psf">磅每平方英尺 (psf)</option>
+			<option class="pressure" value="mH2O">米水柱 (mH2O)</option>
+			<option class="pressure" value="inH2O">英寸水柱 (inH2O)</option>
+			<option class="pressure" value="cmH2O">厘米水柱 (cmH2O)</option>
+			<option class="pressure" value="atm">物理大气压 (atm)</option>
+			<option class="pressure" value="technical_atmosphere">工程大气压</option>
+			<option class="pressure" value="inHg">英寸汞柱 (inHg)</option>
+			<option class="pressure" value="cmHg">厘米汞柱 (cmHg)</option>
+			<option class="pressure" value="mmHg">毫米汞柱 (mmHg)</option>
+			<option class="pressure" value="torr">托 (torr)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+<script type="text/javascript">
+$('.{$app.key} select[name=cate]').change(function(){
+	$('.{$app.key} select[name=type] option').hide();
+	$('.{$app.key} select[name=type] .empty').show();
+	$('.{$app.key} select[name=type]').val('');
+	var cate = $(this).val();
+	if(cate != ''){
+		$('.{$app.key} select[name=type] option.' + cate).show();
+	}
+}).change();
+</script>

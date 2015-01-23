@@ -1,0 +1,118 @@
+<div class="ctrl">
+	<select name="cate">
+		<option value="">请选择</option>
+		<option value="energy">能量</option>
+		<option value="fuel-consumption">燃料消耗量</option>
+		<option value="power">功率</option>
+	</select>
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'energy': ['能量', [
+		['kWh', '千瓦（特）', 0.00000027777777777777777777777777777778],
+		['MJ', '兆焦（耳）', 0.000001000000],
+		['kJ', '千焦', 0.001],
+		['J', '焦（耳）', 1],
+		['Ws', '瓦特秒', 1],
+		['eV', '电子伏（特）', 6241506000000000000],
+		['quad', '四', 0.0000000000000000009478134],
+		['therm', '克卡', 0.000000009478134],
+		['BTU', '英热单位 (BTU)', 0.0009478171],
+		['foot-pound', '英尺磅', 0.7375822],
+		['kcal', '千卡', 0.0002388459],
+		['cal', '卡', 0.2388459],
+		['th', '兆卡 (th)', 0.0000002388459]
+	]],
+	'fuel-consumption': ['燃料消耗量', [
+		['l/km', '升每千米 (l/km)', 0.01],
+		['l/10km', '升每十千米 (l/10 km)', 0.1],
+		['l/100km', '升每百千米 (l/100km)', 1],
+		['km/l', '千米每升 (km/l)', function(val){return 10 / val;}],
+		['mpg', '英里每加仑 (mpg)', function(val){return 23.52145 / val;}],
+		['gallons_per_100_miles', '加仑每百英里', 0.4251438],
+		['mpg:1', '英里每加仑 (mpg:1)', function(val){return 28.24815 / val;}],
+		['mpl', '英里每升 (mpl)', function(val){return 6.21371192237334 / val;}],
+		['gallons_per_100_miles:1', '加仑每百英里', 0.3540055]
+	]],
+	'power': ['功率', [
+		['Milliwatt', '毫瓦', 1000],
+		['W', '瓦（特） (W)', 1],
+		['kW', '千瓦 (kW)', 0.001],
+		['MW', '兆瓦 (MW)', 0.000001],
+		['J/s', '焦每秒 (J/s)', 1],
+		['hp', '马力 (hp)', 0.0013410220895950279343237855726746],
+		['mhp', '公制马力', 0.0013596216173039043234267903242528],
+		['ehp', '电马力', 0.0013404825737265415549597855227882],
+		['bhp', '锅炉马力', 0.00010194199500484224476273000662623],
+		['foot-pound/min', '英尺-磅每分钟', 44.253728956635921832684923876],
+		['foot-pound/s', '英尺-磅每秒', 0.7375621492772653638780820646],
+		['dBm', '毫瓦分贝 (dBm)', function(val){return 10 * Math.log(1000 * val / 1) * Math.LOG10E;}],
+		['cal/h', '卡路里每小时', 859.84524],
+		['kcal/h', '千卡路里每小时', 0.85984524],
+		['BTU/h', '英国热力学单位每小时', 3.41214163],
+		['BTU/s', '英国热力学单位每秒 (BTU/s)', 0.00094781711944444444444444444444444],
+		['ton_of_refrigeration', '冷冻吨', 0.00028434512332474516279184828026648]
+	]]
+};
+
+$('.app select[name=cate]').change(function(){
+	$('.app table').html('');
+
+	var html = '';
+	html += '<option value="">请选择</option>';
+	for(key in DB[$('.app select[name=cate]').val()][1]){
+		html += '<option data-rate="' + DB[$('.app select[name=cate]').val()][1][key][2]+ '" value="' + DB[$('.app select[name=cate]').val()][1][key][0] + '">' + DB[$('.app select[name=cate]').val()][1][key][1] + '</option>';
+	}
+	$('.app select[name=type]').html(html);
+});
+$('.app select[name=type]').change(function(){
+	$('.app table').html('');
+
+	var cate = $('.app select[name=cate]').val();
+	var type = $('.app select[name=type]').val();
+	var rate = $('.app select[name=type] option:selected').data('rate');
+	var inval = $('.app input').val();
+	var tempval = null;
+
+	if(cate != '' && type != '' && inval != ''){
+		var html = '';
+		for(key in DB[cate][1]){
+			if(typeof(DB[cate][1][key][2]) == 'function'){
+				tempval = DB[cate][1][key][2](inval);
+			}else{
+				tempval = (DB[cate][1][key][2] * inval / rate);
+			}
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '"><th>' + DB[cate][1][key][1] + '</th><td>' + tempval + '</td></tr>';
+		}
+		html = '<thead><tr><th colspan="2">' + DB[cate][0] + '</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+});
+
+$('.app input[type=text]').val(DATA.content).on('change keyup', function(){
+	$('.app select[name=type]').change()
+});
+$('.app select[name=cate]').val(DATA.cate).change();
+$('.app select[name=type]').val(DATA.type).change();
+
+{/literal}
+</script>

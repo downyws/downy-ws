@@ -4,5 +4,5 @@ return [
 	'title' => 'BMI',
 	'tag' => 'bmi',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PURPLE']
 ];

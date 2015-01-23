@@ -5,5 +5,5 @@ return [
 	'title' => 'Color scheme designer',
 	'tag' => 'color scheme designer',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['GREEN']
 ];

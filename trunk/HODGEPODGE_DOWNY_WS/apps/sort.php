@@ -1,36 +1,60 @@
 <?php
 return [
+	'barcode',
+	'qrcode',
+
 	'base64',
 	'md5',
-	'urlescape',
-	'thflqq',
-	'simplesubstitution',
 	'railfence',
-
-	'qrcode',
-	'barcode',
-	'cpwd',
-
-	'regex',
-	'htmlchar',
-	'cnnumupp',
-	'charlowupp',
-	'bindechex',
-
-	'unixtime',
-
-	'countdown',
-	'stopwatch',
+	'simplesubstitution',
+	'thflqq',
+	'urlescape',
 
 	'colormatch',
 	'colorschemedesigner',
 	'colorselect',
 
-	'translate',
-	'currencyconverter',
-	'weather',
+	'cpwd',
+	'cnnumupp',
+	'htmlchar',
+	'charlowupp',
+	'bindechex',
+	'regex',
 
-	'html5piano',
+	'angle',
+	'chemistryamountofsubstancemolarmass',
+	'chemistryviscosity',
+	'computing',
+	'currencyconverter',
+	'density',
+	'dimension',
+	'electricity',
+	'energy',
+	'magnetism',
+	'mechanics',
+	'motion',
+	'photometry',
+	'radioactive',
+	'temperature',
+	'time',
+	'volumetricmassflowrate',
+	'weight',
+
+	'countdown',
+	'stopwatch',
+
+	'bmi',
+	'pregnancy',
+	'unixtime',
+	'translate',
+
+	'clothing',
+	'papersize',
+	'screensize',
+	'windspeed',
+
 	'html5homer',
-	'taobao'
+	'html5piano',
+	'taobao',
+	'weather'
 ];

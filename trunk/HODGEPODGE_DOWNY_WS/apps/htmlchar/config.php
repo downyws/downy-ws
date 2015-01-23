@@ -4,5 +4,5 @@ return [
 	'title' => 'Html char',
 	'tag' => 'html char',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['TEAL']
 ];

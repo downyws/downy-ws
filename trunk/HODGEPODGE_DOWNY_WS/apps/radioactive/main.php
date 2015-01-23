@@ -6,7 +6,7 @@ $params = $this->_submit->obtain($_REQUEST, [
 		'ci', 'dpm', 'rd', 'sv', 'msv',
 		'usv', 'rem', 'mrem', 'x', 'hpbr',
 		'hpqr', 'gy', 'jkg', 'rad'
-	]]],
+	]]]
 ]);
 
 $this->assign('data', $params);

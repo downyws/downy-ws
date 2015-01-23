@@ -4,5 +4,5 @@ return [
 	'title' => 'Bin/Dec/Hex',
 	'tag' => 'bin dec hex binary decimal ary convert',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['TEAL']
 ];

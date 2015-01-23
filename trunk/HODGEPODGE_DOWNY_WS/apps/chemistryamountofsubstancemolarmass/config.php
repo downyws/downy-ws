@@ -4,5 +4,5 @@ return [
 	'title' => 'Chemistry - amount of substance & molar mass',
 	'tag' => 'chemistry amount substance molar mass',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PALEBLUE']
 ];

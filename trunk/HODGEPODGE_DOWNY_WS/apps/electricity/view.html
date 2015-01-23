@@ -157,7 +157,9 @@ $('.app select[name=type]').change(function(){
 	}
 });
 
-$('.app input[type=text]').val(DATA.content);
+$('.app input[type=text]').val(DATA.content).on('change keyup', function(){
+	$('.app select[name=type]').change()
+});
 $('.app select[name=cate]').val(DATA.cate).change();
 $('.app select[name=type]').val(DATA.type).change();
 

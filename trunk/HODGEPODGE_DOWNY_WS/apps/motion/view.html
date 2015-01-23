@@ -1,0 +1,89 @@
+<div class="ctrl">
+	<select name="cate"></select><select name="type"></select><input type="text" />
+</div>
+<div class="table"></div>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 30px 0px;width:100%;border-bottom:1px solid #4BACC6;border-top:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATAS = {json_encode($datas)};
+var PARAMS = {json_encode($params)};
+function convert(cate, val, from, to){
+	{$convert}
+}
+{literal}
+var html = '<option value="">请选择</option>';
+for(key in DATAS){
+	html += '<option value="' + key + '">' + DATAS[key][0] + '</option>';
+}
+$('.app select[name=cate]').html(html).change(function(){
+	var cate = $(this).val();
+	html = '<option value="">请选择</option>';
+	if($(this).val() != ""){
+		if(DATAS[cate][1]){
+			for(key in DATAS[cate][2]){
+				html += '<option disabled="disabled">&nbsp;</option>';
+				html += '<option disabled="disabled" style="background:#999999;color:#FFFFFF;">' + key + '</option>';
+				for(k in DATAS[cate][2][key]){
+					html += '<option data-typep="' + key + '" value="' + k + '">' + DATAS[cate][2][key][k][0] + '</option>';
+				}
+			}
+		}else{
+			for(key in DATAS[cate][2]){
+				html += '<option data-typep="" value="' + key + '">' + DATAS[cate][2][key][0] + '</option>';
+			}
+		}
+	}
+	$('.app select[name=type]').html(html);
+	refresh();
+});
+$('.app select').change(refresh);
+$('.app input').on('change keyup', refresh);
+
+function refresh(){
+	$('.app div.table').html('');
+
+	var val = $('.app input').val();
+	var cate = $('.app select[name=cate]').val();
+	var type = $('.app select[name=type]').val();
+	var typep = $('.app select[name=type] option:selected').data('typep');
+	if(val != '' && cate != '' && type != ''){
+		if(DATAS[cate][1]){
+			var from = DATAS[cate][2][typep][type][1];
+			for(key in DATAS[cate][2]){
+				var i = 0;
+				html = '';
+				for(k in DATAS[cate][2][key]){
+					html += '<tr class="' + (i++ % 2 ? 'even' : 'odd') + '"><th>' + DATAS[cate][2][key][k][0] + '</th><td>' + convert(cate, val, from, DATAS[cate][2][key][k][1]) + '</td></tr>';
+				}
+				$('.app div.table').append('<table><thead><tr><th colspan="2">' + key + '</th></tr></thead><tbody>' + html + '</tbody></table>');
+			}
+		}else{
+			var from = DATAS[cate][2][type][1];
+			var i = 0;
+			html = '';
+			for(key in DATAS[cate][2]){
+				html += '<tr class="' + (i++ % 2 ? 'even' : 'odd') + '"><th>' + DATAS[cate][2][key][0] + '</th><td>' + convert(cate, val, from, DATAS[cate][2][key][1]) + '</td></tr>';
+			}
+			$('.app div.table').append('<table><thead><tr><th colspan="2">' + key + '</th></tr></thead><tbody>' + html + '</tbody></table>');
+		}
+	}
+}
+
+$('.app select[name=cate]').val(PARAMS.cate).change();
+$('.app select[name=type]').val(PARAMS.type).change();
+$('.app input[type=text]').val(PARAMS.content).change();
+{/literal}
+</script>

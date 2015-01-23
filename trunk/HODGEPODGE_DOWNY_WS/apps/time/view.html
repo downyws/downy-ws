@@ -1,0 +1,105 @@
+<div class="ctrl">
+	<select name="cate">
+		<option value="">请选择</option>
+		<option value="time">时间</option>
+		<option value="frequency">频率</option>
+	</select>
+	<select name="type"></select><input type="text" />
+</div>
+<table></table>
+{literal}
+<style type="text/css">
+	.app select{box-sizing:border-box;margin-bottom:10px;}
+	.app select option.title{background:#999999;color:#FFFFFF;}
+	.app .ctrl *{margin-right:10px;box-sizing:border-box;}
+	.app table{margin:0px 20px 50px 0px;width:100%;border-bottom:1px solid #4BACC6;}
+	.app table thead{border-top:1px solid #4BACC6;border-bottom:1px solid #4BACC6;}
+	.app table thead th{font-weight:400;}
+	.app table tr.odd{background:#D2EAF1;}
+	.app table tr.even{background:#FFFFFF;}
+	.app table th{text-align:left;padding:5px 10px;width:260px;}
+	.app table th.unit{text-align:right;font-weight:400;}
+	.app table td{padding:5px 10px;max-width:85%;}
+</style>
+{/literal}
+<script type="text/javascript">
+var DATA = {json_encode($data)};
+{literal}
+var DB = {
+	'time': ['时间', [
+		['year', '年', 1],
+		['month', '月', 12],
+		['week', '星期', 52],
+		['day', '日', 365.25],
+		['hour', '小时', 8766],
+		['minute', '分钟 (minute)', 525960],
+		['s', '秒 (s)', 31557600],
+		['ms', '毫秒 (ms)', 31557600000],
+		['µs', '微秒 (µs)', 31557600000000],
+		['ns', '纳秒 (ns)', 31557600000000000]
+	]],
+	'frequency': ['频率', [
+		['nHz', '纳赫兹 (nHz)', 1000000000],
+		['µHz', '微赫兹 (µHz)', 1000000],
+		['mHz', '豪赫兹 (mHz)', 1000],
+		['Hz', '赫兹 (Hz)', 1],
+		['kHz', '千赫 (kHz)', 0.001],
+		['MHz', '豪赫兹 (MHz)', 0.000001],
+		['GHz', '秭赫 (GHz)', 0.000000001],
+		['THz', '太赫兹 (THz)', 0.000000000001],
+		['cps', '周期每秒 (cps)', 1],
+		['rpm', '转速每分 (rpm)', 60],
+		['BPM', '节拍数每分 (BPM)', 60],
+		['rad/s', '弧度每秒 (rad/s)', 6.2831853071795864],
+		['rad/min', '弧度每分', 376.99111843077519],
+		['rad/h', '弧度每小时', 22619.467105846511],
+		['rad/day', '弧度每天', 542867.21054031627],
+		['degrees/s', '度每秒', 360],
+		['degrees/min', '度每分钟', 21600],
+		['degrees/h', '度每小时', 1296000],
+		['degrees/day', '度每天', 31104000]
+	]]
+};
+
+$('.app select[name=cate]').change(function(){
+	$('.app table').html('');
+
+	var html = '';
+	html += '<option value="">请选择</option>';
+	for(key in DB[$('.app select[name=cate]').val()][1]){
+		html += '<option data-rate="' + DB[$('.app select[name=cate]').val()][1][key][2]+ '" value="' + DB[$('.app select[name=cate]').val()][1][key][0] + '">' + DB[$('.app select[name=cate]').val()][1][key][1] + '</option>';
+	}
+	$('.app select[name=type]').html(html);
+});
+$('.app select[name=type]').change(function(){
+	$('.app table').html('');
+
+	var cate = $('.app select[name=cate]').val();
+	var type = $('.app select[name=type]').val();
+	var rate = $('.app select[name=type] option:selected').data('rate');
+	var inval = $('.app input').val();
+	var tempval = null;
+
+	if(cate != '' && type != '' && inval != ''){
+		var html = '';
+		for(key in DB[cate][1]){
+			if(typeof(DB[cate][1][key][2]) == 'function'){
+				tempval = DB[cate][1][key][2](inval);
+			}else{
+				tempval = (DB[cate][1][key][2] * inval / rate);
+			}
+			html += '<tr class="' + (key % 2 ? 'even' : 'odd') + '"><th>' + DB[cate][1][key][1] + '</th><td>' + tempval + '</td></tr>';
+		}
+		html = '<thead><tr><th colspan="2">' + DB[cate][0] + '</th></tr></thead><tbody>' + html + '</tbody>';
+		$('.app table').html(html);
+	}
+});
+
+$('.app input[type=text]').val(DATA.content).on('change keyup', function(){
+	$('.app select[name=type]').change()
+});
+$('.app select[name=cate]').val(DATA.cate).change();
+$('.app select[name=type]').val(DATA.type).change();
+
+{/literal}
+</script>

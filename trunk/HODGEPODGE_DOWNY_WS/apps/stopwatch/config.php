@@ -4,5 +4,5 @@ return [
 	'title' => 'Stopwatch',
 	'tag' => 'stopwatch clock',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['BLUE']
 ];

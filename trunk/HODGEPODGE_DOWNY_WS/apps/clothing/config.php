@@ -4,5 +4,5 @@ return [
 	'title' => 'Clothing',
 	'tag' => 'clothing shoe dresses size',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['BROWN']
 ];

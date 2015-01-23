@@ -1,0 +1,21 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:10px;" />
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:10px;">
+			<option value="">请选择</option>
+			<option disabled="disabled">&nbsp;</option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">公制</option>
+			<option value="g/cm3">克每立方厘米 (g/cm³)</option>
+			<option value="kg/m³">千克每立方米 (kg/m³)</option>
+			<option value="g/m3">克每立方米 (g/m³)</option>
+			<option value="mg/m3">毫克每立方米 (mg/m³)</option>
+			<option disabled="disabled">&nbsp;</option>
+			<option disabled="disabled" style="background:#999999;color:#FFFFFF;">英/美</option>
+			<option value="oz/gal">盎司每加仑 (oz/gal)</option>
+			<option value="lb/ft3">磅每立方英尺 (lb/ft³)</option>
+			<option value="lb/in3">磅每立方英寸 (lb/in³)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>

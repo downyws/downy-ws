@@ -1,0 +1,162 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form class="{$app.key}" method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:5px;" />
+		<select name="cate" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option value="">请选择</option>
+			<option value="length">长度</option>
+			<option value="volume">体积和容量</option>
+			<option value="area">面积</option>
+		</select>
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option class="empty" value="">请选择</option>
+			<option class="length" disabled="disabled">&nbsp;</option>
+			<option class="length" disabled="disabled" style="background:#999999;color:#FFFFFF;">公制</option>
+			<option class="length" value="km">千米 (km)</option>
+			<option class="length" value="m">米 (m)</option>
+			<option class="length" value="dm">分米 (dm)</option>
+			<option class="length" value="cm">厘米 (cm)</option>
+			<option class="length" value="mm">毫米 (mm)</option>
+			<option class="length" value="µm">微米 (µm)</option>
+			<option class="length" value="nm">纳米 (nm)</option>
+			<option class="length" value="Å">埃米 (Å)</option>
+			<option class="length" disabled="disabled">&nbsp;</option>
+			<option class="length" disabled="disabled" style="background:#999999;color:#FFFFFF;">英/美</option>
+			<option class="length" value="league">里格</option>
+			<option class="length" value="mi">英里 (mi)</option>
+			<option class="length" value="furlong">弗隆</option>
+			<option class="length" value="chain">链</option>
+			<option class="length" value="rd">杆 (rd)</option>
+			<option class="length" value="yd">码 (yd)</option>
+			<option class="length" value="ft">英尺 (ft)</option>
+			<option class="length" value="link">链接</option>
+			<option class="length" value="hand">手</option>
+			<option class="length" value="in">英寸 (in)</option>
+			<option class="length" value="line">线</option>
+			<option class="length" value="mil">密耳 (mil)</option>
+			<option class="length" value="thou">Thou (thou)</option>
+			<option class="length" disabled="disabled">&nbsp;</option>
+			<option class="length" disabled="disabled" style="background:#999999;color:#FFFFFF;">航海</option>
+			<option class="length" value="sea_mile">海里</option>
+			<option class="length" value="fathom">噚</option>
+			<option class="length" disabled="disabled">&nbsp;</option>
+			<option class="length" disabled="disabled" style="background:#999999;color:#FFFFFF;">天文</option>
+			<option class="length" value="pc">秒差距 (pc)</option>
+			<option class="length" value="light_year">光年</option>
+			<option class="length" value="AE">天文单位 (AE)</option>
+			<option class="length" value="light_minute">光分</option>
+			<option class="length" value="light_second">光秒</option>
+			<option class="volume" disabled="disabled">&nbsp;</option>
+			<option class="volume" disabled="disabled" style="background:#999999;color:#FFFFFF;">公制</option>
+			<option class="volume" value="km3">立方千米</option>
+			<option class="volume" value="m3">立方米</option>
+			<option class="volume" value="hl">公石</option>
+			<option class="volume" value="decaliter">十升</option>
+			<option class="volume" value="dm3">立方分米</option>
+			<option class="volume" value="l">升 (l)</option>
+			<option class="volume" value="dl">分升</option>
+			<option class="volume" value="cl">厘升</option>
+			<option class="volume" value="cm3">立方厘米</option>
+			<option class="volume" value="ml">毫升</option>
+			<option class="volume" value="mm3">立方毫米</option>
+			<option class="volume" value="µl">微升</option>
+			<option class="volume" disabled="disabled">&nbsp;</option>
+			<option class="volume" disabled="disabled" style="background:#999999;color:#FFFFFF;">英制液体/干货</option>
+			<option class="volume" value="barrel:2">桶</option>
+			<option class="volume" value="bu:1">蒲式耳 (bu:1)</option>
+			<option class="volume" value="pk">配克 (pk)</option>
+			<option class="volume" value="gal:2">加仑 (gal:2)</option>
+			<option class="volume" value="qt:1">夸脱 (qt:1)</option>
+			<option class="volume" value="pt:2">品脱  (pt:2)</option>
+			<option class="volume" value="oz:1">液量盎司 (oz:1)</option>
+			<option class="volume" disabled="disabled">&nbsp;</option>
+			<option class="volume" disabled="disabled" style="background:#999999;color:#FFFFFF;">美制液体</option>
+			<option class="volume" value="acre foot">英亩英尺</option>
+			<option class="volume" value="yd3">立方码 (yd³)</option>
+			<option class="volume" value="barrel">桶</option>
+			<option class="volume" value="ft3">立方英尺 (ft³)</option>
+			<option class="volume" value="gal:1">加仑 (gal:1)</option>
+			<option class="volume" value="qt:2">夸脱 (qt:2)</option>
+			<option class="volume" value="pt">品脱  (pt)</option>
+			<option class="volume" value="gill">基尔</option>
+			<option class="volume" value="oz">液量盎司 (oz)</option>
+			<option class="volume" value="in3">立方英寸 (in³)</option>
+			<option class="volume" value="fluid dram">打兰</option>
+			<option class="volume" value="minim">微量</option>
+			<option class="volume" disabled="disabled">&nbsp;</option>
+			<option class="volume" disabled="disabled" style="background:#999999;color:#FFFFFF;">美制干货</option>
+			<option class="volume" value="barrel:1">桶</option>
+			<option class="volume" value="bu">蒲式耳 (bu)</option>
+			<option class="volume" value="pk:1">配克 (pk:1)</option>
+			<option class="volume" value="gal">加仑 (gal)</option>
+			<option class="volume" value="qt">夸脱 (qt)</option>
+			<option class="volume" value="pt:1">品脱  (pt:1)</option>
+			<option class="volume" value="gill:1">基尔</option>
+			<option class="volume" value="FBM">板尺 (FBM)</option>
+			<option class="volume" disabled="disabled">&nbsp;</option>
+			<option class="volume" disabled="disabled" style="background:#999999;color:#FFFFFF;">日本</option>
+			<option class="volume" value="koku:1">石</option>
+			<option class="volume" value="to">转换成</option>
+			<option class="volume" value="sho">翔</option>
+			<option class="volume" value="go">盒</option>
+			<option class="volume" disabled="disabled">&nbsp;</option>
+			<option class="volume" disabled="disabled" style="background:#999999;color:#FFFFFF;">烹饪（美制）</option>
+			<option class="volume" value="cup">杯</option>
+			<option class="volume" value="tablespoon:1">大汤匙</option>
+			<option class="volume" value="teaspoon:1">茶匙</option>
+			<option class="volume" disabled="disabled">&nbsp;</option>
+			<option class="volume" disabled="disabled" style="background:#999999;color:#FFFFFF;">烹饪（公制）</option>
+			<option class="volume" value="tablespoon">大汤匙</option>
+			<option class="volume" value="teaspoon">茶匙</option>
+			<option class="volume" value="spice_measure">调味匙</option>
+			<option class="area" disabled="disabled">&nbsp;</option>
+			<option class="area" disabled="disabled" style="background:#999999;color:#FFFFFF;">公制</option>
+			<option class="area" value="km2">平方公里</option>
+			<option class="area" value="ha">公顷 (ha)</option>
+			<option class="area" value="a">为 (a)</option>
+			<option class="area" value="m2">平方米</option>
+			<option class="area" value="dm2">平方分米</option>
+			<option class="area" value="cm2">平方厘米 (cm²)</option>
+			<option class="area" value="mm2">平方毫米</option>
+			<option class="area" value="µm2">平方微米</option>
+			<option class="area" value="nm2">平方纳米</option>
+			<option class="area" disabled="disabled">&nbsp;</option>
+			<option class="area" disabled="disabled" style="background:#999999;color:#FFFFFF;">英/美</option>
+			<option class="area" value="township">小镇</option>
+			<option class="area" value="square_mile">平方英里</option>
+			<option class="area" value="homestead">宅基</option>
+			<option class="area" value="acre">英亩</option>
+			<option class="area" value="rood">路得</option>
+			<option class="area" value="square_rod">平方杆</option>
+			<option class="area" value="square">平方</option>
+			<option class="area" value="yr2">平方码 (yr²)</option>
+			<option class="area" value="ft2">平方英尺 (ft²)</option>
+			<option class="area" value="in2">平方英寸 (in²)</option>
+			<option class="area" disabled="disabled">&nbsp;</option>
+			<option class="area" disabled="disabled" style="background:#999999;color:#FFFFFF;">日本</option>
+			<option class="area" value="tsubo">坪</option>
+			<option class="area" value="cho">町</option>
+			<option class="area" value="tann">段, 反</option>
+			<option class="area" value="se">亩</option>
+			<option class="area" disabled="disabled">&nbsp;</option>
+			<option class="area" disabled="disabled" style="background:#999999;color:#FFFFFF;">其他</option>
+			<option class="area" value="metric_dunam">公制德南</option>
+			<option class="area" value="cypriot_dunam">塞德南</option>
+			<option class="area" value="iraqi_dunam">伊拉克德南</option>
+			<option class="area" value="greek_stremma">希腊面积单位</option>
+			<option class="area" value="football_pitch">Football pitch</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+<script type="text/javascript">
+$('.{$app.key} select[name=cate]').change(function(){
+	$('.{$app.key} select[name=type] option').hide();
+	$('.{$app.key} select[name=type] .empty').show();
+	$('.{$app.key} select[name=type]').val('');
+	var cate = $(this).val();
+	if(cate != ''){
+		$('.{$app.key} select[name=type] option.' + cate).show();
+	}
+}).change();
+</script>

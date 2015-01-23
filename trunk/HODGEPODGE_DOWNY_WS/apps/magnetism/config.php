@@ -4,5 +4,5 @@ return [
 	'title' => 'Magnetism',
 	'tag' => 'magnetic field strength flux magnetomotive force',
 	'link' => '',
-	'color' => $GLOBALS['CONFIG']['COLOR']['RED']
+	'color' => $GLOBALS['CONFIG']['COLOR']['PALEBLUE']
 ];

@@ -1,0 +1,95 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form class="{$app.key}" method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:5px;" />
+		<select name="cate" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option value="">请选择</option>
+			<option value="bandwidth">带宽</option>
+			<option value="data-storage">数据存储</option>
+		</select>
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option class="empty" value="">请选择</option>
+			<option class="bandwidth" value="bit/s">比特每秒 (bit/s)</option>
+			<option class="bandwidth" value="kbit/s">千比特每秒 (kbit/s)</option>
+			<option class="bandwidth" value="Mbit/s">兆比特每秒 (Mbit/s)</option>
+			<option class="bandwidth" value="Gbit/s">吉比特每秒 (Gbit/s)</option>
+			<option class="bandwidth" value="Tbit/s">太比特每秒 (Tbit/s)</option>
+			<option class="bandwidth" value="Kibit/s">(1024制)千比特每秒 (Kibit/s)</option>
+			<option class="bandwidth" value="Mibit/s">(1024制)兆比特每秒 (Mibit/s)</option>
+			<option class="bandwidth" value="Gibit/s">(1024制)吉比特每秒 (Gibit/s)</option>
+			<option class="bandwidth" value="Tibit/s">(1024制)太比特每秒 (Tibit/s)</option>
+			<option class="bandwidth" value="B/s">字节每秒 (B/s)</option>
+			<option class="bandwidth" value="kB/s">千字节每秒 (kB/s)</option>
+			<option class="bandwidth" value="MB/s">兆字节每秒 (MB/s)</option>
+			<option class="bandwidth" value="GB/s">吉字节每秒 (GB/s)</option>
+			<option class="bandwidth" value="TB/s">太字节每秒 (TB/s)</option>
+			<option class="bandwidth" value="KiB/s">(1024制)千字节每秒 (KiB/s)</option>
+			<option class="bandwidth" value="MiB/s">(1024制)兆比特每秒 (MiB/s)</option>
+			<option class="bandwidth" value="GiB/s">(1024制)吉字节每秒 (GiB/s)</option>
+			<option class="bandwidth" value="TiB/s">(1024制)太字节每秒 (TiB/s)</option>
+			<option class="bandwidth" value="bit_per_hour">比特每小时</option>
+			<option class="bandwidth" value="kilobit_per_hour">千比特每小时</option>
+			<option class="bandwidth" value="megabit_per_hour">兆比特每小时</option>
+			<option class="bandwidth" value="gigabit_per_hour">吉比特每小时</option>
+			<option class="bandwidth" value="terabit_per_hour">太比特每小时</option>
+			<option class="bandwidth" value="kibibit_per_hour">(1024制)千比特每小时</option>
+			<option class="bandwidth" value="mebibit_per_hour">(1024制)兆比特每小时</option>
+			<option class="bandwidth" value="gibibit_per_hour">(1024制)吉比特每小时</option>
+			<option class="bandwidth" value="tebibit_per_hour">(1024制)太比特每小时</option>
+			<option class="bandwidth" value="byte_per_hour">字节每小时</option>
+			<option class="bandwidth" value="kilobyte_per_hour">千字节每每小时</option>
+			<option class="bandwidth" value="megabyte_per_hour">兆字节每小时</option>
+			<option class="bandwidth" value="gigabyte_per_hour">吉字节每小时</option>
+			<option class="bandwidth" value="terabyte_per_hour">太字节每小时</option>
+			<option class="bandwidth" value="kibibyte_per_hour">(1024制)千字节每小时</option>
+			<option class="bandwidth" value="mebibyte_per_hour">(1024制)兆字节每小时</option>
+			<option class="bandwidth" value="gibibyte_per_hour">(1024制)吉比特每小时</option>
+			<option class="bandwidth" value="tebibyte_per_hour">(1024制)太字节每小时</option>
+			<option class="bandwidth" value="bit_per_day">比特每天</option>
+			<option class="bandwidth" value="kilobit_per_day">千比特每天</option>
+			<option class="bandwidth" value="megabit_per_day">兆比特每天</option>
+			<option class="bandwidth" value="gigabit_per_day">吉比特每天</option>
+			<option class="bandwidth" value="terabit_per_day">太比特每天</option>
+			<option class="bandwidth" value="kibibit_per_day">(1024制)千比特每天</option>
+			<option class="bandwidth" value="mebibit_per_day">(1024制)兆比特每天</option>
+			<option class="bandwidth" value="gibibit_per_day">(1024制)吉字节每天</option>
+			<option class="bandwidth" value="tebibit_per_day">(1024制)太比特每天</option>
+			<option class="bandwidth" value="byte_per_day">字节每天</option>
+			<option class="bandwidth" value="kilobyte_per_day">千字节每天</option>
+			<option class="bandwidth" value="megabyte_per_day">兆字节每天</option>
+			<option class="bandwidth" value="gigabyte_per_day">吉字节每天</option>
+			<option class="bandwidth" value="terabyte_per_day">太字节每天</option>
+			<option class="bandwidth" value="kibibyte_per_day">(1024制)千字节每天</option>
+			<option class="bandwidth" value="mebibyte_per_day">(1024制)兆比特每天</option>
+			<option class="bandwidth" value="gibibyte_per_day">(1024制)吉字节每天</option>
+			<option class="bandwidth" value="tebibyte_per_day">(1024制)太字节每天</option>
+			<option class="data-storage" value="bit">比特</option>
+			<option class="data-storage" value="nibble">半字节半位</option>
+			<option class="data-storage" value="kilobit">千比特</option>
+			<option class="data-storage" value="megabit">兆比特</option>
+			<option class="data-storage" value="gigabit">吉比特</option>
+			<option class="data-storage" value="terabit">太比特</option>
+			<option class="data-storage" value="petabit">拍比特</option>
+			<option class="data-storage" value="exabit">艾比特</option>
+			<option class="data-storage" value="B">字节 (B)</option>
+			<option class="data-storage" value="kB">千字节 (kB)</option>
+			<option class="data-storage" value="MB">兆字节 (MB)</option>
+			<option class="data-storage" value="GB">吉字节 (GB)</option>
+			<option class="data-storage" value="TB">太字节 (TB)</option>
+			<option class="data-storage" value="PB">拍字节 (PB)</option>
+			<option class="data-storage" value="EB">艾字节 (EB)</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+<script type="text/javascript">
+$('.{$app.key} select[name=cate]').change(function(){
+	$('.{$app.key} select[name=type] option').hide();
+	$('.{$app.key} select[name=type] .empty').show();
+	$('.{$app.key} select[name=type]').val('');
+	var cate = $(this).val();
+	if(cate != ''){
+		$('.{$app.key} select[name=type] option.' + cate).show();
+	}
+}).change();
+</script>

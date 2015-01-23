@@ -1,0 +1,55 @@
+<a href="/app_{$app.key}.html" target="_blank" style="height:auto;box-sizing:border-box;padding:10px;color:#FFFFFF;font-weight:bold;background:{$app.color};">{$app.title}</a>
+<div style="padding:10px;">
+	<form class="{$app.key}" method="post" target="_blank" action="/app_{$app.key}.html">
+		<input type="text" name="content" style="width:100%;box-sizing:border-box;margin-bottom:5px;" />
+		<select name="cate" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option value="">请选择</option>
+			<option value="time">时间</option>
+			<option value="frequency">频率</option>
+		</select>
+		<select name="type" style="width:100%;box-sizing:border-box;margin-bottom:5px;">
+			<option class="empty" value="">请选择</option>
+			<option class="time"value="year">年</option>
+			<option class="time"value="month">月</option>
+			<option class="time"value="week">星期</option>
+			<option class="time"value="day">日</option>
+			<option class="time"value="hour">小时</option>
+			<option class="time"value="minute">分钟 (minute)</option>
+			<option class="time"value="s">秒 (s)</option>
+			<option class="time"value="ms">毫秒 (ms)</option>
+			<option class="time"value="µs">微秒 (µs)</option>
+			<option class="time"value="ns">纳秒 (ns)</option>
+			<option class="frequency"value="nHz">纳赫兹 (nHz)</option>
+			<option class="frequency"value="µHz">微赫兹 (µHz)</option>
+			<option class="frequency"value="mHz">豪赫兹 (mHz)</option>
+			<option class="frequency"value="Hz">赫兹 (Hz)</option>
+			<option class="frequency"value="kHz">千赫 (kHz)</option>
+			<option class="frequency"value="MHz">豪赫兹 (MHz)</option>
+			<option class="frequency"value="GHz">秭赫 (GHz)</option>
+			<option class="frequency"value="THz">太赫兹 (THz)</option>
+			<option class="frequency"value="cps">周期每秒 (cps)</option>
+			<option class="frequency"value="rpm">转速每分 (rpm)</option>
+			<option class="frequency"value="BPM">节拍数每分 (BPM)</option>
+			<option class="frequency"value="rad/s">弧度每秒 (rad/s)</option>
+			<option class="frequency"value="rad/min">弧度每分</option>
+			<option class="frequency"value="rad/h">弧度每小时</option>
+			<option class="frequency"value="rad/day">弧度每天</option>
+			<option class="frequency"value="degrees/s">度每秒</option>
+			<option class="frequency"value="degrees/min">度每分钟</option>
+			<option class="frequency"value="degrees/h">度每小时</option>
+			<option class="frequency"value="degrees/day">度每天</option>
+		</select>
+		<input type="submit" style="float:right;" value="转换" />
+	</form>
+</div>
+<script type="text/javascript">
+$('.{$app.key} select[name=cate]').change(function(){
+	$('.{$app.key} select[name=type] option').hide();
+	$('.{$app.key} select[name=type] .empty').show();
+	$('.{$app.key} select[name=type]').val('');
+	var cate = $(this).val();
+	if(cate != ''){
+		$('.{$app.key} select[name=type] option.' + cate).show();
+	}
+}).change();
+</script>
