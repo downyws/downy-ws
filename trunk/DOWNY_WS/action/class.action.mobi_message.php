@@ -9,8 +9,8 @@ class ActionMobi_Message extends ActionMessage
 	public function methodPCSiteWarning()
 	{
 		$params = $this->_submit->obtain($_REQUEST, [
-			'app_name' => [['valid', 'in', '', null, array_keys($GLOBALS['CONFIG']['SITES'])]],
-			'callback' => [['valid', 'url', '', '', null]],
+			'app_name' => [['valid', 'in', '', '', array_keys($GLOBALS['CONFIG']['SITES'])]],
+			'callback' => [['valid', 'url', '', '', '']],
 			'only_pc' => [['format', 'int']],
 			'close_warning' => [['format', 'int']]
 		]);
